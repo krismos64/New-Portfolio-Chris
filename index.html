@@ -33,51 +33,132 @@
 
     <!-- Header -->
     <section id="header">
-      <div class="profile-picture" data-aos="zoom-in"></div>
-      <h1 data-aos="fade-up">Développeur Full Stack</h1>
-      <p class="intro-text" data-aos="fade-up" data-aos-delay="200">
-        Ma transition professionnelle de la vente de produits informatiques vers
-        le développement web a été motivée par ma passion pour les nouvelles
-        technologies et mon désir de contribuer activement à la création de
-        solutions numériques innovantes. Mon expérience dans la vente m'a permis
-        de développer des compétences essentielles en communication, en gestion
-        du temps, et en résolution de problèmes, des atouts que je suis
-        convaincu de pouvoir mettre à profit en tant que développeur web.
-        N'hésitez pas à questionner mon chatbot en bas à droite pour plus de
-        renseignements !
-      </p>
-      <div class="cta-container">
-        <a href="#" class="cta-button" data-aos="zoom-in">Télécharger CV</a>
-        <a href="#" class="cta-button" data-aos="zoom-in">Voir Diplôme</a>
-      </div>
-      <div class="social-links">
-        <a href="#" class="social-icon" data-aos="zoom-in"
-          ><i class="fab fa-linkedin fa-2x"></i
-        ></a>
-        <a href="#" class="social-icon" data-aos="zoom-in"
-          ><i class="fab fa-github fa-2x"></i
-        ></a>
+      <div class="hero-container" data-aos="zoom-in">
+        <div class="profile-bubble">
+          <img
+            src="images/chris4.jpg"
+            alt="Christophe Mostefaoui"
+            class="profile-picture"
+          />
+        </div>
+
+        <div class="hero-content">
+          <h1 data-aos="fade-up">Développeur Web</h1>
+
+          <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
+            <p class="intro-text">
+              Mon changement de direction vers le développement web a été motivé
+              par ma passion pour les nouvelles technologies et mon désir de
+              contribuer activement à la création de solutions numériques
+              innovantes. Mon expérience dans la vente m'a permis de développer
+              des compétences essentielles en communication, en gestion du
+              temps, et en résolution de problèmes, des atouts que je suis
+              convaincu de pouvoir mettre à profit en tant que
+              concepteur/développeur web.
+            </p>
+            <div class="bubble-tail"></div>
+          </div>
+
+          <div id="diplomaModal" class="modal">
+            <span class="close-modal">&times;</span>
+            <img class="modal-content" id="diplomaImage" alt="Diplôme DWWM" />
+          </div>
+
+          <div class="cta-container">
+            <a
+              href="images/Cv Christophe Mostefaoui.pdf"
+              class="cta-button"
+              data-aos="zoom-in"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fas fa-download"></i>
+              Mon CV
+              <span class="icon-tooltip">PDF - 1.2 Mo</span>
+            </a>
+
+            <a
+              href="images/diplome.png"
+              class="cta-button"
+              data-aos="zoom-in"
+              data-aos-delay="200"
+              id="showDiploma"
+            >
+              <i class="fas fa-graduation-cap"></i>
+              Voir Diplôme
+              <span class="icon-tooltip">Mon diplôme DWWM</span>
+            </a>
+          </div>
+
+          <div class="social-links">
+            <a
+              href="https://www.linkedin.com/in/christophemostefaoui/"
+              target="_blank"
+              class="social-icon"
+              data-aos="zoom-in"
+              data-aos-delay="400"
+            >
+              <i class="fab fa-linkedin"></i>
+              <span class="icon-tooltip">Mon LinkedIn</span>
+            </a>
+            <a
+              href="https://github.com/krismos64"
+              target="_blank"
+              class="social-icon"
+              data-aos="zoom-in"
+              data-aos-delay="600"
+            >
+              <i class="fab fa-github"></i>
+              <span class="icon-tooltip">Mon GitHub</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Parcours -->
     <section id="about">
       <h2 class="section-title">Mon Parcours</h2>
+      <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
+        <p class="intro-text">
+          Après avoir étudié et travaillé dans le monde du commerce, j'ai décidé
+          de me réorienter dans le domaine des nouvelles technologies.
+        </p>
+        <div class="bubble-tail"></div>
+      </div>
       <div class="timeline">
         <div class="timeline-item" data-aos="fade-right">
           <div class="timeline-content">
-            <h3>📚 Formation DWWM</h3>
-            <p>2024 - Titre Professionnel Développeur Web et Web Mobile</p>
-            <p>Formation intensive de 6 mois en développement full-stack</p>
+            <h3>
+              🤖 Concepteur développeur d'applications (spécialisation IA)
+            </h3>
+            <p>2024-2026 - Fabrique Numérique Paloise.</p>
+            <p>
+              Gestion de projet, développement d'applications, cybersecurité,
+              intelligence artificielle.
+            </p>
           </div>
         </div>
         <div class="timeline-item" data-aos="fade-left">
           <div class="timeline-content">
-            <h3>🤖 Formation IA</h3>
-            <p>2024-2026 - Concepteur Développeur d'Applications IA</p>
+            <h3>📚 Formation DWWM</h3>
+            <p>2023 - Titre Professionnel Développeur Web et Web Mobile.</p>
             <p>
-              Spécialisation en intelligence artificielle à la Fabrique
-              Numérique Paloise
+              Formation intensive de 6 mois en développement full-stack (école
+              en ligne Studi). Front-end, back-end, bases de données, gestion de
+              projet, SEO.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-content">
+            <h3>
+              🤖 Concepteur développeur d'applications (spécialisation IA)
+            </h3>
+            <p>2024-2026 - Fabrique Numérique Paloise.</p>
+            <p>
+              Gestion de projet, développement d'applications, cybersecurité,
+              intelligence artificielle.
             </p>
           </div>
         </div>
@@ -165,5 +246,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- JS -->
     <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
   </body>
 </html>

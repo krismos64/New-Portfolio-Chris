@@ -1,9 +1,3 @@
-// Initialisation AOS
-AOS.init({
-  duration: 1000,
-  once: true,
-});
-
 // Menu Burger
 const menuToggle = document.querySelector(".menu-toggle");
 const navMenu = document.querySelector(".nav-menu");
@@ -30,13 +24,25 @@ function createStars() {
 }
 
 // Smooth Scroll
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+document.querySelectorAll(".nav-link").forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+
+    // Fermer le menu burger si actif
+    if (navMenu.classList.contains("active")) {
+      navMenu.classList.remove("active");
+      menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+
+    // Animation de défilement
     gsap.to(window, {
-      duration: 1,
-      scrollTo: this.getAttribute("href"),
-      ease: "power2.inOut",
+      duration: 0.2,
+      scrollTo: {
+        y: target,
+        offsetY: 80, // Compensation pour la hauteur de la navbar
+      },
+      ease: "power3.inOut",
     });
   });
 });
@@ -60,4 +66,28 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     });
   });
+});
+
+const modal = document.getElementById("diplomaModal");
+const img = document.getElementById("diplomaImage");
+const span = document.querySelector(".close-modal");
+
+document.getElementById("showDiploma").onclick = function (e) {
+  e.preventDefault();
+  modal.style.display = "block";
+  img.src = "images/diplome.png";
+};
+
+// Fermeture au clic n'importe où
+modal.addEventListener("click", function (e) {
+  if (e.target === modal || e.target === span || e.target === img) {
+    modal.style.display = "none";
+  }
+});
+
+// Fermeture avec la touche ESC
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    modal.style.display = "none";
+  }
 });
