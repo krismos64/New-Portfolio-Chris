@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Christophe Mostefaoui</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div id="stars"></div>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+      <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+      <div class="nav-menu">
+        <a href="#header" class="nav-link">Accueil</a>
+        <a href="#about" class="nav-link">Parcours</a>
+        <a href="#skills" class="nav-link">Compétences</a>
+        <a href="#projects" class="nav-link">Projets</a>
+        <a href="#articles" class="nav-link">Articles</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <section id="header">
+      <div class="profile-picture" data-aos="zoom-in"></div>
+      <h1 data-aos="fade-up">Développeur Full Stack</h1>
+      <p class="intro-text" data-aos="fade-up" data-aos-delay="200">
+        Ma transition professionnelle de la vente de produits informatiques vers
+        le développement web a été motivée par ma passion pour les nouvelles
+        technologies et mon désir de contribuer activement à la création de
+        solutions numériques innovantes. Mon expérience dans la vente m'a permis
+        de développer des compétences essentielles en communication, en gestion
+        du temps, et en résolution de problèmes, des atouts que je suis
+        convaincu de pouvoir mettre à profit en tant que développeur web.
+        N'hésitez pas à questionner mon chatbot en bas à droite pour plus de
+        renseignements !
+      </p>
+      <div class="cta-container">
+        <a href="#" class="cta-button" data-aos="zoom-in">Télécharger CV</a>
+        <a href="#" class="cta-button" data-aos="zoom-in">Voir Diplôme</a>
+      </div>
+      <div class="social-links">
+        <a href="#" class="social-icon" data-aos="zoom-in"
+          ><i class="fab fa-linkedin fa-2x"></i
+        ></a>
+        <a href="#" class="social-icon" data-aos="zoom-in"
+          ><i class="fab fa-github fa-2x"></i
+        ></a>
+      </div>
+    </section>
+
+    <!-- Parcours -->
+    <section id="about">
+      <h2 class="section-title">Mon Parcours</h2>
+      <div class="timeline">
+        <div class="timeline-item" data-aos="fade-right">
+          <div class="timeline-content">
+            <h3>📚 Formation DWWM</h3>
+            <p>2024 - Titre Professionnel Développeur Web et Web Mobile</p>
+            <p>Formation intensive de 6 mois en développement full-stack</p>
+          </div>
+        </div>
+        <div class="timeline-item" data-aos="fade-left">
+          <div class="timeline-content">
+            <h3>🤖 Formation IA</h3>
+            <p>2024-2026 - Concepteur Développeur d'Applications IA</p>
+            <p>
+              Spécialisation en intelligence artificielle à la Fabrique
+              Numérique Paloise
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compétences -->
+    <section id="skills">
+      <h2 class="section-title">Mes Compétences</h2>
+      <div class="skills-container">
+        <div class="skill-bar" data-aos="fade-right">
+          <div class="skill-progress" style="width: 90%">
+            <span class="skill-label">90%</span>
+          </div>
+          <span class="skill-name">Front-end</span>
+        </div>
+        <div class="skill-bar" data-aos="fade-right">
+          <div class="skill-progress" style="width: 85%">
+            <span class="skill-label">85%</span>
+          </div>
+          <span class="skill-name">Back-end</span>
+        </div>
+        <div class="skill-bar" data-aos="fade-right">
+          <div class="skill-progress" style="width: 80%">
+            <span class="skill-label">80%</span>
+          </div>
+          <span class="skill-name">Gestion de Projet</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projets -->
+    <section id="projects">
+      <h2 class="section-title">Mes Projets</h2>
+      <div class="projects-grid">
+        <div class="project-card" data-aos="flip-up">
+          <img src="projet1.jpg" alt="Projet" class="project-image" />
+          <div class="project-info">
+            <h3>Plateforme E-commerce</h3>
+            <p>Développement d'une solution complète avec Symfony et React</p>
+            <div class="tech-tags">
+              <span>PHP</span>
+              <span>React</span>
+              <span>MySQL</span>
+            </div>
+          </div>
+        </div>
+        <!-- Ajouter d'autres projets -->
+      </div>
+    </section>
+
+    <!-- Articles -->
+    <section id="articles">
+      <h2 class="section-title">Articles LinkedIn</h2>
+      <div class="articles-grid">
+        <div class="article-card" data-aos="fade-up">
+          <img src="article1.jpg" alt="Article" class="article-image" />
+          <div class="article-content">
+            <h3>Mon parcours en développement</h3>
+            <a href="#" class="cta-button">Lire l'article</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-info">
+        <p><i class="fas fa-phone"></i> +33 6 12 34 56 78</p>
+        <p><i class="fas fa-envelope"></i> contact@example.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> Pau, France</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Copyright © 2025 Portfolio. Christophe Mostefaoui</p>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- JS -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
