@@ -708,13 +708,56 @@ html {
 
 /* Styles des projets */
 
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  position: relative;
+}
+
 .project-card {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid #7f00ff;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(127, 0, 255, 0.2);
+}
+
+/* Media queries */
+@media (min-width: 640px) {
+  .projects-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .projects-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .projects-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Pour le responsive mobile */
+@media (max-width: 480px) {
+  .project-image-container {
+    height: 200px;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+  }
 }
 
 .project-image-container {
