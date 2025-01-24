@@ -75,12 +75,12 @@ const span = document.querySelector(".close-modal");
 document.getElementById("showDiploma").onclick = function (e) {
   e.preventDefault();
   modal.style.display = "block";
-  img.src = "images/diplome.png";
+  img.src = "assets/docs/diplome.png";
 };
 
 // Fermeture au clic n'importe où
 modal.addEventListener("click", function (e) {
-  if (e.target === modal || e.target === span || e.target === img) {
+  if (e.target === modal || e.target === span) {
     modal.style.display = "none";
   }
 });

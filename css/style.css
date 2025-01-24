@@ -376,15 +376,29 @@ html {
   height: 100%;
   background: rgba(0, 0, 0, 0.9);
   cursor: pointer; /* Indique que c'est cliquable */
+  animation: modalFade 0.5s ease-out;
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal-content {
   position: absolute;
+  width: auto;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 95%;
-  max-height: 95vh;
   border: 3px solid #7f00ff;
   border-radius: 5px;
   pointer-events: auto;
