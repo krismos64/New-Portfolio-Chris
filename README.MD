@@ -14,7 +14,6 @@ Portfolio professionnel présentant mes compétences en développement web, mes 
   - Galerie de projets avec menus déroulants
   - Lecteur audio intégré
   - Chatbot IA personnalisé
-  - Modal dynamique pour le diplôme
 - **Optimisation Performances**
   - Chargement différé des images
   - Animation des étoiles légère
