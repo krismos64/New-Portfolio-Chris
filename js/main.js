@@ -91,3 +91,75 @@ document.addEventListener("keydown", function (e) {
     modal.style.display = "none";
   }
 });
+
+// Gestion du menu déroulant
+document.querySelectorAll(".dropdown-toggle").forEach((button) => {
+  button.addEventListener("click", function () {
+    const dropdown = this.nextElementSibling;
+    this.classList.toggle("active");
+    dropdown.classList.toggle("active");
+    this.querySelector("i").style.transform = dropdown.classList.contains(
+      "active"
+    )
+      ? "rotate(180deg)"
+      : "rotate(0deg)";
+  });
+});
+
+// Gestionnaire audio
+document.querySelectorAll(".audio-toggle").forEach((link) => {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const player = this.nextElementSibling;
+    player.classList.toggle("active");
+
+    const audio = player.querySelector("audio");
+    const playPauseBtn = player.querySelector(".play-pause");
+    const seekSlider = player.querySelector(".seek-slider");
+    const volumeSlider = player.querySelector(".volume-slider");
+    const timeDisplay = player.querySelector(".time-display");
+
+    // Mise à jour du temps total
+    audio.addEventListener("loadedmetadata", () => {
+      const totalMinutes = Math.floor(audio.duration / 60);
+      const totalSeconds = Math.floor(audio.duration % 60);
+      player.querySelector(".total-time").textContent = `${String(
+        totalMinutes
+      ).padStart(2, "0")}:${String(totalSeconds).padStart(2, "0")}`;
+    });
+
+    // Contrôle play/pause
+    playPauseBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      } else {
+        audio.pause();
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+    });
+
+    // Barre de progression
+    audio.addEventListener("timeupdate", () => {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      seekSlider.value = progress;
+
+      const currentMinutes = Math.floor(audio.currentTime / 60);
+      const currentSeconds = Math.floor(audio.currentTime % 60);
+      timeDisplay.querySelector(".current-time").textContent = `${String(
+        currentMinutes
+      ).padStart(2, "0")}:${String(currentSeconds).padStart(2, "0")}`;
+    });
+
+    // Déplacement dans la piste
+    seekSlider.addEventListener("input", () => {
+      const seekTime = (seekSlider.value / 100) * audio.duration;
+      audio.currentTime = seekTime;
+    });
+
+    // Contrôle du volume
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value;
+    });
+  });
+});

@@ -281,10 +281,12 @@
       </section>
 
    <!-- Projets -->
+
 <section id="projects">
   <h2 class="section-title">Mes Projets</h2>
   <div class="projects-grid">
-    <!-- Répéter pour chaque projet -->
+
+    <!-- kocinaspeed -->
     <div class="project-card" data-aos="flip-up">
       <div class="project-image-container">
         <img src="assets/images/projects/kocinaspeed.png" alt="Projet" class="project-image" loading="lazy" />
@@ -300,12 +302,18 @@
           <div class="tech-tags">
             <span>Symfony</span>
             <span>Chatbot</span>
-            <span>YouTube API</span>
+            <span>PHP</span>
+            <span>JS</span>
+            <span>MySQL</span>
+            <span>CRUD</span>
+            <span>Heygen</span>
+            <span>IA</span>
+            <span>FCPX</span>
           </div>
         </div>
 
         <p class="project-description">
-          Projet d'entraînement personnel : Site web réalisé avec Symfony proposant des recettes de cuisine...
+          Projet d'entraînement personnel : Site web réalisé avec Symfony proposant des recettes de cuisine et intégrant un chatbot intéractif. Accès à un espace administrateur pour les gérants du site, pouvant éditer ou modifier les recettes du site dans la base de données, avec images et vidéos, gérer les avis des visiteurs. Création de la chaîne youtube. Montages des vidéos des recettes. Voir les liens ci-dessous pour la synthèse des détails de la conception, le code source sur Github ainsi qu'une vidéo publicitaire de présentation du site web.
         </p>
 
         <!-- Menu déroulant -->
@@ -316,15 +324,50 @@
           </button>
           
           <div class="dropdown-content">
-            <a href="https://github.com" target="_blank" class="dropdown-link">
+            <a href="https://github.com/krismos64/kocinaspeed" target="_blank" class="dropdown-link">
               <i class="fab fa-github"></i> Code source
             </a>
-            <a href="https://youtube.com/watch?v=-BynMQHg3uQ" target="_blank" class="dropdown-link">
-              <i class="fab fa-youtube"></i> Vidéo démo
+            <a href="https://www.youtube.com/watch?v=-BynMQHg3uQ" target="_blank" class="dropdown-link">
+              <i class="fab fa-youtube"></i> Vidéo publicaitaire et démo du site
             </a>
-            <a href="#" class="dropdown-link">
+            <a href="https://www.youtube.com/watch?v=N2MeY8JwST8" target="_blank" class="dropdown-link">
+              <i class="fab fa-youtube"></i> Vidéo détails de la conception du site
+            </a>
+            <a href="assets/docs/Synthese-Kocinaspeed.pdf" class="dropdown-link">
               <i class="fas fa-file-pdf"></i> Documentation
             </a>
+            <div class="audio-player-container">
+              <a href="#" class="dropdown-link audio-toggle">
+                <i class="fas fa-podcast"></i> Podcast du projet
+              </a>
+              
+              <div class="custom-audio-player">
+                <audio id="project-audio" controls>
+                  <source src="assets/audio/kocinaspeed-podcast.mp3" type="audio/mpeg">
+                  Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+                
+                <div class="player-controls">
+                  <button class="play-pause">
+                    <i class="fas fa-play"></i>
+                  </button>
+                  
+                  <input type="range" class="seek-slider" value="0" max="100">
+                  
+                  <div class="time-display">
+                    <span class="current-time">00:00</span> / 
+                    <span class="total-time">00:00</span>
+                  </div>
+                  
+                  <div class="volume-control">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           </div>
         </div>
       </div>
