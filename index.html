@@ -280,26 +280,58 @@
         </div>
       </section>
 
-    <!-- Projets -->
-    <section id="projects">
-      <h2 class="section-title">Mes Projets</h2>
-      <div class="projects-grid">
-        <div class="project-card" data-aos="flip-up">
-          <img src="projet1.jpg" alt="Projet" class="project-image" />
-          <div class="project-info">
-            <h3>Plateforme E-commerce</h3>
-            <p>Développement d'une solution complète avec Symfony et React</p>
-            <div class="tech-tags">
-              <span>PHP</span>
-              <span>React</span>
-              <span>MySQL</span>
-            </div>
+   <!-- Projets -->
+<section id="projects">
+  <h2 class="section-title">Mes Projets</h2>
+  <div class="projects-grid">
+    <!-- Répéter pour chaque projet -->
+    <div class="project-card" data-aos="flip-up">
+      <div class="project-image-container">
+        <img src="assets/images/projects/kocinaspeed.png" alt="Projet" class="project-image" loading="lazy" />
+        <div class="project-overlay"></div>
+      </div>
+      
+      <div class="project-info">
+        <div class="project-header">
+          <h3 class="project-title">
+            <span class="title-text">Kocinaspeed</span>
+            <i class="fas fa-rocket title-icon"></i>
+          </h3>
+          <div class="tech-tags">
+            <span>Symfony</span>
+            <span>Chatbot</span>
+            <span>YouTube API</span>
           </div>
         </div>
-        <!-- Ajouter d'autres projets -->
-      </div>
-    </section>
 
+        <p class="project-description">
+          Projet d'entraînement personnel : Site web réalisé avec Symfony proposant des recettes de cuisine...
+        </p>
+
+        <!-- Menu déroulant -->
+        <div class="project-dropdown">
+          <button class="dropdown-toggle">
+            Liens du projet
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          
+          <div class="dropdown-content">
+            <a href="https://github.com" target="_blank" class="dropdown-link">
+              <i class="fab fa-github"></i> Code source
+            </a>
+            <a href="https://youtube.com/watch?v=-BynMQHg3uQ" target="_blank" class="dropdown-link">
+              <i class="fab fa-youtube"></i> Vidéo démo
+            </a>
+            <a href="#" class="dropdown-link">
+              <i class="fas fa-file-pdf"></i> Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fin d'un projet -->
+  </div>
+</section>
 <!-- Articles -->
 <section id="articles">
     <h2 class="section-title">Articles LinkedIn</h2>
