@@ -46,6 +46,78 @@ body {
   padding: 1rem 2rem;
   backdrop-filter: blur(10px);
   border-bottom: 1px solid #7f00ff;
+  display: flex;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+/* Style pour la vidéo dans la navbar */
+.nav-video-container {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-right: 15px;
+  border: 2px solid rgba(0, 225, 255, 0.6);
+  box-shadow: 0 0 10px rgba(0, 225, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.nav-video-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 225, 255, 0.8);
+}
+
+.nav-video-container::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 10px;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(0, 225, 255, 0.3),
+    transparent
+  );
+  z-index: -1;
+  animation: borderGlow 3s linear infinite;
+}
+
+.nav-video-container::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(0, 225, 255, 0.8);
+  border-radius: 50%;
+  top: -5px;
+  right: -5px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.nav-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes borderGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .nav-menu {
@@ -112,7 +184,6 @@ section {
   text-shadow: 0 0 10px #7f00ff;
 }
 
-Copy
 /* Style pour la section header */
 #header {
   position: relative;
@@ -1316,5 +1387,271 @@ footer {
   .timeline-content {
     width: 85%;
     margin-left: 15% !important;
+  }
+}
+
+/* Fenêtre vidéo futuriste */
+.video-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.video-frame {
+  position: relative;
+  width: 320px;
+  height: 180px;
+  border: 3px solid #00ffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(127, 0, 255, 0.4);
+  animation: pulseFrame 3s ease-in-out infinite;
+  cursor: pointer;
+}
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.video-frame:hover .video-thumbnail {
+  transform: scale(1.05);
+}
+.video-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  transition: background 0.3s ease;
+}
+.video-play-button i {
+  font-size: 1.5rem;
+  color: #fff;
+}
+.video-frame:hover .video-play-button {
+  background: rgba(127, 0, 255, 0.8);
+  animation: spinPlay 1.5s linear infinite;
+}
+@keyframes pulseFrame {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(127, 0, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(127, 0, 255, 0.6);
+  }
+}
+@keyframes spinPlay {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Modal vidéo futuriste */
+.video-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  will-change: opacity;
+}
+
+.video-modal-content {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  border: 3px solid #00ffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(127, 0, 255, 0.4);
+  animation: pulseModal 4s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+
+@keyframes pulseModal {
+  0%,
+  100% {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(127, 0, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.8), 0 0 80px rgba(127, 0, 255, 0.6);
+  }
+}
+
+.video-modal-content::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid rgba(0, 255, 255, 0.5);
+  border-radius: 12px;
+  z-index: -1;
+  animation: borderPulse 2s linear infinite;
+}
+
+@keyframes borderPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.video-modal iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #00ffff;
+  border-radius: 50%;
+  color: #00ffff;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1010;
+  text-shadow: 0 0 10px #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.video-modal-close:hover {
+  background: rgba(127, 0, 255, 0.8);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+  transform: rotate(90deg);
+}
+
+.video-modal-close.animated {
+  animation: rotatePulse 3s infinite linear;
+}
+
+@keyframes rotatePulse {
+  0% {
+    transform: rotate(0deg) scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+  25% {
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  }
+  75% {
+    transform: rotate(270deg) scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  }
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  background: #000;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Effets futuristes */
+.corner-effect {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #00ffff;
+  z-index: 1002;
+}
+
+.corner-effect.top-left {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-effect.top-right {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+.corner-effect.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+.corner-effect.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+/* Animation pour les coins */
+@keyframes cornerGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px #00ffff;
+  }
+  50% {
+    box-shadow: 0 0 15px #00ffff;
+  }
+}
+
+.corner-effect {
+  animation: cornerGlow 2s infinite alternate;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .video-modal-content {
+    width: 95%;
+  }
+
+  .video-modal-close {
+    top: 10px;
+    right: 10px;
   }
 }

@@ -163,3 +163,89 @@ document.querySelectorAll(".audio-toggle").forEach((link) => {
     });
   });
 });
+
+// Lancement vidéo IA depuis la miniature
+document.querySelector(".video-frame").addEventListener("click", () => {
+  const videoId = "oxEya9SYYpQ";
+  const videoModal = document.getElementById("videoModal");
+  const videoWrapper = document.getElementById("videoWrapper");
+
+  // Vider le contenu précédent
+  videoWrapper.innerHTML = "";
+
+  // Créer l'iframe avec les paramètres optimisés (préférer YouTube Lite si possible)
+  const iframe = document.createElement("iframe");
+  iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&controls=1`;
+  iframe.setAttribute("frameborder", "0");
+  iframe.setAttribute("allowfullscreen", "true");
+  iframe.setAttribute(
+    "allow",
+    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  );
+  iframe.style.position = "absolute";
+  iframe.style.top = "0";
+  iframe.style.left = "0";
+  iframe.style.width = "100%";
+  iframe.style.height = "100%";
+
+  // Ajouter l'iframe au wrapper
+  videoWrapper.appendChild(iframe);
+
+  // Afficher la modal avec animation
+  videoModal.style.display = "flex";
+});
+
+// Animation futuriste pour le bouton de fermeture (version optimisée)
+function startCloseButtonAnimation() {
+  const closeBtn = document.getElementById("closeVideoModal");
+  if (!closeBtn) return;
+
+  // Arrêter l'animation précédente si elle existe
+  if (window.closeBtnAnimationId) {
+    cancelAnimationFrame(window.closeBtnAnimationId);
+  }
+
+  // Animation CSS plus légère à la place de l'animation JavaScript
+  closeBtn.classList.add("animated");
+}
+
+// Fermer la modal vidéo
+document
+  .querySelector(".video-modal-close")
+  .addEventListener("click", closeVideoModal);
+
+// Fonction de fermeture de la modal
+function closeVideoModal() {
+  const videoModal = document.getElementById("videoModal");
+  const videoWrapper = document.getElementById("videoWrapper");
+
+  // Animation de sortie
+  videoModal.style.display = "none";
+
+  // Vider l'iframe pour arrêter la vidéo
+  videoWrapper.innerHTML = "";
+
+  // Arrêter l'animation du bouton
+  if (window.closeBtnAnimationId) {
+    cancelAnimationFrame(window.closeBtnAnimationId);
+  }
+
+  document.getElementById("closeVideoModal").classList.remove("animated");
+}
+
+// Fermer la modal en cliquant à l'extérieur du contenu
+document.getElementById("videoModal").addEventListener("click", (e) => {
+  if (e.target === document.getElementById("videoModal")) {
+    closeVideoModal();
+  }
+});
+
+// Fermer la modal en appuyant sur la touche Échap
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    const videoModal = document.getElementById("videoModal");
+    if (videoModal.style.display === "flex") {
+      closeVideoModal();
+    }
+  }
+});

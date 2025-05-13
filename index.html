@@ -26,7 +26,14 @@
 
     <!-- Navigation -->
     <nav class="nav-container">
-      <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+      <div class="nav-left">
+        <div class="nav-video-container">
+          <video class="nav-video" autoplay loop muted playsinline>
+            <source src="assets/video/animation-chris-dev.mp4" type="video/mp4">
+          </video>
+        </div>
+        <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+      </div>
       <div class="nav-menu">
         <a href="#header" class="nav-link">Accueil</a>
         <a href="#about" class="nav-link">Parcours</a>
@@ -54,9 +61,9 @@
           <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
          <p class="intro-text">
          
-              Passionné par les nouvelles technologies, j’ai choisi de me reconvertir dans le développement web pour allier créativité et innovation. Mon expérience de plus de dix ans dans la vente m’a appris à comprendre les besoins des utilisateurs, à résoudre des problèmes efficacement et à gérer mon temps avec rigueur. Aujourd’hui, je mets ces compétences au service du développement d’applications intuitives et performantes.<p/> <br>
+              Passionné par les nouvelles technologies, j'ai choisi de me reconvertir dans le développement web pour allier créativité et innovation. Mon expérience de plus de dix ans dans la vente m'a appris à comprendre les besoins des utilisateurs, à résoudre des problèmes efficacement et à gérer mon temps avec rigueur. Aujourd'hui, je mets ces compétences au service du développement d'applications intuitives et performantes.<p/> <br>
           <p class="intro-text">
-              Je suis convaincu que l’intelligence artificielle n’est pas une menace pour les développeurs, mais un levier puissant pour accélérer et améliorer notre travail. Savoir s’en servir intelligemment, c’est optimiser son code, gagner en productivité et se concentrer sur l’essentiel : concevoir des solutions numériques qui font la différence.
+              Je suis convaincu que l'intelligence artificielle n'est pas une menace pour les développeurs, mais un levier puissant pour accélérer et améliorer notre travail. Savoir s'en servir intelligemment, c'est optimiser son code, gagner en productivité et se concentrer sur l'essentiel : concevoir des solutions numériques qui font la différence.
             </p>
             <div class="bubble-tail"></div>
           </div>
@@ -93,19 +100,6 @@
         </div>
 
             <a
-              href="https://www.youtube.com/watch?v=TJXDgX5yApI&ab_channel=krismosDev"
-              class="cta-button video-cta"
-              data-aos="zoom-in"
-              data-aos-delay="400"
-              target="_blank"
-              rel="noopener"
-            >
-              <i class="fas fa-robot"></i>
-              Vidéo de présentation IA
-              <span class="icon-tooltip"
-                >Podcast généré par intelligence artificielle</span
-              >
-            </a>
           </div>
 
           <div class="social-links">
@@ -129,6 +123,20 @@
               <i class="fab fa-github"></i>
               <span class="icon-tooltip">Mon GitHub</span>
             </a>
+          </div>
+
+          <!-- Nouvelle fenêtre vidéo sous les logos -->
+          <div class="video-container" data-aos="zoom-in" data-aos-delay="300">
+            <div class="video-frame">
+              <img
+                src="assets/images/portfolio/miniature.jpg"
+                alt="Miniature vidéo IA"
+                class="video-thumbnail"
+              />
+              <div class="video-play-button">
+                <i class="fas fa-play"></i>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -221,7 +229,7 @@
               front-end, maîtrisant HTML, CSS, JavaScript, TypeScript, ainsi
               que  Bootstrap et Tailwind CSS. J'ai également développé des
               compétences approfondies en back-end, manipulant des bases de
-              données SQL et noSQL, utilisé le langage PHP, et travaillant avec Symfony,
+              données SQL et noSQL, utilisé le langage PHP, et travaillé avec Symfony,
               Doctrine, et Twig pour créer des applications robustes et
               fonctionnelles. Je suis en train de me spécialiser en
               MERN stack (MongoDB, Express, React, Node.js). 
@@ -236,8 +244,8 @@
             </p>
             <p>
               Mes compétences sont en constante amélioration car pour moi la
-              joie de ce métier fait que l’on en apprend tous les jours,
-              d’autant plus en étant impliqué, curieux et passionné.
+              joie de ce métier fait que l'on en apprend tous les jours,
+              d'autant plus en étant impliqué, curieux et passionné.
             </p>
           </div>
 
@@ -421,7 +429,7 @@
 
     <p class="project-description">
       Réalisation d'une solution web de gestion d'équipes (plannings manuels, plannings automatiques avec IA, demande de congés, tâches personnelles, gestion des employés, etc.). 
-      En cours de développement. Déploiement final prévu courant Mai 2025, avec documentation et tuto vidéo.  
+      En cours de développement. Déploiement final prévu fin Mai 2025, avec documentation et tuto vidéo.  
     </p>
 
     <!-- Menu déroulant -->
@@ -1940,5 +1948,26 @@
        domain="www.chatbase.co"
        defer
      ></script>
+     
+    <!-- Modal vidéo futuriste -->
+    <div class="video-modal" id="videoModal">
+      <div class="video-modal-content">
+        <!-- Coins futuristes -->
+        <div class="corner-effect top-left"></div>
+        <div class="corner-effect top-right"></div>
+        <div class="corner-effect bottom-left"></div>
+        <div class="corner-effect bottom-right"></div>
+        
+        <!-- Bouton fermeture -->
+        <div class="video-modal-close" id="closeVideoModal">
+          <i class="fas fa-times"></i>
+        </div>
+        
+        <!-- Conteneur vidéo -->
+        <div class="video-wrapper" id="videoWrapper">
+          <!-- L'iframe sera injectée par JavaScript -->
+        </div>
+      </div>
+    </div>
   </body>
 </html>
