@@ -1958,13 +1958,20 @@
         <div class="corner-effect bottom-left"></div>
         <div class="corner-effect bottom-right"></div>
         
-        <!-- Bouton fermeture -->
-        <div class="video-modal-close" id="closeVideoModal">
+        <!-- Bouton fermeture - simplifié -->
+        <button class="video-modal-close" id="closeVideoModal" type="button" aria-label="Fermer la vidéo">
           <i class="fas fa-times"></i>
-        </div>
+        </button>
         
-        <!-- Conteneur vidéo -->
+        <!-- Conteneur vidéo avec image de prévisualisation -->
         <div class="video-wrapper" id="videoWrapper">
+          <div class="video-placeholder">
+            <img src="assets/images/portfolio/miniature.jpg" alt="Prévisualisation vidéo" class="placeholder-image">
+            <div class="video-loading">
+              <div class="loader"></div>
+              <span>Chargement...</span>
+            </div>
+          </div>
           <!-- L'iframe sera injectée par JavaScript -->
         </div>
       </div>

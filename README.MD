@@ -1,23 +1,24 @@
 # Portfolio Christophe Mostefaoui - Développeur Web
 
-Portfolio professionnel présentant mes compétences en développement web, mes projets réalisés et mes articles techniques. Conçu avec une approche moderne et interactive.
+Portfolio professionnel présentant mes compétences en développement web, mes projets réalisés et mon parcours professionnel. Réalisé avec une approche moderne, interactive et un design cyberpunk.
 
 ## 🌟 Fonctionnalités clés
 
 - **Design Cyberpunk**  
-  Thème sombre avec accents néon (#00ffff/#7f00ff) et effets de profondeur
+  Thème sombre avec accents néon et animation d'étoiles en arrière-plan
 - **Animations Avancées**  
-  Utilisation de GSAP et AOS pour les transitions fluides
+  Utilisation de GSAP et AOS pour des transitions fluides et des effets au défilement
 - **Responsive Design**  
-  Adapté à tous les écrans (mobile, tablette, desktop)
+  Interface adaptative pour tous les appareils avec menu burger sur mobile
 - **Sections Interactives**
+  - Intégration d'un chatbot IA personnalisé
   - Galerie de projets avec menus déroulants
-  - Lecteur audio intégré
-  - Chatbot IA personnalisé
+  - Lecteur audio personnalisé pour les podcasts
+  - Fenêtre modale pour afficher le diplôme
+  - Intégration vidéo YouTube
 - **Optimisation Performances**
-  - Chargement différé des images
-  - Animation des étoiles légère
-  - Découpage CSS critique
+  - Animation des étoiles légère (500 éléments)
+  - Navigation fluide avec smooth scroll
 
 ## 🛠 Stack Technologique
 
@@ -25,81 +26,78 @@ Portfolio professionnel présentant mes compétences en développement web, mes 
 
 - HTML5/CSS3 (Grid/Flexbox)
 - JavaScript ES6+
-- GSAP (Animations)
+- GSAP (Animations et ScrollTrigger)
 - AOS (Scroll Animations)
 
-**Outils**
+**Outils & Librairies**
 
 - Font Awesome (Icônes)
-- Chatbase (Chatbot IA)
+- YouTube Embed API
 
 ## 🎨 Structure du Site
 
 ### 1. En-tête Hero
 
-- Photo de profil animée
-- Bulle de présentation interactive
-- CTA dynamiques (CV, Diplôme, Vidéo IA)
+- Vidéo d'animation en header
+- Photo de profil avec effet bulle
+- Bulle de présentation interactive chatbot ia
+- Boutons d'action (CV, Diplôme)
+- Liens réseaux sociaux (LinkedIn, GitHub)
+- Miniature vidéo YouTube cliquable
 
 ### 2. Parcours Professionnel
 
 - Timeline verticale interactive
-- Étapes clés avec effets de hover
+- Étapes clés du parcours avec animation au défilement
+- Mise en évidence des formations (DWWM, CDA IA)
 
 ### 3. Compétences Techniques
 
-- Grille responsive de logos technos
-- Effets 3D au survol
-- Progress bars animées
+- Barres de progression animées
+- Animation au défilement avec GSAP
 
 ### 4. Projets
 
-- Grille adaptable (1-4 colonnes)
-- Cartes projet avec :
-  - Overlay d'image
-  - Tags technologies
-  - Menu déroulant multi-liens
-  - Player audio/podcast custom
+- Cartes de projet interactives avec :
+  - Images avec overlay
+  - Boutons déroulants pour plus d'informations
+  - Lecteur audio intégré pour les podcasts
+  - Liens vers les démos et codes source
 
 ### 5. Articles
 
-- Grid de cartes cliquables
-- Intégration LinkedIn
-- Effets de lumière au survol
+- Cartes d'articles avec effets visuels
+- Liens vers les publications LinkedIn
 
 ### 6. Contact
 
-- Carte interactive géolocalisée
-- Animation "pulse" sur la photo
-- Liens directs (Tél/Email)
+- Liens directs (LinkedIn, GitHub)
+- Présentation visuelle des informations de contact
 
 ## 🚀 Installation Locale
 
 1. Cloner le dépôt :
 
 ```bash
-git clone https://github.com/krismos64/portfolio.git
-cd portfolio
-Installer les dépendances :
+git clone https://github.com/krismos64/New-Portfolio-Chris.git
+cd New-Portfolio-Chris
+```
 
-bash
-Copy
-npm install
-Démarrer le serveur de développement :
+2. Ouvrir le fichier index.html dans votre navigateur ou utiliser un serveur local comme Live Server.
 
-bash
-Copy
-npm run start
+## 📝 Bonnes Pratiques
+
+- **Accessibilité**  
+  Contraste élevé, structure sémantique
+
+- **Performance**  
+  Chargement optimisé des ressources médias
 
 🌐 Déploiement
 Configuré pour Hostinger
 
 📝 Bonnes Pratiques
 SEO
-Meta tags optimisés - Score Lighthouse 98+
 
 Accessibilité
 ARIA labels - Contrast ratio AAA
-
-🔄 Mises à Jour : Roadmap disponible dans les issues GitHub
-```

@@ -164,88 +164,99 @@ document.querySelectorAll(".audio-toggle").forEach((link) => {
   });
 });
 
-// Lancement vidéo IA depuis la miniature
-document.querySelector(".video-frame").addEventListener("click", () => {
-  const videoId = "oxEya9SYYpQ";
-  const videoModal = document.getElementById("videoModal");
-  const videoWrapper = document.getElementById("videoWrapper");
+// Gestion de la vidéo - Version simplifiée
+document.addEventListener("DOMContentLoaded", function () {
+  // Ouverture de la vidéo
+  const videoFrame = document.querySelector(".video-frame");
+  if (videoFrame) {
+    videoFrame.addEventListener("click", function () {
+      const videoId = "oxEya9SYYpQ";
+      const videoModal = document.getElementById("videoModal");
+      const videoWrapper = document.getElementById("videoWrapper");
 
-  // Vider le contenu précédent
-  videoWrapper.innerHTML = "";
+      if (!videoModal || !videoWrapper) return;
 
-  // Créer l'iframe avec les paramètres optimisés (préférer YouTube Lite si possible)
-  const iframe = document.createElement("iframe");
-  iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&controls=1`;
-  iframe.setAttribute("frameborder", "0");
-  iframe.setAttribute("allowfullscreen", "true");
-  iframe.setAttribute(
-    "allow",
-    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  );
-  iframe.style.position = "absolute";
-  iframe.style.top = "0";
-  iframe.style.left = "0";
-  iframe.style.width = "100%";
-  iframe.style.height = "100%";
+      // Afficher la modale
+      videoModal.style.display = "flex";
 
-  // Ajouter l'iframe au wrapper
-  videoWrapper.appendChild(iframe);
+      // Charger la vidéo YouTube
+      setTimeout(function () {
+        // Préparer l'URL avec paramètres minimaux
+        const videoUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
 
-  // Afficher la modal avec animation
-  videoModal.style.display = "flex";
-});
+        // Créer l'iframe
+        const iframe = document.createElement("iframe");
+        iframe.width = "100%";
+        iframe.height = "100%";
+        iframe.style.position = "absolute";
+        iframe.style.top = "0";
+        iframe.style.left = "0";
+        iframe.frameBorder = "0";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.loading = "lazy";
+        iframe.src = videoUrl;
 
-// Animation futuriste pour le bouton de fermeture (version optimisée)
-function startCloseButtonAnimation() {
-  const closeBtn = document.getElementById("closeVideoModal");
-  if (!closeBtn) return;
+        // Gérer le chargement
+        iframe.onload = function () {
+          iframe.classList.add("loaded");
+          const placeholder = videoWrapper.querySelector(".video-placeholder");
+          if (placeholder) placeholder.style.display = "none";
+        };
 
-  // Arrêter l'animation précédente si elle existe
-  if (window.closeBtnAnimationId) {
-    cancelAnimationFrame(window.closeBtnAnimationId);
+        // Ajouter l'iframe
+        videoWrapper.appendChild(iframe);
+      }, 100);
+    });
   }
 
-  // Animation CSS plus légère à la place de l'animation JavaScript
-  closeBtn.classList.add("animated");
-}
-
-// Fermer la modal vidéo
-document
-  .querySelector(".video-modal-close")
-  .addEventListener("click", closeVideoModal);
-
-// Fonction de fermeture de la modal
-function closeVideoModal() {
-  const videoModal = document.getElementById("videoModal");
-  const videoWrapper = document.getElementById("videoWrapper");
-
-  // Animation de sortie
-  videoModal.style.display = "none";
-
-  // Vider l'iframe pour arrêter la vidéo
-  videoWrapper.innerHTML = "";
-
-  // Arrêter l'animation du bouton
-  if (window.closeBtnAnimationId) {
-    cancelAnimationFrame(window.closeBtnAnimationId);
-  }
-
-  document.getElementById("closeVideoModal").classList.remove("animated");
-}
-
-// Fermer la modal en cliquant à l'extérieur du contenu
-document.getElementById("videoModal").addEventListener("click", (e) => {
-  if (e.target === document.getElementById("videoModal")) {
-    closeVideoModal();
-  }
-});
-
-// Fermer la modal en appuyant sur la touche Échap
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
+  // Fonction de fermeture simplifiée
+  function closeVideoModal() {
     const videoModal = document.getElementById("videoModal");
-    if (videoModal.style.display === "flex") {
-      closeVideoModal();
+    const videoWrapper = document.getElementById("videoWrapper");
+
+    // Masquer la modal
+    if (videoModal) videoModal.style.display = "none";
+
+    // Nettoyer la vidéo pour libérer les ressources
+    if (videoWrapper) {
+      const iframe = videoWrapper.querySelector("iframe");
+      if (iframe) {
+        iframe.src = "";
+        iframe.remove();
+      }
+
+      // Réinitialiser l'affichage du placeholder
+      const placeholder = videoWrapper.querySelector(".video-placeholder");
+      if (placeholder) placeholder.style.display = "flex";
     }
   }
+
+  // Gestionnaire pour le bouton de fermeture
+  const closeBtn = document.getElementById("closeVideoModal");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeVideoModal);
+  }
+
+  // Gestionnaire pour cliquer en dehors de la vidéo
+  const videoModal = document.getElementById("videoModal");
+  if (videoModal) {
+    videoModal.addEventListener("click", function (e) {
+      // Ferme si on clique sur le fond mais pas sur le contenu
+      if (e.target === videoModal) {
+        closeVideoModal();
+      }
+    });
+  }
+
+  // Fermeture avec Escape
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      const videoModal = document.getElementById("videoModal");
+      if (videoModal && videoModal.style.display === "flex") {
+        closeVideoModal();
+      }
+    }
+  });
 });

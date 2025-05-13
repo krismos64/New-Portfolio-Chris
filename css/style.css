@@ -1403,8 +1403,7 @@ footer {
   border: 3px solid #00ffff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(127, 0, 255, 0.4);
-  animation: pulseFrame 3s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
   cursor: pointer;
 }
 .video-thumbnail {
@@ -1434,27 +1433,9 @@ footer {
 }
 .video-frame:hover .video-play-button {
   background: rgba(127, 0, 255, 0.8);
-  animation: spinPlay 1.5s linear infinite;
-}
-@keyframes pulseFrame {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(127, 0, 255, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 60px rgba(127, 0, 255, 0.6);
-  }
-}
-@keyframes spinPlay {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
 }
 
-/* Modal vidéo futuriste */
+/* Modal vidéo futuriste - Version allégée */
 .video-modal {
   display: none;
   position: fixed;
@@ -1466,7 +1447,6 @@ footer {
   z-index: 1000;
   justify-content: center;
   align-items: center;
-  will-change: opacity;
 }
 
 .video-modal-content {
@@ -1476,120 +1456,59 @@ footer {
   border: 3px solid #00ffff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(127, 0, 255, 0.4);
-  animation: pulseModal 4s ease-in-out infinite;
-  will-change: transform, box-shadow;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
 }
 
-@keyframes pulseModal {
-  0%,
-  100% {
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(127, 0, 255, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.8), 0 0 80px rgba(127, 0, 255, 0.6);
-  }
-}
-
-.video-modal-content::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border: 2px solid rgba(0, 255, 255, 0.5);
-  border-radius: 12px;
-  z-index: -1;
-  animation: borderPulse 2s linear infinite;
-}
-
-@keyframes borderPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.video-modal iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-}
-
-.video-modal-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #00ffff;
-  border-radius: 50%;
-  color: #00ffff;
-  font-size: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 1010;
-  text-shadow: 0 0 10px #00ffff;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.video-modal-close:hover {
-  background: rgba(127, 0, 255, 0.8);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-  transform: rotate(90deg);
-}
-
-.video-modal-close.animated {
-  animation: rotatePulse 3s infinite linear;
-}
-
-@keyframes rotatePulse {
-  0% {
-    transform: rotate(0deg) scale(1);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-  }
-  25% {
-    transform: rotate(90deg) scale(1.1);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-  }
-  50% {
-    transform: rotate(180deg) scale(1);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-  }
-  75% {
-    transform: rotate(270deg) scale(1.1);
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-  }
-}
-
-.video-wrapper {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%; /* Ratio 16:9 */
-  background: #000;
-}
-
-.video-wrapper iframe {
+/* Optimisations pour la vidéo - Version allégée */
+.video-placeholder {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.video-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #00ffff;
+  font-family: "Orbitron", sans-serif;
+}
+
+.loader {
+  width: 30px;
+  height: 30px;
+  border: 3px solid transparent;
+  border-top: 3px solid #00ffff;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  animation: simple-spin 1.5s linear infinite;
+}
+
+@keyframes simple-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Effets futuristes */
@@ -1654,4 +1573,59 @@ footer {
     top: 10px;
     right: 10px;
   }
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  background: #000;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.video-wrapper iframe.loaded {
+  opacity: 1;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #00ffff;
+  border-radius: 50%;
+  color: #00ffff;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1010;
+  transition: all 0.3s ease;
+  padding: 0;
+  outline: none;
+}
+
+.video-modal-close:hover,
+.video-modal-close:focus {
+  background: rgba(127, 0, 255, 0.8);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+.video-modal-close i {
+  pointer-events: none;
 }
