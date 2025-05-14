@@ -14,6 +14,28 @@ body {
   overflow-x: hidden;
 }
 
+/* Lien "Passer au contenu" pour accessibilité */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #7f00ff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+a:focus,
+button:focus {
+  outline: 3px solid #00ffff;
+  outline-offset: 2px;
+}
+
 /* Animation des étoiles */
 .star {
   position: fixed;
@@ -25,6 +47,7 @@ body {
   z-index: 0;
   animation: starFlow 20s linear infinite;
   will-change: transform;
+  box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.4);
 }
 
 @keyframes starFlow {
@@ -36,6 +59,19 @@ body {
   }
 }
 
+/* Ajout d'étoiles brillantes */
+.star.bright {
+  width: 2px;
+  height: 2px;
+  background: rgba(0, 255, 255, 0.9);
+  box-shadow: 0 0 3px 1px rgba(0, 255, 255, 0.6);
+}
+
+.star.purple {
+  background: rgba(127, 0, 255, 0.9);
+  box-shadow: 0 0 3px 1px rgba(127, 0, 255, 0.6);
+}
+
 /* Navigation */
 .nav-container {
   position: fixed;
@@ -43,30 +79,65 @@ body {
   width: 100%;
   background: rgba(10, 10, 46, 0.98);
   z-index: 1000;
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   backdrop-filter: blur(10px);
   border-bottom: 1px solid #7f00ff;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .nav-left {
   display: flex;
   align-items: center;
-  margin-right: auto;
+  flex-wrap: nowrap;
+}
+
+/* Titre dans la navbar */
+.nav-title {
+  font-family: "Orbitron", sans-serif;
+  color: #00ffff;
+  font-size: 1.5rem;
+  margin: 0 1rem;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+  font-weight: bold;
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-title:after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7f00ff, transparent);
+}
+
+.nav-title-mobile {
+  display: none;
+  font-family: "Orbitron", sans-serif;
+  color: #00ffff;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+  font-weight: bold;
 }
 
 /* Style pour la vidéo dans la navbar */
 .nav-video-container {
   position: relative;
-  width: 100px;
-  height: 50px;
+  width: 80px;
+  height: 45px;
   overflow: hidden;
   border-radius: 8px;
   margin-right: 15px;
   border: 2px solid rgba(0, 225, 255, 0.6);
   box-shadow: 0 0 10px rgba(0, 225, 255, 0.6);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .nav-video-container:hover {
@@ -124,7 +195,7 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 3rem;
+  gap: 1.5rem;
   transition: 0.3s ease;
 }
 
@@ -136,6 +207,7 @@ body {
   position: relative;
   padding: 0.5rem 0;
   transition: 0.3s;
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -158,11 +230,12 @@ body {
   background: none;
   border: 2px solid #00ffff;
   color: #00ffff;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   border-radius: 5px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s;
+  margin-left: auto;
 }
 
 /* Sections communes */
@@ -194,10 +267,10 @@ section {
   justify-content: center;
   background: radial-gradient(
       circle at center,
-      rgba(26, 26, 74, 0.9) 0%,
-      rgba(10, 10, 46, 0.95) 100%
+      rgba(26, 26, 74, 0.5) 0%,
+      rgba(10, 10, 46, 0.6) 100%
     ),
-    url('data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%237f00ff" opacity="0.05"/></svg>');
+    url('data:image/svg+xml,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%237f00ff" opacity="0.03"/></svg>');
 }
 
 .hero-container {
@@ -215,26 +288,6 @@ section:target {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
-}
-
-/* Bulle de profil */
-.profile-bubble {
-  width: 280px;
-  height: 280px;
-  margin: 0 auto 2rem;
-  border-radius: 50%;
-  background: linear-gradient(45deg, #7f00ff, #00ffff);
-  padding: 8px;
-  position: relative;
-  animation: float 6s ease-in-out infinite;
-}
-
-.profile-picture {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 3px solid #0a0a2e;
-  object-fit: cover;
 }
 
 /* Bulle de texte */
@@ -272,69 +325,102 @@ html {
 }
 
 /* Animation de flottement */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+/* Responsive */
+
+/* Section des liens professionnels */
+.links-section {
+  position: relative;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(10, 10, 46, 0.4);
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(127, 0, 255, 0.2);
+  max-width: 900px;
+  border: 1px solid rgba(127, 0, 255, 0.6);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .profile-bubble {
-    width: 200px;
-    height: 200px;
-  }
-
-  .speech-bubble {
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-  }
-
-  .intro-text {
-    text-align: left;
-    font-size: 1rem;
-  }
+.links-section::before {
+  content: "Ressources professionnelles";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0a0a2e;
+  padding: 0.5rem 2rem;
+  font-family: "Orbitron", sans-serif;
+  color: #00ffff;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  border-radius: 30px;
+  border: 1px solid #7f00ff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+  white-space: nowrap;
 }
 
 .cta-container {
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   display: flex;
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .cta-button {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.8rem;
-  background: linear-gradient(45deg, #7f00ff, #00ffff);
-  padding: 1.2rem 2.8rem;
-  border-radius: 50px;
+  background: linear-gradient(135deg, #7f00ff, #00ffff);
+  padding: 1.2rem 2.5rem;
+  /* Coins plus angulaires pour un look futuriste */
+  border-radius: 8px;
   color: white;
   font-weight: 600;
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 1px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow: hidden;
   border: none;
-  box-shadow: 0 0 25px rgba(127, 0, 255, 0.3);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.3),
+    inset 0 0 15px rgba(127, 0, 255, 0.3);
+  z-index: 1;
+  /* Animation de pulsation */
+  animation: buttonGlow 3s infinite alternate;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.6s ease;
+}
+
+.cta-button:hover::before {
+  left: 100%;
 }
 
 .cta-button::after {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
-  animation: pulse 1.5s infinite;
-  top: 0;
-  left: 0;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 6px;
+  top: 2px;
+  left: 2px;
 }
 
 .cta-button i {
@@ -343,22 +429,25 @@ html {
 }
 
 .cta-button:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 40px rgba(127, 0, 255, 0.6);
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.5),
+    inset 0 0 25px rgba(127, 0, 255, 0.5);
+  color: white;
 }
 
 .cta-button:hover i {
-  transform: scale(1.2);
+  transform: scale(1.2) rotate(10deg);
 }
 
-@keyframes pulse {
+/* Animation de lueur futuriste pour les boutons */
+@keyframes buttonGlow {
   0% {
-    transform: scale(0.95);
-    opacity: 0.8;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.3),
+      inset 0 0 15px rgba(127, 0, 255, 0.3);
   }
   100% {
-    transform: scale(1.05);
-    opacity: 0;
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.5),
+      inset 0 0 25px rgba(127, 0, 255, 0.5);
   }
 }
 
@@ -370,153 +459,17 @@ html {
   }
 }
 
-/* Animation spécifique pour le bouton vidéo */
-
-.video-cta {
-  background: linear-gradient(45deg, #ff00ff, #00ffff);
-  animation: pulse-glow 2s infinite;
-  position: relative;
-  overflow: visible;
-}
-
-.video-cta::after {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  border-radius: 50px;
-  border: 2px solid #ff00ff;
-  animation: pulse-border 1.5s infinite;
-}
-
-@keyframes pulse-glow {
-  0% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 255, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 15px rgba(255, 0, 255, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 255, 0);
-  }
-}
-
-@keyframes pulse-border {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-}
-
-.video-cta:hover {
-  transform: translateY(-3px) scale(1.05);
-  animation: none;
-}
-
-.video-cta i {
-  margin-right: 0.8rem;
-  font-size: 1.2em;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .video-cta {
-    font-size: 0.9rem;
-    padding: 1rem 1.5rem;
-  }
-
-  .video-cta::after {
-    display: none;
-  }
-}
-
-/* Styles pour la modal */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  cursor: pointer; /* Indique que c'est cliquable */
-  animation: modalFade 0.5s ease-out;
-}
-
-@keyframes modalFade {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.modal-content {
-  position: absolute;
-  width: auto;
-  height: auto;
-  max-width: 90vw;
-  max-height: 90vh;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 3px solid #7f00ff;
-  border-radius: 5px;
-  pointer-events: auto;
-}
-
-.close-modal {
-  position: fixed;
-  top: 5px;
-  right: 5px;
-  color: #6c94af;
-  font-size: 40px;
-  text-shadow: 0 0 15px #04f4e4;
-  cursor: pointer;
-  transition: transform 0.3s;
-  pointer-events: auto; /* Permet de cliquer sur la croix */
-}
-
-.close-modal:hover {
-  transform: scale(1.2);
-  color: #00ffff;
-}
-
-@media (max-width: 768px) {
-  .modal-content {
-    width: 70%;
-  }
-
-  .close-modal {
-    font-size: 30px;
-    top: 15px;
-    right: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .close-modal {
-    font-size: 30px;
-    right: 20px;
-    top: 15px;
-  }
-}
-
 .social-links {
   display: flex;
   justify-content: center;
   gap: 2.5rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+/* Suppression du titre "Réseaux professionnels" */
+.social-links::before {
+  content: none;
 }
 
 .social-icon {
@@ -526,26 +479,36 @@ html {
   align-items: center;
   width: 70px;
   height: 70px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, #7f00ff, #00ffff);
+  /* Forme hexagonale futuriste au lieu de rond */
+  border-radius: 15px;
+  background: linear-gradient(135deg, #7f00ff, #00ffff);
   transition: all 0.3s ease;
   text-decoration: none;
-  box-shadow: 0 0 20px rgba(127, 0, 255, 0.3);
+  /* Ombre plus prononcée */
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4),
+    inset 0 0 15px rgba(127, 0, 255, 0.3);
+  /* Animation de pulsation */
+  animation: iconGlow 3s infinite alternate;
+  backdrop-filter: blur(5px);
+  transform: rotate(45deg); /* Rotation pour forme en losange */
 }
 
 .social-icon i {
   font-size: 2.5rem;
   color: white;
   transition: transform 0.3s ease;
+  transform: rotate(-45deg); /* Contre-rotation pour garder l'icône droite */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
 }
 
 .social-icon:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 40px rgba(127, 0, 255, 0.6);
+  transform: rotate(45deg) scale(1.1);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.7),
+    inset 0 0 20px rgba(127, 0, 255, 0.5);
 }
 
 .social-icon:hover i {
-  transform: scale(1.2);
+  transform: rotate(-45deg) scale(1.2);
 }
 
 /* Effet de vague au survol */
@@ -554,23 +517,20 @@ html {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 15px; /* Même que l'icône */
   border: 2px solid rgba(255, 255, 255, 0.2);
   animation: pulse 1.5s infinite;
 }
 
-@keyframes pulse {
+/* Animation de lueur futuriste */
+@keyframes iconGlow {
   0% {
-    transform: scale(0.95);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.02);
-    opacity: 0.4;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4),
+      inset 0 0 15px rgba(127, 0, 255, 0.3);
   }
   100% {
-    transform: scale(1.05);
-    opacity: 0;
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.6),
+      inset 0 0 25px rgba(127, 0, 255, 0.5);
   }
 }
 
@@ -594,6 +554,31 @@ html {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .links-section {
+    padding: 1.5rem 1rem;
+    margin: 2.5rem auto;
+  }
+
+  .links-section::before {
+    font-size: 1rem;
+    padding: 0.3rem 1.5rem;
+    top: -12px;
+  }
+
+  .cta-container {
+    gap: 1rem;
+  }
+
+  .social-links {
+    gap: 1.5rem;
+  }
+
+  .social-links::before {
+    font-size: 0.9rem;
+    padding: 0.3rem 1rem;
+    white-space: nowrap;
+  }
+
   .social-links {
     gap: 2rem;
   }
@@ -1311,6 +1296,29 @@ html {
 }
 
 /* Animation de la photo */
+.profile-bubble {
+  position: relative;
+  width: 150px; /* Taille réduite */
+  height: 150px; /* Taille réduite */
+  margin: 0 auto 2rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #7f00ff;
+  box-shadow: 0 0 15px rgba(127, 0, 255, 0.6);
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.profile-bubble:hover .profile-picture {
+  transform: scale(1.05);
+}
+
 .profile-glow {
   position: absolute;
   width: 100%;
@@ -1319,6 +1327,290 @@ html {
   animation: pulse-glow 2s infinite;
   top: 0;
   left: 0;
+}
+
+/* Fenêtre vidéo futuriste améliorée */
+.video-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  position: relative;
+  padding: 2rem;
+  background: rgba(10, 10, 46, 0.4);
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+  max-width: 500px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.video-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00ffff;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  position: relative;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.video-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ffff, transparent);
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 240px;
+  border: 3px solid #00ffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-frame::before,
+.video-frame::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  z-index: 5;
+}
+
+.video-frame::before {
+  top: 0;
+  left: 0;
+  border-top: 2px solid #00ffff;
+  border-left: 2px solid #00ffff;
+}
+
+.video-frame::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid #00ffff;
+  border-right: 2px solid #00ffff;
+}
+
+.video-frame:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.video-frame:hover .video-thumbnail {
+  transform: scale(1.05);
+}
+
+.video-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1.2rem;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(0, 255, 255, 0.6);
+}
+
+.video-play-button i {
+  font-size: 1.8rem;
+  color: #00ffff;
+}
+
+.video-frame:hover .video-play-button {
+  background: rgba(127, 0, 255, 0.8);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .video-container {
+    padding: 1rem;
+    max-width: 90%;
+  }
+
+  .video-title {
+    font-size: 1.2rem;
+  }
+
+  .video-frame {
+    height: 180px;
+  }
+}
+
+/* Footer */
+footer {
+  background: #0a0a2e;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-top: 1px solid #7f00ff;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    flex-direction: column;
+    background: rgba(10, 10, 46, 0.98);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    height: auto;
+    padding: 2rem;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #7f00ff;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .timeline-content {
+    width: 85%;
+    margin-left: 15% !important;
+  }
+
+  /* Gestion du titre en mode mobile */
+  .nav-title {
+    display: none;
+  }
+
+  .nav-title-mobile {
+    display: block;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(127, 0, 255, 0.3);
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Style futuriste pour les liens du menu mobile */
+  .nav-menu .nav-link {
+    display: block;
+    text-align: center;
+    width: 100%;
+    font-family: "Orbitron", sans-serif;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    margin: 0.3rem 0;
+    position: relative;
+    overflow: hidden;
+    color: #00ffff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: rgba(127, 0, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .nav-menu .nav-link:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 255, 0.2),
+      transparent
+    );
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu .nav-link:hover {
+    background: rgba(127, 0, 255, 0.2);
+    transform: translateY(-3px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+  }
+
+  .nav-menu .nav-link:hover:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #7f00ff, #00ffff);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  .nav-menu .nav-link:hover:after {
+    width: 80%;
+  }
+}
+
+/* Responsive - mobiles */
+@media (max-width: 576px) {
+  .nav-container {
+    padding: 0.6rem 1rem;
+  }
+
+  .nav-video-container {
+    width: 60px;
+    height: 35px;
+    margin-right: 10px;
+  }
+
+  .nav-title {
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+  }
+
+  .menu-toggle {
+    padding: 0.3rem 0.6rem;
+    font-size: 1rem;
+  }
+
+  .nav-menu {
+    top: 60px;
+    padding: 1.5rem;
+  }
+
+  .nav-title-mobile {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .nav-menu .nav-link {
+    font-size: 1rem;
+    padding: 0.7rem 1rem;
+  }
 }
 
 @keyframes pulse-glow {
@@ -1355,87 +1647,363 @@ html {
   }
 }
 
-/* Footer */
-footer {
-  background: #0a0a2e;
-  padding: 3rem 2rem;
-  text-align: center;
-  border-top: 1px solid #7f00ff;
+/* Modal de diplôme - masquée */
+#diplomaModal {
+  display: none !important;
+}
+
+/* Styles pour l'affichage plein écran du diplôme */
+.fullscreen-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.fullscreen-image.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fullscreen-content {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.fullscreen-image.active .fullscreen-content {
+  transform: scale(1);
+}
+
+.close-fullscreen {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #00ffff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 2001;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgba(10, 10, 46, 0.7);
+  border: 2px solid #7f00ff;
+  transition: all 0.3s ease;
+}
+
+.close-fullscreen:hover {
+  background: rgba(127, 0, 255, 0.7);
+  transform: rotate(90deg);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
 
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
-  }
-
-  .nav-menu {
-    position: fixed;
-    top: 70px;
-    right: -100%;
-    flex-direction: column;
-    background: #0a0a2e;
-    width: 100%;
-    padding: 2rem;
-    gap: 2rem;
-  }
-
-  .nav-menu.active {
-    right: 0;
-  }
-
-  .timeline-content {
-    width: 85%;
-    margin-left: 15% !important;
+  .close-fullscreen {
+    top: 15px;
+    right: 15px;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
   }
 }
 
-/* Fenêtre vidéo futuriste */
-.video-container {
+html {
+  scroll-behavior: smooth;
+}
+
+/* Container radial - animations des bulles */
+.radial-section {
+  padding: 2rem 1rem 4rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.radial-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Structure verticale pour les cartes */
+.center-photo {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 3px solid rgba(127, 0, 255, 0.7);
+  box-shadow: 0 0 15px rgba(127, 0, 255, 0.4), 0 0 30px rgba(0, 255, 255, 0.2);
+  border-radius: 1rem;
+  background: transparent;
+  z-index: 10;
+  margin-bottom: 2rem;
   margin-top: 2rem;
 }
-.video-frame {
-  position: relative;
-  width: 320px;
-  height: 180px;
-  border: 3px solid #00ffff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
-  cursor: pointer;
-}
-.video-thumbnail {
+
+.center-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease;
-}
-.video-frame:hover .video-thumbnail {
-  transform: scale(1.05);
-}
-.video-play-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.6);
-  padding: 1rem;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-  transition: background 0.3s ease;
-}
-.video-play-button i {
-  font-size: 1.5rem;
-  color: #fff;
-}
-.video-frame:hover .video-play-button {
-  background: rgba(127, 0, 255, 0.8);
 }
 
-/* Modal vidéo futuriste - Version allégée */
+/* Lignes de connexion */
+.radial-container::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: calc(100% - 300px);
+  background: linear-gradient(to bottom, #7f00ff, #00ffff);
+  top: 80px;
+  z-index: 1;
+}
+
+/* Style de chaque carte */
+.presentation-card {
+  position: relative;
+  width: 320px;
+  padding: 1.5rem;
+  background: rgba(127, 0, 255, 0.07);
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(127, 0, 255, 0.5);
+  border-radius: 1.5rem;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(127, 0, 255, 0.2);
+  z-index: 5;
+  margin: 1.5rem 0;
+}
+
+/* Icône des cartes */
+.presentation-card .card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #00ffff;
+}
+
+/* Lignes horizontales pour connecter les cartes */
+.presentation-card::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 80px;
+  background: linear-gradient(to right, #7f00ff, #00ffff);
+  top: 50%;
+  z-index: -1;
+}
+
+/* Positionnement des cartes alternées */
+.presentation-card:nth-of-type(odd) {
+  margin-right: calc(50% + 160px);
+}
+
+.presentation-card:nth-of-type(odd)::before {
+  right: -80px;
+}
+
+.presentation-card:nth-of-type(even) {
+  margin-left: calc(50% + 160px);
+}
+
+.presentation-card:nth-of-type(even)::before {
+  left: -80px;
+}
+
+/* Grands écrans */
+@media (min-width: 1400px) {
+  .radial-container {
+    max-width: 1200px;
+  }
+
+  .presentation-card {
+    width: 350px;
+  }
+
+  .center-photo {
+    width: 280px;
+    height: 280px;
+  }
+
+  .presentation-card:nth-of-type(odd) {
+    margin-right: calc(50% + 180px);
+  }
+
+  .presentation-card:nth-of-type(even) {
+    margin-left: calc(50% + 180px);
+  }
+}
+
+/* Écrans moyens */
+@media (max-width: 1200px) and (min-width: 992px) {
+  .radial-container {
+    max-width: 900px;
+  }
+
+  .presentation-card {
+    width: 300px;
+  }
+
+  .presentation-card:nth-of-type(odd) {
+    margin-right: calc(50% + 140px);
+  }
+
+  .presentation-card:nth-of-type(even) {
+    margin-left: calc(50% + 140px);
+  }
+}
+
+/* Tablettes */
+@media (max-width: 991px) and (min-width: 769px) {
+  .radial-container {
+    max-width: 700px;
+  }
+
+  .presentation-card {
+    width: 250px;
+    padding: 1.2rem;
+  }
+
+  .center-photo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .presentation-card .card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .presentation-card:nth-of-type(odd) {
+    margin-right: calc(50% + 100px);
+  }
+
+  .presentation-card:nth-of-type(even) {
+    margin-left: calc(50% + 100px);
+  }
+
+  .presentation-card::before {
+    width: 60px;
+  }
+
+  .presentation-card:nth-of-type(odd)::before {
+    right: -60px;
+  }
+
+  .presentation-card:nth-of-type(even)::before {
+    left: -60px;
+  }
+}
+
+/* Petites tablettes */
+@media (max-width: 768px) and (min-width: 576px) {
+  .radial-section {
+    padding: 2rem 1rem;
+  }
+
+  .radial-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    justify-items: center;
+  }
+
+  .radial-container::before {
+    display: none;
+  }
+
+  .center-photo {
+    grid-column: 1 / span 2;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 2rem;
+  }
+
+  .presentation-card {
+    position: relative;
+    width: 100%;
+    max-width: 250px;
+    margin: 0;
+  }
+
+  .presentation-card:nth-of-type(odd),
+  .presentation-card:nth-of-type(even) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .presentation-card::before {
+    display: none;
+  }
+}
+
+/* Responsive - mobile */
+@media (max-width: 575px) {
+  .radial-section {
+    padding: 2rem 0;
+  }
+
+  .radial-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .radial-container::before {
+    display: none;
+  }
+
+  .center-photo {
+    margin-bottom: 2rem;
+    width: 150px;
+    height: 150px;
+  }
+
+  .presentation-card {
+    margin: 1rem 0;
+    width: 100%;
+    max-width: 300px;
+    padding: 1rem;
+  }
+
+  .presentation-card:nth-of-type(odd),
+  .presentation-card:nth-of-type(even) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .presentation-card .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .presentation-card::before {
+    display: none;
+  }
+}
+
+/* Modal vidéo futuriste */
 .video-modal {
   display: none;
   position: fixed;
@@ -1459,7 +2027,7 @@ footer {
   box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
 }
 
-/* Optimisations pour la vidéo - Version allégée */
+/* Optimisations pour la vidéo */
 .video-placeholder {
   position: absolute;
   top: 0;
@@ -1563,7 +2131,7 @@ footer {
   animation: cornerGlow 2s infinite alternate;
 }
 
-/* Responsive */
+/* Responsive pour la modal */
 @media (max-width: 768px) {
   .video-modal-content {
     width: 95%;
@@ -1628,4 +2196,474 @@ footer {
 
 .video-modal-close i {
   pointer-events: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Titre futuriste */
+.futuristic-title-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0 2rem;
+  z-index: 10;
+  overflow: hidden;
+  margin-top: 80px;
+  background: transparent;
+}
+
+.futuristic-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #00ffff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 0 0 10px rgba(127, 0, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.5),
+    0 0 30px rgba(127, 0, 255, 0.3);
+  position: relative;
+  animation: titlePulse 3s ease-in-out infinite alternate;
+}
+
+.futuristic-title::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #7f00ff,
+    #00ffff,
+    transparent
+  );
+  animation: scanLine 4s linear infinite;
+}
+
+.futuristic-title::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00ffff,
+    #7f00ff,
+    transparent
+  );
+  animation: scanLine 4s linear infinite reverse;
+}
+
+@keyframes titlePulse {
+  0% {
+    filter: brightness(0.8);
+    transform: scale(0.98);
+  }
+  100% {
+    filter: brightness(1.2);
+    transform: scale(1);
+  }
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .futuristic-title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+
+  .futuristic-title-container {
+    padding: 2rem 1rem 1.5rem;
+    margin-top: 70px;
+  }
+}
+
+/* Style futuriste pour le nom dans la navbar */
+.futuristic-name {
+  font-family: "Orbitron", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  background: rgba(10, 10, 46, 0.5);
+  border-left: 2px solid #7f00ff;
+  border-right: 2px solid #00ffff;
+  position: relative;
+  overflow: hidden;
+  width: auto;
+  max-width: 100%;
+}
+
+.futuristic-name::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(127, 0, 255, 0.2),
+    rgba(0, 255, 255, 0.2),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: scanEffect 3s linear infinite;
+  pointer-events: none;
+}
+
+.glow-letter {
+  display: inline-block;
+  font-weight: 600;
+  margin: 0 0px;
+  position: relative;
+  color: #fff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.6);
+  animation: letterGlow 2s ease-in-out infinite;
+  font-size: 0.75rem;
+}
+
+.spacer {
+  width: 6px;
+  display: inline-block;
+}
+
+@keyframes scanEffect {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes letterGlow {
+  0%,
+  100% {
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.6);
+  }
+  50% {
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
+      0 0 15px rgba(0, 255, 255, 0.5);
+  }
+}
+
+/* Style pour le nom dans le menu mobile */
+.futuristic-name-mobile {
+  font-family: "Orbitron", sans-serif;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0.5rem auto 1rem;
+  padding: 0.4rem;
+  width: fit-content;
+  max-width: 90%;
+  border-radius: 4px;
+  background: rgba(10, 10, 46, 0.7);
+  border-top: 2px solid #7f00ff;
+  border-bottom: 2px solid #00ffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.futuristic-name-mobile .glow-letter {
+  font-size: 0.9rem;
+  margin: 0 0px;
+}
+
+.futuristic-name-mobile .spacer {
+  width: 0.4rem;
+  display: inline-block;
+}
+
+/* Responsive pour le nom futuriste */
+@media (min-width: 1400px) {
+  .glow-letter {
+    font-size: 0.85rem;
+  }
+
+  .spacer {
+    width: 8px;
+  }
+
+  .futuristic-name {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .futuristic-name-mobile .glow-letter {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .glow-letter {
+    font-size: 0.7rem;
+  }
+
+  .spacer {
+    width: 4px;
+  }
+
+  .futuristic-name {
+    padding: 0.4rem 0.6rem;
+    margin: 0 0.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .futuristic-name-mobile .glow-letter {
+    font-size: 0.9rem;
+  }
+
+  .futuristic-name-mobile .spacer {
+    width: 0.3rem;
+  }
+
+  .futuristic-name-mobile {
+    padding: 0.4rem;
+  }
+}
+
+/* Ajustements responsive pour le nom futuriste */
+@media (max-width: 992px) {
+  .futuristic-name {
+    display: none !important;
+  }
+}
+
+/* Masquer toutes les instances de futuristic-name dans la navbar pour éviter la duplication */
+.nav-container .futuristic-name {
+  display: none !important;
+}
+
+/* Responsive - grands écrans */
+@media (min-width: 1400px) {
+  .nav-container {
+    padding: 1rem 2rem;
+  }
+
+  .nav-video-container {
+    width: 100px;
+    height: 50px;
+  }
+
+  .nav-title {
+    font-size: 1.7rem;
+  }
+
+  .nav-menu {
+    gap: 3rem;
+  }
+
+  .nav-link {
+    font-size: 1.1rem;
+  }
+}
+
+/* Responsive - écrans moyens */
+@media (max-width: 1200px) and (min-width: 992px) {
+  .nav-container {
+    padding: 0.8rem 1.5rem;
+  }
+
+  .nav-menu {
+    gap: 1.5rem;
+  }
+
+  .nav-video-container {
+    width: 70px;
+    height: 40px;
+  }
+}
+
+/* Responsive - petits écrans/tablettes */
+@media (max-width: 991px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    flex-direction: column;
+    background: rgba(10, 10, 46, 0.98);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    height: auto;
+    padding: 2rem;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #7f00ff;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-title-mobile {
+    display: block;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(127, 0, 255, 0.3);
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Style futuriste pour les liens du menu mobile */
+  .nav-menu .nav-link {
+    display: block;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+    font-family: "Orbitron", sans-serif;
+    font-size: 1.1rem;
+    padding: 0.7rem 1.2rem;
+    margin: 0.3rem 0;
+    position: relative;
+    overflow: hidden;
+    color: #00ffff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: rgba(127, 0, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .nav-menu .nav-link:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 255, 255, 0.2),
+      transparent
+    );
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu .nav-link:hover {
+    background: rgba(127, 0, 255, 0.2);
+    transform: translateY(-3px);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+  }
+
+  .nav-menu .nav-link:hover:before {
+    left: 100%;
+  }
+
+  .nav-menu .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #7f00ff, #00ffff);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  .nav-menu .nav-link:hover::after {
+    width: 80%;
+  }
+}
+
+/* Responsive - mobiles */
+@media (max-width: 576px) {
+  .nav-container {
+    padding: 0.6rem 1rem;
+  }
+
+  .nav-video-container {
+    width: 60px;
+    height: 35px;
+    margin-right: 10px;
+  }
+
+  .nav-title {
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+  }
+
+  .menu-toggle {
+    padding: 0.3rem 0.6rem;
+    font-size: 1rem;
+  }
+
+  .nav-menu {
+    top: 60px;
+    padding: 1.5rem;
+  }
+
+  .nav-title-mobile {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .nav-menu .nav-link {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    width: 90%;
+  }
+}
+
+/* Responsive - très petits écrans */
+@media (max-width: 360px) {
+  .nav-title {
+    font-size: 1rem;
+    margin: 0 0.3rem;
+  }
+
+  .nav-video-container {
+    width: 50px;
+    height: 30px;
+    margin-right: 8px;
+  }
+
+  .menu-toggle {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.9rem;
+  }
 }
