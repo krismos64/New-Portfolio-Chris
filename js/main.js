@@ -115,8 +115,8 @@
         star.className = className;
         star.style.left = Math.random() * 100 + "%";
         star.style.top = Math.random() * 100 + "%";
-        star.style.animationDuration = Math.random() * 15 + 8 + "s";
-        star.style.animationDelay = Math.random() * 5 + "s";
+        star.style.animationDuration = Math.random() * 30 + 30 + "s";
+        star.style.animationDelay = Math.random() * 15 + "s";
         fragment.appendChild(star);
       }
 
@@ -124,9 +124,9 @@
     }
 
     // Créer les différents types d'étoiles de manière optimisée
-    container.appendChild(createStarBatch(300, "star"));
-    container.appendChild(createStarBatch(80, "star bright"));
-    container.appendChild(createStarBatch(80, "star purple"));
+    container.appendChild(createStarBatch(50, "star"));
+    container.appendChild(createStarBatch(50, "star bright"));
+    container.appendChild(createStarBatch(50, "star purple"));
   }
 
   // Configuration du défilement fluide
