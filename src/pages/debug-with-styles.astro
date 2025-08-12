@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+---
+
+<Layout title="Debug avec styles">
+    <style>
+        /* Styles de base forcés */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(45deg, #0a0a2e, #1a1a4a) !important;
+            color: white !important; 
+            font-family: Arial, sans-serif !important;
+        }
+        .section-title {
+            color: #00ffff !important;
+            font-size: 2rem !important;
+            text-align: center !important;
+            margin: 20px 0 !important;
+        }
+        p, div, span {
+            color: white !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+        img {
+            max-width: 200px !important;
+            height: auto !important;
+            display: block !important;
+        }
+    </style>
+    
+    <div style="padding: 20px; min-height: 100vh;">
+        <h1 style="color: #00ffff; text-align: center; margin-bottom: 30px;">Debug - Site avec styles forcés</h1>
+        
+        <Hero />
+        
+        <hr style="border: 1px solid #00ffff; margin: 40px 0;" />
+        
+        <About />
+    </div>
+</Layout>

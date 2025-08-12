@@ -56,22 +56,11 @@
             menuToggle.innerHTML = '<i class="fas fa-bars" aria-label="Ouvrir le menu"></i>';
         }
 
-        // Animation de défilement
-        if (window.gsap) {
-          gsap.to(window, {
-            duration: 0.2,
-            scrollTo: {
-              y: target,
-              offsetY: 80,
-            },
-            ease: "power3.inOut",
-          });
-        } else {
-          window.scrollTo({
-            top: target.offsetTop - 80,
-            behavior: "smooth",
-          });
-        }
+        // Animation de défilement simple
+        window.scrollTo({
+          top: target.offsetTop - 80,
+          behavior: "smooth",
+        });
       });
     });
   });

@@ -11,20 +11,10 @@ import Articles from '../components/Articles.astro';
 <Layout title="Portfolio Christophe Mostefaoui">
   <Navigation />
   <main id="main-content">
-    
-    <!-- Composant Hero réintégré -->
     <Hero />
-
-    <!-- Composant About réintégré -->
     <About />
-
-    <!-- Composant Skills réintégré -->
     <Skills />
-    
-    <!-- Composant Projects réintégré -->
     <Projects />
-    
-    <!-- Composant Articles réintégré -->
     <Articles />
 
     <section id="contact">
@@ -66,7 +56,6 @@ import Articles from '../components/Articles.astro';
         </div>
       </div>
     </section>
-
   </main>
 
   <footer>
@@ -125,27 +114,14 @@ import Articles from '../components/Articles.astro';
       container.appendChild(createStarBatch(50, "star purple"));
     }
 
-    // Animation simple au scroll (remplace AOS)
-    const observeElements = () => {
-      const elements = document.querySelectorAll('[data-aos]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, { threshold: 0.1 });
-
-      elements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.8s ease';
-        observer.observe(el);
+    // Initialisation AOS
+    if (window.AOS) {
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 120,
       });
-    };
-    
-    observeElements();
+    }
 
     // Vidéo modal
     const videoFrame = document.querySelector(".video-frame");

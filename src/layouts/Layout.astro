@@ -8,6 +8,7 @@ const {
   title, 
   description = "Développeur web full-stack passionné, créateur de SmartPlanning et spécialiste IA. Découvrez mon portfolio et mes projets." 
 } = Astro.props;
+
 ---
 
 <!DOCTYPE html>
@@ -20,8 +21,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     
-    <!-- Librairies externes -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome uniquement -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
     <!-- Fonts Google -->
@@ -31,6 +31,9 @@ const {
     
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/ico" href="/images/portfolio/favicon.png" />
+    
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="/style.css" />
   </head>
   
   <body>
@@ -39,10 +42,7 @@ const {
 
     <slot />
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <!-- Scripts supprimés temporairement pour éviter les erreurs -->
     
     <!-- Chatbot -->
     <script>
@@ -60,7 +60,3 @@ const {
   </body>
 </html>
 
-<style is:global>
-  /* Import du CSS principal */
-  @import '../styles/style.css';
-</style>

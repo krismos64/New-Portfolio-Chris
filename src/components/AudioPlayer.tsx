@@ -69,8 +69,7 @@ export default function AudioPlayer({ src, title = "Podcast" }: AudioPlayerProps
 
   return (
     <div className="audio-player-container">
-      <a 
-        href="#" 
+      <button 
         className="dropdown-link audio-toggle"
         onClick={(e) => {
           e.preventDefault();
@@ -78,7 +77,7 @@ export default function AudioPlayer({ src, title = "Podcast" }: AudioPlayerProps
         }}
       >
         <i className="fas fa-podcast"></i> {title}
-      </a>
+      </button>
 
       <div className={`custom-audio-player ${isVisible ? 'active' : ''}`}>
         <audio ref={audioRef} src={src}>

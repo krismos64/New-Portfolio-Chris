@@ -1,0 +1,28 @@
+---
+import TestSimple from '../components/TestSimple.astro';
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Composant</title>
+    <style>
+        body { 
+            background: #111; 
+            color: white; 
+            font-family: Arial, sans-serif;
+            padding: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de composant Astro</h1>
+    
+    <div style="border: 2px solid yellow; padding: 10px;">
+        <p>Contenu avant le composant</p>
+        <TestSimple />
+        <p>Contenu après le composant</p>
+    </div>
+</body>
+</html>

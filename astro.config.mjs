@@ -1,15 +1,10 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://krismos.fr',
   integrations: [
-    react(),
-    tailwind({
-      // Désactiver Tailwind pour garder votre CSS existant
-      applyBaseStyles: false,
-    })
+    react()
   ],
   build: {
     assets: '_astro',
