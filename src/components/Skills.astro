@@ -1,0 +1,124 @@
+---
+const techLogos = [
+  {
+    name: 'HTML5/CSS',
+    image: '/images/logos/html-css.png',
+    alt: 'HTML5-CSS'
+  },
+  {
+    name: 'BOOTSTRAP',
+    image: '/images/logos/Bootstrap_logo.png',
+    alt: 'BOOTSTRAP'
+  },
+  {
+    name: 'JavaScript',
+    image: '/images/logos/javascript.png',
+    alt: 'JS'
+  },
+  {
+    name: 'TypeScript',
+    image: '/images/logos/typescript.jpg',
+    alt: 'TS'
+  },
+  {
+    name: 'Node JS',
+    image: '/images/logos/node-js.jpg',
+    alt: 'Node JS'
+  },
+  {
+    name: 'React',
+    image: '/images/logos/react.jpg',
+    alt: 'React'
+  },
+  {
+    name: 'PHP',
+    image: '/images/logos/php.png',
+    alt: 'PHP'
+  },
+  {
+    name: 'SYMFONY',
+    image: '/images/logos/symfony.png',
+    alt: 'SYMFONY'
+  },
+  {
+    name: 'MySQL',
+    image: '/images/logos/my-sql-logo.png',
+    alt: 'MYSQL'
+  },
+  {
+    name: 'MongoDB',
+    image: '/images/logos/mongodb.jpg',
+    alt: 'MongoDB'
+  },
+  {
+    name: 'Figma',
+    image: '/images/logos/figma-logo.png',
+    alt: 'FIGMA'
+  },
+  {
+    name: 'Trello',
+    image: '/images/logos/trello-logo.jpeg',
+    alt: 'TRELLO'
+  },
+  {
+    name: 'Confluence',
+    image: '/images/logos/Confluence-Logo.png',
+    alt: 'CONFLUENCE'
+  },
+  {
+    name: 'Jira',
+    image: '/images/logos/logo-jira.gif',
+    alt: 'JIRA'
+  }
+];
+---
+
+<section id="skills">
+  <h2 class="section-title">Mes Compétences</h2>
+  
+  <div class="skills-container">
+    <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
+      <div class="intro-text">
+        <p>
+          Au cours de mes formations, j'ai acquis une bonne expertise en
+          front-end, maîtrisant HTML, CSS, JavaScript, TypeScript, ainsi
+          que Bootstrap et Tailwind CSS. J'ai également développé des
+          compétences approfondies en back-end, manipulant des bases de
+          données SQL et noSQL, utilisé le langage PHP, et travaillé avec
+          Symfony, Doctrine, et Twig pour créer des applications robustes
+          et fonctionnelles. Je suis en train de me spécialiser en MERN
+          stack (MongoDB, Express, React, Node.js).
+        </p>
+        <p>
+          J'ai également eu l'occasion d'organiser mes tâches à l'aide de
+          Trello et de réaliser des maquettes de projets avec Figma. Je
+          suis en train d'accorder une importance particulière à
+          l'apprentissage de l'utilisation de Confluence et Jira pour la
+          gestion de projets, la bonne rédaction de users stories et la
+          communication avec les équipes.
+        </p>
+        <p>
+          Mes compétences sont en constante amélioration car pour moi la
+          joie de ce métier fait que l'on en apprend tous les jours,
+          d'autant plus en étant impliqué, curieux et passionné.
+        </p>
+      </div>
+
+      <div class="tech-logos-container">
+        {techLogos.map((tech) => (
+          <div class="tech-logo-item">
+            <img
+              src={tech.image}
+              alt={tech.alt}
+              class="tech-logo"
+              loading="lazy"
+            />
+            <span class="tech-label">{tech.name}</span>
+          </div>
+        ))}
+      </div>
+      
+      <div class="bubble-tail"></div>
+    </div>
+  </div>
+</section>

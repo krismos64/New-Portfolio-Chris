@@ -1,0 +1,26 @@
+{
+  "name": "new-portfolio-chris",
+  "version": "1.0.0",
+  "description": "Portfolio professionnel présentant mes compétences en développement web, mes projets réalisés et mon parcours professionnel. Réalisé avec une approche moderne, interactive et un design cyberpunk.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/react": "^4.3.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "astro": "^5.12.9",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^3.4.17"
+  }
+}

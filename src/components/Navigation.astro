@@ -1,0 +1,78 @@
+---
+// Pas de props pour l'instant, navigation statique
+---
+
+<nav class="nav-container">
+  <div class="nav-left">
+    <div class="nav-video-container">
+      <video class="nav-video" autoplay loop muted playsinline>
+        <source src="/video/animation-chris-dev.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="nav-title" role="banner">Développeur Web</div>
+    <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+  </div>
+  <div class="nav-menu">
+    <h1 class="nav-title-mobile">Développeur Web</h1>
+    <a href="#header" class="nav-link">À propos</a>
+    <a href="#about" class="nav-link">Parcours</a>
+    <a href="#skills" class="nav-link">Compétences</a>
+    <a href="#projects" class="nav-link">Projets</a>
+    <a href="#articles" class="nav-link">Articles</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<script>
+  // Script pour la navigation (votre code existant mais modernisé)
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    // Menu burger
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        menuToggle.innerHTML = navMenu.classList.contains("active")
+          ? '<i class="fas fa-times" aria-label="Fermer le menu"></i>'
+          : '<i class="fas fa-bars" aria-label="Ouvrir le menu"></i>';
+      });
+    }
+
+    // Smooth scroll
+    navLinks.forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href");
+        const target = document.querySelector(targetId);
+
+        if (!target) return;
+
+        // Fermer le menu burger si actif
+        if (navMenu && navMenu.classList.contains("active")) {
+          navMenu.classList.remove("active");
+          if (menuToggle)
+            menuToggle.innerHTML = '<i class="fas fa-bars" aria-label="Ouvrir le menu"></i>';
+        }
+
+        // Animation de défilement
+        if (window.gsap) {
+          gsap.to(window, {
+            duration: 0.2,
+            scrollTo: {
+              y: target,
+              offsetY: 80,
+            },
+            ease: "power3.inOut",
+          });
+        } else {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  });
+</script>

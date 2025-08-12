@@ -1,0 +1,967 @@
+---
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Christophe Mostefaoui - Développeur Web Full Stack</title>
+    <meta name="description" content="Développeur web full-stack passionné, créateur de SmartPlanning et spécialiste IA. Découvrez mon portfolio et mes projets." />
+    
+    <!-- External libs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/ico" href="/images/portfolio/favicon.png" />
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Passer au contenu</a>
+    <div id="stars"></div>
+    
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-left">
+            <div class="nav-video-container">
+                <video class="nav-video" autoplay loop muted playsinline>
+                    <source src="/video/animation-chris-dev.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="nav-title">Développeur Web</div>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="nav-menu">
+            <h1 class="nav-title-mobile">Développeur Web</h1>
+            <a href="#header" class="nav-link">À propos</a>
+            <a href="#about" class="nav-link">Parcours</a>
+            <a href="#skills" class="nav-link">Compétences</a>
+            <a href="#projects" class="nav-link">Projets</a>
+            <a href="#articles" class="nav-link">Articles</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+    
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="header">
+            <div class="hero-container" data-aos="zoom-in">
+                <div class="futuristic-title-container">
+                    <h1 class="futuristic-title">Bienvenue dans mon univers</h1>
+                </div>
+
+                <div class="hero-content">
+                    <section class="radial-section">
+                        <div class="radial-container">
+                            <div class="center-photo">
+                                <img src="/images/portfolio/chris7.jpg" alt="Photo de Christophe" loading="eager" />
+                            </div>
+                            
+                            <div class="presentation-card">
+                                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                                <p>Après douze ans à conseiller clients en multimédia. Du PC familial aux TV dernier cri, un bilan de compétences et plusieurs tests de personnalité m'ont révélé une véritable appétence pour la résolution de problèmes techniques. Guidé par cette découverte, je me suis lancé dans le développement web, convaincu que mon empathie et ma rigueur trouveraient leur place dans ce domaine innovant.</p>
+                            </div>
+
+                            <div class="presentation-card">
+                                <div class="card-icon"><i class="fas fa-rocket"></i></div>
+                                <p>En observant des managers perdre des heures sur Excel, calculatrice en main et demandes de congés sur papier, j'ai imaginé un SaaS plus intuitif. Installé en local sur le PC de un premier utilisateur, SmartPlanning lui fait déjà gagner 3 heures par semaine. Aujourd'hui, je peaufine ses fonctionnalités grâce à ses retours avant un déploiement officiel.</p>
+                            </div>
+
+                            <div class="presentation-card">
+                                <div class="card-icon"><i class="fas fa-robot"></i></div>
+                                <p>L'avenir, je le conçois avec des agents IA capables de prendre en charge les tâches répétitives et d'anticiper les besoins en temps réel. Parallèlement, j'apprends à utiliser n8n pour automatiser mes propres workflows : des notifications de planning aux relances de feedback, chaque automatisme libère du temps pour innover.</p>
+                            </div>
+
+                            <div class="presentation-card">
+                                <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+                                <p>Malgré les doutes post-diplôme, un marché saturé de juniors, je reste convaincu que l'apprentissage continu est la voie vers l'excellence. Ma formation Bac+3/4 Concepteur Développeur d'Applications IA à La Fabrique Numérique Paloise m'équipe déjà des compétences nécessaires. Aujourd'hui, je suis prêt à rejoindre une équipe pour apporter ma touche de créativité, ma motivation à toute épreuve et contribuer à des projets qui font sens.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="links-section">
+                        <div class="cta-container">
+                            <a href="/docs/Cv Christophe Mostefaoui.pdf" class="cta-button" target="_blank" rel="noopener">
+                                <i class="fas fa-download"></i>
+                                Mon CV
+                            </a>
+                            <a href="#" class="cta-button" id="showDiploma">
+                                <i class="fas fa-graduation-cap"></i>
+                                Voir Diplôme
+                            </a>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" class="social-icon">
+                                <i class="fab fa-linkedin"></i>
+                                <span class="icon-tooltip">Mon LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/krismos64" target="_blank" class="social-icon">
+                                <i class="fab fa-github"></i>
+                                <span class="icon-tooltip">Mon GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="video-container" data-aos="zoom-in" data-aos-delay="300">
+                        <h3 class="video-title">Vidéo de candidature</h3>
+                        <div class="video-frame" id="openVideoModal">
+                            <img src="/images/portfolio/miniature.jpg" alt="Miniature vidéo IA" class="video-thumbnail" loading="lazy" />
+                            <div class="video-play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="section-title">Mon Parcours</h2>
+            
+            <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
+                <p class="intro-text">Après avoir étudié et travaillé dans le monde du commerce, j'ai décidé de me réorienter dans le domaine des nouvelles technologies.</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3>🤖 Concepteur développeur d'applications (spécialisation IA)</h3>
+                        <p class="timeline-period">2024-2026 - Fabrique Numérique Paloise</p>
+                        <p class="timeline-description">Gestion de projet, développement d'applications, cybersecurité, intelligence artificielle.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <h3>📚 Formation DWWM</h3>
+                        <p class="timeline-period">2023 - Titre Professionnel Développeur Web et Web Mobile</p>
+                        <p class="timeline-description">Formation intensive de 6 mois en développement full-stack (école en ligne Studi). Front-end, back-end, bases de données, gestion de projet, SEO.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3>💼 Vendeur multimédia</h3>
+                        <p class="timeline-period">2012-2024 - E.Leclerc Mourenx</p>
+                        <p class="timeline-description">Accueil, vente, conseil clientèle, gestion des stocks, commandes, mise en valeur des rayons, accueil et négociation fournisseurs, gestion service après vente, livraisons à domicile.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2 class="section-title">Mes Compétences</h2>
+            
+            <div class="skills-container">
+                <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
+                    <div class="intro-text">
+                        <p>Au cours de mes formations, j'ai acquis une bonne expertise en front-end, maîtrisant HTML, CSS, JavaScript, TypeScript, ainsi que Bootstrap et Tailwind CSS. J'ai également développé des compétences approfondies en back-end, manipulant des bases de données SQL et noSQL, utilisé le langage PHP, et travaillé avec Symfony, Doctrine, et Twig pour créer des applications robustes et fonctionnelles.</p>
+                        <p>Je me spécialise actuellement en MERN stack (MongoDB, Express, React, Node.js) et en intelligence artificielle.</p>
+                    </div>
+
+                    <div class="tech-logos-container">
+                        <div class="tech-logo-item">
+                            <img src="/images/logos/html-css.png" alt="HTML-CSS" class="tech-logo" loading="lazy" />
+                            <span class="tech-label">HTML5/CSS</span>
+                        </div>
+                        <div class="tech-logo-item">
+                            <img src="/images/logos/javascript.png" alt="JS" class="tech-logo" loading="lazy" />
+                            <span class="tech-label">JavaScript</span>
+                        </div>
+                        <div class="tech-logo-item">
+                            <img src="/images/logos/typescript.jpg" alt="TS" class="tech-logo" loading="lazy" />
+                            <span class="tech-label">TypeScript</span>
+                        </div>
+                        <div class="tech-logo-item">
+                            <img src="/images/logos/react.jpg" alt="React" class="tech-logo" loading="lazy" />
+                            <span class="tech-label">React</span>
+                        </div>
+                        <div class="tech-logo-item">
+                            <img src="/images/logos/node-js.jpg" alt="Node JS" class="tech-logo" loading="lazy" />
+                            <span class="tech-label">Node JS</span>
+                        </div>
+                        <div class="tech-logo-item">
+                            <img src="/images/logos/mongodb.jpg" alt="MongoDB" class="tech-logo" loading="lazy" />
+                            <span class="tech-label">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2 class="section-title">Mes Projets</h2>
+            
+            <div class="projects-container">
+                <!-- Smart Planning -->
+                <div class="project-card" data-aos="flip-up">
+                    <div class="project-image-container">
+                        <img src="/images/projects/smart.jpg" alt="Projet Smart Planning" class="project-image" loading="lazy" />
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-header">
+                            <h3 class="project-title">
+                                <span class="title-text">Smart Planning</span>
+                                <i class="fas fa-rocket title-icon"></i>
+                            </h3>
+                            <div class="tech-tags">
+                                <span>MERN Stack</span>
+                                <span>TypeScript</span>
+                                <span>IA</span>
+                            </div>
+                        </div>
+                        <p class="project-description">Réalisation d'une solution web de gestion d'équipes (plannings manuels, plannings automatiques avec IA, demande de congés, tâches personnelles, gestion des employés, etc.). En cours d'intégration IA.</p>
+                        
+                        <div class="project-dropdown">
+                            <button class="dropdown-toggle">Liens du projet <i class="fas fa-chevron-down"></i></button>
+                            <div class="dropdown-content">
+                                <a href="https://smartplanning.fr/" target="_blank" class="dropdown-link">
+                                    <i class="fas fa-globe"></i> Lien du site web
+                                </a>
+                                <a href="https://github.com/krismos64/SmartPlanning" target="_blank" class="dropdown-link">
+                                    <i class="fab fa-github"></i> Code source
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kocinaspeed -->
+                <div class="project-card" data-aos="flip-up">
+                    <div class="project-image-container">
+                        <img src="/images/projects/kocinaspeed.png" alt="Projet Kocinaspeed" class="project-image" loading="lazy" />
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-header">
+                            <h3 class="project-title">
+                                <span class="title-text">Kocinaspeed</span>
+                                <i class="fas fa-utensils title-icon"></i>
+                            </h3>
+                            <div class="tech-tags">
+                                <span>Symfony</span>
+                                <span>Chatbot</span>
+                                <span>MySQL</span>
+                            </div>
+                        </div>
+                        <p class="project-description">Site web de recettes de cuisine avec chatbot intéractif, espace administrateur, et chaîne YouTube. Montages vidéos et création de contenu complet.</p>
+                        
+                        <div class="project-dropdown">
+                            <button class="dropdown-toggle">Liens du projet <i class="fas fa-chevron-down"></i></button>
+                            <div class="dropdown-content">
+                                <a href="https://kocinaspeed.fr/" target="_blank" class="dropdown-link">
+                                    <i class="fas fa-globe"></i> Lien du site web
+                                </a>
+                                <a href="https://github.com/krismos64/kocinaspeed" target="_blank" class="dropdown-link">
+                                    <i class="fab fa-github"></i> Code source
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-container">
+                <div class="profile-bubble" data-aos="zoom-in">
+                    <img src="/images/portfolio/chris6.jpg" alt="Christophe Mostefaoui" class="profile-picture" />
+                    <div class="profile-glow"></div>
+                </div>
+
+                <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
+                    <p class="intro-text">N'hésitez pas à me contacter pour plus de renseignements. Je serais ravi de m'entretenir avec vous.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <a href="tel:+33679088845" class="contact-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-content">
+                            <h3>Téléphone</h3>
+                            <p>+33 6 79 08 88 45</p>
+                        </div>
+                    </a>
+
+                    <a href="mailto:christophe.mostefaoui.dev@gmail.com" class="contact-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-content">
+                            <h3>Email</h3>
+                            <p>christophe.mostefaoui.dev@gmail.com</p>
+                        </div>
+                    </a>
+
+                    <div class="contact-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-content">
+                            <h3>Localisation</h3>
+                            <p>Artix (64170), France</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Copyright © 2025 Portfolio. Christophe Mostefaoui</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
+    <!-- Chatbot -->
+    <script>
+        window.embeddedChatbotConfig = {
+            chatbotId: "ChVRrroBokwiXkBw4wCcr",
+            domain: "www.chatbase.co",
+        };
+    </script>
+    <script src="https://www.chatbase.co/embed.min.js" chatbotId="ChVRrroBokwiXkBw4wCcr" domain="www.chatbase.co" defer></script>
+</body>
+
+<style>
+    @import '../styles/style-debug.css';
+    
+    /* Ajouts spécifiques pour le portfolio complet */
+    
+    /* Navigation améliorée */
+    .nav-video-container {
+        position: relative;
+        width: 80px;
+        height: 45px;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-right: 15px;
+        border: 2px solid rgba(0, 225, 255, 0.6);
+        flex-shrink: 0;
+    }
+    
+    .nav-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .nav-left {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    
+    .menu-toggle {
+        display: none;
+        background: none;
+        border: 2px solid #00ffff;
+        color: #00ffff;
+        padding: 0.4rem 0.8rem;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-left: auto;
+    }
+    
+    .nav-menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .nav-link {
+        color: #00ffff !important;
+        text-decoration: none;
+        padding: 0.5rem 0;
+        transition: 0.3s;
+    }
+    
+    .nav-title-mobile {
+        display: none;
+        color: #00ffff !important;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    /* Center photo */
+    .center-photo {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 2rem;
+        overflow: hidden;
+        border: 3px solid rgba(127, 0, 255, 0.7);
+        border-radius: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .center-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    /* Tech logos */
+    .tech-logos-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 2rem;
+        margin: 2rem auto 0;
+        padding: 1rem;
+        max-width: 1000px;
+    }
+    
+    .tech-logo-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tech-logo {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        border: 2px solid #7f00ff;
+        margin-bottom: 0.5rem;
+    }
+    
+    .tech-label {
+        font-size: 0.85rem;
+        color: #00ffff !important;
+        text-align: center;
+    }
+    
+    /* Projects */
+    .projects-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+    
+    .project-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid #7f00ff;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .project-image-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+    
+    .project-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(10, 10, 46, 0) 0%, rgba(10, 10, 46, 0.9) 90%);
+    }
+    
+    .project-info {
+        padding: 1.5rem;
+    }
+    
+    .project-title {
+        color: #00ffff !important;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .tech-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+    }
+    
+    .tech-tags span {
+        background: rgba(127, 0, 255, 0.2);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        border: 1px solid #7f00ff;
+        color: #fff !important;
+    }
+    
+    .project-dropdown {
+        margin-top: 1rem;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .dropdown-toggle {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(45deg, #7f00ff, #00ffff);
+        border: none;
+        color: white !important;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .dropdown-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+    
+    .dropdown-content.active {
+        max-height: 500px;
+    }
+    
+    .dropdown-link {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1rem;
+        color: #e6e6ff !important;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.05);
+        transition: all 0.2s ease;
+    }
+    
+    .dropdown-link:hover {
+        background: rgba(127, 0, 255, 0.1);
+        padding-left: 1.5rem;
+    }
+    
+    /* Profile bubble */
+    .profile-bubble {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 2rem;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #7f00ff;
+    }
+    
+    .profile-picture {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    
+    .profile-glow {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+    }
+    
+    /* Video */
+    .video-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem;
+        padding: 2rem;
+        background: rgba(10, 10, 46, 0.4);
+        border-radius: 15px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .video-title {
+        color: #00ffff !important;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    
+    .video-frame {
+        position: relative;
+        width: 100%;
+        max-width: 440px;
+        height: 240px;
+        border: 3px solid #00ffff;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    
+    .video-thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .video-play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.6);
+        padding: 1.2rem;
+        border-radius: 50%;
+        border: 2px solid rgba(0, 255, 255, 0.6);
+    }
+    
+    .video-play-button i {
+        font-size: 1.8rem;
+        color: #00ffff !important;
+    }
+    
+    /* Social icons */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2.5rem;
+        margin-top: 2rem;
+    }
+    
+    .social-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        height: 70px;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #7f00ff, #00ffff);
+        text-decoration: none;
+        transform: rotate(45deg);
+        position: relative;
+    }
+    
+    .social-icon i {
+        font-size: 2.5rem;
+        color: white !important;
+        transform: rotate(-45deg);
+    }
+    
+    .icon-tooltip {
+        position: absolute;
+        bottom: -35px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white !important;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        opacity: 0;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+        transform: rotate(-45deg);
+    }
+    
+    .social-icon:hover .icon-tooltip {
+        opacity: 1;
+    }
+    
+    /* Skip link */
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #7f00ff;
+        color: #fff !important;
+        padding: 0.5rem 1rem;
+        z-index: 100;
+        text-decoration: none;
+    }
+    
+    .skip-link:focus {
+        top: 0;
+    }
+    
+    /* Mobile */
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+        
+        .nav-menu {
+            position: fixed;
+            top: 70px;
+            right: -100%;
+            flex-direction: column;
+            background: rgba(10, 10, 46, 0.98);
+            width: 100%;
+            height: auto;
+            padding: 2rem;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+            z-index: 999;
+            border-bottom: 1px solid #7f00ff;
+        }
+        
+        .nav-menu.active {
+            right: 0;
+        }
+        
+        .nav-title-mobile {
+            display: block;
+        }
+        
+        .projects-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .tech-logos-container {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .social-links {
+            gap: 1.5rem;
+        }
+        
+        .social-icon {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .social-icon i {
+            font-size: 2rem;
+        }
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Portfolio final chargé");
+    
+    // Navigation
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navMenu = document.querySelector(".nav-menu");
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+            menuToggle.innerHTML = navMenu.classList.contains("active")
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+    }
+    
+    // Smooth scroll
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
+            
+            if (target) {
+                if (navMenu?.classList.contains("active")) {
+                    navMenu.classList.remove("active");
+                    if (menuToggle) menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+                
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Dropdowns
+    document.querySelectorAll('.dropdown-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+            const dropdown = this.nextElementSibling;
+            if (dropdown) {
+                this.classList.toggle('active');
+                dropdown.classList.toggle('active');
+                
+                const icon = this.querySelector('i');
+                if (icon) {
+                    icon.style.transform = dropdown.classList.contains('active')
+                        ? 'rotate(180deg)'
+                        : 'rotate(0deg)';
+                }
+            }
+        });
+    });
+    
+    // Diplôme fullscreen
+    const showDiplomaBtn = document.getElementById("showDiploma");
+    if (showDiplomaBtn) {
+        showDiplomaBtn.onclick = function(e) {
+            e.preventDefault();
+            
+            let fullscreenContainer = document.getElementById("diplomaFullscreen");
+            
+            if (!fullscreenContainer) {
+                fullscreenContainer = document.createElement("div");
+                fullscreenContainer.id = "diplomaFullscreen";
+                fullscreenContainer.className = "fullscreen-image";
+                fullscreenContainer.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.9);
+                    z-index: 2000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
+                `;
+
+                const img = document.createElement("img");
+                img.src = "/docs/diplome.png";
+                img.alt = "Diplôme de Christophe Mostefaoui";
+                img.style.cssText = `
+                    max-width: 90%;
+                    max-height: 90%;
+                    object-fit: contain;
+                    border: 2px solid #00ffff;
+                    transform: scale(0.9);
+                    transition: transform 0.3s ease;
+                `;
+
+                const closeBtn = document.createElement("span");
+                closeBtn.innerHTML = "&times;";
+                closeBtn.style.cssText = `
+                    position: absolute;
+                    top: 20px;
+                    right: 30px;
+                    color: #00ffff;
+                    font-size: 40px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    z-index: 2001;
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    background: rgba(10, 10, 46, 0.7);
+                    border: 2px solid #7f00ff;
+                `;
+
+                fullscreenContainer.appendChild(img);
+                fullscreenContainer.appendChild(closeBtn);
+                document.body.appendChild(fullscreenContainer);
+
+                const closeModal = () => {
+                    fullscreenContainer.style.opacity = '0';
+                    fullscreenContainer.style.visibility = 'hidden';
+                    setTimeout(() => {
+                        if (fullscreenContainer.parentNode) {
+                            fullscreenContainer.parentNode.removeChild(fullscreenContainer);
+                        }
+                    }, 300);
+                };
+
+                closeBtn.addEventListener("click", closeModal);
+                fullscreenContainer.addEventListener("click", function(e) {
+                    if (e.target === fullscreenContainer) closeModal();
+                });
+
+                document.addEventListener("keydown", function(e) {
+                    if (e.key === "Escape") closeModal();
+                });
+            }
+
+            setTimeout(() => {
+                fullscreenContainer.style.opacity = '1';
+                fullscreenContainer.style.visibility = 'visible';
+                const img = fullscreenContainer.querySelector('img');
+                if (img) img.style.transform = 'scale(1)';
+            }, 10);
+        };
+    }
+    
+    // Étoiles
+    const container = document.getElementById("stars");
+    if (container) {
+        container.innerHTML = "";
+        
+        function createStarBatch(count, className) {
+            const fragment = document.createDocumentFragment();
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement("div");
+                star.className = className;
+                star.style.cssText = `
+                    position: fixed;
+                    background: rgba(255, 255, 255, 0.8);
+                    width: 2px;
+                    height: 2px;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 0;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation: starFlow ${Math.random() * 30 + 30}s linear infinite;
+                    animation-delay: ${Math.random() * 15}s;
+                `;
+                if (className.includes('bright')) {
+                    star.style.background = 'rgba(0, 255, 255, 0.9)';
+                    star.style.boxShadow = '0 0 3px 1px rgba(0, 255, 255, 0.6)';
+                } else if (className.includes('purple')) {
+                    star.style.background = 'rgba(127, 0, 255, 0.9)';
+                    star.style.boxShadow = '0 0 3px 1px rgba(127, 0, 255, 0.6)';
+                }
+                fragment.appendChild(star);
+            }
+            return fragment;
+        }
+
+        container.appendChild(createStarBatch(50, "star"));
+        container.appendChild(createStarBatch(30, "star bright"));
+        container.appendChild(createStarBatch(20, "star purple"));
+    }
+    
+    // Animations CSS pour les étoiles
+    const starFlowKeyframes = `
+        @keyframes starFlow {
+            0% { transform: translate(-100vw, -100vh); }
+            100% { transform: translate(100vw, 100vh); }
+        }
+    `;
+    const style = document.createElement('style');
+    style.textContent = starFlowKeyframes;
+    document.head.appendChild(style);
+    
+    // AOS
+    if (window.AOS) {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 120,
+        });
+    }
+});
+</script>
+</html>

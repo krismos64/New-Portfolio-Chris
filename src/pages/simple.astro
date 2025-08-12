@@ -1,0 +1,238 @@
+---
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Simple - Christophe</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="stars"></div>
+    
+    <nav class="nav-container">
+        <div class="nav-title">Portfolio Christophe</div>
+    </nav>
+    
+    <main>
+        <section id="header">
+            <div class="hero-container">
+                <h1 class="futuristic-title">Bienvenue dans mon univers</h1>
+                
+                <div class="speech-bubble">
+                    <p class="intro-text">
+                        Développeur web full-stack passionné, créateur de SmartPlanning et spécialiste IA. 
+                        Après douze ans dans le commerce multimédia, j'ai décidé de me reconvertir 
+                        dans le développement web.
+                    </p>
+                </div>
+                
+                <div class="cta-container">
+                    <a href="/docs/Cv Christophe Mostefaoui.pdf" class="cta-button" target="_blank">
+                        <i class="fas fa-download"></i>
+                        Mon CV
+                    </a>
+                    <a href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" class="cta-button">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about">
+            <h2 class="section-title">Mon Parcours</h2>
+            <div class="speech-bubble">
+                <p class="intro-text">
+                    Formation en cours : Concepteur développeur d'applications (spécialisation IA) 
+                    à La Fabrique Numérique Paloise (2024-2026).
+                </p>
+            </div>
+        </section>
+    </main>
+</body>
+
+<style>
+/* CSS inline pour s'assurer que ça fonctionne */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(45deg, #0a0a2e, #1a1a4a);
+  color: #fff;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Étoiles */
+.star {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.8);
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: starFlow 20s linear infinite;
+  box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes starFlow {
+  0% { transform: translate(-100vw, -100vh); }
+  100% { transform: translate(100vw, 100vh); }
+}
+
+/* Navigation */
+.nav-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(10, 10, 46, 0.98);
+  z-index: 1000;
+  padding: 0.8rem 1.5rem;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #7f00ff;
+}
+
+.nav-title {
+  font-family: "Orbitron", sans-serif;
+  color: #00ffff;
+  font-size: 1.5rem;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+  font-weight: bold;
+}
+
+/* Sections */
+section {
+  padding: 8rem 2rem 4rem;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #00ffff;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #7f00ff;
+}
+
+/* Hero */
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.futuristic-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(127, 0, 255, 0.7);
+  margin-bottom: 2rem;
+}
+
+/* Speech bubble */
+.speech-bubble {
+  position: relative;
+  background: rgba(127, 0, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  border: 2px solid #7f00ff;
+  box-shadow: 0 0 40px rgba(127, 0, 255, 0.3);
+}
+
+.intro-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #e6e6ff;
+}
+
+/* Boutons */
+.cta-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: linear-gradient(135deg, #7f00ff, #00ffff);
+  padding: 1.2rem 2.5rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-family: "Orbitron", sans-serif;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.5);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .futuristic-title {
+    font-size: 2rem;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .cta-button {
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("Page simple chargée");
+    
+    // Création des étoiles
+    const container = document.getElementById("stars");
+    if (container) {
+        console.log("Création des étoiles");
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 100 + "%";
+            star.style.animationDuration = Math.random() * 30 + 30 + "s";
+            star.style.animationDelay = Math.random() * 15 + "s";
+            container.appendChild(star);
+        }
+    }
+});
+</script>
+</html>

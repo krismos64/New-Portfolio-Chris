@@ -1,0 +1,68 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { 
+  title, 
+  description = "Développeur web full-stack passionné, créateur de SmartPlanning et spécialiste IA." 
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- CSS direct -->
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    
+    <!-- Librairies externes -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/ico" href="/images/portfolio/favicon.png" />
+  </head>
+  
+  <body>
+    <a href="#main-content" class="skip-link">Passer au contenu</a>
+    <div id="stars"></div>
+
+    <slot />
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
+    <!-- Chatbot -->
+    <script>
+      window.embeddedChatbotConfig = {
+        chatbotId: "ChVRrroBokwiXkBw4wCcr",
+        domain: "www.chatbase.co",
+      };
+    </script>
+    <script
+      src="https://www.chatbase.co/embed.min.js"
+      chatbotId="ChVRrroBokwiXkBw4wCcr"
+      domain="www.chatbase.co"
+      defer
+    ></script>
+  </body>
+</html>
+
+<style is:global>
+  /* Import CSS via Astro */
+  @import '../styles/style.css';
+</style>

@@ -1,0 +1,49 @@
+---
+import '../styles/style.css';
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div id="stars"></div>
+    
+    <nav class="nav-container">
+        <div class="nav-title">Test Navigation</div>
+    </nav>
+    
+    <section id="header">
+        <div class="hero-container">
+            <div class="futuristic-title-container">
+                <h1 class="futuristic-title">Test Portfolio</h1>
+            </div>
+            <div class="speech-bubble">
+                <p class="intro-text">
+                    Ceci est un test pour vérifier que le CSS fonctionne correctement.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Test création étoiles
+        const container = document.getElementById("stars");
+        if (container) {
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+                container.appendChild(star);
+            }
+        }
+        
+        console.log("CSS chargé ?", getComputedStyle(document.body).background);
+    </script>
+</body>
+</html>

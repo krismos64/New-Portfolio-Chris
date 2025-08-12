@@ -1,0 +1,109 @@
+---
+import AudioPlayer from './AudioPlayer.tsx';
+import type { Project } from '../data/projects';
+
+export interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<div class="project-card" data-aos="flip-up">
+  <div class="project-image-container">
+    <img
+      src={project.image}
+      alt={`Projet ${project.title}`}
+      class="project-image"
+      loading="lazy"
+    />
+    <div class="project-overlay"></div>
+  </div>
+
+  <div class="project-info">
+    <div class="project-header">
+      <h3 class="project-title">
+        <span class="title-text">{project.title}</span>
+        <i class="fas fa-rocket title-icon"></i>
+      </h3>
+      <div class="tech-tags">
+        {project.tech.map(tech => (
+          <span>{tech}</span>
+        ))}
+      </div>
+    </div>
+
+    <p class="project-description">
+      {project.description}
+    </p>
+
+    <div class="project-dropdown">
+      <button class="dropdown-toggle">
+        Liens du projet
+        <i class="fas fa-chevron-down"></i>
+      </button>
+
+      <div class="dropdown-content">
+        {project.links.website && (
+          <a href={project.links.website} target="_blank" class="dropdown-link">
+            <i class="fas fa-globe"></i> Lien du site web
+          </a>
+        )}
+        
+        {project.links.github && (
+          <a href={project.links.github} target="_blank" class="dropdown-link">
+            <i class="fab fa-github"></i> Code source
+          </a>
+        )}
+        
+        {project.links.video && (
+          <a href={project.links.video} target="_blank" class="dropdown-link">
+            <i class="fab fa-youtube"></i> Vidéo de présentation
+          </a>
+        )}
+        
+        {project.links.documentation && (
+          <a href={project.links.documentation} class="dropdown-link">
+            <i class="fas fa-file-pdf"></i> Documentation
+          </a>
+        )}
+        
+        {project.links.youtube && (
+          <a href={project.links.youtube} target="_blank" class="dropdown-link">
+            <i class="fab fa-youtube"></i> Chaîne YouTube
+          </a>
+        )}
+        
+        {project.audio && (
+          <AudioPlayer 
+            src={project.audio} 
+            title="Podcast du projet"
+            client:load
+          />
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Script pour les dropdowns (réutilisé de votre code original)
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.dropdown-toggle').forEach((button) => {
+      button.addEventListener('click', function() {
+        const dropdown = this.nextElementSibling;
+        if (!dropdown) return;
+
+        this.classList.toggle('active');
+        dropdown.classList.toggle('active');
+
+        const icon = this.querySelector('i');
+        if (icon) {
+          icon.style.transform = dropdown.classList.contains('active')
+            ? 'rotate(180deg)'
+            : 'rotate(0deg)';
+        }
+      });
+    });
+  });
+</script>

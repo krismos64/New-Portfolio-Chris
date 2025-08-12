@@ -1,0 +1,165 @@
+---
+// Version corrigée du Hero avec contenu visible
+---
+
+<section id="header">
+  <div class="hero-container" data-aos="zoom-in">
+    <!-- Titre futuriste -->
+    <div class="futuristic-title-container">
+      <h1 class="futuristic-title">Bienvenue dans mon univers</h1>
+    </div>
+
+    <div class="hero-content">
+      <section class="radial-section">
+        <div class="radial-container">
+          <div class="center-photo">
+            <img
+              src="/images/portfolio/chris7.jpg"
+              alt="Photo de Christophe"
+              loading="eager"
+            />
+          </div>
+          
+          <!-- Cartes de présentation -->
+          <div class="presentation-card">
+            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+            <p>Après douze ans à conseiller clients en multimédia. Du PC familial aux TV dernier cri, un bilan de compétences et plusieurs tests de personnalité m'ont révélé une véritable appétence pour la résolution de problèmes techniques. Guidé par cette découverte, je me suis lancé dans le développement web, convaincu que mon empathie et ma rigueur trouveraient leur place dans ce domaine innovant.</p>
+          </div>
+
+          <div class="presentation-card">
+            <div class="card-icon"><i class="fas fa-rocket"></i></div>
+            <p>En observant des managers perdre des heures sur Excel, calculatrice en main et demandes de congés sur papier, j'ai imaginé un SaaS plus intuitif. Installé en local sur le PC de un premier utilisateur, SmartPlanning lui fait déjà gagner 3 heures par semaine. Aujourd'hui, je peaufine ses fonctionnalités grâce à ses retours avant un déploiement officiel.</p>
+          </div>
+
+          <div class="presentation-card">
+            <div class="card-icon"><i class="fas fa-robot"></i></div>
+            <p>L'avenir, je le conçois avec des agents IA capables de prendre en charge les tâches répétitives et d'anticiper les besoins en temps réel. Parallèlement, j'apprends à utiliser n8n pour automatiser mes propres workflows : des notifications de planning aux relances de feedback, chaque automatisme libère du temps pour innover.</p>
+          </div>
+
+          <div class="presentation-card">
+            <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+            <p>Malgré les doutes post-diplôme, un marché saturé de juniors, je reste convaincu que l'apprentissage continu est la voie vers l'excellence. Ma formation Bac+3/4 Concepteur Développeur d'Applications IA à La Fabrique Numérique Paloise m'équipe déjà des compétences nécessaires. Aujourd'hui, je suis prêt à rejoindre une équipe pour apporter ma touche de créativité, ma motivation à toute épreuve et contribuer à des projets qui font sens.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="links-section">
+        <div class="cta-container">
+          <a
+            href="/docs/Cv Christophe Mostefaoui.pdf"
+            class="cta-button"
+            data-aos="zoom-in"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="fas fa-download"></i>
+            Mon CV
+          </a>
+
+          <a
+            href="/docs/diplome.png"
+            class="cta-button"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+            id="showDiploma"
+          >
+            <i class="fas fa-graduation-cap"></i>
+            Voir Diplôme
+          </a>
+        </div>
+
+        <div class="social-links">
+          <a
+            href="https://www.linkedin.com/in/christophemostefaoui/"
+            target="_blank"
+            class="social-icon"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          >
+            <i class="fab fa-linkedin"></i>
+            <span class="icon-tooltip">Mon LinkedIn</span>
+          </a>
+          <a
+            href="https://github.com/krismos64"
+            target="_blank"
+            class="social-icon"
+            data-aos="zoom-in"
+            data-aos-delay="600"
+          >
+            <i class="fab fa-github"></i>
+            <span class="icon-tooltip">Mon GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="video-container" data-aos="zoom-in" data-aos-delay="300">
+        <h3 class="video-title">Vidéo de candidature</h3>
+        <div class="video-frame" id="openVideoModal">
+          <img
+            src="/images/portfolio/miniature.jpg"
+            alt="Miniature vidéo IA"
+            class="video-thumbnail"
+            loading="lazy"
+          />
+          <div class="video-play-button">
+            <i class="fas fa-play"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Script pour le diplôme
+  document.addEventListener('DOMContentLoaded', () => {
+    const showDiplomaBtn = document.getElementById("showDiploma");
+    if (showDiplomaBtn) {
+      showDiplomaBtn.onclick = function (e) {
+        e.preventDefault();
+        
+        let fullscreenContainer = document.getElementById("diplomaFullscreen");
+        
+        if (!fullscreenContainer) {
+          fullscreenContainer = document.createElement("div");
+          fullscreenContainer.id = "diplomaFullscreen";
+          fullscreenContainer.className = "fullscreen-image";
+
+          const img = document.createElement("img");
+          img.src = "/docs/diplome.png";
+          img.alt = "Diplôme de Christophe Mostefaoui";
+          img.className = "fullscreen-content";
+
+          const closeBtn = document.createElement("span");
+          closeBtn.className = "close-fullscreen";
+          closeBtn.innerHTML = "&times;";
+          closeBtn.setAttribute("aria-label", "Fermer");
+
+          fullscreenContainer.appendChild(img);
+          fullscreenContainer.appendChild(closeBtn);
+          document.body.appendChild(fullscreenContainer);
+
+          closeBtn.addEventListener("click", function () {
+            fullscreenContainer.classList.remove("active");
+            setTimeout(() => {
+              fullscreenContainer.remove();
+            }, 300);
+          });
+
+          fullscreenContainer.addEventListener("click", function (e) {
+            if (e.target === fullscreenContainer) {
+              fullscreenContainer.classList.remove("active");
+              setTimeout(() => {
+                fullscreenContainer.remove();
+              }, 300);
+            }
+          });
+        }
+
+        setTimeout(() => {
+          fullscreenContainer.classList.add("active");
+        }, 10);
+      };
+    }
+  });
+</script>

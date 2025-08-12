@@ -1,0 +1,106 @@
+---
+const timelineItems = [
+  {
+    id: 'cda-ia',
+    icon: '🤖',
+    title: 'Concepteur développeur d\'applications (spécialisation IA)',
+    period: '2024-2026',
+    location: 'Fabrique Numérique Paloise',
+    description: 'Gestion de projet, développement d\'applications, cybersecurité, intelligence artificielle.',
+    side: 'right'
+  },
+  {
+    id: 'dwwm',
+    icon: '📚',
+    title: 'Formation DWWM',
+    period: '2023',
+    location: 'Titre Professionnel Développeur Web et Web Mobile',
+    description: 'Formation intensive de 6 mois en développement full-stack (école en ligne Studi). Front-end, back-end, bases de données, gestion de projet, SEO.',
+    side: 'left'
+  },
+  {
+    id: 'vendeur',
+    icon: '💼',
+    title: 'Vendeur multimédia',
+    period: '2012-2024',
+    location: 'E.Leclerc Mourenx',
+    description: 'Accueil, vente, conseil clientèle, gestion des stocks, commandes, mise en valeur des rayons, accueil et négociation fournisseurs, gestion service après vente, livraisons à domicile.',
+    side: 'right'
+  },
+  {
+    id: 'licence',
+    icon: '📚',
+    title: 'Licence Commerce et logistique de distribution',
+    period: '2012',
+    location: 'IUT de Bayonne',
+    description: 'Cette licence avait pour particularité d\'être bilingue espagnol et comprenait un stage de 4 mois dans un pays hispanophone. J\'ai fait mon stage en tant que commercial dans une entreprise d\'aliments pour animaux (Agroindustrias Baires) à Buenos Aires en Argentine.',
+    side: 'left'
+  },
+  {
+    id: 'bts',
+    icon: '📚',
+    title: 'BTS Management des unités commerciales',
+    period: '2011',
+    location: 'Lycée Gaston Fébus (Orthez)',
+    description: 'Le BTS comprenait un stage de 4 mois que j\'ai fait chez Conforama (Lescar) en tant que vendeur multimédia.',
+    side: 'right'
+  },
+  {
+    id: 'bac',
+    icon: '📚',
+    title: 'Bac Économique et Social spécialité mathématiques',
+    period: '2007',
+    location: 'Lycée Albert Camus - Mourenx',
+    description: '',
+    side: 'left'
+  }
+];
+---
+
+<section id="about">
+  <h2 class="section-title">Mon Parcours</h2>
+  
+  <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
+    <p class="intro-text">
+      Après avoir étudié et travaillé dans le monde du commerce, j'ai
+      décidé de me réorienter dans le domaine des nouvelles technologies.
+    </p>
+    <div class="bubble-tail"></div>
+  </div>
+  
+  <div class="timeline">
+    {timelineItems.map((item) => (
+      <div class={`timeline-item`} data-aos={item.side === 'right' ? 'fade-right' : 'fade-left'}>
+        <div class="timeline-content">
+          <h3>
+            <span class="timeline-icon">{item.icon}</span>
+            {item.title}
+          </h3>
+          <p class="timeline-period">{item.period} - {item.location}</p>
+          {item.description && (
+            <p class="timeline-description">{item.description}</p>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .timeline-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2em;
+  }
+  
+  .timeline-period {
+    font-weight: 600;
+    color: #00ffff;
+    margin-bottom: 0.5rem;
+  }
+  
+  .timeline-description {
+    color: #e6e6ff;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+  }
+</style>

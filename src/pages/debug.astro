@@ -1,0 +1,50 @@
+---
+import LayoutFixed from '../layouts/LayoutFixed.astro';
+import HeroSimple from '../components/HeroSimple.astro';
+---
+
+<LayoutFixed title="Debug - Portfolio Christophe">
+  <nav class="nav-container">
+    <div class="nav-title">Portfolio Debug</div>
+  </nav>
+  
+  <main id="main-content">
+    <HeroSimple />
+    
+    <section id="test">
+      <h2 class="section-title">Section Test</h2>
+      <div class="speech-bubble">
+        <p class="intro-text">
+          Ceci est une section de test pour vérifier que les styles CSS 
+          s'appliquent correctement.
+        </p>
+      </div>
+    </section>
+  </main>
+</LayoutFixed>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("Page debug chargée");
+    
+    // Test CSS
+    const body = document.body;
+    const computedStyle = getComputedStyle(body);
+    console.log("Background body:", computedStyle.background);
+    
+    // Test étoiles
+    const starsContainer = document.getElementById('stars');
+    if (starsContainer) {
+      console.log("Container étoiles trouvé");
+      for (let i = 0; i < 10; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        starsContainer.appendChild(star);
+      }
+    } else {
+      console.error("Container étoiles non trouvé");
+    }
+  });
+</script>
