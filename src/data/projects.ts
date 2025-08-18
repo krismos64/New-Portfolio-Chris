@@ -42,6 +42,18 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "cabinet-infirmier",
+    title: "Cabinet infirmier Graslin Nantes",
+    image: "/images/projects/graslin.jpg",
+    tech: ["CSS Modules", "React", "Animations Lottie", "JS", "GitHub"],
+    description: `Site one-page professionnel développé en React avec CSS Modules, respectant les règles de l'ordre infirmier (contenu informatif uniquement, sans promotion).`,
+    links: {
+      website: "https://snazzy-biscotti-d93519.netlify.app/",
+      github: "https://github.com/krismos64/cabinet-infirmier",
+    },
+    featured: true,
+  },
+  {
     id: "smartplanning",
     title: "Smart Planning",
     image: "/images/projects/smart.jpg",
