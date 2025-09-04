@@ -17,6 +17,18 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "Coachtfe.fr",
+    title: "Coachtfe.fr",
+    image: "/images/projects/coachtfe.png",
+    tech: ["CSS", "Javascript", "Gestion de projet", "GitHub", "OVH"],
+    description: `Refonte site vitrine moderne et responsive pour coachtfe.fr, amélioration SEO, avec une gestion de projet et un déploiement site.`,
+    links: {
+      website: "https://coachtfe.fr/",
+      github: "https://github.com/krismos64/coachtfe-website",
+    },
+    featured: true,
+  },
+  {
     id: "Livrestaka",
     title: "Livres Staka",
     image: "/images/projects/livrestaka.jpg",
