@@ -17,11 +17,23 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: "Methodea.fr",
+    title: "Methodea.fr",
+    image: "/images/projects/methodea.png",
+    tech: ["CSS", "Javascript", "Gestion de projet", "GitHub", "OVH"],
+    description: `Refonte site vitrine moderne et responsive pour methodea.fr, amélioration SEO, intégration formulaire de contact relié à l'adresse mail du client, avec une gestion de projet et un déploiement du site.`,
+    links: {
+      website: "https://methodea.netlify.app/",
+      github: "https://github.com/krismos64/methodia",
+    },
+    featured: true,
+  },
+  {
     id: "Coachtfe.fr",
     title: "Coachtfe.fr",
     image: "/images/projects/coachtfe.png",
     tech: ["CSS", "Javascript", "Gestion de projet", "GitHub", "OVH"],
-    description: `Refonte site vitrine moderne et responsive pour coachtfe.fr, amélioration SEO, avec une gestion de projet et un déploiement site.`,
+    description: `Refonte site vitrine moderne et responsive pour coachtfe.fr, amélioration SEO, intégration formulaire de contact relié à l'adresse mail du client, avec une gestion de projet et un déploiement site.`,
     links: {
       website: "https://coachtfe.fr/",
       github: "https://github.com/krismos64/coachtfe-website",
@@ -58,7 +70,7 @@ export const projects: Project[] = [
     title: "Cabinet infirmier Graslin Nantes",
     image: "/images/projects/graslin.jpg",
     tech: ["CSS Modules", "React", "Animations Lottie", "JS", "GitHub"],
-    description: `Site one-page professionnel développé en React avec CSS Modules, respectant les règles de l'ordre infirmier (contenu informatif uniquement, sans promotion).`,
+    description: `Site one-page professionnel développé en React avec CSS Modules, respectant les règles de l'ordre infirmier (contenu informatif uniquement, sans promotion). Lien vers le doctolib pour les prises de rendez-vous.`,
     links: {
       website: "https://snazzy-biscotti-d93519.netlify.app/",
       github: "https://github.com/krismos64/cabinet-infirmier",
