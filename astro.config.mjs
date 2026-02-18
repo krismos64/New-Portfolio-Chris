@@ -12,27 +12,14 @@ export default defineConfig({
   },
   compressHTML: true,
   vite: {
-    // Optimisations pour votre portfolio
     build: {
       rollupOptions: {
         output: {
-          // Grouper les chunks par type pour un chargement optimisé
           manualChunks: {
             vendor: ['react', 'react-dom'],
-            audio: ['src/components/AudioPlayer.tsx'],
-            video: ['src/components/VideoModal.tsx'],
           },
         },
       },
     },
-    // Optimisations CSS
-    css: {
-      postcss: {
-        plugins: [
-          // Optimisations CSS automatiques
-        ],
-      },
-    },
   },
-  // Configuration pour le SEO et performance
 });

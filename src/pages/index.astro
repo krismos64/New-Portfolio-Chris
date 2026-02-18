@@ -5,198 +5,133 @@ import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Skills from '../components/Skills.astro';
 import Projects from '../components/Projects.astro';
-import Articles from '../components/Articles.astro';
 ---
 
-<Layout title="Portfolio Christophe Mostefaoui">
+<Layout title="Christophe Mostefaoui — Développeur Fullstack Next.js / React">
   <Navigation />
   <main id="main-content">
-    
-    <!-- Composant Hero réintégré -->
     <Hero />
-
-    <!-- Composant About réintégré -->
     <About />
-
-    <!-- Composant Skills réintégré -->
     <Skills />
-    
-    <!-- Composant Projects réintégré -->
     <Projects />
-    
-    <!-- Composant Articles réintégré -->
-    <Articles />
 
-    <section id="contact">
+    <section id="contact" class="contact">
       <h2 class="section-title">Contact</h2>
-      <div class="contact-container">
-        <div class="profile-bubble" data-aos="zoom-in">
-          <img src="/images/portfolio/chris6.jpg" alt="Christophe Mostefaoui" class="profile-picture" />
-          <div class="profile-glow"></div>
-        </div>
-
-        <div class="speech-bubble" data-aos="fade-up" data-aos-delay="200">
-          <p>N'hésitez pas à me contacter pour plus de renseignements. Je serais ravis de m'entretenir avec vous.</p>
-        </div>
-
-        <div class="contact-grid">
-          <a href="tel:+33679088845" class="contact-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="contact-icon"><i class="fas fa-phone"></i></div>
-            <div class="contact-content">
-              <h3>Téléphone</h3>
-              <p>+33 6 79 08 88 45</p>
-            </div>
-          </a>
-
-          <a href="mailto:christophe.mostefaoui.dev@gmail.com" class="contact-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-            <div class="contact-content">
-              <h3>Email</h3>
-              <p>christophe.mostefaoui.dev@gmail.com</p>
-            </div>
-          </a>
-
-          <div class="contact-card" data-aos="fade-up" data-aos-delay="400">
-            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="contact-content">
-              <h3>Localisation</h3>
-              <p>Artix (64170), France</p>
-            </div>
-          </div>
-        </div>
+      <p class="contact-intro">
+        Int&eacute;ress&eacute; par mon profil ? Contactez-moi.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:christophe.mostefaoui.dev@gmail.com" class="contact-card">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span class="contact-label">Email</span>
+          <span class="contact-value">christophe.mostefaoui.dev@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" rel="noopener" class="contact-card">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">christophemostefaoui</span>
+        </a>
+        <a href="https://github.com/krismos64" target="_blank" rel="noopener" class="contact-card">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">krismos64</span>
+        </a>
       </div>
     </section>
-
   </main>
-
-  <footer>
-    <p>Copyright © 2025 Portfolio. Christophe Mostefaoui</p>
-  </footer>
-
-  <!-- Modals -->
-  <div class="video-modal" id="videoModal">
-    <div class="video-modal-content">
-      <div class="corner-effect top-left"></div>
-      <div class="corner-effect top-right"></div>
-      <div class="corner-effect bottom-left"></div>
-      <div class="corner-effect bottom-right"></div>
-
-      <button class="video-modal-close" id="closeVideoModal" type="button" aria-label="Fermer la vidéo">
-        <i class="fas fa-times"></i>
-      </button>
-
-      <div class="video-wrapper" id="videoWrapper">
-        <div class="video-placeholder">
-          <img src="/images/portfolio/miniature.jpg" alt="Prévisualisation vidéo" class="placeholder-image" />
-          <div class="video-loading">
-            <div class="loader"></div>
-            <span>Chargement...</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </Layout>
 
+<style>
+  .contact {
+    padding: 5rem 1.5rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .contact-intro {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.125rem 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color var(--transition), background var(--transition);
+    text-decoration: none;
+    color: inherit;
+  }
+  .contact-card:hover {
+    border-color: var(--border-light);
+    background: var(--bg-card-hover);
+    color: inherit;
+  }
+
+  .contact-card svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .contact-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 70px;
+  }
+
+  .contact-value {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .contact-card {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .contact-value {
+      width: 100%;
+      padding-left: 2.25rem;
+      font-size: 0.8125rem;
+    }
+  }
+</style>
+
 <script>
-  // Scripts d'initialisation
-  document.addEventListener('DOMContentLoaded', () => {
-    // Création des étoiles
-    const container = document.getElementById("stars");
-    if (container) {
-      container.innerHTML = "";
-      
-      function createStarBatch(count, className) {
-        const fragment = document.createDocumentFragment();
-        for (let i = 0; i < count; i++) {
-          const star = document.createElement("div");
-          star.className = className;
-          star.style.left = Math.random() * 100 + "%";
-          star.style.top = Math.random() * 100 + "%";
-          star.style.animationDuration = Math.random() * 30 + 30 + "s";
-          star.style.animationDelay = Math.random() * 15 + "s";
-          fragment.appendChild(star);
-        }
-        return fragment;
-      }
+  // Scroll reveal : cacher les éléments hors viewport, animer à l'entrée
+  const fadeEls = document.querySelectorAll(".fade-up");
 
-      container.appendChild(createStarBatch(50, "star"));
-      container.appendChild(createStarBatch(50, "star bright"));
-      container.appendChild(createStarBatch(50, "star purple"));
-    }
-
-    // Animation simple au scroll (remplace AOS)
-    const observeElements = () => {
-      const elements = document.querySelectorAll('[data-aos]');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, { threshold: 0.1 });
-
-      elements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.8s ease';
-        observer.observe(el);
-      });
-    };
-    
-    observeElements();
-
-    // Vidéo modal
-    const videoFrame = document.querySelector(".video-frame");
-    const videoModal = document.getElementById("videoModal");
-    const closeBtn = document.getElementById("closeVideoModal");
-
-    if (videoFrame && videoModal) {
-      videoFrame.addEventListener("click", function () {
-        const videoId = "oxEya9SYYpQ";
-        const videoWrapper = document.getElementById("videoWrapper");
-        
-        videoModal.style.display = "flex";
-        
-        setTimeout(function () {
-          const videoUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-          const iframe = document.createElement("iframe");
-          iframe.width = "100%";
-          iframe.height = "100%";
-          iframe.style.position = "absolute";
-          iframe.style.top = "0";
-          iframe.style.left = "0";
-          iframe.frameBorder = "0";
-          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-          iframe.allowFullscreen = true;
-          iframe.loading = "lazy";
-          iframe.title = "Vidéo de présentation de Christophe Mostefaoui";
-          iframe.src = videoUrl;
-
-          iframe.onload = function () {
-            iframe.classList.add("loaded");
-            const placeholder = videoWrapper.querySelector(".video-placeholder");
-            if (placeholder) placeholder.style.display = "none";
-          };
-
-          videoWrapper.appendChild(iframe);
-        }, 100);
-      });
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        videoModal.style.display = "none";
-        const videoWrapper = document.getElementById("videoWrapper");
-        const iframe = videoWrapper.querySelector("iframe");
-        if (iframe) {
-          iframe.src = "";
-          iframe.remove();
-        }
-        const placeholder = videoWrapper.querySelector(".video-placeholder");
-        if (placeholder) placeholder.style.display = "flex";
-      });
+  fadeEls.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top >= window.innerHeight) {
+      el.classList.add("sr-hidden");
     }
   });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("sr-hidden");
+          entry.target.classList.add("sr-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
+  );
+
+  fadeEls.forEach((el) => observer.observe(el));
 </script>

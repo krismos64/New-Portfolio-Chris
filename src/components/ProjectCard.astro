@@ -1,5 +1,4 @@
 ---
-import AudioPlayer from './AudioPlayer.tsx';
 import type { Project } from '../data/projects';
 
 export interface Props {
@@ -7,103 +6,219 @@ export interface Props {
 }
 
 const { project } = Astro.props;
+
+const badgeColors: Record<string, string> = {
+  blue: "badge-blue",
+  green: "badge-green",
+  purple: "badge-purple",
+  amber: "badge-amber",
+};
 ---
 
-<div class="project-card" data-aos="flip-up">
-  <div class="project-image-container">
+<article class="card fade-up">
+  <div class="card-image">
     <img
       src={project.image}
       alt={`Projet ${project.title}`}
-      class="project-image"
       loading="lazy"
     />
-    <div class="project-overlay"></div>
+    <span class={`badge ${badgeColors[project.badgeColor]}`}>{project.badge}</span>
   </div>
 
-  <div class="project-info">
-    <div class="project-header">
-      <h3 class="project-title">
-        <span class="title-text">{project.title}</span>
-        <i class="fas fa-rocket title-icon"></i>
-      </h3>
-      <div class="tech-tags">
-        {project.tech.map(tech => (
-          <span>{tech}</span>
+  <div class="card-body">
+    <h3 class="card-title">{project.title}</h3>
+    <p class="card-tagline">{project.tagline}</p>
+
+    <div class="card-tech">
+      {project.tech.map((t) => (
+        <span class="tech-pill">{t}</span>
+      ))}
+    </div>
+
+    <p class="card-desc">{project.description}</p>
+
+    {project.highlights.length > 0 && (
+      <ul class="card-highlights">
+        {project.highlights.map((h) => (
+          <li>{h}</li>
         ))}
-      </div>
-    </div>
+      </ul>
+    )}
 
-    <p class="project-description">
-      {project.description}
-    </p>
-
-    <div class="project-dropdown">
-      <button class="dropdown-toggle">
-        Liens du projet
-        <i class="fas fa-chevron-down"></i>
-      </button>
-
-      <div class="dropdown-content">
-        {project.links.website && (
-          <a href={project.links.website} target="_blank" class="dropdown-link">
-            <i class="fas fa-globe"></i> Lien du site web
-          </a>
-        )}
-        
-        {project.links.github && (
-          <a href={project.links.github} target="_blank" class="dropdown-link">
-            <i class="fab fa-github"></i> Code source
-          </a>
-        )}
-        
-        {project.links.video && (
-          <a href={project.links.video} target="_blank" class="dropdown-link">
-            <i class="fab fa-youtube"></i> Vidéo de présentation
-          </a>
-        )}
-        
-        {project.links.documentation && (
-          <a href={project.links.documentation} class="dropdown-link">
-            <i class="fas fa-file-pdf"></i> Documentation
-          </a>
-        )}
-        
-        {project.links.youtube && (
-          <a href={project.links.youtube} target="_blank" class="dropdown-link">
-            <i class="fab fa-youtube"></i> Chaîne YouTube
-          </a>
-        )}
-        
-        {project.audio && (
-          <AudioPlayer 
-            src={project.audio} 
-            title="Podcast du projet"
-            client:load
-          />
-        )}
-      </div>
+    <div class="card-links">
+      {project.links.website && (
+        <a href={project.links.website} target="_blank" rel="noopener" class="card-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Site web
+        </a>
+      )}
+      {project.links.github && (
+        <a href={project.links.github} target="_blank" rel="noopener" class="card-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      )}
+      {project.links.video && (
+        <a href={project.links.video} target="_blank" rel="noopener" class="card-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Vid&eacute;o
+        </a>
+      )}
     </div>
   </div>
-</div>
+</article>
 
-<script>
-  // Script pour les dropdowns (réutilisé de votre code original)
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.dropdown-toggle').forEach((button) => {
-      button.addEventListener('click', function() {
-        const dropdown = this.nextElementSibling;
-        if (!dropdown) return;
+<style>
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  }
+  .card:hover {
+    border-color: var(--border-light);
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
 
-        this.classList.toggle('active');
-        dropdown.classList.toggle('active');
+  .card-image {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--bg-alt);
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .card:hover .card-image img {
+    transform: scale(1.03);
+  }
 
-        const icon = this.querySelector('i');
-        if (icon) {
-          icon.style.transform = dropdown.classList.contains('active')
-            ? 'rotate(180deg)'
-            : 'rotate(0deg)';
-        }
-      });
-    });
-  });
-</script>
+  .badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .badge-blue {
+    color: var(--accent);
+    background: var(--accent-subtle);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  .badge-green {
+    color: var(--green);
+    background: var(--green-subtle);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+  .badge-purple {
+    color: var(--purple);
+    background: var(--purple-subtle);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+  }
+  .badge-amber {
+    color: var(--amber);
+    background: var(--amber-subtle);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+  }
+
+  .card-body {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .card-tagline {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-bottom: 1rem;
+  }
+
+  .tech-pill {
+    padding: 0.2rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 100px;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+  }
+
+  .card-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-highlights {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  .card-highlights li {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    padding-left: 1.125rem;
+    position: relative;
+  }
+  .card-highlights li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.4rem 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition);
+  }
+  .card-link:hover {
+    color: var(--text);
+    border-color: var(--border-light);
+    background: rgba(255, 255, 255, 0.03);
+  }
+</style>
