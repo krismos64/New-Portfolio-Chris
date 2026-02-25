@@ -22,7 +22,7 @@ const navLinks = [
       ))}
     </div>
 
-    <button class="nav-toggle" id="navToggle" type="button" aria-label="Ouvrir le menu">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
       <span class="toggle-bar"></span>
       <span class="toggle-bar"></span>
       <span class="toggle-bar"></span>
@@ -34,18 +34,34 @@ const navLinks = [
   const toggle = document.getElementById("navToggle");
   const links = document.getElementById("navLinks");
 
+  function closeMenu() {
+    if (!toggle || !links) return;
+    links.classList.remove("open");
+    toggle.classList.remove("active");
+    toggle.setAttribute("aria-label", "Ouvrir le menu");
+    toggle.setAttribute("aria-expanded", "false");
+  }
+
   if (toggle && links) {
     toggle.addEventListener("click", () => {
       const isOpen = links.classList.toggle("open");
       toggle.classList.toggle("active", isOpen);
       toggle.setAttribute("aria-label", isOpen ? "Fermer le menu" : "Ouvrir le menu");
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    // Fermer le menu au clic dehors
+    document.addEventListener("click", (e) => {
+      if (!links.classList.contains("open")) return;
+      if (!links.contains(e.target as Node) && !toggle.contains(e.target as Node)) {
+        closeMenu();
+      }
     });
 
     links.querySelectorAll(".nav-link").forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
-        links.classList.remove("open");
-        toggle.classList.remove("active");
+        closeMenu();
 
         const target = document.querySelector(link.getAttribute("href")!);
         if (target) {
@@ -170,6 +186,7 @@ const navLinks = [
       top: var(--nav-height);
       left: 0;
       right: 0;
+      z-index: 99;
       background: rgba(9, 9, 11, 0.95);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);

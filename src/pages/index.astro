@@ -136,9 +136,15 @@ import Process from '../components/Process.astro';
   .contact-value {
     font-size: 0.875rem;
     color: var(--text-secondary);
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   @media (max-width: 640px) {
+    .pitch {
+      margin-top: 0;
+    }
+
     .contact-card {
       flex-wrap: wrap;
       gap: 0.5rem;
