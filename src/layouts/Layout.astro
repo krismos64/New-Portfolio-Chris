@@ -84,6 +84,107 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
       <p>&copy; 2026 Christophe Mostefaoui</p>
     </footer>
 
+    <!-- Fond animé : fragments de syntaxe dev flottants -->
+    <canvas id="code-bg"></canvas>
+    <script>
+      (function () {
+        const canvas = document.getElementById("code-bg") as HTMLCanvasElement;
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        const snippets = [
+          "{ }", "=>", "< />", "//", "&&", "||", "===",
+          "0", "1", "( )", "[ ]", "::", "/*", "*/",
+          "fn()", "let", "if", "else", "true", "null",
+          "async", "await", "/>", "</", "import", "export",
+          ";", "return", "map()", "=>", "{ }", "::", "&&",
+          "...", "??", "!=", "++", "[]", "()", "git",
+          "npm", "tsx", ".ts", "/**/"
+        ];
+
+        interface Particle {
+          x: number;
+          y: number;
+          text: string;
+          speed: number;
+          opacity: number;
+          size: number;
+          drift: number;
+          phase: number;
+        }
+
+        let particles: Particle[] = [];
+        let w = 0;
+        let h = 0;
+        let animId = 0;
+
+        function resize() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+        }
+
+        function createParticles() {
+          const count = Math.floor((w * h) / 28000);
+          particles = [];
+          for (let i = 0; i < count; i++) {
+            particles.push({
+              x: Math.random() * w,
+              y: Math.random() * h,
+              text: snippets[Math.floor(Math.random() * snippets.length)],
+              speed: 0.15 + Math.random() * 0.35,
+              opacity: 0.025 + Math.random() * 0.04,
+              size: 10 + Math.random() * 6,
+              drift: (Math.random() - 0.5) * 0.3,
+              phase: Math.random() * Math.PI * 2,
+            });
+          }
+        }
+
+        function draw() {
+          ctx!.clearRect(0, 0, w, h);
+          const time = Date.now() * 0.001;
+
+          for (const p of particles) {
+            p.y -= p.speed;
+            p.x += Math.sin(time + p.phase) * p.drift;
+
+            if (p.y < -30) {
+              p.y = h + 20;
+              p.x = Math.random() * w;
+              p.text = snippets[Math.floor(Math.random() * snippets.length)];
+            }
+            if (p.x < -30) p.x = w + 20;
+            if (p.x > w + 30) p.x = -20;
+
+            ctx!.font = `${p.size}px 'SF Mono', 'Fira Code', monospace`;
+            ctx!.fillStyle = `rgba(59, 130, 246, ${p.opacity})`;
+            ctx!.fillText(p.text, p.x, p.y);
+          }
+
+          animId = requestAnimationFrame(draw);
+        }
+
+        resize();
+        createParticles();
+        draw();
+
+        window.addEventListener("resize", () => {
+          resize();
+          createParticles();
+        });
+
+        // Pause quand l'onglet n'est pas visible
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) {
+            cancelAnimationFrame(animId);
+          } else {
+            draw();
+          }
+        });
+      })();
+    </script>
+
     <!-- Chatbot -->
     <script>
       window.embeddedChatbotConfig = {
@@ -159,17 +260,12 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
   }
 
   /* === Animated Dev Background === */
-  body::before,
-  body::after {
+  body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
-  }
-
-  /* Gradient animé bleu/violet */
-  body::before {
     background:
       radial-gradient(ellipse 80% 50% at 20% 20%, rgba(59, 130, 246, 0.08), transparent),
       radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168, 85, 247, 0.06), transparent),
@@ -177,21 +273,16 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     animation: gradientShift 12s ease-in-out infinite alternate;
   }
 
-  /* Grille perspective */
-  body::after {
-    background-image:
-      linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 15%, rgba(0,0,0,0.3) 50%, transparent 85%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 15%, rgba(0,0,0,0.3) 50%, transparent 85%);
-    transform: perspective(500px) rotateX(25deg) scale(2.2);
-    transform-origin: center top;
-    animation: gridPulse 8s ease-in-out infinite alternate;
+  /* Canvas flottant de syntaxe dev */
+  #code-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
   }
 
   /* Contenu au-dessus du fond */
-  body > *:not(.skip-link) {
+  body > *:not(.skip-link):not(#code-bg) {
     position: relative;
     z-index: 1;
   }
@@ -208,15 +299,6 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
         radial-gradient(ellipse 80% 50% at 80% 80%, rgba(168, 85, 247, 0.08), transparent),
         radial-gradient(ellipse 60% 40% at 20% 20%, rgba(59, 130, 246, 0.06), transparent),
         radial-gradient(ellipse 50% 60% at 60% 40%, rgba(168, 85, 247, 0.04), transparent);
-    }
-  }
-
-  @keyframes gridPulse {
-    0% {
-      opacity: 0.4;
-    }
-    100% {
-      opacity: 0.8;
     }
   }
 
