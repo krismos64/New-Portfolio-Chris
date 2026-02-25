@@ -19,18 +19,18 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "smartplanning",
-    title: "SmartPlanning AI V2",
-    tagline: "SaaS de gestion d'équipes avec plannings IA",
+    title: "SmartPlanning",
+    tagline: "SaaS de gestion d'équipes et de plannings",
     badge: "Projet CDA · En production",
     badgeColor: "blue",
     image: "/images/projects/smart.jpg",
-    tech: ["Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma", "Tailwind CSS", "Docker"],
+    tech: ["Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma", "Stripe", "Docker"],
     description:
-      "Solution SaaS de gestion d'équipes : plannings automatiques avec IA, gestion des congés, tâches personnelles. Fait gagner ~3h/semaine aux managers.",
+      "Solution SaaS réelle et fonctionnelle de gestion d'équipes : plannings, gestion des congés, tâches personnelles. Paiements Stripe opérationnels, conforme RGPD. Projet final CDA.",
     highlights: [
       "Architecture multi-tenant SaaS",
-      "Génération de plannings assistée par IA",
-      "Paiements Stripe intégrés",
+      "Paiements Stripe fonctionnels",
+      "Conforme RGPD",
       "CI/CD GitHub Actions + déploiement VPS OVH",
     ],
     links: {
