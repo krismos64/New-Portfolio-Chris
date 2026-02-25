@@ -85,18 +85,18 @@ export const projects: Project[] = [
   {
     id: "coachtfe",
     title: "CoachTFE",
-    tagline: "Site vitrine professionnel pour coach sportif",
+    tagline: "Guide en ligne pour la réussite du TFE infirmier",
     badge: "Freelance · Client réel",
     badgeColor: "amber",
     image: "/images/projects/coachtfe.png",
-    tech: ["HTML/CSS", "JavaScript", "SEO", "OVH"],
+    tech: ["CSS", "JavaScript", "SEO", "GitHub", "OVH"],
     description:
-      "Refonte complète d'un site vitrine pour un coach sportif : design responsive, SEO optimisé, formulaire de contact fonctionnel.",
+      "Refonte d'un site vitrine moderne et responsive pour CoachTFE — accompagnement à la réussite du TFE infirmier. SEO amélioré, formulaire de contact relié à l'adresse mail du client, gestion de projet et déploiement.",
     highlights: [
       "Mission freelance client réel",
       "SEO optimisé (meta, schema, sitemap)",
-      "Formulaire de contact intégré",
-      "Déployé sur OVH",
+      "Formulaire de contact relié au mail client",
+      "Gestion de projet + déploiement OVH",
     ],
     links: {
       website: "https://coachtfe.fr/",
