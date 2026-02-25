@@ -104,6 +104,26 @@ export const projects: Project[] = [
     },
   },
   {
+    id: "graslin",
+    title: "Cabinet Infirmier Graslin",
+    tagline: "Site vitrine pour cabinet infirmier libéral à Nantes",
+    badge: "Freelance · Client réel",
+    badgeColor: "amber",
+    image: "/images/projects/graslin.jpg",
+    tech: ["React", "CSS Modules", "SEO", "Responsive", "Doctolib"],
+    description:
+      "Site one-page professionnel pour une infirmière libérale, conforme aux règles de l'ordre infirmier (contenu informatif, sans promotion). Lien Doctolib intégré pour la prise de rendez-vous.",
+    highlights: [
+      "Mission freelance client réel",
+      "Conforme réglementation ordre infirmier",
+      "Intégration Doctolib",
+      "SEO local optimisé (Nantes)",
+    ],
+    links: {
+      website: "https://cabinet-infirmier-graslin.fr/",
+    },
+  },
+  {
     id: "kocinaspeed",
     title: "Kocinaspeed",
     tagline: "Site de recettes avec chatbot IA intégré",
@@ -123,26 +143,6 @@ export const projects: Project[] = [
       website: "https://kocinaspeed.fr/",
       github: "https://github.com/krismos64/kocinaspeed",
       video: "https://www.youtube.com/watch?v=-BynMQHg3uQ",
-    },
-  },
-  {
-    id: "graslin",
-    title: "Cabinet Infirmier Graslin",
-    tagline: "Site vitrine pour cabinet infirmier libéral à Nantes",
-    badge: "Freelance · Client réel",
-    badgeColor: "amber",
-    image: "/images/projects/graslin.jpg",
-    tech: ["React", "CSS Modules", "SEO", "Responsive", "Doctolib"],
-    description:
-      "Site one-page professionnel pour une infirmière libérale, conforme aux règles de l'ordre infirmier (contenu informatif, sans promotion). Lien Doctolib intégré pour la prise de rendez-vous.",
-    highlights: [
-      "Mission freelance client réel",
-      "Conforme réglementation ordre infirmier",
-      "Intégration Doctolib",
-      "SEO local optimisé (Nantes)",
-    ],
-    links: {
-      website: "https://cabinet-infirmier-graslin.fr/",
     },
   },
 ];

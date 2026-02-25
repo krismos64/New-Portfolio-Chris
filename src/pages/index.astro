@@ -15,6 +15,11 @@ import Process from '../components/Process.astro';
   <Navigation />
   <main id="main-content">
     <Hero />
+
+    <section class="pitch fade-up">
+      <p>Apr&egrave;s 12 ans dans le commerce tech, j&rsquo;ai choisi de coder ce que je vendais. Aujourd&rsquo;hui en formation Concepteur D&eacute;veloppeur d&rsquo;Applications (sp&eacute;. IA), je con&ccedil;ois des applications SaaS de A &agrave; Z — de l&rsquo;analyse du besoin au d&eacute;ploiement. Ce qui me diff&eacute;rencie&nbsp;? La rigueur du terrain et l&rsquo;obsession du d&eacute;tail.</p>
+    </section>
+
     <Projects />
     <Skills />
     <Process />
@@ -52,6 +57,19 @@ import Process from '../components/Process.astro';
 </Layout>
 
 <style>
+  .pitch {
+    max-width: 640px;
+    margin: -2rem auto 0;
+    padding: 0 1.5rem 3rem;
+    text-align: center;
+  }
+
+  .pitch p {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
   .contact {
     padding: 5rem 1.5rem;
     max-width: 720px;
