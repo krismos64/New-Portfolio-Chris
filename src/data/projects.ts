@@ -44,16 +44,16 @@ export const projects: Project[] = [
     id: "livrestaka",
     title: "Staka Livres",
     tagline: "Plateforme de correction et d'édition de manuscrits",
-    badge: "Full-Stack · Production-ready",
+    badge: "Freelance · Client réel",
     badgeColor: "green",
     image: "/images/projects/livrestaka.jpg",
     tech: ["React", "TypeScript", "Node.js", "Express", "MySQL", "Stripe", "Tailwind CSS"],
     description:
-      "Plateforme enterprise-grade pour auteurs : authentification sécurisée, paiements Stripe, messagerie temps réel, administration avancée.",
+      "Plateforme web enterprise-grade dédiée aux services de correction et d'édition de manuscrits. Application monorepo avec authentification sécurisée, administration avancée, paiements Stripe intégrés et messagerie temps réel.",
     highlights: [
-      "Monorepo fullstack",
-      "Système de messagerie temps réel",
-      "Intégration paiements Stripe",
+      "Mission freelance client réel",
+      "Monorepo fullstack sophistiqué",
+      "Paiements Stripe + messagerie temps réel",
       "Tableau de bord administrateur complet",
     ],
     links: {
