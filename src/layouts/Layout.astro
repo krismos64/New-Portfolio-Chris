@@ -27,6 +27,14 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="fr" href={canonicalUrl} />
+    <meta name="keywords" content="portfolio, développeur web, concepteur développeur d'applications, développeur fullstack, Pau, Artix, Orthez, Béarn, Pyrénées-Atlantiques, 64, tech, IA, intelligence artificielle, portfolio numérique, Next.js, React, TypeScript, SaaS, freelance" />
+
+    <!-- Geo Meta Tags (Local SEO) -->
+    <meta name="geo.region" content="FR-64" />
+    <meta name="geo.placename" content="Artix, Pau, Béarn" />
+    <meta name="geo.position" content="43.3966;-0.6164" />
+    <meta name="ICBM" content="43.3966, -0.6164" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -51,26 +59,72 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- JSON-LD Structured Data -->
+    <!-- JSON-LD Structured Data : WebSite -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Christophe Mostefaoui",
-      "jobTitle": "Développeur Fullstack Next.js / React",
-      "description": description,
-      "image": fullImageUrl,
+      "@type": "WebSite",
+      "name": "Portfolio Christophe Mostefaoui — Développeur Web Pau",
       "url": canonicalUrl,
-      "sameAs": [
-        "https://www.linkedin.com/in/christophemostefaoui/",
-        "https://github.com/krismos64"
-      ],
-      "knowsAbout": [
-        "Next.js", "React", "TypeScript", "Node.js", "PostgreSQL",
-        "Prisma", "Docker", "Tailwind CSS", "Astro"
-      ],
-      "alumniOf": {
-        "@type": "EducationalOrganization",
-        "name": "La Fabrique Numérique Paloise"
+      "description": description,
+      "inLanguage": "fr-FR"
+    })} />
+
+    <!-- JSON-LD Structured Data : ProfilePage + Person -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Christophe Mostefaoui",
+        "jobTitle": "Concepteur Développeur d'Applications Fullstack & IA",
+        "description": description,
+        "image": fullImageUrl,
+        "url": canonicalUrl,
+        "sameAs": [
+          "https://www.linkedin.com/in/christophemostefaoui/",
+          "https://github.com/krismos64",
+          "https://christophe-dev-freelance.fr/"
+        ],
+        "knowsAbout": [
+          "Next.js", "React", "TypeScript", "Node.js", "PostgreSQL",
+          "Prisma", "Docker", "Tailwind CSS", "Astro", "Intelligence Artificielle",
+          "Développement Web", "Applications SaaS", "CI/CD", "Scrum"
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Concepteur Développeur d'Applications",
+          "occupationalCategory": "15-1254",
+          "skills": "Next.js, React, TypeScript, Node.js, PostgreSQL, Docker, IA, Figma, Jira"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Artix",
+          "addressRegion": "Pyrénées-Atlantiques",
+          "postalCode": "64170",
+          "addressCountry": "FR"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Pau"
+          },
+          {
+            "@type": "City",
+            "name": "Artix"
+          },
+          {
+            "@type": "City",
+            "name": "Orthez"
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Béarn, Pyrénées-Atlantiques (64)"
+          }
+        ],
+        "alumniOf": {
+          "@type": "EducationalOrganization",
+          "name": "La Fabrique Numérique Paloise"
+        }
       }
     })} />
   </head>
@@ -81,6 +135,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <slot />
 
     <footer class="site-footer">
+      <p class="footer-seo">Christophe Mostefaoui — Concepteur développeur d'applications et développeur web fullstack basé à Artix, près de Pau (Pyrénées-Atlantiques, 64). Spécialisé en création d'applications SaaS, intelligence artificielle et solutions web sur mesure dans le Béarn. Portfolio numérique présentant mes projets tech et compétences en développement Next.js, React et TypeScript.</p>
       <p>&copy; 2026 Christophe Mostefaoui</p>
     </footer>
 
@@ -390,6 +445,15 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     font-size: 0.875rem;
     border-top: 1px solid var(--border);
     margin-top: 4rem;
+  }
+
+  .footer-seo {
+    max-width: 640px;
+    margin: 0 auto 1rem;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--border-light);
+    opacity: 0.6;
   }
 
   /* === Animations === */

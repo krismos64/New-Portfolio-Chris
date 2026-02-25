@@ -5,4 +5,4 @@ Disallow: /*.pdf$
 Disallow: /video/
 Disallow: /audio/
 
-Sitemap: https://krismos.fr/sitemap.xml
+Sitemap: https://krismos.fr/sitemap-index.xml
