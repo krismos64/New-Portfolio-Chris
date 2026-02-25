@@ -10,7 +10,11 @@ const navLinks = [
 
 <nav class="nav" id="navbar">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">CM</a>
+    <a href="#" class="nav-logo">
+      <video autoplay loop muted playsinline class="nav-logo-video">
+        <source src="/video/animation-chris-dev.mp4" type="video/mp4" />
+      </video>
+    </a>
 
     <div class="nav-links" id="navLinks">
       {navLinks.map((link) => (
@@ -96,14 +100,20 @@ const navLinks = [
   }
 
   .nav-logo {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.04em;
-    transition: color var(--transition);
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: opacity var(--transition);
   }
   .nav-logo:hover {
-    color: var(--accent);
+    opacity: 0.8;
+  }
+
+  .nav-logo-video {
+    height: 40px;
+    width: auto;
+    border-radius: var(--radius-sm);
+    pointer-events: none;
   }
 
   .nav-links {
