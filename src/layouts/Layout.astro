@@ -285,7 +285,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
   }
 
   /* Contenu au-dessus du fond */
-  body > *:not(.skip-link):not(#code-bg) {
+  body > *:not(.skip-link):not(#code-bg):not(nav) {
     position: relative;
     z-index: 2;
   }
