@@ -10,7 +10,7 @@
         <span class="hero-highlight">Next.js / React</span>
       </h1>
       <p class="hero-subtitle">
-        Je conçois et construis des applications SaaS de A à Z &middot; 12 ans de terrain avant le code
+        Je <code>commit</code> sur chaque d&eacute;tail : conception &middot; architecture &middot; code &middot; tests &middot; documentation &middot; d&eacute;ploiement &middot; maintenance — du premier <code>git init</code> au dernier <code>push</code>
       </p>
 
       <div class="hero-actions">
@@ -121,6 +121,17 @@
     line-height: 1.6;
     margin-bottom: 2rem;
     max-width: 520px;
+  }
+
+  .hero-subtitle code {
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    background: var(--accent-subtle);
+    color: var(--accent);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: 1px solid rgba(59, 130, 246, 0.15);
   }
 
   .hero-actions {
