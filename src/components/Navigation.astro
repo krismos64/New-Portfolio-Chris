@@ -59,13 +59,10 @@ const navLinks = [
   }
 
   // Navbar shrink on scroll
-  let lastScroll = 0;
   const navbar = document.getElementById("navbar");
   window.addEventListener("scroll", () => {
     if (!navbar) return;
-    const scrollY = window.scrollY;
-    navbar.classList.toggle("scrolled", scrollY > 20);
-    lastScroll = scrollY;
+    navbar.classList.toggle("scrolled", window.scrollY > 20);
   }, { passive: true });
 </script>
 

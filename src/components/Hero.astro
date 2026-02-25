@@ -40,6 +40,7 @@
           src="/images/portfolio/chris7.jpg"
           alt="Christophe Mostefaoui — Développeur Fullstack"
           loading="eager"
+          fetchpriority="high"
           width="320"
           height="320"
         />
@@ -123,16 +124,7 @@
     max-width: 520px;
   }
 
-  .hero-subtitle code {
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-    background: var(--accent-subtle);
-    color: var(--accent);
-    padding: 0.1em 0.4em;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-weight: 600;
-    border: 1px solid rgba(59, 130, 246, 0.15);
-  }
+  /* code styled globally in Layout.astro */
 
   .hero-actions {
     display: flex;

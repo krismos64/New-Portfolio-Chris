@@ -82,7 +82,6 @@ const steps: Step[] = [
         {steps.map((step, i) => (
           <div
             class="term-block"
-            data-index={i}
             data-command={step.command}
             data-comment={step.comment || ""}
             data-outputs={JSON.stringify(step.outputs)}
@@ -99,7 +98,7 @@ const steps: Step[] = [
             <div class="term-outputs"></div>
           </div>
         ))}
-        <div class="term-block term-final" data-index="final">
+        <div class="term-block term-final">
           <div class="term-line">
             <span class="term-prompt" style="color: var(--green)">$</span>
             <span class="term-command"></span>
@@ -176,7 +175,7 @@ const steps: Step[] = [
   .terminal-title {
     flex: 1;
     text-align: center;
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--text-muted);
     letter-spacing: 0.01em;
@@ -209,7 +208,7 @@ const steps: Step[] = [
 
   /* Comment line (# ...) */
   .term-comment {
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
     color: var(--text-muted);
     opacity: 0.5;
@@ -222,7 +221,7 @@ const steps: Step[] = [
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.9375rem;
     line-height: 1.6;
   }
@@ -254,7 +253,7 @@ const steps: Step[] = [
 
   /* Output lines */
   .term-outputs {
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
     padding-left: 1.25rem;
     margin-top: 0.25rem;
@@ -289,7 +288,7 @@ const steps: Step[] = [
   }
 
   .term-final-output {
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--green);
@@ -315,16 +314,7 @@ const steps: Step[] = [
     color: var(--text-secondary);
   }
 
-  .adapt-text code {
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
-    background: var(--accent-subtle);
-    color: var(--accent);
-    padding: 0.1em 0.4em;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-weight: 600;
-    border: 1px solid rgba(59, 130, 246, 0.15);
-  }
+  /* code styled globally in Layout.astro */
 
   /* === RESPONSIVE === */
   @media (max-width: 640px) {

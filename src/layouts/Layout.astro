@@ -234,6 +234,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     --transition-slow: 0.4s ease;
     --max-width: 1200px;
     --nav-height: 64px;
+    --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
   }
 
   /* === Reset === */
@@ -334,6 +335,17 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
   }
   a:hover {
     color: var(--accent-hover);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    background: var(--accent-subtle);
+    color: var(--accent);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: 1px solid var(--accent-glow);
   }
 
   img {
