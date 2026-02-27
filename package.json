@@ -1,7 +1,7 @@
 {
   "name": "new-portfolio-chris",
   "version": "1.0.0",
-  "description": "Portfolio professionnel présentant mes compétences en développement web, mes projets réalisés et mon parcours professionnel. Réalisé avec une approche moderne, interactive et un design cyberpunk.",
+  "description": "Portfolio professionnel de Christophe Mostefaoui — Développeur Fullstack & IA. Astro, TypeScript, design Apple-inspired dark mode.",
   "main": "index.js",
   "scripts": {
     "dev": "astro dev",
@@ -11,17 +11,14 @@
     "astro": "astro"
   },
   "keywords": [],
-  "author": "",
+  "author": "Christophe Mostefaoui",
   "license": "ISC",
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.7.0",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
     "astro": "^5.12.9",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
     "typescript": "^5.9.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4"
   }
 }

@@ -11,7 +11,7 @@ const others = projects.slice(1);
   <!-- Projet phare : SmartPlanning -->
   <a href={featured.links.website} target="_blank" rel="noopener" class="featured fade-up">
     <div class="featured-image">
-      <img src={featured.image} alt={featured.title} loading="lazy" />
+      <img src={featured.image} alt={`Capture d'écran de ${featured.title} — ${featured.tagline}`} loading="eager" />
       <div class="featured-overlay">
         <span class="featured-cta">
           Voir le projet
@@ -58,7 +58,7 @@ const others = projects.slice(1);
     {others.map((project) => (
       <article class="card fade-up">
         <div class="card-image">
-          <img src={project.image} alt={project.title} loading="lazy" />
+          <img src={project.image} alt={`Capture d'écran de ${project.title} — ${project.tagline}`} loading="lazy" />
           <span class={`badge badge-${project.badgeColor}`}>{project.badge}</span>
         </div>
         <div class="card-body">
@@ -88,7 +88,7 @@ const others = projects.slice(1);
             {project.links.video && (
               <a href={project.links.video} target="_blank" rel="noopener" class="card-link">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                D&eacute;mo
+                Démo
               </a>
             )}
           </div>

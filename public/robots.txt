@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /docs/
-Disallow: /*.pdf$
+Disallow: /*.pdf
 Disallow: /video/
 Disallow: /audio/
 

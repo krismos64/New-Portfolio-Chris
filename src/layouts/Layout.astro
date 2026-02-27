@@ -54,10 +54,12 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/portfolio/favicon.png" />
 
-    <!-- Font : Inter (Apple/Google style) -->
+    <!-- Font : Inter (Apple/Google style) — chargement non-bloquant -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
 
     <!-- JSON-LD Structured Data : WebSite -->
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -143,8 +145,16 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <canvas id="code-bg"></canvas>
     <script>
       (function () {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const canvas = document.getElementById("code-bg") as HTMLCanvasElement;
         if (!canvas) return;
+
+        // Si l'utilisateur préfère pas d'animation, afficher un frame statique
+        if (prefersReducedMotion) {
+          canvas.style.display = "none";
+          return;
+        }
+
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
@@ -481,6 +491,19 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     opacity: 1;
     transform: translateY(0);
     transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  /* === Reduced Motion === */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .fade-up.sr-hidden {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   /* === Selection === */

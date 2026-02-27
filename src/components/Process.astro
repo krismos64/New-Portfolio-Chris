@@ -451,9 +451,50 @@ const steps: Step[] = [
       finalBlock.classList.add("done");
     }
 
+    function showAllInstantly(): void {
+      blocks.forEach((block) => {
+        const command = block.dataset.command || "";
+        const comment = block.dataset.comment || "";
+        const outputs: string[] = JSON.parse(block.dataset.outputs || "[]");
+        const commentEl = block.querySelector<HTMLDivElement>(".term-comment");
+        const commandEl = block.querySelector<HTMLSpanElement>(".term-command")!;
+        const outputsEl = block.querySelector<HTMLDivElement>(".term-outputs")!;
+        const cursorEl = block.querySelector<HTMLSpanElement>(".term-cursor")!;
+
+        if (commentEl && comment) commentEl.textContent = comment;
+        commandEl.textContent = command;
+        cursorEl.classList.add("hidden");
+        block.classList.add("done");
+
+        outputs.forEach((text) => {
+          const line = document.createElement("div");
+          line.className = "term-output-line visible";
+          line.textContent = text;
+          outputsEl.appendChild(line);
+        });
+      });
+
+      if (finalBlock) {
+        const commandEl = finalBlock.querySelector<HTMLSpanElement>(".term-command")!;
+        const cursorEl = finalBlock.querySelector<HTMLSpanElement>(".term-cursor")!;
+        const outputEl = finalBlock.querySelector<HTMLDivElement>(".term-final-output")!;
+        commandEl.textContent = "echo \"Prêt à collaborer ?\"";
+        cursorEl.classList.add("hidden");
+        outputEl.textContent = "✓ Workflow complet. Zéro étape sautée. Contactez-moi.";
+        outputEl.classList.add("visible");
+        finalBlock.classList.add("done");
+      }
+    }
+
     async function playSequence(): Promise<void> {
       if (hasPlayed) return;
       hasPlayed = true;
+
+      // Skip animation si prefers-reduced-motion
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        showAllInstantly();
+        return;
+      }
 
       for (let i = 0; i < blocks.length; i++) {
         await typeCommand(blocks[i]);

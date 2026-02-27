@@ -10,15 +10,15 @@ const navLinks = [
 
 <nav class="nav" id="navbar">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
+    <a href="#" class="nav-logo" aria-label="Christophe Mostefaoui — Accueil">
       <video autoplay loop muted playsinline class="nav-logo-video">
         <source src="/video/animation-chris-dev.mp4" type="video/mp4" />
       </video>
     </a>
 
-    <div class="nav-links" id="navLinks">
+    <div class="nav-links" id="navLinks" aria-hidden="true">
       {navLinks.map((link) => (
-        <a href={link.href} class="nav-link">{link.label}</a>
+        <a href={link.href} class="nav-link" tabindex="-1">{link.label}</a>
       ))}
     </div>
 
@@ -33,6 +33,19 @@ const navLinks = [
 <script>
   const toggle = document.getElementById("navToggle");
   const links = document.getElementById("navLinks");
+  const navLinkEls = links?.querySelectorAll<HTMLAnchorElement>(".nav-link");
+
+  // Pause vidéo logo si prefers-reduced-motion
+  const logoVideo = document.querySelector<HTMLVideoElement>(".nav-logo-video");
+  if (logoVideo && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    logoVideo.pause();
+  }
+
+  function setMenuAccessibility(isOpen: boolean) {
+    if (!links || !navLinkEls) return;
+    links.setAttribute("aria-hidden", isOpen ? "false" : "true");
+    navLinkEls.forEach((el) => el.setAttribute("tabindex", isOpen ? "0" : "-1"));
+  }
 
   function closeMenu() {
     if (!toggle || !links) return;
@@ -40,14 +53,30 @@ const navLinks = [
     toggle.classList.remove("active");
     toggle.setAttribute("aria-label", "Ouvrir le menu");
     toggle.setAttribute("aria-expanded", "false");
+    setMenuAccessibility(false);
+  }
+
+  function openMenu() {
+    if (!toggle || !links || !navLinkEls) return;
+    links.classList.add("open");
+    toggle.classList.add("active");
+    toggle.setAttribute("aria-label", "Fermer le menu");
+    toggle.setAttribute("aria-expanded", "true");
+    setMenuAccessibility(true);
+    navLinkEls[0]?.focus();
   }
 
   if (toggle && links) {
     toggle.addEventListener("click", () => {
-      const isOpen = links.classList.toggle("open");
-      toggle.classList.toggle("active", isOpen);
-      toggle.setAttribute("aria-label", isOpen ? "Fermer le menu" : "Ouvrir le menu");
-      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      links.classList.contains("open") ? closeMenu() : openMenu();
+    });
+
+    // Fermer avec Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && links.classList.contains("open")) {
+        closeMenu();
+        toggle.focus();
+      }
     });
 
     // Fermer le menu au clic dehors
@@ -58,15 +87,29 @@ const navLinks = [
       }
     });
 
+    // Gestion desktop : rendre les liens accessibles au clavier sur grand écran
+    const desktopMQ = window.matchMedia("(min-width: 769px)");
+    function handleDesktop(e: MediaQueryList | MediaQueryListEvent) {
+      if ("matches" in e && e.matches) {
+        links.setAttribute("aria-hidden", "false");
+        navLinkEls?.forEach((el) => el.setAttribute("tabindex", "0"));
+      } else {
+        setMenuAccessibility(links.classList.contains("open"));
+      }
+    }
+    handleDesktop(desktopMQ);
+    desktopMQ.addEventListener("change", handleDesktop);
+
     links.querySelectorAll(".nav-link").forEach((link) => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         closeMenu();
 
+        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height")) || 64;
         const target = document.querySelector(link.getAttribute("href")!);
         if (target) {
           window.scrollTo({
-            top: (target as HTMLElement).offsetTop - 72,
+            top: (target as HTMLElement).offsetTop - navHeight - 8,
             behavior: "smooth",
           });
         }
