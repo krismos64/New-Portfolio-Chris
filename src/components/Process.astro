@@ -61,7 +61,7 @@ const steps: Step[] = [
 ---
 
 <section id="process">
-  <h2 class="section-title">Comment je travaille</h2>
+  <h2 class="section-title">Mon processus de développement</h2>
   <p class="section-subtitle">Mon workflow, de l'idée au déploiement — sans raccourci.</p>
 
   <div class="terminal-wrapper fade-up">
@@ -77,34 +77,38 @@ const steps: Step[] = [
         <div class="terminal-bar-spacer"></div>
       </div>
 
-      <!-- Terminal body -->
+      <!-- Terminal body — contenu pré-rendu pour le SEO, animé par JS au scroll -->
       <div class="terminal-body" id="terminalBody">
         {steps.map((step, i) => (
           <div
-            class="term-block"
+            class="term-block term-static"
             data-command={step.command}
             data-comment={step.comment || ""}
             data-outputs={JSON.stringify(step.outputs)}
             data-color={step.color}
           >
             {step.comment && (
-              <div class="term-comment"></div>
+              <div class="term-comment">{step.comment}</div>
             )}
             <div class="term-line">
               <span class="term-prompt" style={`color: ${step.color}`}>$</span>
-              <span class="term-command"></span>
-              <span class="term-cursor">_</span>
+              <span class="term-command">{step.command}</span>
+              <span class="term-cursor hidden">_</span>
             </div>
-            <div class="term-outputs"></div>
+            <div class="term-outputs">
+              {step.outputs.map((output) => (
+                <div class="term-output-line visible">{output}</div>
+              ))}
+            </div>
           </div>
         ))}
-        <div class="term-block term-final">
+        <div class="term-block term-final term-static">
           <div class="term-line">
             <span class="term-prompt" style="color: var(--green)">$</span>
-            <span class="term-command"></span>
-            <span class="term-cursor">_</span>
+            <span class="term-command">echo "Prêt à collaborer ?"</span>
+            <span class="term-cursor hidden">_</span>
           </div>
-          <div class="term-final-output"></div>
+          <div class="term-final-output visible">✓ Workflow complet. Zéro étape sautée. Contactez-moi.</div>
         </div>
       </div>
     </div>
@@ -201,6 +205,11 @@ const steps: Step[] = [
   .term-block {
     opacity: 0;
     transform: translateY(6px);
+  }
+  /* Contenu pré-rendu visible pour le SEO avant que le JS prenne le relais */
+  .term-block.term-static {
+    opacity: 1;
+    transform: none;
   }
   .term-block.active,
   .term-block.done {
@@ -382,6 +391,27 @@ const steps: Step[] = [
     const finalBlock = terminal.querySelector<HTMLDivElement>(".term-final");
     let hasPlayed = false;
 
+    // Vider le contenu statique pré-rendu pour préparer l'animation
+    function clearStaticContent(): void {
+      blocks.forEach((block) => {
+        const commentEl = block.querySelector<HTMLDivElement>(".term-comment");
+        const commandEl = block.querySelector<HTMLSpanElement>(".term-command")!;
+        const outputsEl = block.querySelector<HTMLDivElement>(".term-outputs")!;
+        if (commentEl) commentEl.textContent = "";
+        commandEl.textContent = "";
+        while (outputsEl.firstChild) outputsEl.removeChild(outputsEl.firstChild);
+        block.classList.remove("term-static");
+      });
+      if (finalBlock) {
+        const commandEl = finalBlock.querySelector<HTMLSpanElement>(".term-command")!;
+        const outputEl = finalBlock.querySelector<HTMLDivElement>(".term-final-output")!;
+        commandEl.textContent = "";
+        outputEl.textContent = "";
+        outputEl.classList.remove("visible");
+        finalBlock.classList.remove("term-static");
+      }
+    }
+
     async function sleep(ms: number): Promise<void> {
       return new Promise((r) => setTimeout(r, ms));
     }
@@ -402,19 +432,15 @@ const steps: Step[] = [
       const outputsEl = block.querySelector<HTMLDivElement>(".term-outputs")!;
       const cursorEl = block.querySelector<HTMLSpanElement>(".term-cursor")!;
 
-      // Show block
       block.classList.add("active");
 
-      // Show comment first (instant)
       if (commentEl && comment) {
         commentEl.textContent = comment;
       }
 
-      // Type command
       cursorEl.classList.remove("hidden");
       await typeText(commandEl, command, 32);
 
-      // Show outputs line by line
       await sleep(250);
       cursorEl.classList.add("hidden");
 
@@ -451,50 +477,17 @@ const steps: Step[] = [
       finalBlock.classList.add("done");
     }
 
-    function showAllInstantly(): void {
-      blocks.forEach((block) => {
-        const command = block.dataset.command || "";
-        const comment = block.dataset.comment || "";
-        const outputs: string[] = JSON.parse(block.dataset.outputs || "[]");
-        const commentEl = block.querySelector<HTMLDivElement>(".term-comment");
-        const commandEl = block.querySelector<HTMLSpanElement>(".term-command")!;
-        const outputsEl = block.querySelector<HTMLDivElement>(".term-outputs")!;
-        const cursorEl = block.querySelector<HTMLSpanElement>(".term-cursor")!;
-
-        if (commentEl && comment) commentEl.textContent = comment;
-        commandEl.textContent = command;
-        cursorEl.classList.add("hidden");
-        block.classList.add("done");
-
-        outputs.forEach((text) => {
-          const line = document.createElement("div");
-          line.className = "term-output-line visible";
-          line.textContent = text;
-          outputsEl.appendChild(line);
-        });
-      });
-
-      if (finalBlock) {
-        const commandEl = finalBlock.querySelector<HTMLSpanElement>(".term-command")!;
-        const cursorEl = finalBlock.querySelector<HTMLSpanElement>(".term-cursor")!;
-        const outputEl = finalBlock.querySelector<HTMLDivElement>(".term-final-output")!;
-        commandEl.textContent = "echo \"Prêt à collaborer ?\"";
-        cursorEl.classList.add("hidden");
-        outputEl.textContent = "✓ Workflow complet. Zéro étape sautée. Contactez-moi.";
-        outputEl.classList.add("visible");
-        finalBlock.classList.add("done");
-      }
-    }
-
     async function playSequence(): Promise<void> {
       if (hasPlayed) return;
       hasPlayed = true;
 
-      // Skip animation si prefers-reduced-motion
+      // Skip animation si prefers-reduced-motion — le contenu statique reste affiché
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        showAllInstantly();
         return;
       }
+
+      // Vider le contenu pré-rendu avant de jouer l'animation
+      clearStaticContent();
 
       for (let i = 0; i < blocks.length; i++) {
         await typeCommand(blocks[i]);

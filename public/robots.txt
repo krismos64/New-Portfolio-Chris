@@ -3,6 +3,5 @@ Allow: /
 Disallow: /docs/
 Disallow: /*.pdf
 Disallow: /video/
-Disallow: /audio/
 
 Sitemap: https://krismos.fr/sitemap-index.xml

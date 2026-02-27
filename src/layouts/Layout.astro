@@ -28,6 +28,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="fr" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
     <meta name="keywords" content="portfolio, développeur web, concepteur développeur d'applications, développeur fullstack, Pau, Artix, Orthez, Béarn, Pyrénées-Atlantiques, 64, tech, IA, intelligence artificielle, portfolio numérique, Next.js, React, TypeScript, SaaS, freelance" />
 
     <!-- Geo Meta Tags (Local SEO) -->
@@ -40,6 +41,8 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={fullImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Christophe Mostefaoui — Portfolio" />
@@ -60,6 +63,27 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
+
+    <!-- JSON-LD Structured Data : SoftwareApplication (SmartPlanning) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "SmartPlanning",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://smartplanning.fr/",
+      "description": "Solution SaaS de gestion d'équipes et de plannings. Architecture multi-tenant, paiements Stripe, conforme RGPD.",
+      "author": {
+        "@type": "Person",
+        "name": "Christophe Mostefaoui",
+        "url": "https://krismos.fr/"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      }
+    })} />
 
     <!-- JSON-LD Structured Data : WebSite -->
     <script type="application/ld+json" set:html={JSON.stringify({
