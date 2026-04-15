@@ -13,7 +13,7 @@ order: 5
 
 SmartPlanning est un produit dense. Quatre types d'utilisateurs, un calendrier interactif, un workflow de congés complet, de la facturation Stripe, de la messagerie temps réel, de l'import de données, des notifications SSE, le tout en conformité RGPD. Dans cet article, je détaille les fonctionnalités qui ont posé les défis techniques les plus intéressants et les solutions que j'ai retenues pour chacune.
 
-> Mon approche : chaque fonctionnalité part d'un besoin utilisateur concret. Je ne code jamais une feature parce qu'elle est techniquement séduisante -- je la code parce qu'un persona en a besoin.
+> Mon approche : chaque fonctionnalité part d'un besoin utilisateur concret. Je ne code jamais une feature parce qu'elle est techniquement séduisante : je la code parce qu'un persona en a besoin.
 
 ## Tableaux de bord adaptatifs par rôle
 
@@ -27,7 +27,7 @@ J'ai construit **quatre dashboards distincts**, un par rôle RBAC. La redirectio
 
 - **Employé** : planning de la semaine, congés à venir, tâches personnelles, notifications récentes.
 - **Manager** : statistiques d'équipe en temps réel, demandes de congés en attente avec actions directes.
-- **Directeur** : vue globale avec graphiques Recharts -- indicateurs de performance, répartition des effectifs, congés en attente.
+- **Directeur** : vue globale avec graphiques Recharts : indicateurs de performance, répartition des effectifs, congés en attente.
 - **Admin système** : supervision multi-tenant, monitoring des entreprises actives.
 
 La couverture de tests est significative : **374 tests unitaires sur 13 fichiers** couvrent les services de calcul statistique qui alimentent ces dashboards.
@@ -40,7 +40,7 @@ Le choix de la librairie calendrier a été stratégique. J'ai évalué trois op
 
 ### Création et manipulation visuelle
 
-Un manager crée un créneau en cliquant sur le calendrier. Le formulaire permet d'assigner un ou plusieurs employés et de choisir parmi **8 types de créneaux** : WORK, MEETING, BREAK, TRAINING, REMOTE, ON_CALL, OVERTIME, REST. Les créneaux se déplacent et se redimensionnent par glisser-déposer avec **mise à jour optimiste** -- l'interface réagit instantanément, et si le serveur rejette la modification, un rollback restaure l'état précédent.
+Un manager crée un créneau en cliquant sur le calendrier. Le formulaire permet d'assigner un ou plusieurs employés et de choisir parmi **8 types de créneaux** : WORK, MEETING, BREAK, TRAINING, REMOTE, ON_CALL, OVERTIME, REST. Les créneaux se déplacent et se redimensionnent par glisser-déposer avec **mise à jour optimiste** : l'interface réagit instantanément, et si le serveur rejette la modification, un rollback restaure l'état précédent.
 
 ### Récurrence et détection de conflits
 
@@ -69,7 +69,7 @@ Le calcul automatique des jours ouvrés décomptés prend en compte les week-end
 
 ### Pourquoi SSE plutôt que WebSockets
 
-Pour les notifications, j'avais le choix entre WebSockets et Server-Sent Events. J'ai choisi **SSE** pour une raison simple : la communication est unidirectionnelle (serveur vers client). Les WebSockets auraient ajouté une complexité inutile -- gestion bidirectionnelle, heartbeats, reconnexion manuelle -- pour un besoin qui ne le justifie pas.
+Pour les notifications, j'avais le choix entre WebSockets et Server-Sent Events. J'ai choisi **SSE** pour une raison simple : la communication est unidirectionnelle (serveur vers client). Les WebSockets auraient ajouté une complexité inutile : gestion bidirectionnelle, heartbeats, reconnexion manuelle : pour un besoin qui ne le justifie pas.
 
 ### Architecture
 
@@ -85,7 +85,7 @@ SmartPlanning facture **2,90 euros par employé actif et par mois** avec un essa
 
 ### Implémentation technique
 
-La Checkout Session est sécurisée et le tarif est calculé automatiquement selon le nombre d'employés actifs dans l'entreprise. Quand un directeur ajoute ou retire des employés, le compteur Stripe se synchronise en **fire-and-forget** -- l'opération métier n'est pas bloquée par l'appel Stripe.
+La Checkout Session est sécurisée et le tarif est calculé automatiquement selon le nombre d'employés actifs dans l'entreprise. Quand un directeur ajoute ou retire des employés, le compteur Stripe se synchronise en **fire-and-forget** : l'opération métier n'est pas bloquée par l'appel Stripe.
 
 Les **webhooks sont idempotents** : paiement réussi, échec, annulation, renouvellement. Chaque événement peut être rejoué sans effet de bord. Le portail Stripe intégré permet aux clients de gérer leur méthode de paiement, consulter leurs factures et annuler leur abonnement en autonomie.
 
@@ -115,11 +115,11 @@ Le contrôle d'accès s'exerce à **deux niveaux** : le middleware Edge Runtime 
 
 ### RGPD intégrée dès la conception
 
-La conformité RGPD n'est pas un patch ajouté après coup. Droit d'accès avec export JSON depuis le profil, droit à l'effacement avec suppression en cascade, consentement cookies granulaire (validité 12 mois), minimisation des données collectées. L'analytics est assurée par **Umami auto-hébergé** -- aucune donnée transmise à des tiers.
+La conformité RGPD n'est pas un patch ajouté après coup. Droit d'accès avec export JSON depuis le profil, droit à l'effacement avec suppression en cascade, consentement cookies granulaire (validité 12 mois), minimisation des données collectées. L'analytics est assurée par **Umami auto-hébergé** : aucune donnée transmise à des tiers.
 
 ### Leçon d'un incident de sécurité
 
-En décembre 2025, mon VPS a subi **trois compromissions en 12 jours** : UDP flooder, cryptominer, attaque par amplification DNS. La cause : la CVE-2025-66478 de Next.js (score CVSS 10.0/10) combinée à une configuration serveur insuffisamment durcie. J'ai mené un post-mortem professionnel, migré vers un nouveau VPS et appliqué un durcissement complet : clés SSH Ed25519, Fail2ban, UFW, conteneurs Docker non-root en lecture seule avec `cap_drop ALL`. Cet incident m'a appris qu'en production, la sécurité n'est jamais optionnelle -- elle doit être proactive.
+En décembre 2025, mon VPS a subi **trois compromissions en 12 jours** : UDP flooder, cryptominer, attaque par amplification DNS. La cause : la CVE-2025-66478 de Next.js (score CVSS 10.0/10) combinée à une configuration serveur insuffisamment durcie. J'ai mené un post-mortem professionnel, migré vers un nouveau VPS et appliqué un durcissement complet : clés SSH Ed25519, Fail2ban, UFW, conteneurs Docker non-root en lecture seule avec `cap_drop ALL`. Cet incident m'a appris qu'en production, la sécurité n'est jamais optionnelle : elle doit être proactive.
 
 ## Ce que ce développement m'a appris
 
@@ -133,4 +133,4 @@ Après des mois de développement intensif, trois convictions se sont renforcée
 
 > Développer un SaaS, ce n'est pas aligner des features. C'est résoudre des problèmes concrets pour des utilisateurs réels, en faisant des choix techniques qui tiennent dans la durée.
 
-Dans le prochain article, je détaillerai ma stratégie de tests -- comment j'ai structuré 374 tests unitaires, des tests d'intégration et des tests end-to-end pour garantir la fiabilité de SmartPlanning en production.
+Dans le prochain article, je détaillerai ma stratégie de tests : comment j'ai structuré 374 tests unitaires, des tests d'intégration et des tests end-to-end pour garantir la fiabilité de SmartPlanning en production.

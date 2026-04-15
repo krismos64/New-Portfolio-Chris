@@ -18,7 +18,7 @@ Avec Next.js, je déploie **une seule application**. Pas de CORS à configurer, 
 
 L'autre avantage décisif, ce sont les **Server Actions**. Au lieu de créer des dizaines de routes API REST classiques, j'écris ma logique métier dans des fonctions serveur que j'appelle directement depuis mes composants. SmartPlanning utilise aujourd'hui **38 Server Actions sécurisées**, chacune protégée par validation Zod et contrôle d'accès RBAC. Le code est plus lisible, plus court, et la surface d'attaque réduite.
 
-> Pour un développeur solo, la simplification n'est pas un luxe -- c'est un avantage décisif qui permet de livrer plus vite sans sacrifier la qualité.
+> Pour un développeur solo, la simplification n'est pas un luxe : c'est un avantage décisif qui permet de livrer plus vite sans sacrifier la qualité.
 
 ## TypeScript strict : zéro compromis
 
@@ -28,7 +28,7 @@ Concrètement, TypeScript strict me donne trois choses essentielles sur SmartPla
 
 - **Détection des erreurs avant exécution.** Quand je modifie un schéma Prisma ou une Server Action, le compilateur me signale immédiatement tous les endroits impactés. Pas de surprise en production.
 - **Autocomplétion exhaustive.** L'IDE connaît la forme exacte de chaque objet, de chaque réponse de base de données. Le développement est plus fluide.
-- **Refactoring sécurisé.** Renommer un champ, changer une signature de fonction, restructurer un module -- TypeScript me guide à travers chaque modification sans rien oublier.
+- **Refactoring sécurisé.** Renommer un champ, changer une signature de fonction, restructurer un module : TypeScript me guide à travers chaque modification sans rien oublier.
 
 Sur un projet solo de cette envergure, TypeScript strict n'est pas un choix technique, c'est une assurance-vie.
 
@@ -38,7 +38,7 @@ L'architecture de SmartPlanning suit un découpage en **quatre couches distincte
 
 ### Couche présentation
 
-C'est tout ce que l'utilisateur voit et manipule. Les composants React -- un mélange de Server Components pour les données statiques et de Client Components pour l'interactivité --, les pages de l'App Router, les layouts imbriqués, et les **37 composants UI** construits avec Shadcn/ui sur Radix UI. J'y intègre aussi des hooks custom comme `useConflictDetection` (détection de chevauchements en temps réel) et `useUmamiTrack` (analytics).
+C'est tout ce que l'utilisateur voit et manipule. Les composants React : un mélange de Server Components pour les données statiques et de Client Components pour l'interactivité :, les pages de l'App Router, les layouts imbriqués, et les **37 composants UI** construits avec Shadcn/ui sur Radix UI. J'y intègre aussi des hooks custom comme `useConflictDetection` (détection de chevauchements en temps réel) et `useUmamiTrack` (analytics).
 
 ### Couche métier (Business Logic)
 
@@ -48,7 +48,7 @@ Le **middleware Edge Runtime** intervient en amont : il vérifie l'authentificat
 
 ### Couche accès aux données
 
-**Prisma ORM** gère toutes les interactions avec PostgreSQL 16. Les requêtes sont typées et vérifiées à la compilation -- impossible d'écrire un `findMany` sur un champ qui n'existe pas. L'isolation multi-tenant est assurée par un **filtrage systématique par `companyId`** : chaque requête ne retourne que les données de l'entreprise concernée. Redis 7 complète le dispositif pour le cache et la gestion des sessions.
+**Prisma ORM** gère toutes les interactions avec PostgreSQL 16. Les requêtes sont typées et vérifiées à la compilation : impossible d'écrire un `findMany` sur un champ qui n'existe pas. L'isolation multi-tenant est assurée par un **filtrage systématique par `companyId`** : chaque requête ne retourne que les données de l'entreprise concernée. Redis 7 complète le dispositif pour le cache et la gestion des sessions.
 
 ### Couche infrastructure
 
@@ -70,7 +70,7 @@ Au lieu d'un héritage de classes rigide, le contrôle d'accès repose sur une c
 
 ### Pattern Observer pour les notifications
 
-Le `NotificationSSEManager` est un **singleton** qui maintient une liste de connexions SSE (Server-Sent Events). Quand un événement se produit -- un congé validé, un planning publié -- le manager diffuse l'information à tous les clients connectés en temps réel, sans polling.
+Le `NotificationSSEManager` est un **singleton** qui maintient une liste de connexions SSE (Server-Sent Events). Quand un événement se produit : un congé validé, un planning publié : le manager diffuse l'information à tous les clients connectés en temps réel, sans polling.
 
 ### Pattern Factory pour les emails
 
@@ -82,7 +82,7 @@ Le type `CrudActionResult<T>` unifie la signature de retour de toutes les Server
 
 ## Design System : cohérence et maintenabilité
 
-Le design de SmartPlanning repose sur **Shadcn/ui** -- 25 composants de base complétés par 12 composants custom -- construit sur Radix UI pour l'accessibilité native. Le système s'articule autour de **7 piliers** :
+Le design de SmartPlanning repose sur **Shadcn/ui** : 25 composants de base complétés par 12 composants custom : construit sur Radix UI pour l'accessibilité native. Le système s'articule autour de **7 piliers** :
 
 - **Couleurs** : palette sémantique avec mode clair et mode sombre (thème persisté en cookie SSR puis en base de données pour la synchronisation multi-appareils).
 - **Typographie** : Rajdhani pour les titres, Plus Jakarta Sans pour le corps, JetBrains Mono pour le code.
@@ -107,8 +107,8 @@ Pour donner une vision globale, voici les briques techniques de SmartPlanning :
 
 ## Ce que cette architecture m'a appris
 
-Construire SmartPlanning en solo m'a confirmé une chose : **l'architecture n'est pas un luxe réservé aux grandes équipes**. C'est précisément quand on est seul qu'une structure claire fait la différence. Chaque couche bien séparée, chaque pattern appliqué avec intention, chaque type correctement défini -- tout cela forme un filet de sécurité qui permet d'avancer vite sans accumuler de dette technique.
+Construire SmartPlanning en solo m'a confirmé une chose : **l'architecture n'est pas un luxe réservé aux grandes équipes**. C'est précisément quand on est seul qu'une structure claire fait la différence. Chaque couche bien séparée, chaque pattern appliqué avec intention, chaque type correctement défini : tout cela forme un filet de sécurité qui permet d'avancer vite sans accumuler de dette technique.
 
-Le choix de Next.js 15 avec l'App Router s'est révélé particulièrement pertinent pour un SaaS : la puissance des Server Components et des Server Actions réduit drastiquement la complexité par rapport à une architecture traditionnelle front/back séparée. Et TypeScript strict, combiné à Prisma, crée une chaîne de typage de bout en bout -- de la base de données jusqu'au composant React -- qui rend les régressions presque impossibles.
+Le choix de Next.js 15 avec l'App Router s'est révélé particulièrement pertinent pour un SaaS : la puissance des Server Components et des Server Actions réduit drastiquement la complexité par rapport à une architecture traditionnelle front/back séparée. Et TypeScript strict, combiné à Prisma, crée une chaîne de typage de bout en bout : de la base de données jusqu'au composant React : qui rend les régressions presque impossibles.
 
 Dans le prochain article, je détaillerai le développement des fonctionnalités clefs de SmartPlanning : le calendrier drag & drop, le système de congés, et l'intégration Stripe pour l'abonnement.

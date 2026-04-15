@@ -23,16 +23,16 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Developpeur d'A
 
 ## Stack technique
 
-| Categorie | Technologie |
-|-----------|-------------|
-| Framework | [Astro v5](https://astro.build) + [React 19](https://react.dev) |
-| Langage | TypeScript (strict) |
-| Blog | MDX via `@astrojs/mdx` (Content Collections) |
-| Styles | CSS scoped par composant + CSS Custom Properties |
-| Typographie | Inter (Google Fonts, chargement non-bloquant) |
-| Animation | Canvas API (fond), CSS transitions (scroll reveal) |
-| SEO | `@astrojs/sitemap`, JSON-LD, Open Graph, geo tags |
-| Build | Vite (integre a Astro), output statique |
+| Categorie   | Technologie                                                     |
+| ----------- | --------------------------------------------------------------- |
+| Framework   | [Astro v5](https://astro.build) + [React 19](https://react.dev) |
+| Langage     | TypeScript (strict)                                             |
+| Blog        | MDX via `@astrojs/mdx` (Content Collections)                    |
+| Styles      | CSS scoped par composant + CSS Custom Properties                |
+| Typographie | Inter (Google Fonts, chargement non-bloquant)                   |
+| Animation   | Canvas API (fond), CSS transitions (scroll reveal)              |
+| SEO         | `@astrojs/sitemap`, JSON-LD, Open Graph, geo tags               |
+| Build       | Vite (integre a Astro), output statique                         |
 
 ## Demarrage rapide
 
@@ -52,12 +52,12 @@ Le site est accessible sur [localhost:4321](http://localhost:4321).
 
 ## Scripts disponibles
 
-| Commande | Description |
-|----------|-------------|
-| `npm run dev` | Serveur de developpement (localhost:4321) |
-| `npm run build` | Build de production dans `dist/` |
-| `npm run preview` | Previsualiser le build |
-| `npm run astro check` | Verification des types TypeScript |
+| Commande              | Description                               |
+| --------------------- | ----------------------------------------- |
+| `npm run dev`         | Serveur de developpement (localhost:4321) |
+| `npm run build`       | Build de production dans `dist/`          |
+| `npm run preview`     | Previsualiser le build                    |
+| `npm run astro check` | Verification des types TypeScript         |
 
 ## Architecture du projet
 
@@ -137,12 +137,12 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting`), fil d'Ariane, barre de prog
 ## Design tokens
 
 ```css
---bg: #09090b;           /* zinc-950 */
---bg-card: #18181b;      /* zinc-900 */
---border: #27272a;       /* zinc-800 */
---text: #fafafa;         /* zinc-50 */
+--bg: #09090b; /* zinc-950 */
+--bg-card: #18181b; /* zinc-900 */
+--border: #27272a; /* zinc-800 */
+--text: #fafafa; /* zinc-50 */
 --text-secondary: #a1a1aa; /* zinc-400 */
---accent: #3b82f6;       /* blue-500 */
+--accent: #3b82f6; /* blue-500 */
 --green: #22c55e;
 --purple: #a855f7;
 --amber: #f59e0b;
@@ -160,7 +160,7 @@ Le dossier `dist/` peut etre deploye sur Netlify, Vercel, Cloudflare Pages, ou t
 
 ## Auteur
 
-**Christophe Mostefaoui** — Concepteur Developpeur d'Applications Fullstack & IA
+**Christophe Mostefaoui** — Concepteur Developpeur d'Applications Fullstack
 
 - [Portfolio](https://krismos.fr)
 - [LinkedIn](https://www.linkedin.com/in/christophemostefaoui/)

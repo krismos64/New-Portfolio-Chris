@@ -12,9 +12,9 @@ order: 7
 
 ## Pourquoi un VPS autogéré plutôt qu'un PaaS
 
-Quand on lance un SaaS, la tentation est forte de déployer sur Vercel, AWS ou Heroku et de ne plus y penser. J'ai fait le choix inverse pour SmartPlanning : un **VPS OVH autogéré** sous Ubuntu 24.04 LTS (4 vCPU, 8 Go RAM). Ce n'est pas une question de budget -- c'est un choix de maîtrise.
+Quand on lance un SaaS, la tentation est forte de déployer sur Vercel, AWS ou Heroku et de ne plus y penser. J'ai fait le choix inverse pour SmartPlanning : un **VPS OVH autogéré** sous Ubuntu 24.04 LTS (4 vCPU, 8 Go RAM). Ce n'est pas une question de budget : c'est un choix de maîtrise.
 
-En tant que Concepteur Développeur d'Applications, je voulais comprendre **chaque maillon de la chaîne** : la configuration de l'OS, le durcissement SSH, le pare-feu, le reverse proxy, le renouvellement SSL, l'orchestration des conteneurs. Un PaaS abstrait tout cela. C'est confortable, mais ça ne forme pas. Sur un VPS, chaque problème est une occasion d'apprendre -- et chaque solution est documentée dans mon guide de déploiement sur Confluence.
+En tant que Concepteur Développeur d'Applications, je voulais comprendre **chaque maillon de la chaîne** : la configuration de l'OS, le durcissement SSH, le pare-feu, le reverse proxy, le renouvellement SSL, l'orchestration des conteneurs. Un PaaS abstrait tout cela. C'est confortable, mais ça ne forme pas. Sur un VPS, chaque problème est une occasion d'apprendre : et chaque solution est documentée dans mon guide de déploiement sur Confluence.
 
 Cette approche m'a confronté à des problématiques concrètes d'administration système que je n'aurais jamais rencontrées autrement. Et quand un incident de sécurité a frappé en décembre 2025, c'est cette connaissance en profondeur qui m'a permis de réagir rapidement.
 
@@ -36,7 +36,7 @@ Les conteneurs ne tournent pas avec les réglages par défaut. Chaque service es
 - **Suppression de toutes les capacités Linux** (`cap_drop: ALL`) : le conteneur n'a aucun privilège système superflu
 - **Interdiction d'élévation de privilèges** (`no-new-privileges`) : même si un attaquant prend le contrôle d'un processus, il ne peut pas escalader ses droits
 
-Le réseau Docker interne isole la communication inter-services. Redis, par exemple, n'est **jamais exposé sur internet** -- seul le conteneur app peut y accéder via le réseau interne.
+Le réseau Docker interne isole la communication inter-services. Redis, par exemple, n'est **jamais exposé sur internet** : seul le conteneur app peut y accéder via le réseau interne.
 
 ## Reverse proxy Nginx et SSL
 
@@ -56,10 +56,10 @@ Le pipeline CI/CD de SmartPlanning repose sur **GitHub Actions** avec trois work
 
 A chaque push, le workflow CI se déclenche et exécute quatre étapes en séquence :
 
-1. **Lint et vérification des types TypeScript** -- le code doit être propre avant d'aller plus loin
-2. **Tests unitaires Vitest** -- les ~2 814 tests valident la logique métier, les Server Actions, les services
-3. **Build Next.js en production** -- on vérifie que l'application compile sans erreur
-4. **Tests E2E Playwright** (~189 scénarios) -- déclenchés sur les PRs vers `main` et les push directs, ils valident les parcours utilisateurs critiques de bout en bout
+1. **Lint et vérification des types TypeScript** : le code doit être propre avant d'aller plus loin
+2. **Tests unitaires Vitest** : les ~2 814 tests valident la logique métier, les Server Actions, les services
+3. **Build Next.js en production** : on vérifie que l'application compile sans erreur
+4. **Tests E2E Playwright** (~189 scénarios) : déclenchés sur les PRs vers `main` et les push directs, ils valident les parcours utilisateurs critiques de bout en bout
 
 Durée totale : **8 à 10 minutes**. Assez rapide pour ne pas casser le rythme de développement, assez complet pour attraper les régressions.
 
@@ -67,7 +67,7 @@ Durée totale : **8 à 10 minutes**. Assez rapide pour ne pas casser le rythme d
 
 Quand la CI passe au vert sur `main`, le déploiement se lance automatiquement :
 
-1. **Construction de l'image Docker** et push vers **GitHub Container Registry** (GHCR) -- le registre d'images est privé et intégré à GitHub
+1. **Construction de l'image Docker** et push vers **GitHub Container Registry** (GHCR) : le registre d'images est privé et intégré à GitHub
 2. **Connexion SSH au VPS**, pull de la nouvelle image, exécution des **migrations Prisma**, redémarrage des services Docker
 
 Le tout en **environ 7 minutes**. Du merge de la PR au site live, sans intervention manuelle.
@@ -78,11 +78,11 @@ Chaque nuit, un troisième workflow exécute la **suite complète de tests E2E**
 
 ### Gestion des secrets
 
-Les secrets sensibles -- clés SSH, tokens API, identifiants de base de données -- sont **chiffrés dans GitHub Secrets**. Ils ne sont jamais exposés dans le code source, ni dans les logs de CI. C'est un principe non négociable : aucune donnée sensible en clair dans le dépôt.
+Les secrets sensibles : clés SSH, tokens API, identifiants de base de données : sont **chiffrés dans GitHub Secrets**. Ils ne sont jamais exposés dans le code source, ni dans les logs de CI. C'est un principe non négociable : aucune donnée sensible en clair dans le dépôt.
 
 ## Sécurité serveur : les leçons d'un incident réel
 
-En décembre 2025, SmartPlanning a été impacté par la **CVE-2025-66478**, une vulnérabilité critique de Next.js notée 10.0/10 sur l'échelle CVSS. Combinée à une configuration serveur insuffisamment durcie, cette faille a nécessité une **migration complète vers un nouveau VPS** -- une base propre, reconstruite de zéro.
+En décembre 2025, SmartPlanning a été impacté par la **CVE-2025-66478**, une vulnérabilité critique de Next.js notée 10.0/10 sur l'échelle CVSS. Combinée à une configuration serveur insuffisamment durcie, cette faille a nécessité une **migration complète vers un nouveau VPS** : une base propre, reconstruite de zéro.
 
 Cette expérience a été un tournant. Voici les mesures mises en place :
 
@@ -96,7 +96,7 @@ Un incident de sécurité n'est jamais agréable, mais celui-ci m'a forcé à pa
 
 ## Monitoring et performance
 
-Un déploiement automatisé ne suffit pas -- il faut aussi surveiller ce qui tourne en production.
+Un déploiement automatisé ne suffit pas : il faut aussi surveiller ce qui tourne en production.
 
 ### Health check applicatif
 
@@ -123,10 +123,10 @@ Ce ne sont pas des optimisations cosmétiques. Elles réduisent concrètement la
 
 ## Ce que cette infrastructure m'a appris
 
-Mettre en place l'ensemble de cette chaîne -- de Docker à la CI/CD en passant par le durcissement serveur -- m'a appris une chose essentielle : **le déploiement n'est pas une étape finale, c'est une discipline continue**.
+Mettre en place l'ensemble de cette chaîne : de Docker à la CI/CD en passant par le durcissement serveur : m'a appris une chose essentielle : **le déploiement n'est pas une étape finale, c'est une discipline continue**.
 
-Chaque composant de cette infrastructure a été choisi, configuré et durci avec intention. Le VPS autogéré m'a forcé à comprendre ce que les PaaS cachent. L'incident de sécurité m'a appris que "ça marche" ne suffit pas -- il faut que ce soit **robuste par design**. Et le pipeline CI/CD, avec ses 3 000+ tests exécutés à chaque changement, me donne la confiance nécessaire pour déployer plusieurs fois par semaine sans appréhension.
+Chaque composant de cette infrastructure a été choisi, configuré et durci avec intention. Le VPS autogéré m'a forcé à comprendre ce que les PaaS cachent. L'incident de sécurité m'a appris que "ça marche" ne suffit pas : il faut que ce soit **robuste par design**. Et le pipeline CI/CD, avec ses 3 000+ tests exécutés à chaque changement, me donne la confiance nécessaire pour déployer plusieurs fois par semaine sans appréhension.
 
-Pour un développeur fullstack, maîtriser la chaîne complète du code à la production n'est pas un bonus -- c'est ce qui distingue un développeur qui livre des fonctionnalités d'un développeur qui livre un **produit fiable**.
+Pour un développeur fullstack, maîtriser la chaîne complète du code à la production n'est pas un bonus : c'est ce qui distingue un développeur qui livre des fonctionnalités d'un développeur qui livre un **produit fiable**.
 
 Dans le prochain article, je présenterai des démonstrations concrètes des fonctionnalités de SmartPlanning en action.
