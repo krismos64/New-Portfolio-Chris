@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <radialGradient id="bg7" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#0a1520" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg7)" rx="12"/>
+
+  <text x="400" y="26" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">CI/CD PIPELINE — GitHub Actions + Docker + VPS OVH</text>
+
+  <!-- Pipeline horizontal principal -->
+  <!-- Étape 1: Push -->
+  <rect x="20" y="50" width="100" height="70" rx="8" fill="#18181b" stroke="#27272a"/>
+  <text x="70" y="78" text-anchor="middle" font-family="monospace" font-size="20">⬆</text>
+  <text x="70" y="95" text-anchor="middle" font-family="monospace" font-size="9" fill="#a1a1aa">git push</text>
+  <text x="70" y="108" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">main branch</text>
+
+  <!-- Arrow -->
+  <line x1="120" y1="85" x2="146" y2="85" stroke="#3b82f6" stroke-width="2"/>
+  <polygon points="146,85 140,81 140,89" fill="#3b82f6"/>
+
+  <!-- Étape 2: Trigger -->
+  <rect x="146" y="50" width="110" height="70" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="201" y="74" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">GitHub</text>
+  <text x="201" y="88" text-anchor="middle" font-family="monospace" font-size="11" fill="#93c5fd" font-weight="700">Actions</text>
+  <text x="201" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#60a5fa">Workflow triggered</text>
+  <text x="201" y="114" text-anchor="middle" font-family="monospace" font-size="8" fill="#3b82f6">ubuntu-latest</text>
+
+  <!-- Arrow -->
+  <line x1="256" y1="85" x2="282" y2="85" stroke="#3b82f6" stroke-width="2"/>
+  <polygon points="282,85 276,81 276,89" fill="#3b82f6"/>
+
+  <!-- Étape 3: Test -->
+  <rect x="282" y="50" width="110" height="70" rx="8" fill="#0d1f0d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="337" y="74" text-anchor="middle" font-family="monospace" font-size="9" fill="#86efac">🧪 Tests</text>
+  <text x="337" y="88" text-anchor="middle" font-family="monospace" font-size="9" fill="#fafafa">Vitest</text>
+  <text x="337" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#4ade80">127 passed ✓</text>
+  <text x="337" y="114" text-anchor="middle" font-family="monospace" font-size="8" fill="#4ade80">Coverage 86% ✓</text>
+
+  <!-- Arrow -->
+  <line x1="392" y1="85" x2="418" y2="85" stroke="#22c55e" stroke-width="2"/>
+  <polygon points="418,85 412,81 412,89" fill="#22c55e"/>
+
+  <!-- Étape 4: Build Docker -->
+  <rect x="418" y="50" width="130" height="70" rx="8" fill="#0f172a" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="483" y="74" text-anchor="middle" font-family="monospace" font-size="9" fill="#60a5fa">🐳 Docker</text>
+  <text x="483" y="88" text-anchor="middle" font-family="monospace" font-size="9" fill="#fafafa">Multi-stage build</text>
+  <text x="483" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#a1a1aa">builder → runner</text>
+  <text x="483" y="114" text-anchor="middle" font-family="monospace" font-size="8" fill="#60a5fa">image: 180MB ✓</text>
+
+  <!-- Arrow -->
+  <line x1="548" y1="85" x2="574" y2="85" stroke="#3b82f6" stroke-width="2"/>
+  <polygon points="574,85 568,81 568,89" fill="#3b82f6"/>
+
+  <!-- Étape 5: Push Registry -->
+  <rect x="574" y="50" width="110" height="70" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="629" y="74" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">Registry</text>
+  <text x="629" y="88" text-anchor="middle" font-family="monospace" font-size="9" fill="#fafafa">GitHub GHCR</text>
+  <text x="629" y="102" text-anchor="middle" font-family="monospace" font-size="8" fill="#60a5fa">ghcr.io/krismos/</text>
+  <text x="629" y="114" text-anchor="middle" font-family="monospace" font-size="8" fill="#60a5fa">smartplanning:latest</text>
+
+  <!-- Arrow -->
+  <line x1="684" y1="85" x2="710" y2="85" stroke="#3b82f6" stroke-width="2"/>
+  <polygon points="710,85 704,81 704,89" fill="#3b82f6"/>
+
+  <!-- Étape 6: Deploy -->
+  <rect x="710" y="50" width="72" height="70" rx="8" fill="#14532d" stroke="#22c55e" stroke-width="2"/>
+  <text x="746" y="78" text-anchor="middle" font-family="monospace" font-size="14">🚀</text>
+  <text x="746" y="93" text-anchor="middle" font-family="monospace" font-size="9" fill="#86efac" font-weight="700">Deploy</text>
+  <text x="746" y="107" text-anchor="middle" font-family="monospace" font-size="8" fill="#4ade80">VPS OVH</text>
+
+  <!-- Dockerfile -->
+  <rect x="20" y="145" width="360" height="200" rx="8" fill="#0c0c0e" stroke="#27272a"/>
+  <rect x="20" y="145" width="360" height="26" rx="8" fill="#1c1c1e"/>
+  <rect x="20" y="163" width="360" height="8" rx="0" fill="#1c1c1e"/>
+  <circle cx="38" cy="158" r="5" fill="#ff5f57"/>
+  <circle cx="54" cy="158" r="5" fill="#febc2e"/>
+  <circle cx="70" cy="158" r="5" fill="#28c840"/>
+  <text x="220" y="162" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">Dockerfile</text>
+
+  <text x="34" y="186" font-family="monospace" font-size="9" fill="#60a5fa">FROM</text>
+  <text x="68" y="186" font-family="monospace" font-size="9" fill="#86efac">node:20-alpine</text>
+  <text x="178" y="186" font-family="monospace" font-size="9" fill="#71717a">AS</text>
+  <text x="198" y="186" font-family="monospace" font-size="9" fill="#fcd34d">builder</text>
+
+  <text x="34" y="200" font-family="monospace" font-size="9" fill="#60a5fa">WORKDIR</text>
+  <text x="90" y="200" font-family="monospace" font-size="9" fill="#86efac">/app</text>
+
+  <text x="34" y="214" font-family="monospace" font-size="9" fill="#60a5fa">COPY</text>
+  <text x="70" y="214" font-family="monospace" font-size="9" fill="#a1a1aa">package*.json ./</text>
+
+  <text x="34" y="228" font-family="monospace" font-size="9" fill="#60a5fa">RUN</text>
+  <text x="62" y="228" font-family="monospace" font-size="9" fill="#fafafa">npm ci --only=production</text>
+
+  <text x="34" y="242" font-family="monospace" font-size="9" fill="#60a5fa">COPY</text>
+  <text x="70" y="242" font-family="monospace" font-size="9" fill="#a1a1aa">. .</text>
+
+  <text x="34" y="256" font-family="monospace" font-size="9" fill="#60a5fa">RUN</text>
+  <text x="62" y="256" font-family="monospace" font-size="9" fill="#fafafa">npm run build</text>
+
+  <line x1="28" y1="264" x2="372" y2="264" stroke="#27272a" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <text x="34" y="280" font-family="monospace" font-size="9" fill="#60a5fa">FROM</text>
+  <text x="68" y="280" font-family="monospace" font-size="9" fill="#86efac">node:20-alpine</text>
+  <text x="178" y="280" font-family="monospace" font-size="9" fill="#71717a">AS</text>
+  <text x="198" y="280" font-family="monospace" font-size="9" fill="#fcd34d">runner</text>
+
+  <text x="34" y="294" font-family="monospace" font-size="9" fill="#60a5fa">COPY</text>
+  <text x="70" y="294" font-family="monospace" font-size="9" fill="#71717a">--from=</text>
+  <text x="118" y="294" font-family="monospace" font-size="9" fill="#fcd34d">builder</text>
+  <text x="158" y="294" font-family="monospace" font-size="9" fill="#a1a1aa">/app/dist ./dist</text>
+
+  <text x="34" y="308" font-family="monospace" font-size="9" fill="#60a5fa">EXPOSE</text>
+  <text x="82" y="308" font-family="monospace" font-size="9" fill="#fcd34d">3000</text>
+
+  <text x="34" y="322" font-family="monospace" font-size="9" fill="#60a5fa">CMD</text>
+  <text x="62" y="322" font-family="monospace" font-size="9" fill="#a1a1aa">["node", "dist/server.js"]</text>
+
+  <!-- VPS Architecture -->
+  <rect x="394" y="145" width="388" height="200" rx="8" fill="#111113" stroke="#27272a"/>
+  <text x="588" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="600">VPS OVH — Production</text>
+  <line x1="402" y1="178" x2="774" y2="178" stroke="#27272a" stroke-width="1"/>
+
+  <!-- Nginx -->
+  <rect x="410" y="190" width="160" height="50" rx="6" fill="#0f172a" stroke="#3b82f6"/>
+  <text x="490" y="210" text-anchor="middle" font-family="monospace" font-size="9" fill="#60a5fa" font-weight="600">Nginx</text>
+  <text x="490" y="224" text-anchor="middle" font-family="monospace" font-size="8" fill="#a1a1aa">Reverse proxy</text>
+  <text x="490" y="236" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">SSL + compression</text>
+
+  <!-- Arrow down -->
+  <line x1="490" y1="240" x2="490" y2="258" stroke="#3b82f6" stroke-width="1.5"/>
+  <polygon points="490,258 486,252 494,252" fill="#3b82f6"/>
+
+  <!-- App -->
+  <rect x="410" y="258" width="160" height="42" rx="6" fill="#0d1f0d" stroke="#22c55e"/>
+  <text x="490" y="278" text-anchor="middle" font-family="monospace" font-size="9" fill="#86efac" font-weight="600">Next.js App</text>
+  <text x="490" y="292" text-anchor="middle" font-family="monospace" font-size="8" fill="#4ade80">:3000 — Docker</text>
+
+  <!-- DB -->
+  <rect x="604" y="190" width="160" height="110" rx="6" fill="#1a1030" stroke="#a855f7"/>
+  <text x="684" y="212" text-anchor="middle" font-family="monospace" font-size="9" fill="#c4b5fd" font-weight="600">PostgreSQL</text>
+  <text x="684" y="226" text-anchor="middle" font-family="monospace" font-size="8" fill="#a1a1aa">Volume persistant</text>
+  <line x1="612" y1="234" x2="756" y2="234" stroke="#27272a" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="684" y="250" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">✓ Backup daily</text>
+  <text x="684" y="264" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">✓ Migrations auto</text>
+  <text x="684" y="278" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">✓ Prisma migrate</text>
+
+  <!-- Arrow between app and db -->
+  <line x1="570" y1="280" x2="604" y2="260" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Green status -->
+  <rect x="394" y="356" width="388" height="26" rx="5" fill="#0d1f0d" stroke="#22c55e" stroke-width="1"/>
+  <text x="460" y="373" font-family="monospace" font-size="9" fill="#86efac">● smartplanning.fr</text>
+  <text x="566" y="373" font-family="monospace" font-size="9" fill="#4ade80">LIVE</text>
+  <text x="606" y="373" font-family="monospace" font-size="9" fill="#71717a">— Uptime 99.9%  — Deploy: 2m34s</text>
+
+  <!-- Timing badge -->
+  <rect x="20" y="356" width="360" height="26" rx="5" fill="#1e3a5f" opacity="0.4"/>
+  <text x="200" y="373" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">07 — CI/CD Docker &amp; Déploiement</text>
+</svg>

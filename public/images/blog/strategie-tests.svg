@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <radialGradient id="bg6" cx="70%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#0a1f0a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg6)" rx="12"/>
+
+  <text x="400" y="28" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">STRATÉGIE DE TESTS — Vitest + Playwright</text>
+
+  <!-- Pyramide de tests -->
+  <g transform="translate(30, 45)">
+    <!-- E2E top -->
+    <polygon points="110,10 10,160 210,160" fill="#1a1030" stroke="#a855f7" stroke-width="2"/>
+    <text x="110" y="85" text-anchor="middle" font-family="monospace" font-size="11" fill="#c4b5fd" font-weight="700">E2E</text>
+    <text x="110" y="102" text-anchor="middle" font-family="monospace" font-size="9" fill="#a855f7">Playwright</text>
+    <text x="110" y="118" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">12 scénarios</text>
+    <text x="110" y="134" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">critiques</text>
+
+    <!-- Integration middle -->
+    <polygon points="220,10 110,180 330,180" fill="#0f172a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="220" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#93c5fd" font-weight="700">Intégration</text>
+    <text x="220" y="122" text-anchor="middle" font-family="monospace" font-size="9" fill="#60a5fa">API Routes</text>
+    <text x="220" y="138" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">34 tests</text>
+    <text x="220" y="154" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">BDD réelle</text>
+
+    <!-- Unit bottom -->
+    <polygon points="330,10 220,200 440,200" fill="#0d1f0d" stroke="#22c55e" stroke-width="2"/>
+    <text x="330" y="130" text-anchor="middle" font-family="monospace" font-size="11" fill="#86efac" font-weight="700">Unitaires</text>
+    <text x="330" y="147" text-anchor="middle" font-family="monospace" font-size="9" fill="#4ade80">Vitest</text>
+    <text x="330" y="164" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">127 tests</text>
+    <text x="330" y="180" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">Fonctions pures</text>
+  </g>
+
+  <!-- Terminal Vitest -->
+  <rect x="310" y="45" width="290" height="180" rx="8" fill="#0c0c0e" stroke="#27272a"/>
+  <rect x="310" y="45" width="290" height="26" rx="8" fill="#1c1c1e"/>
+  <rect x="310" y="63" width="290" height="8" rx="0" fill="#1c1c1e"/>
+  <circle cx="328" cy="58" r="5" fill="#ff5f57"/>
+  <circle cx="344" cy="58" r="5" fill="#febc2e"/>
+  <circle cx="360" cy="58" r="5" fill="#28c840"/>
+  <text x="450" y="62" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">vitest run --coverage</text>
+
+  <text x="322" y="90" font-family="monospace" font-size="9" fill="#22c55e">✓</text>
+  <text x="336" y="90" font-family="monospace" font-size="9" fill="#fafafa">createShift validates dates</text>
+  <text x="322" y="106" font-family="monospace" font-size="9" fill="#22c55e">✓</text>
+  <text x="336" y="106" font-family="monospace" font-size="9" fill="#fafafa">getTeamMembers returns org scope</text>
+  <text x="322" y="122" font-family="monospace" font-size="9" fill="#22c55e">✓</text>
+  <text x="336" y="122" font-family="monospace" font-size="9" fill="#fafafa">calculateHours handles DST</text>
+  <text x="322" y="138" font-family="monospace" font-size="9" fill="#22c55e">✓</text>
+  <text x="336" y="138" font-family="monospace" font-size="9" fill="#fafafa">stripePlan maps to features</text>
+  <text x="322" y="154" font-family="monospace" font-size="9" fill="#f59e0b">↻</text>
+  <text x="336" y="154" font-family="monospace" font-size="9" fill="#fcd34d">notifyOverlap detects conflicts</text>
+  <text x="322" y="170" font-family="monospace" font-size="9" fill="#22c55e">✓</text>
+  <text x="336" y="170" font-family="monospace" font-size="9" fill="#fafafa">generateWeekDays returns 7 days</text>
+
+  <line x1="322" y1="180" x2="584" y2="180" stroke="#27272a" stroke-width="1"/>
+  <text x="322" y="196" font-family="monospace" font-size="9" fill="#a1a1aa">Tests:</text>
+  <text x="366" y="196" font-family="monospace" font-size="9" fill="#22c55e" font-weight="700">126 passed</text>
+  <text x="448" y="196" font-family="monospace" font-size="9" fill="#f59e0b">1 running</text>
+  <text x="322" y="212" font-family="monospace" font-size="9" fill="#a1a1aa">Duration:</text>
+  <text x="380" y="212" font-family="monospace" font-size="9" fill="#fafafa">1.82s</text>
+
+  <!-- Coverage bar -->
+  <rect x="614" y="45" width="168" height="180" rx="8" fill="#111113" stroke="#27272a"/>
+  <text x="698" y="70" text-anchor="middle" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="600">Coverage</text>
+  <line x1="622" y1="78" x2="774" y2="78" stroke="#27272a" stroke-width="1"/>
+
+  <g font-family="monospace" font-size="9">
+    <text x="628" y="98" fill="#a1a1aa">Statements</text>
+    <rect x="628" y="104" width="124" height="8" rx="4" fill="#27272a"/>
+    <rect x="628" y="104" width="110" height="8" rx="4" fill="#22c55e"/>
+    <text x="765" y="112" text-anchor="end" fill="#86efac" font-weight="600">89%</text>
+
+    <text x="628" y="128" fill="#a1a1aa">Branches</text>
+    <rect x="628" y="134" width="124" height="8" rx="4" fill="#27272a"/>
+    <rect x="628" y="134" width="96" height="8" rx="4" fill="#3b82f6"/>
+    <text x="765" y="142" text-anchor="end" fill="#93c5fd" font-weight="600">78%</text>
+
+    <text x="628" y="158" fill="#a1a1aa">Functions</text>
+    <rect x="628" y="164" width="124" height="8" rx="4" fill="#27272a"/>
+    <rect x="628" y="164" width="118" height="8" rx="4" fill="#22c55e"/>
+    <text x="765" y="172" text-anchor="end" fill="#86efac" font-weight="600">95%</text>
+
+    <text x="628" y="192" fill="#a1a1aa">Lines</text>
+    <rect x="628" y="198" width="124" height="8" rx="4" fill="#27272a"/>
+    <rect x="628" y="198" width="106" height="8" rx="4" fill="#22c55e"/>
+    <text x="765" y="206" text-anchor="end" fill="#86efac" font-weight="600">86%</text>
+  </g>
+
+  <!-- Playwright E2E -->
+  <rect x="30" y="262" width="380" height="130" rx="8" fill="#0d0d0f" stroke="#1a1030"/>
+  <rect x="30" y="262" width="380" height="26" rx="8" fill="#1a1030"/>
+  <rect x="30" y="280" width="380" height="8" rx="0" fill="#1a1030"/>
+  <text x="220" y="280" text-anchor="middle" font-family="monospace" font-size="9" fill="#c4b5fd">playwright.spec.ts — Auth flow</text>
+
+  <text x="46" y="304" font-family="monospace" font-size="8.5" fill="#60a5fa">test</text>
+  <text x="70" y="304" font-family="monospace" font-size="8.5" fill="#a1a1aa">(</text>
+  <text x="76" y="304" font-family="monospace" font-size="8.5" fill="#86efac">'manager can create shift'</text>
+  <text x="260" y="304" font-family="monospace" font-size="8.5" fill="#a1a1aa">, async ({</text>
+  <text x="318" y="304" font-family="monospace" font-size="8.5" fill="#fcd34d">page</text>
+  <text x="344" y="304" font-family="monospace" font-size="8.5" fill="#a1a1aa">}) =&gt; {</text>
+  <text x="58" y="318" font-family="monospace" font-size="8.5" fill="#60a5fa">await</text>
+  <text x="88" y="318" font-family="monospace" font-size="8.5" fill="#fafafa">page.goto(</text>
+  <text x="148" y="318" font-family="monospace" font-size="8.5" fill="#86efac">'/dashboard'</text>
+  <text x="220" y="318" font-family="monospace" font-size="8.5" fill="#a1a1aa">)</text>
+  <text x="58" y="332" font-family="monospace" font-size="8.5" fill="#60a5fa">await</text>
+  <text x="88" y="332" font-family="monospace" font-size="8.5" fill="#fafafa">page.click(</text>
+  <text x="152" y="332" font-family="monospace" font-size="8.5" fill="#86efac">'[data-testid="add-shift"]'</text>
+  <text x="296" y="332" font-family="monospace" font-size="8.5" fill="#a1a1aa">)</text>
+  <text x="58" y="346" font-family="monospace" font-size="8.5" fill="#60a5fa">await</text>
+  <text x="88" y="346" font-family="monospace" font-size="8.5" fill="#fafafa">expect(page).toHaveURL(</text>
+  <text x="246" y="346" font-family="monospace" font-size="8.5" fill="#86efac">'/shifts/new'</text>
+  <text x="318" y="346" font-family="monospace" font-size="8.5" fill="#a1a1aa">)</text>
+  <text x="46" y="360" font-family="monospace" font-size="8.5" fill="#a1a1aa">})</text>
+
+  <!-- CI Pipeline -->
+  <rect x="424" y="262" width="358" height="130" rx="8" fill="#111113" stroke="#27272a"/>
+  <text x="603" y="284" text-anchor="middle" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="600">CI Pipeline — GitHub Actions</text>
+  <line x1="432" y1="292" x2="774" y2="292" stroke="#27272a" stroke-width="1"/>
+
+  <!-- Pipeline steps -->
+  <rect x="440" y="302" width="60" height="36" rx="5" fill="#0d1f0d" stroke="#22c55e"/>
+  <text x="470" y="318" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">Install</text>
+  <text x="470" y="330" text-anchor="middle" font-family="monospace" font-size="7" fill="#4ade80">npm ci</text>
+
+  <line x1="500" y1="320" x2="516" y2="320" stroke="#27272a" stroke-width="1.5"/>
+  <polygon points="516,320 512,316 512,324" fill="#27272a"/>
+
+  <rect x="516" y="302" width="60" height="36" rx="5" fill="#0d1f0d" stroke="#22c55e"/>
+  <text x="546" y="318" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">Lint</text>
+  <text x="546" y="330" text-anchor="middle" font-family="monospace" font-size="7" fill="#4ade80">ESLint</text>
+
+  <line x1="576" y1="320" x2="592" y2="320" stroke="#27272a" stroke-width="1.5"/>
+  <polygon points="592,320 588,316 588,324" fill="#27272a"/>
+
+  <rect x="592" y="302" width="60" height="36" rx="5" fill="#0d1520" stroke="#3b82f6"/>
+  <text x="622" y="318" text-anchor="middle" font-family="monospace" font-size="8" fill="#93c5fd">Unit</text>
+  <text x="622" y="330" text-anchor="middle" font-family="monospace" font-size="7" fill="#60a5fa">Vitest</text>
+
+  <line x1="652" y1="320" x2="668" y2="320" stroke="#27272a" stroke-width="1.5"/>
+  <polygon points="668,320 664,316 664,324" fill="#27272a"/>
+
+  <rect x="668" y="302" width="60" height="36" rx="5" fill="#1a1030" stroke="#a855f7"/>
+  <text x="698" y="318" text-anchor="middle" font-family="monospace" font-size="8" fill="#c4b5fd">E2E</text>
+  <text x="698" y="330" text-anchor="middle" font-family="monospace" font-size="7" fill="#a855f7">Playwright</text>
+
+  <line x1="728" y1="320" x2="744" y2="320" stroke="#27272a" stroke-width="1.5"/>
+  <polygon points="744,320 740,316 740,324" fill="#27272a"/>
+
+  <rect x="744" y="302" width="22" height="36" rx="5" fill="#14532d" stroke="#22c55e"/>
+  <text x="755" y="322" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">✓</text>
+
+  <text x="603" y="370" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">Bloque le merge si un test échoue</text>
+  <text x="603" y="384" text-anchor="middle" font-family="monospace" font-size="9" fill="#22c55e">→ Qualité garantie en production</text>
+
+  <!-- Label -->
+  <rect x="30" y="400" width="220" height="14" rx="4" fill="#1a1030" opacity="0.6"/>
+  <text x="140" y="411" text-anchor="middle" font-family="monospace" font-size="9" fill="#c4b5fd">06 — Stratégie de tests</text>
+</svg>

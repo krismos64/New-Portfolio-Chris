@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <radialGradient id="bg2" cx="60%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#1e3550" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="420" fill="url(#bg2)" rx="12"/>
+  <rect width="800" height="420" fill="#09090b" rx="12" opacity="0.25"/>
+
+  <!-- Titre Kanban -->
+  <text x="400" y="44" text-anchor="middle" font-family="monospace" font-size="13" fill="#a1a1aa" font-weight="600" letter-spacing="2">KANBAN BOARD — SmartPlanning Sprint 3</text>
+  <line x1="60" y1="54" x2="740" y2="54" stroke="#27272a" stroke-width="1"/>
+
+  <!-- Colonne Backlog -->
+  <rect x="30" y="66" width="165" height="310" rx="8" fill="#111113" stroke="#27272a"/>
+  <rect x="30" y="66" width="165" height="32" rx="8" fill="#27272a"/>
+  <rect x="30" y="90" width="165" height="8" rx="0" fill="#27272a"/>
+  <text x="112" y="87" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" font-weight="600">Backlog</text>
+  <rect x="148" y="74" width="18" height="16" rx="8" fill="#3f3f46"/>
+  <text x="157" y="85" text-anchor="middle" font-family="monospace" font-size="9" fill="#fafafa">4</text>
+
+  <g transform="translate(42,108)">
+    <rect width="141" height="54" rx="6" fill="#18181b" stroke="#27272a"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#f59e0b">🔶 Feature</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#fafafa" font-weight="500">Export CSV</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#71717a">Planning → CSV</text>
+  </g>
+  <g transform="translate(42,172)">
+    <rect width="141" height="54" rx="6" fill="#18181b" stroke="#27272a"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#a855f7">🔷 Tech</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#fafafa" font-weight="500">Cache Redis</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#71717a">Perf sessions</text>
+  </g>
+  <g transform="translate(42,236)">
+    <rect width="141" height="54" rx="6" fill="#18181b" stroke="#3f3f46" stroke-dasharray="3,2"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#71717a">🔲 Idea</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#71717a">App mobile</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#52525b">v2.0 scope</text>
+  </g>
+
+  <!-- Colonne En cours -->
+  <rect x="207" y="66" width="165" height="310" rx="8" fill="#111113" stroke="#1e3a5f"/>
+  <rect x="207" y="66" width="165" height="32" rx="8" fill="#1e3a5f"/>
+  <rect x="207" y="90" width="165" height="8" rx="0" fill="#1e3a5f"/>
+  <text x="289" y="87" text-anchor="middle" font-family="monospace" font-size="11" fill="#93c5fd" font-weight="600">En cours</text>
+  <rect x="325" y="74" width="18" height="16" rx="8" fill="#3b82f6" opacity="0.7"/>
+  <text x="334" y="85" text-anchor="middle" font-family="monospace" font-size="9" fill="#fff">3</text>
+
+  <g transform="translate(219,108)">
+    <rect width="141" height="62" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#3b82f6">🟦 Feature</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#fafafa" font-weight="600">Auth JWT</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#a1a1aa">Middleware + tokens</text>
+    <rect x="8" y="52" width="90" height="4" rx="2" fill="#1e3a5f"/>
+    <rect x="8" y="52" width="65" height="4" rx="2" fill="#3b82f6"/>
+  </g>
+  <g transform="translate(219,182)">
+    <rect width="141" height="54" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#3b82f6">🟦 Feature</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#fafafa" font-weight="600">UI Plannings</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#a1a1aa">Drag & drop</text>
+  </g>
+  <g transform="translate(219,248)">
+    <rect width="141" height="54" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#f59e0b">🐛 Bug</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#fafafa" font-weight="600">Timezone fix</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#a1a1aa">UTC/Local</text>
+  </g>
+
+  <!-- Colonne Review -->
+  <rect x="384" y="66" width="165" height="310" rx="8" fill="#111113" stroke="#2d1f6b"/>
+  <rect x="384" y="66" width="165" height="32" rx="8" fill="#2d1f6b"/>
+  <rect x="384" y="90" width="165" height="8" rx="0" fill="#2d1f6b"/>
+  <text x="466" y="87" text-anchor="middle" font-family="monospace" font-size="11" fill="#c4b5fd" font-weight="600">Review / QA</text>
+  <rect x="502" y="74" width="18" height="16" rx="8" fill="#a855f7" opacity="0.7"/>
+  <text x="511" y="85" text-anchor="middle" font-family="monospace" font-size="9" fill="#fff">2</text>
+
+  <g transform="translate(396,108)">
+    <rect width="141" height="54" rx="6" fill="#1a1030" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#a855f7">👁 Review</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#fafafa" font-weight="600">API Teams</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#a1a1aa">CRUD complet</text>
+  </g>
+  <g transform="translate(396,172)">
+    <rect width="141" height="54" rx="6" fill="#1a1030" stroke="#a855f7" stroke-width="1"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#a855f7">🧪 QA</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#fafafa" font-weight="600">Tests E2E</text>
+    <text x="8" y="44" font-family="monospace" font-size="9" fill="#a1a1aa">Playwright auth</text>
+  </g>
+
+  <!-- Colonne Done -->
+  <rect x="561" y="66" width="210" height="310" rx="8" fill="#111113" stroke="#14532d"/>
+  <rect x="561" y="66" width="210" height="32" rx="8" fill="#14532d"/>
+  <rect x="561" y="90" width="210" height="8" rx="0" fill="#14532d"/>
+  <text x="666" y="87" text-anchor="middle" font-family="monospace" font-size="11" fill="#86efac" font-weight="600">✓ Done</text>
+  <rect x="722" y="74" width="20" height="16" rx="8" fill="#22c55e" opacity="0.8"/>
+  <text x="732" y="85" text-anchor="middle" font-family="monospace" font-size="9" fill="#fff">5</text>
+
+  <g transform="translate(573,108)">
+    <rect width="186" height="44" rx="6" fill="#0d1f0d" stroke="#22c55e" stroke-width="1"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#22c55e">✓ Complété</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="500">Setup Prisma + DB</text>
+  </g>
+  <g transform="translate(573,162)">
+    <rect width="186" height="44" rx="6" fill="#0d1f0d" stroke="#22c55e" stroke-width="1"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#22c55e">✓ Complété</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="500">Auth email/password</text>
+  </g>
+  <g transform="translate(573,216)">
+    <rect width="186" height="44" rx="6" fill="#0d1f0d" stroke="#22c55e" stroke-width="1"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#22c55e">✓ Complété</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="500">Dashboard admin</text>
+  </g>
+  <g transform="translate(573,270)">
+    <rect width="186" height="44" rx="6" fill="#0d1f0d" stroke="#22c55e" stroke-width="1"/>
+    <text x="8" y="16" font-family="monospace" font-size="9" fill="#22c55e">✓ Complété</text>
+    <text x="8" y="30" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="500">Multi-tenant setup</text>
+  </g>
+
+  <!-- Sprint info -->
+  <rect x="30" y="385" width="740" height="22" rx="4" fill="#18181b" stroke="#27272a"/>
+  <text x="130" y="399" text-anchor="middle" font-family="monospace" font-size="10" fill="#a1a1aa">Sprint 3/6</text>
+  <rect x="165" y="392" width="500" height="8" rx="4" fill="#27272a"/>
+  <rect x="165" y="392" width="240" height="8" rx="4" fill="#3b82f6" opacity="0.8"/>
+  <text x="690" y="399" text-anchor="middle" font-family="monospace" font-size="10" fill="#a1a1aa">48%</text>
+</svg>

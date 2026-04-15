@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <radialGradient id="bg1" cx="30%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#1e3a5f" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="420" fill="url(#bg1)" rx="12"/>
+  <rect width="800" height="420" fill="#09090b" rx="12" opacity="0.3"/>
+
+  <!-- Grid subtile -->
+  <g opacity="0.06" stroke="#3b82f6" stroke-width="0.5">
+    <line x1="0" y1="60" x2="800" y2="60"/>
+    <line x1="0" y1="120" x2="800" y2="120"/>
+    <line x1="0" y1="180" x2="800" y2="180"/>
+    <line x1="0" y1="240" x2="800" y2="240"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="100" y1="0" x2="100" y2="420"/>
+    <line x1="200" y1="0" x2="200" y2="420"/>
+    <line x1="300" y1="0" x2="300" y2="420"/>
+    <line x1="400" y1="0" x2="400" y2="420"/>
+    <line x1="500" y1="0" x2="500" y2="420"/>
+    <line x1="600" y1="0" x2="600" y2="420"/>
+    <line x1="700" y1="0" x2="700" y2="420"/>
+  </g>
+
+  <!-- Persona card 1 -->
+  <rect x="60" y="80" width="200" height="130" rx="10" fill="#18181b" stroke="#27272a" stroke-width="1"/>
+  <circle cx="110" cy="125" r="28" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="110" y="131" text-anchor="middle" font-family="monospace" font-size="20" fill="#3b82f6">👤</text>
+  <text x="150" y="116" font-family="monospace" font-size="11" fill="#a1a1aa">Persona</text>
+  <text x="150" y="132" font-family="monospace" font-size="13" fill="#fafafa" font-weight="600">Manager RH</text>
+  <rect x="80" y="168" width="160" height="6" rx="3" fill="#27272a"/>
+  <rect x="80" y="168" width="110" height="6" rx="3" fill="#3b82f6" opacity="0.7"/>
+  <rect x="80" y="182" width="160" height="6" rx="3" fill="#27272a"/>
+  <rect x="80" y="182" width="80" height="6" rx="3" fill="#3b82f6" opacity="0.5"/>
+
+  <!-- Persona card 2 -->
+  <rect x="60" y="230" width="200" height="110" rx="10" fill="#18181b" stroke="#27272a" stroke-width="1"/>
+  <circle cx="110" cy="270" r="24" fill="#1a2e1a" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="110" y="276" text-anchor="middle" font-family="monospace" font-size="18" fill="#22c55e">👤</text>
+  <text x="146" y="260" font-family="monospace" font-size="11" fill="#a1a1aa">Persona</text>
+  <text x="146" y="276" font-family="monospace" font-size="13" fill="#fafafa" font-weight="600">Employé</text>
+  <rect x="80" y="300" width="160" height="6" rx="3" fill="#27272a"/>
+  <rect x="80" y="300" width="130" height="6" rx="3" fill="#22c55e" opacity="0.7"/>
+  <rect x="80" y="314" width="160" height="6" rx="3" fill="#27272a"/>
+  <rect x="80" y="314" width="60" height="6" rx="3" fill="#22c55e" opacity="0.5"/>
+
+  <!-- Arrow to user stories -->
+  <line x1="262" y1="210" x2="310" y2="170" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.6"/>
+  <polygon points="310,170 300,168 306,178" fill="#3b82f6" opacity="0.6"/>
+
+  <!-- User Stories panel -->
+  <rect x="310" y="70" width="250" height="280" rx="10" fill="#0f172a" stroke="#1e3a5f" stroke-width="1.5"/>
+  <rect x="310" y="70" width="250" height="36" rx="10" fill="#1e3a5f"/>
+  <rect x="310" y="96" width="250" height="10" rx="0" fill="#1e3a5f"/>
+  <text x="435" y="93" text-anchor="middle" font-family="monospace" font-size="12" fill="#93c5fd" font-weight="600">User Stories</text>
+
+  <!-- Story items -->
+  <g transform="translate(325, 125)">
+    <rect width="220" height="40" rx="6" fill="#18181b" stroke="#27272a"/>
+    <text x="10" y="14" font-family="monospace" font-size="9" fill="#a1a1aa">US-01</text>
+    <text x="50" y="14" font-family="monospace" font-size="9" fill="#fafafa">En tant que manager</text>
+    <text x="10" y="28" font-family="monospace" font-size="9" fill="#a1a1aa">je veux créer des plannings</text>
+    <rect x="190" y="12" width="24" height="14" rx="3" fill="#1e3a5f"/>
+    <text x="202" y="22" text-anchor="middle" font-family="monospace" font-size="8" fill="#93c5fd">8pt</text>
+  </g>
+  <g transform="translate(325, 175)">
+    <rect width="220" height="40" rx="6" fill="#18181b" stroke="#27272a"/>
+    <text x="10" y="14" font-family="monospace" font-size="9" fill="#a1a1aa">US-02</text>
+    <text x="50" y="14" font-family="monospace" font-size="9" fill="#fafafa">En tant qu'employé</text>
+    <text x="10" y="28" font-family="monospace" font-size="9" fill="#a1a1aa">je veux voir mes horaires</text>
+    <rect x="190" y="12" width="24" height="14" rx="3" fill="#1e3a5f"/>
+    <text x="202" y="22" text-anchor="middle" font-family="monospace" font-size="8" fill="#93c5fd">5pt</text>
+  </g>
+  <g transform="translate(325, 225)">
+    <rect width="220" height="40" rx="6" fill="#18181b" stroke="#27272a"/>
+    <text x="10" y="14" font-family="monospace" font-size="9" fill="#a1a1aa">US-03</text>
+    <text x="50" y="14" font-family="monospace" font-size="9" fill="#fafafa">En tant qu'admin</text>
+    <text x="10" y="28" font-family="monospace" font-size="9" fill="#a1a1aa">je veux gérer les accès</text>
+    <rect x="190" y="12" width="24" height="14" rx="3" fill="#1a2e1a"/>
+    <text x="202" y="22" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">3pt</text>
+  </g>
+  <g transform="translate(325, 275)">
+    <rect width="220" height="40" rx="6" fill="#18181b" stroke="#27272a" stroke-dasharray="4,2"/>
+    <text x="10" y="14" font-family="monospace" font-size="9" fill="#71717a">US-04</text>
+    <text x="50" y="14" font-family="monospace" font-size="9" fill="#71717a">Notifications email</text>
+    <text x="10" y="28" font-family="monospace" font-size="9" fill="#71717a">à définir...</text>
+    <rect x="190" y="12" width="24" height="14" rx="3" fill="#1c1c1e"/>
+    <text x="202" y="22" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">?pt</text>
+  </g>
+
+  <!-- MoSCoW label -->
+  <rect x="580" y="80" width="165" height="260" rx="10" fill="#18181b" stroke="#27272a"/>
+  <text x="662" y="105" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" font-weight="600">MoSCoW</text>
+
+  <rect x="596" y="116" width="133" height="42" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="663" y="134" text-anchor="middle" font-family="monospace" font-size="10" fill="#93c5fd" font-weight="700">Must Have</text>
+  <text x="663" y="148" text-anchor="middle" font-family="monospace" font-size="9" fill="#60a5fa">Plannings, Auth</text>
+
+  <rect x="596" y="168" width="133" height="42" rx="6" fill="#1a2e1a" stroke="#22c55e" stroke-width="1"/>
+  <text x="663" y="186" text-anchor="middle" font-family="monospace" font-size="10" fill="#86efac" font-weight="700">Should Have</text>
+  <text x="663" y="200" text-anchor="middle" font-family="monospace" font-size="9" fill="#4ade80">Notifs, Exports</text>
+
+  <rect x="596" y="220" width="133" height="42" rx="6" fill="#2d1f0a" stroke="#f59e0b" stroke-width="1"/>
+  <text x="663" y="238" text-anchor="middle" font-family="monospace" font-size="10" fill="#fcd34d" font-weight="700">Could Have</text>
+  <text x="663" y="252" text-anchor="middle" font-family="monospace" font-size="9" fill="#fbbf24">Dashboard BI</text>
+
+  <rect x="596" y="272" width="133" height="42" rx="6" fill="#1c1c1e" stroke="#3f3f46" stroke-width="1"/>
+  <text x="663" y="290" text-anchor="middle" font-family="monospace" font-size="10" fill="#71717a" font-weight="700">Won't Have</text>
+  <text x="663" y="304" text-anchor="middle" font-family="monospace" font-size="9" fill="#52525b">Mobile natif</text>
+
+  <!-- Label article -->
+  <rect x="60" y="368" width="220" height="28" rx="6" fill="#1e3a5f" opacity="0.5"/>
+  <text x="170" y="386" text-anchor="middle" font-family="monospace" font-size="11" fill="#93c5fd">01 — Analyse des besoins</text>
+</svg>

@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420">
+  <defs>
+    <radialGradient id="bg8" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1e1030" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bg8)" rx="12"/>
+
+  <text x="400" y="28" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">DÉMOS — SmartPlanning en action</text>
+
+  <!-- Browser mockup central -->
+  <rect x="60" y="44" width="680" height="340" rx="10" fill="#111113" stroke="#27272a" stroke-width="1.5"/>
+  <!-- Browser bar -->
+  <rect x="60" y="44" width="680" height="34" rx="10" fill="#1c1c1e"/>
+  <rect x="60" y="68" width="680" height="10" rx="0" fill="#1c1c1e"/>
+  <circle cx="84" cy="61" r="6" fill="#ff5f57"/>
+  <circle cx="102" cy="61" r="6" fill="#febc2e"/>
+  <circle cx="120" cy="61" r="6" fill="#28c840"/>
+  <!-- URL bar -->
+  <rect x="148" y="52" width="420" height="18" rx="9" fill="#27272a"/>
+  <text x="358" y="64" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">smartplanning.fr/dashboard</text>
+  <rect x="580" y="52" width="60" height="18" rx="4" fill="#1e3a5f"/>
+  <text x="610" y="64" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">▶ Live</text>
+
+  <!-- Dashboard content inside browser -->
+  <!-- Sidebar -->
+  <rect x="60" y="78" width="130" height="306" fill="#18181b" stroke="#27272a" stroke-width="0.5"/>
+  <text x="80" y="100" font-family="monospace" font-size="10" fill="#3b82f6" font-weight="700">Smart</text>
+  <text x="113" y="100" font-family="monospace" font-size="10" fill="#fafafa" font-weight="700">Planning</text>
+  <line x1="68" y1="108" x2="186" y2="108" stroke="#27272a"/>
+
+  <g font-family="monospace" font-size="9">
+    <rect x="68" y="116" width="114" height="20" rx="4" fill="#1e3a5f"/>
+    <text x="82" y="130" fill="#93c5fd">📅  Plannings</text>
+
+    <text x="82" y="158" fill="#71717a">👥  Équipes</text>
+    <text x="82" y="178" fill="#71717a">💳  Facturation</text>
+    <text x="82" y="198" fill="#71717a">📊  Rapports</text>
+    <text x="82" y="218" fill="#71717a">⚙️  Paramètres</text>
+  </g>
+
+  <!-- Badge utilisateur en bas sidebar -->
+  <rect x="68" y="342" width="114" height="34" rx="6" fill="#27272a"/>
+  <circle cx="85" cy="359" r="8" fill="#3b82f6"/>
+  <text x="85" y="363" text-anchor="middle" font-family="monospace" font-size="7" fill="#fff">CM</text>
+  <text x="100" y="354" font-family="monospace" font-size="8" fill="#fafafa">Christophe</text>
+  <text x="100" y="366" font-family="monospace" font-size="7" fill="#71717a">Manager</text>
+
+  <!-- Main content area -->
+  <!-- Header stats -->
+  <rect x="196" y="82" width="148" height="60" rx="6" fill="#18181b" stroke="#27272a"/>
+  <text x="270" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#a1a1aa">Cette semaine</text>
+  <text x="270" y="122" text-anchor="middle" font-family="monospace" font-size="20" fill="#3b82f6" font-weight="700">24</text>
+  <text x="270" y="136" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">shifts planifiés</text>
+
+  <rect x="352" y="82" width="148" height="60" rx="6" fill="#18181b" stroke="#27272a"/>
+  <text x="426" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#a1a1aa">Employés actifs</text>
+  <text x="426" y="122" text-anchor="middle" font-family="monospace" font-size="20" fill="#22c55e" font-weight="700">8/10</text>
+  <text x="426" y="136" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">disponibles</text>
+
+  <rect x="508" y="82" width="148" height="60" rx="6" fill="#18181b" stroke="#27272a"/>
+  <text x="582" y="104" text-anchor="middle" font-family="monospace" font-size="9" fill="#a1a1aa">Heures totales</text>
+  <text x="582" y="122" text-anchor="middle" font-family="monospace" font-size="20" fill="#a855f7" font-weight="700">172h</text>
+  <text x="582" y="136" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">ce mois</text>
+
+  <rect x="664" y="82" width="72" height="60" rx="6" fill="#18181b" stroke="#22c55e"/>
+  <text x="700" y="104" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">Plan Pro</text>
+  <text x="700" y="118" text-anchor="middle" font-family="monospace" font-size="14" fill="#22c55e">✓</text>
+  <text x="700" y="136" text-anchor="middle" font-family="monospace" font-size="7" fill="#4ade80">Actif</text>
+
+  <!-- Planning grid mini -->
+  <rect x="196" y="154" width="338" height="170" rx="6" fill="#18181b" stroke="#27272a"/>
+  <rect x="196" y="154" width="338" height="22" rx="6" fill="#1e3a5f" opacity="0.6"/>
+  <text x="365" y="169" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">Planning — Semaine 15</text>
+
+  <g font-family="monospace" font-size="8" fill="#52525b">
+    <text x="250" y="192" text-anchor="middle">Lun 7</text>
+    <text x="300" y="192" text-anchor="middle">Mar 8</text>
+    <text x="350" y="192" text-anchor="middle">Mer 9</text>
+    <text x="400" y="192" text-anchor="middle">Jeu 10</text>
+    <text x="450" y="192" text-anchor="middle">Ven 11</text>
+    <text x="500" y="192" text-anchor="middle">Sam 12</text>
+  </g>
+  <line x1="204" y1="196" x2="526" y2="196" stroke="#27272a" stroke-width="0.5"/>
+
+  <!-- Rows -->
+  <text x="210" y="212" font-family="monospace" font-size="8" fill="#a1a1aa">Alice</text>
+  <rect x="228" y="202" width="146" height="14" rx="3" fill="#1e3a5f"/>
+  <text x="301" y="212" text-anchor="middle" font-family="monospace" font-size="7" fill="#93c5fd">08:00–16:00</text>
+
+  <text x="210" y="230" font-family="monospace" font-size="8" fill="#a1a1aa">Bob</text>
+  <rect x="278" y="220" width="146" height="14" rx="3" fill="#14532d"/>
+  <text x="351" y="230" text-anchor="middle" font-family="monospace" font-size="7" fill="#86efac">10:00–18:00</text>
+
+  <text x="210" y="248" font-family="monospace" font-size="8" fill="#a1a1aa">Carol</text>
+  <rect x="228" y="238" width="70" height="14" rx="3" fill="#2d1f0a"/>
+  <text x="263" y="248" text-anchor="middle" font-family="monospace" font-size="7" fill="#fcd34d">08–12</text>
+  <rect x="378" y="238" width="70" height="14" rx="3" fill="#2d1f0a"/>
+  <text x="413" y="248" text-anchor="middle" font-family="monospace" font-size="7" fill="#fcd34d">14–18</text>
+
+  <text x="210" y="266" font-family="monospace" font-size="8" fill="#a1a1aa">Dave</text>
+  <rect x="378" y="256" width="146" height="14" rx="3" fill="#1a1030"/>
+  <text x="451" y="266" text-anchor="middle" font-family="monospace" font-size="7" fill="#c4b5fd">14:00–22:00</text>
+
+  <!-- Add shift button flottant -->
+  <rect x="468" y="298" width="58" height="20" rx="10" fill="#3b82f6"/>
+  <text x="497" y="312" text-anchor="middle" font-family="monospace" font-size="9" fill="#fff">+ Shift</text>
+
+  <!-- Right panel: notifications -->
+  <rect x="542" y="154" width="198" height="80" rx="6" fill="#18181b" stroke="#27272a"/>
+  <text x="641" y="172" text-anchor="middle" font-family="monospace" font-size="9" fill="#a1a1aa" font-weight="600">Notifications</text>
+  <line x1="550" y1="178" x2="732" y2="178" stroke="#27272a" stroke-width="0.5"/>
+  <circle cx="558" cy="194" r="3" fill="#22c55e"/>
+  <text x="568" y="197" font-family="monospace" font-size="8" fill="#fafafa">Shift confirmé — Alice</text>
+  <text x="568" y="207" font-family="monospace" font-size="7" fill="#71717a">il y a 2 min</text>
+  <circle cx="558" cy="218" r="3" fill="#f59e0b"/>
+  <text x="568" y="221" font-family="monospace" font-size="8" fill="#fafafa">Conflit détecté — Mer 9</text>
+  <text x="568" y="231" font-family="monospace" font-size="7" fill="#71717a">il y a 8 min</text>
+
+  <!-- Right panel: team -->
+  <rect x="542" y="242" width="198" height="82" rx="6" fill="#18181b" stroke="#27272a"/>
+  <text x="641" y="260" text-anchor="middle" font-family="monospace" font-size="9" fill="#a1a1aa" font-weight="600">Équipe</text>
+  <line x1="550" y1="266" x2="732" y2="266" stroke="#27272a" stroke-width="0.5"/>
+  <g font-family="monospace" font-size="8">
+    <circle cx="558" cy="280" r="6" fill="#3b82f6"/>
+    <text x="558" y="283" text-anchor="middle" fill="#fff" font-size="6">A</text>
+    <text x="572" y="282" fill="#fafafa">Alice Martin</text>
+    <text x="640" y="282" fill="#22c55e">● dispo</text>
+
+    <circle cx="558" cy="298" r="6" fill="#22c55e"/>
+    <text x="558" y="301" text-anchor="middle" fill="#fff" font-size="6">B</text>
+    <text x="572" y="300" fill="#fafafa">Bob Dupont</text>
+    <text x="640" y="300" fill="#22c55e">● dispo</text>
+
+    <circle cx="558" cy="316" r="6" fill="#a855f7"/>
+    <text x="558" y="319" text-anchor="middle" fill="#fff" font-size="6">C</text>
+    <text x="572" y="318" fill="#fafafa">Carol Lef.</text>
+    <text x="640" y="318" fill="#f59e0b">● congé</text>
+  </g>
+
+  <!-- Badge label -->
+  <rect x="62" y="358" width="220" height="22" rx="5" fill="#1a1030" opacity="0.7"/>
+  <text x="172" y="373" text-anchor="middle" font-family="monospace" font-size="10" fill="#c4b5fd">08 — Démos SmartPlanning</text>
+</svg>
