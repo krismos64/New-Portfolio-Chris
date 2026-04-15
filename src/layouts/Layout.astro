@@ -102,7 +102,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
       "mainEntity": {
         "@type": "Person",
         "name": "Christophe Mostefaoui",
-        "jobTitle": "Concepteur Développeur d'Applications Fullstack & IA",
+        "jobTitle": "Concepteur Développeur d'Applications Fullstack",
         "description": description,
         "image": fullImageUrl,
         "url": canonicalUrl,
@@ -246,7 +246,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
             if (p.x < -30) p.x = w + 20;
             if (p.x > w + 30) p.x = -20;
 
-            ctx!.font = `${p.size}px 'SF Mono', 'Fira Code', monospace`;
+            ctx!.font = `${p.size}px var(--font-mono, 'SF Mono', 'Fira Code', monospace)`;
             ctx!.fillStyle = `rgba(59, 130, 246, ${p.opacity})`;
             ctx!.fillText(p.text, p.x, p.y);
           }
@@ -275,16 +275,18 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     </script>
 
     <!-- Chatbot -->
-    <script>
+    <script is:inline>
       window.embeddedChatbotConfig = {
         chatbotId: "ChVRrroBokwiXkBw4wCcr",
         domain: "www.chatbase.co",
       };
     </script>
+    <!-- chatbotId et domain sont des attributs data requis par Chatbase -->
     <script
+      is:inline
       src="https://www.chatbase.co/embed.min.js"
-      chatbotId="ChVRrroBokwiXkBw4wCcr"
-      domain="www.chatbase.co"
+      data-chatbot-id="ChVRrroBokwiXkBw4wCcr"
+      data-domain="www.chatbase.co"
       defer
     ></script>
   </body>
@@ -324,6 +326,29 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     --max-width: 1200px;
     --nav-height: 64px;
     --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
+
+    /* Navbar backgrounds */
+    --bg-nav: rgba(9, 9, 11, 0.6);
+    --bg-nav-scrolled: rgba(9, 9, 11, 0.85);
+    --bg-nav-mobile: rgba(9, 9, 11, 0.95);
+
+    /* Overlays blancs */
+    --white-03: rgba(255, 255, 255, 0.03);
+    --white-05: rgba(255, 255, 255, 0.05);
+
+    /* Accent alpha */
+    --accent-05: rgba(59, 130, 246, 0.05);
+    --accent-08: rgba(59, 130, 246, 0.08);
+    --accent-30: rgba(59, 130, 246, 0.3);
+
+    /* Terminal macOS */
+    --terminal-bg: #0c0c0e;
+    --dot-red: #ff5f57;
+    --dot-yellow: #febc2e;
+    --dot-green: #28c840;
+
+    /* Border-radius pill */
+    --radius-pill: 9999px;
   }
 
   /* === Reset === */
@@ -357,9 +382,9 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     pointer-events: none;
     z-index: -1;
     background:
-      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(59, 130, 246, 0.08), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168, 85, 247, 0.06), transparent),
-      radial-gradient(ellipse 50% 60% at 50% 50%, rgba(59, 130, 246, 0.04), transparent);
+      radial-gradient(ellipse 80% 50% at 20% 20%, var(--accent-08), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 80%, color-mix(in srgb, var(--purple) 6%, transparent), transparent),
+      radial-gradient(ellipse 50% 60% at 50% 50%, color-mix(in srgb, var(--accent) 4%, transparent), transparent);
     animation: gradientShift 12s ease-in-out infinite alternate;
   }
 
@@ -383,15 +408,15 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
   @keyframes gradientShift {
     0% {
       background:
-        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(59, 130, 246, 0.08), transparent),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168, 85, 247, 0.06), transparent),
-        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(59, 130, 246, 0.04), transparent);
+        radial-gradient(ellipse 80% 50% at 20% 20%, var(--accent-08), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 80%, color-mix(in srgb, var(--purple) 6%, transparent), transparent),
+        radial-gradient(ellipse 50% 60% at 50% 50%, color-mix(in srgb, var(--accent) 4%, transparent), transparent);
     }
     100% {
       background:
-        radial-gradient(ellipse 80% 50% at 80% 80%, rgba(168, 85, 247, 0.08), transparent),
-        radial-gradient(ellipse 60% 40% at 20% 20%, rgba(59, 130, 246, 0.06), transparent),
-        radial-gradient(ellipse 50% 60% at 60% 40%, rgba(168, 85, 247, 0.04), transparent);
+        radial-gradient(ellipse 80% 50% at 80% 80%, var(--purple-subtle), transparent),
+        radial-gradient(ellipse 60% 40% at 20% 20%, color-mix(in srgb, var(--accent) 6%, transparent), transparent),
+        radial-gradient(ellipse 50% 60% at 60% 40%, color-mix(in srgb, var(--purple) 4%, transparent), transparent);
     }
   }
 

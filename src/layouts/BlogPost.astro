@@ -1,0 +1,506 @@
+---
+import Layout from './Layout.astro';
+import BlogNav from '../components/BlogNav.astro';
+import TableOfContents from '../components/blog/TableOfContents.astro';
+import { categoryColors, categoryLabels } from '../data/categories';
+
+export interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updatedDate?: Date;
+  category: string;
+  tags: string[];
+  image?: string;
+  order: number;
+  prevPost?: { slug: string; title: string } | null;
+  nextPost?: { slug: string; title: string } | null;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const {
+  title,
+  description,
+  date,
+  updatedDate,
+  category,
+  tags,
+  image,
+  order,
+  prevPost,
+  nextPost,
+  headings,
+} = Astro.props;
+
+const formattedDate = date.toLocaleDateString('fr-FR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const formattedUpdatedDate = updatedDate?.toLocaleDateString('fr-FR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const canonicalUrl = `https://krismos.fr/blog/${Astro.params.slug}/`;
+---
+
+<Layout
+  title={`${title} — SmartPlanning Blog | Christophe Mostefaoui`}
+  description={description}
+  image={image}
+  url={canonicalUrl}
+>
+  <BlogNav activeLink="blog" />
+
+  <!-- JSON-LD BlogPosting -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": description,
+    "datePublished": date.toISOString(),
+    "dateModified": (updatedDate || date).toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Christophe Mostefaoui",
+      "url": "https://krismos.fr/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Christophe Mostefaoui"
+    },
+    "mainEntityOfPage": canonicalUrl,
+    "image": image ? new URL(image, 'https://krismos.fr').href : undefined,
+    "keywords": tags.join(', '),
+    "articleSection": categoryLabels[category] || category,
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "SmartPlanning — Du concept au déploiement",
+      "url": "https://krismos.fr/blog/"
+    }
+  })} />
+
+  <!-- Breadcrumb JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://krismos.fr/blog/" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": canonicalUrl }
+    ]
+  })} />
+
+  <main id="main-content" class="blog-post">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="/">Portfolio</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="/blog">Blog</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">{title}</span>
+    </nav>
+
+    <!-- Reading progress bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <article class="article">
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="article-category" style={`--cat-color: ${categoryColors[category] || 'var(--accent)'}`}>
+            {`${String(order).padStart(2, '0')} — ${categoryLabels[category] || category}`}
+          </span>
+          <time datetime={date.toISOString()}>{formattedDate}</time>
+          {formattedUpdatedDate && (
+            <span class="article-updated">Mis à jour le {formattedUpdatedDate}</span>
+          )}
+        </div>
+        <h1 class="article-title">{title}</h1>
+        <p class="article-description">{description}</p>
+        <div class="article-tags">
+          {tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      </header>
+
+      {image && (
+        <img src={image} alt={title} class="article-cover" loading="eager" />
+      )}
+
+      {headings.length > 0 && (
+        <TableOfContents headings={headings} />
+      )}
+
+      <div class="article-content prose">
+        <slot />
+      </div>
+
+      <!-- CTA recrutement -->
+      <aside class="article-cta">
+        <p>Ce projet vous intéresse ? Découvrez mon profil complet.</p>
+        <div class="cta-links">
+          <a href="/docs/cv-christophe-mostefaoui.pdf" target="_blank" rel="noopener noreferrer" class="cta-btn cta-primary">Voir mon CV</a>
+          <a href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" rel="noopener noreferrer" class="cta-btn cta-secondary">LinkedIn</a>
+          <a href="/#contact" class="cta-btn cta-secondary">Contact</a>
+        </div>
+      </aside>
+
+      <!-- Navigation prev/next -->
+      <nav class="article-nav" aria-label="Articles adjacents">
+        {prevPost ? (
+          <a href={`/blog/${prevPost.slug}/`} class="nav-prev">
+            <span class="nav-direction">Article précédent</span>
+            <span class="nav-title">{prevPost.title}</span>
+          </a>
+        ) : <div />}
+        {nextPost ? (
+          <a href={`/blog/${nextPost.slug}/`} class="nav-next">
+            <span class="nav-direction">Article suivant</span>
+            <span class="nav-title">{nextPost.title}</span>
+          </a>
+        ) : <div />}
+      </nav>
+    </article>
+  </main>
+</Layout>
+
+<script>
+  // Reading progress bar
+  const progressBar = document.getElementById('readingProgress');
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / docHeight) * 100;
+      progressBar.style.width = `${Math.min(progress, 100)}%`;
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  /* === Reading Progress === */
+  .reading-progress {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--accent);
+    z-index: 101;
+    transition: width 0.1s linear;
+  }
+
+  /* === Breadcrumb === */
+  .breadcrumb {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: calc(var(--nav-height) + 2rem) 1.5rem 0;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a {
+    color: var(--text-secondary);
+    transition: color var(--transition);
+  }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb-sep { color: var(--border-light); }
+  .breadcrumb-current {
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 300px;
+  }
+
+  /* === Article === */
+  .article {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .article-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .article-category {
+    font-weight: 600;
+    color: var(--cat-color);
+    background: color-mix(in srgb, var(--cat-color) 10%, transparent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .article-updated {
+    font-style: italic;
+  }
+
+  .article-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .article-description {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .article-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+  }
+
+  .article-cover {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+
+  /* === Prose (contenu MDX) === */
+  .prose {
+    color: var(--text-secondary);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+  }
+
+  .prose :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    scroll-margin-top: calc(var(--nav-height) + 1rem);
+  }
+
+  .prose :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: calc(var(--nav-height) + 1rem);
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(ul), .prose :global(ol) {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    background: var(--accent-subtle);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .prose :global(pre) {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .prose :global(img) {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+
+  .prose :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose :global(a:hover) {
+    color: var(--accent-hover);
+  }
+
+  .prose :global(strong) {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9375rem;
+  }
+
+  .prose :global(th), .prose :global(td) {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .prose :global(th) {
+    color: var(--text);
+    font-weight: 600;
+    background: var(--bg-card);
+  }
+
+  /* === CTA Recrutement === */
+  .article-cta {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .article-cta p {
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    font-size: 1.0625rem;
+  }
+
+  .cta-links {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all var(--transition);
+  }
+
+  .cta-primary {
+    background: var(--accent);
+    color: white;
+  }
+  .cta-primary:hover {
+    background: var(--accent-hover);
+    color: white;
+  }
+
+  .cta-secondary {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .cta-secondary:hover {
+    border-color: var(--border-light);
+    color: var(--text);
+  }
+
+  /* === Navigation prev/next === */
+  .article-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-prev, .nav-next {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color var(--transition);
+    text-decoration: none;
+  }
+  .nav-prev:hover, .nav-next:hover {
+    border-color: var(--border-light);
+  }
+
+  .nav-next { text-align: right; }
+
+  .nav-direction {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  @media (max-width: 640px) {
+    .article-nav {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

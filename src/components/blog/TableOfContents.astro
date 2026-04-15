@@ -1,0 +1,84 @@
+---
+export interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+const filteredHeadings = headings.filter((h) => h.depth <= 3);
+---
+
+{filteredHeadings.length > 0 && (
+  <nav class="toc" aria-label="Table des matières">
+    <details open>
+      <summary class="toc-title">Sommaire</summary>
+      <ul class="toc-list">
+        {filteredHeadings.map((heading) => (
+          <li class={`toc-item toc-depth-${heading.depth}`}>
+            <a href={`#${heading.slug}`} class="toc-link">{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  </nav>
+)}
+
+<style>
+  .toc {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+  }
+
+  .toc-title::-webkit-details-marker {
+    display: none;
+  }
+
+  .toc-title::before {
+    content: '▸ ';
+    color: var(--text-muted);
+    transition: transform var(--transition);
+    display: inline-block;
+  }
+
+  details[open] > .toc-title::before {
+    content: '▾ ';
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.75rem;
+  }
+
+  .toc-item {
+    margin-bottom: 0.25rem;
+  }
+
+  .toc-depth-3 {
+    padding-left: 1rem;
+  }
+
+  .toc-link {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    display: block;
+    transition: color var(--transition);
+  }
+
+  .toc-link:hover {
+    color: var(--accent);
+  }
+</style>

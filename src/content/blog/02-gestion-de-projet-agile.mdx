@@ -1,0 +1,92 @@
+---
+title: "Gestion de projet Agile — Organiser le développement"
+description: "Ma méthode de gestion de projet pour SmartPlanning : Kanban, sprints, backlog Jira, priorisation et suivi. Comment un développeur solo s'organise efficacement."
+date: 2026-04-03
+category: "gestion-projet"
+tags: ["Agile", "Kanban", "Jira", "Sprints", "Backlog", "Organisation"]
+image: "/images/blog/gestion-projet.webp"
+draft: false
+order: 2
+---
+
+## Pourquoi adopter Scrum quand on développe seul
+
+Quand j'ai lancé le développement de SmartPlanning en novembre 2025, une question s'est posée immédiatement : est-ce qu'un framework comme Scrum a du sens pour un développeur solo ? La réponse courte : oui, à condition de l'adapter.
+
+Les principes fondamentaux de Scrum -- cycles courts, incréments fonctionnels testables, amélioration continue -- restent pertinents quel que soit la taille de l'équipe. En solo, on a tendance à avancer "au feeling", à empiler les tâches sans prioriser, à reporter les sujets complexes. Scrum m'a donné un cadre pour éviter ces pièges : chaque sprint produit un incrément livrable et testable, chaque fonctionnalité est découpée en tickets actionnables, et la progression est visible à tout moment.
+
+L'enjeu n'était pas de singer une organisation d'équipe de dix personnes, mais de conserver la discipline qui fait la différence entre un projet qui aboutit et un projet qui s'enlise.
+
+## Organisation du backlog Jira
+
+J'ai structuré le projet sur trois niveaux dans Jira :
+
+### Epics : les modules fonctionnels
+
+24 Epics au total, chacun correspondant à un module fonctionnel de l'application : Authentification, Dashboard, Plannings, Gestion des congés, Facturation, et ainsi de suite. L'Epic est le niveau de granularité qui permet de voir l'avancement global du projet d'un coup d'oeil.
+
+### Stories : les tickets actionnables
+
+Chaque Epic est décomposé en stories -- des unités de travail concrètes avec des critères d'acceptation clairs. Une story correspond à une fonctionnalité implémentable en quelques heures à quelques jours. C'est le niveau où je travaille au quotidien : je prends une story, je la développe, je la teste, je la passe en "Done".
+
+### Sprints thématiques
+
+Les sprints regroupent les stories par thématique fonctionnelle. Plutôt qu'un sprint fourre-tout "Sprint 7", je travaille sur un sprint "Planning" ou un sprint "Congés", centré sur une fonctionnalité complète de bout en bout. J'explique plus bas pourquoi cette approche s'est imposée.
+
+## L'évolution de ma méthodologie : 3 adaptations clés
+
+Un des apprentissages majeurs de ce projet, c'est que la méthodologie n'est pas figée. Elle évolue avec le terrain. Voici les trois pivots qui ont marqué mon organisation.
+
+### Des sprints datés aux sprints thématiques
+
+Au démarrage, j'ai appliqué Scrum de manière classique : Sprint 1 du 4 au 17 novembre, Sprint 2 du 18 novembre au 1er décembre, etc. Ça n'a pas tenu. En solo, la charge de travail varie fortement d'une semaine à l'autre -- entre les imprévus, la recherche technique et les moments de concentration profonde, un cadre temporel rigide devient contre-productif.
+
+J'ai basculé vers des **sprints thématiques sans dates fixes**, centrés sur une fonctionnalité complète. Le sprint se termine quand la fonctionnalité est livrée et testée, pas quand une date arbitraire est atteinte. Résultat : moins de frustration, plus de valeur livrée par sprint, un rythme plus naturel et durable.
+
+### Gestion de crise : l'incident de sécurité
+
+En décembre 2025, mon VPS a été compromis trois fois en douze jours. Un scénario que personne n'anticipe dans un backlog initial. La méthodologie Scrum a prouvé sa robustesse face à cet imprévu : j'ai immédiatement créé un Epic Sécurité dédié, réorganisé les priorités du sprint en cours, et piloté la migration serveur comme n'importe quel autre incrément -- avec des stories, des critères d'acceptation et une validation.
+
+Ce moment a été révélateur : une bonne méthodologie ne sert pas uniquement quand tout va bien. Elle sert surtout quand tout déraille, parce qu'elle donne un cadre pour réagir de manière structurée au lieu de paniquer.
+
+### Documentation continue via Confluence
+
+La troisième adaptation a été d'intégrer Confluence comme outil de documentation technique en parallèle de Jira. Chaque fonctionnalité livrée est documentée avec les choix techniques justifiés, les difficultés rencontrées et les solutions retenues, les tests réalisés et leurs résultats, ainsi qu'un regard critique sur ce qui pourrait être amélioré.
+
+Cette discipline de documentation n'était pas prévue initialement, mais elle s'est avérée indispensable -- à la fois comme support de soutenance pour le titre CDA et comme mémoire technique du projet.
+
+## Planning et phases de développement
+
+Le développement de SmartPlanning s'est étalé sur 5 mois, de novembre 2025 à mars 2026, découpé en 6 phases :
+
+- **Fondations** (novembre 2025) -- Setup du projet, choix techniques, architecture initiale
+- **Architecture** (décembre 2025) -- Structure multi-tenant, base de données, API de base
+- **Qualité** (décembre 2025) -- Mise en place des tests, CI/CD, linting
+- **Authentification** (décembre 2025) -- Auth complète, gestion des rôles, sécurité
+- **Fonctionnalités métier** (janvier-février 2026) -- Plannings, congés, dashboard, facturation
+- **Finalisation** (mars 2026) -- Polish, performances, déploiement production
+
+Le principe directeur : fondations solides d'abord, fonctionnalités métier ensuite. J'ai résisté à la tentation de coder des écrans "visibles" dès le premier jour pour construire une base technique robuste. C'est un choix qui a payé sur la durée.
+
+## Les outils du workflow
+
+Quatre outils forment l'ossature de mon workflow :
+
+- **Jira** pour le suivi opérationnel : Epics, stories, sprints, tableau Kanban. C'est le cockpit du projet, celui que je consulte chaque matin pour savoir exactement où j'en suis.
+- **Confluence** pour la documentation fonctionnelle et technique. Chaque page Confluence est liée aux tickets Jira correspondants, ce qui crée une traçabilité complète entre le code et sa justification.
+- **GitHub** pour le versioning, les pull requests et le CI/CD via GitHub Actions. Chaque story Jira correspond à une branche, chaque merge à une PR reviewée.
+- **Figma** pour les maquettes et wireframes en amont du développement. Pas de code sans maquette validée.
+
+## Ce que cette approche m'a appris
+
+Cinq mois de gestion de projet Agile en solo, voici ce que je retiens.
+
+**La méthodologie doit servir le projet, pas l'inverse.** Adapter Scrum au contexte solo n'est pas une faiblesse, c'est une preuve de maturité. L'objectif n'est pas de cocher des cases Agile, c'est de livrer un produit fonctionnel.
+
+**La traçabilité est un investissement, pas une perte de temps.** Pouvoir remonter le fil d'une décision technique six mois plus tard via Jira et Confluence, c'est un gain énorme -- pour la maintenance, pour la documentation, pour la communication avec d'éventuels collaborateurs.
+
+**La gestion de crise révèle la solidité de la méthode.** L'incident de sécurité de décembre 2025 aurait pu faire dérailler le projet. Le cadre Scrum a permis d'absorber l'imprévu sans perdre le fil du développement.
+
+**Documenter en continu coûte moins cher que documenter après coup.** Rédiger la documentation Confluence au fil de l'eau, quand le contexte est frais, prend 20 minutes. La rédiger trois mois plus tard en fouillant dans le code prend des heures.
+
+Cette méthodologie est directement transposable en équipe. Les Epics, les stories, les sprints thématiques, la documentation Confluence -- tout est prêt pour accueillir des collaborateurs le jour où SmartPlanning grandira. Et c'est précisément l'objectif : construire seul avec les standards d'une équipe.

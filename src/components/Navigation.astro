@@ -4,6 +4,7 @@ const navLinks = [
   { href: "#skills", label: "Compétences" },
   { href: "#process", label: "Processus" },
   { href: "#about", label: "Parcours" },
+  { href: "/blog", label: "Blog" },
   { href: "#contact", label: "Contact" },
 ];
 ---
@@ -91,10 +92,10 @@ const navLinks = [
     const desktopMQ = window.matchMedia("(min-width: 769px)");
     function handleDesktop(e: MediaQueryList | MediaQueryListEvent) {
       if ("matches" in e && e.matches) {
-        links.setAttribute("aria-hidden", "false");
+        links!.setAttribute("aria-hidden", "false");
         navLinkEls?.forEach((el) => el.setAttribute("tabindex", "0"));
       } else {
-        setMenuAccessibility(links.classList.contains("open"));
+        setMenuAccessibility(links!.classList.contains("open"));
       }
     }
     handleDesktop(desktopMQ);
@@ -102,11 +103,17 @@ const navLinks = [
 
     links.querySelectorAll(".nav-link").forEach((link) => {
       link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (!href || !href.startsWith("#")) {
+          closeMenu();
+          return;
+        }
+
         e.preventDefault();
         closeMenu();
 
         const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height")) || 64;
-        const target = document.querySelector(link.getAttribute("href")!);
+        const target = document.querySelector(href);
         if (target) {
           window.scrollTo({
             top: (target as HTMLElement).offsetTop - navHeight - 8,
@@ -132,7 +139,7 @@ const navLinks = [
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(9, 9, 11, 0.6);
+    background: var(--bg-nav);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid transparent;
@@ -140,7 +147,7 @@ const navLinks = [
   }
 
   .nav.scrolled {
-    background: rgba(9, 9, 11, 0.85);
+    background: var(--bg-nav-scrolled);
     border-bottom-color: var(--border);
     box-shadow: var(--shadow-sm);
   }
@@ -189,7 +196,7 @@ const navLinks = [
   }
   .nav-link:hover {
     color: var(--text);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--white-05);
   }
 
   .nav-toggle {
@@ -231,7 +238,7 @@ const navLinks = [
       left: 0;
       right: 0;
       z-index: 99;
-      background: rgba(9, 9, 11, 0.95);
+      background: var(--bg-nav-mobile);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       flex-direction: column;

@@ -1,0 +1,114 @@
+---
+title: "Démos vidéo — SmartPlanning en action"
+description: "Démonstrations vidéo de chaque fonctionnalité de SmartPlanning : tableau de bord, plannings, gestion d'équipes, paiements et administration."
+date: 2026-04-03
+category: "demo"
+tags: ["Démo", "Vidéo", "Fonctionnalités", "UI/UX", "SmartPlanning"]
+image: "/images/blog/demos-features.webp"
+draft: false
+order: 8
+---
+
+import VideoDemo from '../../components/blog/VideoDemo.astro';
+
+Construire SmartPlanning, c'est une chose. Le montrer en action, c'en est une autre. Dans cet article, je présente les fonctionnalités clés de la plateforme à travers des démos vidéo commentées. Chaque section couvre un pan de l'application, du tableau de bord aux notifications temps réel. Les vidéos seront ajoutées progressivement au fil des enregistrements.
+
+## Tableaux de bord par rôle
+
+SmartPlanning adapte son interface au rôle de l'utilisateur connecté. Cette démo parcourt les quatre vues principales : l'employé voit son planning hebdomadaire et ses congés à venir, le manager supervise son équipe, le directeur accède aux indicateurs globaux avec graphiques Recharts (répartition par équipe en donut, évolution des effectifs), et l'admin dispose d'une vue complète de la plateforme.
+
+{/* <VideoDemo src="/videos/blog/dashboard.mp4" title="Tableaux de bord — Vues par rôle (Employé, Manager, Directeur, Admin)" /> */}
+
+**Points clés de la démo :**
+- 4 vues différentes selon le rôle : Employé, Manager, Directeur, Admin
+- Dashboard Directeur : graphiques Recharts, indicateurs clés (112 employés, 12 équipes, 5 congés en attente), répartition par équipe en donut, courbe d'évolution des effectifs
+- Dashboard Employé : planning de la semaine en cours, congés à venir, tâches personnelles
+- Transition fluide entre les rôles pour illustrer la granularité des permissions
+
+## Gestion des plannings
+
+Le coeur de SmartPlanning. Cette démo montre le calendrier interactif Schedule-X avec ses 8 types de créneaux. Je crée un planning par simple clic, j'assigne des employés, je configure une récurrence automatique sur plusieurs semaines, puis je provoque volontairement un conflit pour montrer la détection en temps réel. La démo se termine par un export PDF et Excel multi-feuilles.
+
+{/* <VideoDemo src="/videos/blog/plannings.mp4" title="Plannings — Calendrier interactif, drag & drop et détection de conflits" /> */}
+
+**Points clés de la démo :**
+- Calendrier interactif Schedule-X avec drag & drop natif
+- Création visuelle par clic : sélection d'employés et type de créneau
+- Récurrence automatique configurable (jusqu'à 52 semaines)
+- Détection de conflits en temps réel : conflits bloquants vs simples avertissements
+- Export PDF et Excel multi-feuilles en un clic
+
+## Gestion des congés
+
+Du dépôt de la demande jusqu'à la décision finale, cette démo suit le workflow complet des congés. Je soumets une demande qui passe en statut PENDING, puis je bascule sur le compte manager pour l'approuver. On voit les 7 types de congés disponibles, le calcul automatique des jours ouvrés, les soldes par employé et par année, ainsi que la notification email envoyée à chaque étape.
+
+{/* <VideoDemo src="/videos/blog/conges.mp4" title="Congés — Workflow complet de demande et validation" /> */}
+
+**Points clés de la démo :**
+- Workflow complet : demande, statut PENDING, puis APPROVED ou REJECTED
+- 7 types de congés avec calcul automatique des jours ouvrés (exclusion week-ends et fériés)
+- Soldes de congés par employé et par année civile
+- Notification email automatique à chaque changement de statut
+- Vue globale des soldes accessible aux directeurs
+
+## Import CSV
+
+Ajouter 200 employés un par un, personne n'a envie de faire ca. Cette démo montre l'import massif depuis un fichier CSV ou XLSX. Avant insertion, un tableau de preview affiche les données avec validation en temps réel : les cellules en erreur apparaissent en rouge avec un tooltip explicatif. Le système détecte les doublons, crée automatiquement les équipes manquantes, et synchronise le compteur Stripe en fin d'opération.
+
+{/* <VideoDemo src="/videos/blog/import-csv.mp4" title="Import CSV — Validation en temps réel et insertion massive" /> */}
+
+**Points clés de la démo :**
+- Import massif depuis fichiers CSV et XLSX
+- Preview interactive avec validation temps réel (cellules rouges, tooltips d'erreur)
+- Détection automatique des doublons et création des équipes manquantes
+- Barre de progression pendant l'insertion, rapport détaillé avec données brutes des erreurs
+- Synchronisation automatique du compteur d'employés Stripe
+
+## Messagerie interne
+
+SmartPlanning intègre une messagerie complète pour éviter les allers-retours par email. Cette démo couvre les trois types de conversations : messages directs, conversations d'équipe et groupes personnalisés. Les messages arrivent en temps réel via SSE, les pièces jointes passent par Cloudinary, et les optimistic updates garantissent une expérience fluide sans attente serveur.
+
+{/* <VideoDemo src="/videos/blog/messagerie.mp4" title="Messagerie — Conversations temps réel et pièces jointes" /> */}
+
+**Points clés de la démo :**
+- 3 types de conversations : DIRECT, TEAM et GROUP
+- Temps réel via Server-Sent Events (SSE), sans WebSocket
+- Pièces jointes hébergées sur Cloudinary (images, documents)
+- Administration de groupe : avatar custom, renommage, gestion des membres
+- Optimistic updates, soft delete et archivage des conversations
+
+## Système d'abonnement Stripe
+
+La monétisation de SmartPlanning repose sur Stripe avec un modèle per-seat. Cette démo commence par l'essai gratuit de 21 jours avec ses bannières progressives (information, puis alerte, puis blocage). Je passe ensuite au checkout, montre le calcul automatique du tarif selon le nombre d'employés, et termine par le portail Stripe intégré pour gérer factures, méthode de paiement et annulation.
+
+{/* <VideoDemo src="/videos/blog/abonnement.mp4" title="Abonnement Stripe — Essai gratuit, checkout et portail client" /> */}
+
+**Points clés de la démo :**
+- Essai gratuit 21 jours avec bannières progressives (info, alerte, blocage)
+- Checkout Session Stripe avec tarif per-seat calculé automatiquement
+- Portail Stripe intégré : factures, méthode de paiement, annulation
+- Synchronisation automatique du compteur employés lors des ajouts/suppressions
+
+## Notifications temps réel
+
+Chaque action importante dans SmartPlanning déclenche une notification. Cette démo montre le système complet : les notifications arrivent en temps réel via SSE, un badge affiche le nombre de non-lues, et des toasts apparaissent pour les événements importants. Je montre aussi le panneau de préférences ou chaque utilisateur configure finement ce qu'il souhaite recevoir.
+
+{/* <VideoDemo src="/videos/blog/notifications.mp4" title="Notifications — Temps réel SSE, badge et préférences" /> */}
+
+**Points clés de la démo :**
+- Server-Sent Events (SSE) pour la réception instantanée
+- 9 types de notifications couvrant 4 niveaux de priorité
+- Badge de notifications non-lues et toast notifications
+- Préférences personnalisables par catégorie et par canal (in-app, email)
+
+## Responsive et accessibilité
+
+Une application SaaS doit fonctionner partout. Cette démo montre SmartPlanning sur trois formats : mobile, tablette et desktop. Les tableaux de données se transforment en cartes empilées sur petit écran, la navigation s'adapte, et l'ensemble reste utilisable au clavier. Je parcours les points d'accessibilité WCAG 2.1 AA : skip links, navigation clavier, contrastes, et basculement entre mode clair et mode sombre.
+
+{/* <VideoDemo src="/videos/blog/responsive.mp4" title="Responsive — Mobile, tablette, desktop et accessibilité" /> */}
+
+**Points clés de la démo :**
+- Application fonctionnelle sur mobile, tablette et desktop
+- Tableaux de données transformés en cartes empilées sur mobile
+- Conformité WCAG 2.1 AA : navigation clavier complète, skip links, contrastes suffisants
+- Mode clair et mode sombre avec basculement instantané

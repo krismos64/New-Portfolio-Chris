@@ -1,0 +1,136 @@
+---
+title: "Développement des fonctionnalités — Problèmes et solutions"
+description: "Les fonctionnalités clés de SmartPlanning en détail : plannings, gestion d'équipes, paiements Stripe, RGPD. Chaque problème rencontré et la solution technique retenue."
+date: 2026-04-03
+category: "developpement"
+tags: ["Développement", "Stripe", "RGPD", "Fonctionnalités", "React", "API"]
+image: "/images/blog/developpement-features.webp"
+draft: false
+order: 5
+---
+
+## Construire un SaaS fonctionnalité par fonctionnalité
+
+SmartPlanning est un produit dense. Quatre types d'utilisateurs, un calendrier interactif, un workflow de congés complet, de la facturation Stripe, de la messagerie temps réel, de l'import de données, des notifications SSE, le tout en conformité RGPD. Dans cet article, je détaille les fonctionnalités qui ont posé les défis techniques les plus intéressants et les solutions que j'ai retenues pour chacune.
+
+> Mon approche : chaque fonctionnalité part d'un besoin utilisateur concret. Je ne code jamais une feature parce qu'elle est techniquement séduisante -- je la code parce qu'un persona en a besoin.
+
+## Tableaux de bord adaptatifs par rôle
+
+### Le problème
+
+Un employé qui consulte son planning n'a pas besoin de voir les graphiques de performance globale. Un directeur qui supervise 112 employés et 12 équipes n'a pas besoin du widget de tâches personnelles en premier plan. Afficher la même interface à tout le monde, c'est noyer chacun dans l'information des autres.
+
+### La solution
+
+J'ai construit **quatre dashboards distincts**, un par rôle RBAC. La redirection se fait côté serveur via Server Components Next.js 15 : le rôle est extrait du JWT enrichi et la bonne page est servie avant le moindre rendu client. Aucun flash de contenu inadapté, aucune requête inutile.
+
+- **Employé** : planning de la semaine, congés à venir, tâches personnelles, notifications récentes.
+- **Manager** : statistiques d'équipe en temps réel, demandes de congés en attente avec actions directes.
+- **Directeur** : vue globale avec graphiques Recharts -- indicateurs de performance, répartition des effectifs, congés en attente.
+- **Admin système** : supervision multi-tenant, monitoring des entreprises actives.
+
+La couverture de tests est significative : **374 tests unitaires sur 13 fichiers** couvrent les services de calcul statistique qui alimentent ces dashboards.
+
+## Le calendrier : coeur fonctionnel de l'application
+
+### Pourquoi Schedule-X plutôt que FullCalendar
+
+Le choix de la librairie calendrier a été stratégique. J'ai évalué trois options : FullCalendar, react-big-calendar et Schedule-X. FullCalendar est puissant mais lourd, avec une API complexe et un bundle conséquent. react-big-calendar manque de support natif pour le drag and drop. **Schedule-X** offrait le meilleur compromis : léger, performant, avec un glisser-déposer natif fluide.
+
+### Création et manipulation visuelle
+
+Un manager crée un créneau en cliquant sur le calendrier. Le formulaire permet d'assigner un ou plusieurs employés et de choisir parmi **8 types de créneaux** : WORK, MEETING, BREAK, TRAINING, REMOTE, ON_CALL, OVERTIME, REST. Les créneaux se déplacent et se redimensionnent par glisser-déposer avec **mise à jour optimiste** -- l'interface réagit instantanément, et si le serveur rejette la modification, un rollback restaure l'état précédent.
+
+### Récurrence et détection de conflits
+
+Les plannings sont souvent répétitifs. J'ai implémenté des **règles de récurrence** avec une limite raisonnable de 52 occurrences, soit un planning hebdomadaire sur un an. C'est suffisant pour couvrir tous les cas d'usage sans surcharger la base de données.
+
+La détection de conflits est gérée par un **hook custom `useConflictDetection`** avec debounce. Il distingue deux niveaux : les **conflits bloquants** (congé approuvé, arrêt maladie, indisponibilité) qui empêchent la création du créneau, et les **avertissements** (préférence horaire, formation prévue) qui informent sans bloquer. Cette distinction évite de frustrer les managers avec des faux positifs tout en protégeant contre les erreurs réelles.
+
+### Export professionnel
+
+Le planning s'exporte en **PDF** via @react-pdf/renderer (template professionnel avec logo de l'entreprise) et en **Excel** via SheetJS avec trois feuilles structurées : planning détaillé, résumé par employé, liste des effectifs.
+
+## Workflow de congés : du formulaire au solde mis à jour
+
+La gestion des congés est la deuxième fonctionnalité la plus utilisée après le calendrier. Le workflow complet suit un cycle rigoureux :
+
+1. L'employé soumet sa demande en précisant le type (CP, RTT, maladie, congé parental, événement familial, sans solde).
+2. La demande passe en statut **PENDING**.
+3. Le manager ou le directeur **approuve ou rejette** la demande.
+4. Une **notification email** est envoyée automatiquement via Nodemailer.
+5. Si approuvé : le solde de congés est débité et les jours d'absence apparaissent sur le calendrier de l'équipe.
+6. Si le congé est annulé ultérieurement : le solde est **re-crédité** automatiquement.
+
+Le calcul automatique des jours ouvrés décomptés prend en compte les week-ends et jours fériés. Les soldes (`LeaveBalance`) sont suivis par type, par employé et par année. Ce module est couvert par **184 tests** dont 175 unitaires et 9 end-to-end.
+
+## Notifications temps réel avec SSE
+
+### Pourquoi SSE plutôt que WebSockets
+
+Pour les notifications, j'avais le choix entre WebSockets et Server-Sent Events. J'ai choisi **SSE** pour une raison simple : la communication est unidirectionnelle (serveur vers client). Les WebSockets auraient ajouté une complexité inutile -- gestion bidirectionnelle, heartbeats, reconnexion manuelle -- pour un besoin qui ne le justifie pas.
+
+### Architecture
+
+Le `NotificationSSEManager` est un **singleton** qui suit le pattern Observer. Il gère **9 types de notifications** avec **4 niveaux de priorité** (LOW, MEDIUM, HIGH, URGENT). Le fallback SWR assure la reconnexion automatique en cas de coupure réseau. Les utilisateurs personnalisent leurs préférences par catégorie et par canal (in-app, email).
+
+Ce même canal SSE sert aussi à la messagerie interne, évitant d'ouvrir une seconde connexion.
+
+## Facturation Stripe : modèle per-seat
+
+### Le modèle tarifaire
+
+SmartPlanning facture **2,90 euros par employé actif et par mois** avec un essai gratuit de 21 jours. Des bannières progressives apparaissent à J-14, J-7, J-3 et J-1 pour guider la conversion sans être intrusives.
+
+### Implémentation technique
+
+La Checkout Session est sécurisée et le tarif est calculé automatiquement selon le nombre d'employés actifs dans l'entreprise. Quand un directeur ajoute ou retire des employés, le compteur Stripe se synchronise en **fire-and-forget** -- l'opération métier n'est pas bloquée par l'appel Stripe.
+
+Les **webhooks sont idempotents** : paiement réussi, échec, annulation, renouvellement. Chaque événement peut être rejoué sans effet de bord. Le portail Stripe intégré permet aux clients de gérer leur méthode de paiement, consulter leurs factures et annuler leur abonnement en autonomie.
+
+Un **subscription guard middleware** contrôle l'accès aux fonctionnalités selon le statut de l'abonnement. Un compte expiré conserve l'accès en lecture mais perd les fonctionnalités d'écriture.
+
+## Messagerie interne et import CSV
+
+### Messagerie temps réel
+
+La messagerie supporte trois types de conversations : **DIRECT** (1:1), **TEAM** (synchronisé automatiquement avec la composition de l'équipe) et **GROUP** (créé manuellement avec avatar custom et gestion des membres). Les messages sont paginés en **cursor-based pagination** par lots de 30, avec infinite scroll ascendant. Les pièces jointes transitent par Cloudinary (PDF, images, DOCX, XLSX, max 10 Mo).
+
+L'architecture repose sur **12 Server Actions, 4 hooks React et 9 composants UI**. Le soft delete et la gestion RGPD (senderId nullable pour afficher "Utilisateur supprimé") ont été intégrés dès la conception. Les 23 bugs identifiés en test live ont tous été corrigés dans le sprint suivant.
+
+### Import CSV intelligent
+
+Le module d'import permet d'intégrer des employés et des équipes depuis des fichiers CSV ou XLSX. Le parsing est assuré par **papaparse** (client et serveur) avec une **double validation Zod**. Le système détecte les doublons par email et companyId, avec un fallback prénom + nom + companyId. Les équipes manquantes sont créées automatiquement et le compteur Stripe est synchronisé.
+
+L'interface offre un **preview avec validation temps réel** : cellules rouges pour les erreurs, tooltips explicatifs, barre de progression et rapport détaillé en fin d'import.
+
+## Sécurité et RGPD : des choix non négociables
+
+### Authentification RBAC à deux niveaux
+
+L'authentification repose sur **NextAuth v5** avec stratégie JWT. Le token signé contient l'identifiant, le rôle, le companyId, le statut d'abonnement et la date de fin d'essai. Le cookie est sécurisé (HttpOnly, SameSite, Secure) et rafraîchi toutes les 24 heures. Les mots de passe sont hachés avec **bcrypt à 10 rounds de salage**, conforme aux recommandations OWASP.
+
+Le contrôle d'accès s'exerce à **deux niveaux** : le middleware Edge Runtime vérifie le rôle avant même d'atteindre la page, puis chaque Server Action appelle `checkPermission` pour valider l'opération. La hiérarchie est stricte : EMPLOYEE (1) < MANAGER (2) < DIRECTOR (3) < SYSTEM_ADMIN (4).
+
+### RGPD intégrée dès la conception
+
+La conformité RGPD n'est pas un patch ajouté après coup. Droit d'accès avec export JSON depuis le profil, droit à l'effacement avec suppression en cascade, consentement cookies granulaire (validité 12 mois), minimisation des données collectées. L'analytics est assurée par **Umami auto-hébergé** -- aucune donnée transmise à des tiers.
+
+### Leçon d'un incident de sécurité
+
+En décembre 2025, mon VPS a subi **trois compromissions en 12 jours** : UDP flooder, cryptominer, attaque par amplification DNS. La cause : la CVE-2025-66478 de Next.js (score CVSS 10.0/10) combinée à une configuration serveur insuffisamment durcie. J'ai mené un post-mortem professionnel, migré vers un nouveau VPS et appliqué un durcissement complet : clés SSH Ed25519, Fail2ban, UFW, conteneurs Docker non-root en lecture seule avec `cap_drop ALL`. Cet incident m'a appris qu'en production, la sécurité n'est jamais optionnelle -- elle doit être proactive.
+
+## Ce que ce développement m'a appris
+
+Après des mois de développement intensif, trois convictions se sont renforcées.
+
+**L'optimistic update change tout.** Quand l'interface réagit instantanément au drag and drop avec rollback en cas d'erreur, l'expérience utilisateur passe d'acceptable à professionnelle. C'est un pattern que j'applique désormais systématiquement.
+
+**Les tests ne sont pas un luxe.** 374 tests sur les dashboards, 184 sur les congés, des suites dédiées pour l'import CSV et la messagerie. Chaque refactoring majeur a été sécurisé par cette couverture. Le temps investi dans les tests est récupéré dès la première régression évitée.
+
+**La sécurité s'apprend par l'incident.** La théorie OWASP, je la connaissais. Mais c'est en nettoyant un serveur compromis à 2 heures du matin que j'ai intériorisé l'importance du durcissement proactif. Aujourd'hui, chaque déploiement passe par une checklist de sécurité.
+
+> Développer un SaaS, ce n'est pas aligner des features. C'est résoudre des problèmes concrets pour des utilisateurs réels, en faisant des choix techniques qui tiennent dans la durée.
+
+Dans le prochain article, je détaillerai ma stratégie de tests -- comment j'ai structuré 374 tests unitaires, des tests d'intégration et des tests end-to-end pour garantir la fiabilité de SmartPlanning en production.

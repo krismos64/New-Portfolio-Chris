@@ -84,7 +84,7 @@
     font-weight: 500;
     color: var(--green);
     background: var(--green-subtle);
-    border: 1px solid rgba(34, 197, 94, 0.2);
+    border: 1px solid color-mix(in srgb, var(--green) 20%, transparent);
     margin-bottom: 1.5rem;
   }
   .hero-badge::before {
@@ -163,7 +163,7 @@
     background: var(--accent-hover);
     color: white;
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 16px var(--accent-30);
   }
 
   .btn-secondary {
@@ -174,7 +174,7 @@
   .btn-secondary:hover {
     color: var(--text);
     border-color: var(--border-light);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--white-03);
   }
 
   .hero-socials {
@@ -196,7 +196,7 @@
   .social-link:hover {
     color: var(--text);
     border-color: var(--border-light);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--white-03);
   }
 
   .hero-photo {
@@ -218,7 +218,7 @@
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+    background: linear-gradient(135deg, var(--accent-subtle), var(--purple-subtle));
     pointer-events: none;
   }
 

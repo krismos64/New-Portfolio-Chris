@@ -1,0 +1,113 @@
+---
+title: "Architecture Next.js — Structurer un SaaS scalable"
+description: "L'architecture technique de SmartPlanning : App Router Next.js 15, structure des dossiers, patterns serveur/client, middleware d'authentification et gestion d'état."
+date: 2026-04-03
+category: "developpement"
+tags: ["Next.js", "App Router", "Architecture", "TypeScript", "React 19", "SaaS"]
+image: "/images/blog/architecture-nextjs.webp"
+draft: false
+order: 4
+---
+
+## Pourquoi Next.js 15 avec App Router
+
+Quand j'ai démarré SmartPlanning, j'avais deux options sur la table : une architecture classique React + Express avec deux services séparés (front et API), ou une architecture fullstack unifiée avec Next.js 15 et l'App Router. Pour un développeur solo qui construit un SaaS complet, le choix s'est imposé rapidement.
+
+Avec Next.js, je déploie **une seule application**. Pas de CORS à configurer, pas de deux pipelines CI/CD à maintenir, pas de synchronisation de types entre front et back. L'App Router de Next.js 15 apporte en prime les **Server Components de React 19** : le rendu se fait côté serveur, le navigateur reçoit du HTML prêt à l'emploi avec un minimum de JavaScript. Pour un SaaS où le SEO des pages publiques (landing, tarification, blog) compte autant que l'interactivité du calendrier drag & drop, ce rendu hybride SSR + CSR est exactement ce qu'il me fallait.
+
+L'autre avantage décisif, ce sont les **Server Actions**. Au lieu de créer des dizaines de routes API REST classiques, j'écris ma logique métier dans des fonctions serveur que j'appelle directement depuis mes composants. SmartPlanning utilise aujourd'hui **38 Server Actions sécurisées**, chacune protégée par validation Zod et contrôle d'accès RBAC. Le code est plus lisible, plus court, et la surface d'attaque réduite.
+
+> Pour un développeur solo, la simplification n'est pas un luxe -- c'est un avantage décisif qui permet de livrer plus vite sans sacrifier la qualité.
+
+## TypeScript strict : zéro compromis
+
+Dès le premier commit, j'ai activé TypeScript en **mode strict** avec une règle non négociable : zéro `any` toléré dans le codebase. C'est une discipline qui coûte un peu de temps au début, mais qui se rembourse à chaque refactoring.
+
+Concrètement, TypeScript strict me donne trois choses essentielles sur SmartPlanning :
+
+- **Détection des erreurs avant exécution.** Quand je modifie un schéma Prisma ou une Server Action, le compilateur me signale immédiatement tous les endroits impactés. Pas de surprise en production.
+- **Autocomplétion exhaustive.** L'IDE connaît la forme exacte de chaque objet, de chaque réponse de base de données. Le développement est plus fluide.
+- **Refactoring sécurisé.** Renommer un champ, changer une signature de fonction, restructurer un module -- TypeScript me guide à travers chaque modification sans rien oublier.
+
+Sur un projet solo de cette envergure, TypeScript strict n'est pas un choix technique, c'est une assurance-vie.
+
+## Architecture multicouche : séparer les responsabilités
+
+L'architecture de SmartPlanning suit un découpage en **quatre couches distinctes**. Ce n'est pas de la théorie académique : c'est ce qui me permet de modifier une partie du système sans risquer de casser le reste.
+
+### Couche présentation
+
+C'est tout ce que l'utilisateur voit et manipule. Les composants React -- un mélange de Server Components pour les données statiques et de Client Components pour l'interactivité --, les pages de l'App Router, les layouts imbriqués, et les **37 composants UI** construits avec Shadcn/ui sur Radix UI. J'y intègre aussi des hooks custom comme `useConflictDetection` (détection de chevauchements en temps réel) et `useUmamiTrack` (analytics).
+
+### Couche métier (Business Logic)
+
+C'est le coeur de SmartPlanning. Les 38 Server Actions constituent le point d'entrée : chaque action valide ses inputs avec **Zod**, vérifie les permissions via `checkPermission` (RBAC), puis délègue le travail à des **services dédiés**. J'ai par exemple `stripe.service.ts` pour la facturation, `mrr.service.ts` pour le calcul du revenu récurrent, `leave-balance.service.ts` pour les soldes de congés. Les schémas Zod sont partagés entre client et serveur pour garantir une validation identique des deux côtés.
+
+Le **middleware Edge Runtime** intervient en amont : il vérifie l'authentification et le statut d'abonnement sur chaque requête, avant même que la page ne commence à se rendre. C'est la première ligne de défense.
+
+### Couche accès aux données
+
+**Prisma ORM** gère toutes les interactions avec PostgreSQL 16. Les requêtes sont typées et vérifiées à la compilation -- impossible d'écrire un `findMany` sur un champ qui n'existe pas. L'isolation multi-tenant est assurée par un **filtrage systématique par `companyId`** : chaque requête ne retourne que les données de l'entreprise concernée. Redis 7 complète le dispositif pour le cache et la gestion des sessions.
+
+### Couche infrastructure
+
+PostgreSQL 16, Redis 7, Nginx en reverse proxy, le tout orchestré par **Docker** et déployé via **CI/CD GitHub Actions** sur un VPS OVH. Chaque push sur `main` déclenche les tests, le build et le déploiement automatique.
+
+L'intérêt de cette séparation est concret : si demain je migre de PostgreSQL vers un autre SGBD, seule la couche données est impactée. Le reste du code ne bouge pas.
+
+## Patterns de conception au service du produit
+
+Un SaaS de cette complexité ne se construit pas sans patterns solides. Voici ceux qui structurent SmartPlanning au quotidien.
+
+### Encapsulation via hooks custom
+
+Le hook `useConflictDetection` illustre bien l'approche. Côté composant, l'appel est simple : on passe les données du planning, on récupère les conflits. Sous le capot, le hook gère le **debounce** des appels, l'**AbortController** pour annuler les requêtes obsolètes, et toute la logique d'erreur. Le composant reste propre et focalisé sur l'affichage.
+
+### Pattern Strategy pour le RBAC
+
+Au lieu d'un héritage de classes rigide, le contrôle d'accès repose sur une constante `ROLE_HIERARCHY` et une fonction `hasRequiredRole()`. Les permissions sont dynamiques et configurables sans modifier la structure du code. Ajouter un nouveau rôle, c'est ajouter une entrée dans la hiérarchie.
+
+### Pattern Observer pour les notifications
+
+Le `NotificationSSEManager` est un **singleton** qui maintient une liste de connexions SSE (Server-Sent Events). Quand un événement se produit -- un congé validé, un planning publié -- le manager diffuse l'information à tous les clients connectés en temps réel, sans polling.
+
+### Pattern Factory pour les emails
+
+SmartPlanning envoie **19 types d'emails** différents (confirmation, réinitialisation, notification de congé, rappel...). Chaque template est un composant React Email, construit via une fonction factory qui injecte les données dynamiques. Ajouter un nouveau type d'email revient à créer un template et sa factory.
+
+### Polymorphisme générique
+
+Le type `CrudActionResult<T>` unifie la signature de retour de toutes les Server Actions : succès ou erreur, avec des données typées. Même approche pour `DataTable<TData, TValue>` qui rend tous les tableaux de l'application (employés, congés, événements) avec le même composant configurable.
+
+## Design System : cohérence et maintenabilité
+
+Le design de SmartPlanning repose sur **Shadcn/ui** -- 25 composants de base complétés par 12 composants custom -- construit sur Radix UI pour l'accessibilité native. Le système s'articule autour de **7 piliers** :
+
+- **Couleurs** : palette sémantique avec mode clair et mode sombre (thème persisté en cookie SSR puis en base de données pour la synchronisation multi-appareils).
+- **Typographie** : Rajdhani pour les titres, Plus Jakarta Sans pour le corps, JetBrains Mono pour le code.
+- **Espacements** : grille en multiples de 4px pour un alignement pixel-perfect.
+- **Animations** : Framer Motion pour les transitions et micro-interactions, avec un effet signature "Cyber Glass 3D" en glassmorphism.
+
+Cette rigueur garantit qu'un nouveau composant s'intègre immédiatement dans l'existant sans ajustement visuel.
+
+## La stack complète en un coup d'oeil
+
+Pour donner une vision globale, voici les briques techniques de SmartPlanning :
+
+- **Framework** : Next.js 15.5.9, React 19, TypeScript 5.7.2 strict
+- **Données** : Prisma 6.18.0, PostgreSQL 16, Redis 7
+- **Auth & paiement** : NextAuth v5 (JWT), Stripe SDK
+- **UI** : Tailwind CSS 3.4, Shadcn/ui + Radix UI (37 composants), Framer Motion, Schedule-X (calendrier), @dnd-kit (drag & drop)
+- **Formulaires & tables** : React Hook Form + Zod, TanStack Table, Recharts
+- **Exports** : @react-pdf/renderer, SheetJS
+- **Email** : React Email + Nodemailer
+- **Tests** : Vitest + RTL + MSW (2 814 tests unitaires), Playwright (189 tests E2E)
+- **Infra** : Docker, Nginx, GitHub Actions, Cloudinary, Umami (analytics)
+
+## Ce que cette architecture m'a appris
+
+Construire SmartPlanning en solo m'a confirmé une chose : **l'architecture n'est pas un luxe réservé aux grandes équipes**. C'est précisément quand on est seul qu'une structure claire fait la différence. Chaque couche bien séparée, chaque pattern appliqué avec intention, chaque type correctement défini -- tout cela forme un filet de sécurité qui permet d'avancer vite sans accumuler de dette technique.
+
+Le choix de Next.js 15 avec l'App Router s'est révélé particulièrement pertinent pour un SaaS : la puissance des Server Components et des Server Actions réduit drastiquement la complexité par rapport à une architecture traditionnelle front/back séparée. Et TypeScript strict, combiné à Prisma, crée une chaîne de typage de bout en bout -- de la base de données jusqu'au composant React -- qui rend les régressions presque impossibles.
+
+Dans le prochain article, je détaillerai le développement des fonctionnalités clefs de SmartPlanning : le calendrier drag & drop, le système de congés, et l'intégration Stripe pour l'abonnement.

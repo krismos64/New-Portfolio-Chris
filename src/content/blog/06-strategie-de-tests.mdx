@@ -1,0 +1,108 @@
+---
+title: "Stratégie de tests — Garantir la qualité"
+description: "Ma stratégie de tests pour SmartPlanning : tests unitaires Vitest, tests E2E Playwright, coverage et intégration continue. Comment tester un SaaS efficacement."
+date: 2026-04-03
+category: "tests"
+tags: ["Vitest", "Playwright", "Tests", "E2E", "Unitaire", "CI", "Qualité"]
+image: "/images/blog/strategie-tests.webp"
+draft: false
+order: 6
+---
+
+## Les tests ne sont pas une contrainte, c'est un investissement
+
+Quand on développe un SaaS seul, la tentation est forte de se dire "je testerai plus tard". C'est exactement le piège que je voulais éviter avec SmartPlanning. Dès le départ, j'ai posé une règle non négociable : **chaque fonctionnalité livrée est accompagnée de ses tests**. Pas de PR sans tests. Pas de merge si un seul test échoue. Le build Next.js doit compiler sans erreur TypeScript, ESLint doit afficher zéro erreur.
+
+Aujourd'hui, SmartPlanning compte **3 003 tests automatisés** répartis sur 169 fichiers -- 2 814 tests unitaires et 189 tests E2E. Ce n'est pas un objectif de vanité. C'est un filet de sécurité qui me permet de refactorer, d'ajouter des fonctionnalités et de déployer en confiance. Chaque test est un contrat : si je casse quelque chose, je le sais immédiatement.
+
+## Un plan de tests structuré en quatre niveaux
+
+Ma stratégie s'appuie sur une pyramide de tests classique, adaptée aux réalités d'un SaaS fullstack Next.js.
+
+### Niveau 1 -- Tests unitaires (Vitest)
+
+La base de la pyramide : **2 814 tests** qui vérifient chaque fonction isolée. Services métier, schémas de validation Zod, hooks React, utilitaires -- chaque brique est testée individuellement. Le critère est simple : pour chaque fonction, je vérifie le cas nominal, les cas limites et les cas d'erreur. Un calcul de jours ouvrés doit fonctionner avec les jours fériés. Un schéma Zod doit rejeter les données incohérentes avec le bon message d'erreur.
+
+### Niveau 2 -- Tests d'intégration (Vitest + mocks Prisma)
+
+C'est ici que je teste la chaîne complète d'une Server Action : validation Zod en entrée, contrôle d'accès RBAC, exécution de la logique métier, puis interaction avec la base de données. Le critère clé : la chaîne entière fonctionne avec les bons contrôles d'accès. Un employé d'une entreprise A ne doit jamais pouvoir accéder aux données de l'entreprise B -- et mes tests vérifient explicitement ce scénario.
+
+### Niveau 3 -- Tests E2E (Playwright)
+
+**189 tests** qui simulent de vrais parcours utilisateur dans un navigateur Chromium. Connexion, navigation, création de données, validation de formulaires -- chaque workflow critique est couvert de bout en bout. Le critère : le parcours complet s'exécute sans erreur, exactement comme le ferait un utilisateur réel.
+
+### Niveau 4 -- Tests de non-régression (CI GitHub Actions)
+
+La suite complète des 3 003 tests est exécutée à chaque push et chaque nuit en run complet. Le critère est absolu : aucun test existant ne doit échouer. Si un nouveau développement casse un test précédent, le merge est bloqué. Pas de négociation.
+
+## Exemple concret : le module congés
+
+Pour illustrer ma méthode, voici comment je structure le plan de tests d'un module complet. Prenons les demandes de congés, une fonctionnalité centrale de SmartPlanning :
+
+1. **Création d'une demande valide** -- la demande passe en statut PENDING, le solde de congés reste inchangé, le manager reçoit une notification.
+2. **Dates incohérentes** -- rejet côté client par la validation Zod (date de fin avant la date de début).
+3. **Solde insuffisant** -- rejet côté serveur avec message explicite.
+4. **Chevauchement avec un congé existant** -- rejet automatique, pas de double réservation possible.
+5. **Approbation par le manager** -- statut APPROVED, solde débité, email de confirmation envoyé, calendrier mis à jour.
+6. **Refus sans commentaire** -- rejet Zod, car le commentaire est obligatoire pour justifier un refus.
+7. **Employé d'une autre entreprise** -- rejet RBAC avec "Permission refusée". L'isolation multi-tenant est vérifiée à chaque action.
+8. **Annulation par l'employé** -- statut CANCELLED, solde inchangé.
+
+Chaque cas suit l'approche **entrée / attendu / obtenu**. J'applique le même principe sur tous les modules : plannings, gestion des employés, authentification, facturation Stripe. C'est systématique et reproductible.
+
+## Un jeu d'essai réaliste avec Prisma Seed
+
+Les tests ne valent rien sans données réalistes. Mon fichier `prisma/seed.ts` génère un environnement complet à chaque initialisation :
+
+- **3 entreprises** aux profils différents : TechCorp (grande équipe, abonnement premium), DesignStudio (petite structure), StartupFlow (en période d'essai).
+- **15 utilisateurs** répartis sur les 4 rôles du système : 1 SYSTEM_ADMIN, 3 DIRECTOR, 4 MANAGER, 7 EMPLOYEE.
+- **15 équipes et 111 employés** avec des profils variés (temps plein, temps partiel, anciennetés différentes).
+- Des plannings, demandes de congés, notes et incidents pré-remplis pour couvrir un maximum de scénarios.
+
+Ce jeu de données me permet de tester des cas réels : un manager qui approuve les congés de son équipe, un directeur qui consulte les statistiques de son entreprise, un administrateur système qui supervise l'ensemble. Pas de données factices déconnectées de la réalité.
+
+## Tests unitaires : Vitest et React Testing Library
+
+J'ai choisi **Vitest** pour sa rapidité d'exécution et sa compatibilité native avec Vite, le bundler intégré à Next.js. Les tests se lancent en quelques secondes, ce qui encourage à les exécuter souvent pendant le développement.
+
+Pour les composants React, j'utilise **React Testing Library** avec une approche centrée utilisateur. Je ne teste pas l'implémentation interne d'un composant -- je teste ce que l'utilisateur voit et ce avec quoi il interagit. Un tableau de bord affiche-t-il les bonnes données ? Un formulaire rejette-t-il les saisies invalides avec le bon message ?
+
+Pour simuler la base de données sans PostgreSQL, j'utilise `mockDeep<PrismaClient>()` de **vitest-mock-extended**. Chaque test s'exécute avec un mock propre, sans état partagé, sans base de données réelle à maintenir. Les tests couvrent l'ensemble du codebase : Server Actions (validation Zod + RBAC), services métier (calcul de jours ouvrés, détection de conflits horaires, gestion des récurrences), composants UI (tableaux de bord, formulaires, widgets), schémas Zod et utilitaires.
+
+## Tests E2E : Playwright et le Page Object Model
+
+Pour les tests de bout en bout, j'ai retenu **Playwright** avec le pattern **Page Object Model**. Chaque page de l'application est encapsulée dans une classe dédiée qui expose des méthodes métier : `loginPage.signIn()`, `leavePage.submitRequest()`, `planningPage.createShift()`. Si l'interface évolue -- un bouton qui change de place, un sélecteur renommé --, seul le Page Object correspondant est modifié. Les tests restent stables.
+
+Les fixtures d'authentification permettent de se connecter par rôle sans repasser par la page de login à chaque test. Un test pour le rôle MANAGER démarre directement avec une session authentifiée.
+
+Un choix pragmatique : j'ai commencé avec trois navigateurs (Chromium, Firefox, WebKit) avant de restreindre à **Chromium uniquement**. Les tests multi-navigateurs généraient des flaky tests liés au timing, sans valeur ajoutée réelle pour un projet solo. Résultat : une suite E2E fiable et rapide, qui tourne sans accrocs dans la CI.
+
+## Performances : une approche pragmatique
+
+Je n'ai pas mis en place de tests de charge formels avec k6 ou Artillery. En revanche, je surveille activement les performances en conditions réelles :
+
+- **Audit Lighthouse à 96/100** sur les pages publiques.
+- **Health check `/api/health`** avec mesure de latence : au-delà de 500ms, le statut passe en "degraded".
+- **Pagination serveur systématique** : 10 à 50 lignes par requête, avec des temps de réponse constants même avec 111 employés et plus de 320 soldes de congés en base.
+
+Pour un SaaS en phase de lancement, cette approche est suffisante. Les tests de charge viendront quand le volume d'utilisateurs le justifiera.
+
+## CI/CD : deux niveaux de protection
+
+La CI est configurée sur **GitHub Actions** avec deux pipelines distincts.
+
+### Pipeline à chaque push (3-5 minutes)
+
+Lint ESLint, vérification des types TypeScript et exécution des tests unitaires. Sur les pull requests vers `main` et les push directs, les tests E2E s'ajoutent au pipeline, portant le temps total à **8-10 minutes**. C'est le gardien du quotidien.
+
+### Pipeline nightly complet
+
+Chaque nuit, la suite intégrale des 3 003 tests est exécutée. Ce run nocturne valide la stabilité en profondeur et détecte les régressions subtiles qui pourraient passer entre les mailles du pipeline rapide.
+
+La règle est claire : **tout merge est bloqué si un seul test échoue**. Pas d'exception, pas de "on fixera après". Cette rigueur a un coût en discipline, mais elle m'a évité des régressions en production à de nombreuses reprises.
+
+## Ce que cette stratégie m'apporte concrètement
+
+Avec 3 003 tests et une CI bloquante, je peux refactorer un service entier en confiance. Quand je modifie le calcul des soldes de congés ou que je restructure la logique de planification, les tests me disent immédiatement si j'ai cassé quelque chose. Le temps investi dans les tests est largement rentabilisé par le temps économisé en débogage et en corrections urgentes.
+
+Les tests ne ralentissent pas le développement -- ils l'accélèrent. Chaque nouveau développeur qui lirait ce codebase comprendrait instantanément le comportement attendu de chaque module, simplement en lisant les fichiers de tests. C'est de la documentation vivante, toujours à jour, qui ne ment jamais.
