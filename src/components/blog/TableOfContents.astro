@@ -6,221 +6,138 @@ export interface Props {
 const { headings } = Astro.props;
 const filteredHeadings = headings.filter((h) => h.depth <= 3);
 
-// Numérotation des H2 (reset à chaque H2)
 let h2Counter = 0;
 const numberedHeadings = filteredHeadings.map((h) => {
   if (h.depth === 2) h2Counter++;
-  return { ...h, index: h.depth === 2 ? h2Counter : null };
+  return { ...h, h2Index: h.depth === 2 ? h2Counter : null };
 });
 ---
 
 {numberedHeadings.length > 0 && (
   <nav class="toc" aria-label="Table des matières" id="toc">
+
     <div class="toc-header">
-      <div class="toc-header-left">
-        <span class="toc-icon" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/>
-          </svg>
-        </span>
-        <span class="toc-title">Sommaire</span>
-        <span class="toc-count">{h2Counter}</span>
-      </div>
-      <button class="toc-toggle" aria-expanded="true" aria-controls="toc-list" aria-label="Réduire le sommaire">
-        <svg class="toc-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="18 15 12 9 6 15"/>
+      <div class="toc-label">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/>
         </svg>
-      </button>
+        <span>Dans cet article</span>
+      </div>
+      <span class="toc-badge">{h2Counter} sections</span>
     </div>
 
-    <div class="toc-progress-bar" aria-hidden="true">
+    <div class="toc-progress-wrap" aria-hidden="true">
       <div class="toc-progress-fill" id="tocProgress"></div>
     </div>
 
-    <ol class="toc-list" id="toc-list" role="list">
+    <ol class="toc-list" id="toc-list">
       {numberedHeadings.map((heading) => (
-        <li class={`toc-item toc-depth-${heading.depth}`} role="listitem">
+        <li class={`toc-item toc-d${heading.depth}`}>
           <a href={`#${heading.slug}`} class="toc-link" data-slug={heading.slug}>
-            {heading.depth === 2 && (
-              <span class="toc-num" aria-hidden="true">{String(heading.index).padStart(2, '0')}</span>
-            )}
-            {heading.depth === 3 && (
-              <span class="toc-sub-dot" aria-hidden="true"></span>
+            {heading.depth === 2 ? (
+              <span class="toc-num">{String(heading.h2Index).padStart(2, '0')}</span>
+            ) : (
+              <span class="toc-sub-indent" aria-hidden="true">↳</span>
             )}
             <span class="toc-text">{heading.text}</span>
           </a>
         </li>
       ))}
     </ol>
+
   </nav>
 )}
 
 <script>
-  const tocList = document.getElementById('toc-list');
-  const tocToggle = document.querySelector<HTMLButtonElement>('.toc-toggle');
   const tocProgress = document.getElementById('tocProgress');
-
-  // Toggle collapse
-  tocToggle?.addEventListener('click', () => {
-    const expanded = tocToggle.getAttribute('aria-expanded') === 'true';
-    tocToggle.setAttribute('aria-expanded', String(!expanded));
-    tocList?.classList.toggle('toc-collapsed', expanded);
-    tocToggle.classList.toggle('toc-toggle--collapsed', expanded);
-  });
-
-  // Active heading highlight + progress
-  const headingEls = Array.from(
-    document.querySelectorAll<HTMLElement>('.prose h2, .prose h3')
-  );
-  const tocLinks = Array.from(
-    document.querySelectorAll<HTMLAnchorElement>('.toc-link')
-  );
+  const tocLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-link'));
+  const headingEls = Array.from(document.querySelectorAll<HTMLElement>('.prose h2, .prose h3'));
 
   if (headingEls.length > 0 && tocLinks.length > 0) {
-    const setActive = (slug: string) => {
-      tocLinks.forEach((link) => {
-        const isActive = link.dataset.slug === slug;
-        link.classList.toggle('toc-link--active', isActive);
-      });
-
-      // Progress: index of active heading / total
+    const activate = (slug: string) => {
+      tocLinks.forEach((l) => l.classList.toggle('is-active', l.dataset.slug === slug));
       const idx = headingEls.findIndex((el) => el.id === slug);
       if (idx >= 0 && tocProgress) {
-        const pct = ((idx + 1) / headingEls.length) * 100;
-        tocProgress.style.width = `${pct}%`;
+        tocProgress.style.width = `${Math.round(((idx + 1) / headingEls.length) * 100)}%`;
       }
     };
-
-    // Default: first heading
-    setActive(headingEls[0]?.id ?? '');
+    activate(headingEls[0]?.id ?? '');
 
     const obs = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length > 0) {
-          // Prendre le plus haut dans la page
-          const topEntry = visible.reduce((a, b) =>
-            a.boundingClientRect.top < b.boundingClientRect.top ? a : b
-          );
-          setActive((topEntry.target as HTMLElement).id);
-        }
+        const hit = entries.filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (hit) activate((hit.target as HTMLElement).id);
       },
-      { rootMargin: '-10% 0px -70% 0px', threshold: 0 }
+      { rootMargin: '-5% 0px -65% 0px', threshold: 0 }
     );
-
     headingEls.forEach((el) => obs.observe(el));
   }
 </script>
 
 <style>
+  /* ========== Conteneur ========== */
   .toc {
     position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
     margin-bottom: 3rem;
+    border-radius: 12px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease;
+    background: #111114;
+    border: 1px solid #2a2a2e;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
   }
 
-  .toc:hover {
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
-  }
-
-  /* Accent stripe top */
+  /* Bande top accent */
   .toc::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    inset: 0 0 auto 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--purple));
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    background: linear-gradient(90deg, #3b82f6, #a855f7);
   }
 
-  /* ===== Header ===== */
+  /* ========== Header ========== */
   .toc-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.25rem 0.75rem;
-    gap: 0.75rem;
   }
 
-  .toc-header-left {
+  .toc-label {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-  }
-
-  .toc-icon {
-    display: flex;
-    align-items: center;
-    color: var(--accent);
-    opacity: 0.7;
-  }
-
-  .toc-title {
+    color: #e4e4e7;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: var(--text);
     text-transform: uppercase;
     letter-spacing: 0.12em;
   }
 
-  .toc-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.25rem;
-    height: 1.25rem;
-    padding: 0 0.35rem;
-    background: color-mix(in srgb, var(--accent) 15%, transparent);
-    color: var(--accent);
-    font-family: var(--font-mono);
-    font-size: 0.65rem;
-    font-weight: 700;
-    border-radius: 99px;
-    line-height: 1;
-  }
-
-  /* Toggle button */
-  .toc-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    color: var(--text-muted);
-    transition: all var(--transition);
+  .toc-label svg {
+    color: #3b82f6;
     flex-shrink: 0;
   }
 
-  .toc-toggle:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 8%, transparent);
+  .toc-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.22);
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    letter-spacing: 0.04em;
   }
 
-  .toc-chevron {
-    transition: transform 0.25s ease;
-  }
-
-  .toc-toggle--collapsed .toc-chevron {
-    transform: rotate(180deg);
-  }
-
-  /* ===== Progress bar ===== */
-  .toc-progress-bar {
+  /* ========== Barre de progression ========== */
+  .toc-progress-wrap {
     height: 2px;
-    background: var(--border);
-    margin: 0 1.25rem;
+    background: #27272a;
+    margin: 0 1.25rem 0.5rem;
     border-radius: 2px;
     overflow: hidden;
   }
@@ -228,144 +145,139 @@ const numberedHeadings = filteredHeadings.map((h) => {
   .toc-progress-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, var(--accent), var(--purple));
+    background: linear-gradient(90deg, #3b82f6, #a855f7);
     border-radius: 2px;
-    transition: width 0.3s ease;
+    transition: width 0.35s ease;
   }
 
-  /* ===== List ===== */
+  /* ========== Liste ========== */
   .toc-list {
     list-style: none;
-    padding: 0.75rem 1.25rem 1rem;
     margin: 0;
-    counter-reset: none;
-    overflow: hidden;
-    transition: opacity 0.25s ease, max-height 0.3s ease;
-    max-height: 2000px;
-    opacity: 1;
+    padding: 0.25rem 0 0.75rem;
   }
 
-  .toc-list.toc-collapsed {
-    max-height: 0;
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  /* ===== Items ===== */
+  /* ========== Items ========== */
   .toc-item {
-    margin-bottom: 0;
+    margin: 0;
   }
 
-  /* H2 items */
-  .toc-depth-2 + .toc-depth-2,
-  .toc-depth-3 + .toc-depth-2 {
+  /* Séparateur visuel avant chaque H2 (sauf le premier) */
+  .toc-d2 + .toc-d2 {
     margin-top: 0.125rem;
   }
 
-  /* H3 items — indentés */
-  .toc-depth-3 {
-    padding-left: 2.5rem;
+  /* Sous-sections */
+  .toc-d3 {
+    background: rgba(255, 255, 255, 0.015);
   }
 
-  /* ===== Links ===== */
+  /* ========== Liens ========== */
   .toc-link {
     display: flex;
-    align-items: baseline;
-    gap: 0.625rem;
-    padding: 0.35rem 0.5rem;
-    border-radius: var(--radius-sm);
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.25rem;
     text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition: background 0.15s ease;
     position: relative;
   }
 
   .toc-link:hover {
-    background: color-mix(in srgb, var(--accent) 6%, transparent);
+    background: rgba(59, 130, 246, 0.06);
   }
 
-  .toc-link:hover .toc-text {
-    color: var(--text);
+  /* Indicateur actif */
+  .toc-link.is-active {
+    background: rgba(59, 130, 246, 0.08);
   }
 
-  .toc-link:hover .toc-num {
-    color: var(--accent);
-  }
-
-  /* Active state */
-  .toc-link--active {
-    background: color-mix(in srgb, var(--accent) 8%, transparent);
-  }
-
-  .toc-link--active .toc-text {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .toc-link--active .toc-num {
-    color: var(--accent);
-  }
-
-  .toc-link--active::before {
+  .toc-link.is-active::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
+    bottom: 0;
     width: 2px;
-    height: 60%;
-    min-height: 12px;
-    background: var(--accent);
-    border-radius: 2px;
+    background: #3b82f6;
+    border-radius: 0 2px 2px 0;
   }
 
-  /* Number badge (H2) */
+  /* ========== Numéro H2 ========== */
   .toc-num {
+    flex-shrink: 0;
+    width: 2rem;
+    text-align: right;
     font-family: var(--font-mono);
-    font-size: 0.625rem;
+    font-size: 0.6rem;
     font-weight: 700;
-    color: var(--text-muted);
+    color: #52525b;
     letter-spacing: 0.05em;
-    flex-shrink: 0;
-    min-width: 1.5rem;
     transition: color 0.15s ease;
-    line-height: 1.6;
+    line-height: 1;
   }
 
-  /* Dot (H3) */
-  .toc-sub-dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--border-light);
+  .toc-link:hover .toc-num,
+  .toc-link.is-active .toc-num {
+    color: #3b82f6;
+  }
+
+  /* ========== Flèche H3 ========== */
+  .toc-sub-indent {
     flex-shrink: 0;
-    align-self: center;
-    transition: background 0.15s ease;
+    width: 2rem;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: #3f3f46;
+    transition: color 0.15s ease;
+    line-height: 1;
   }
 
-  .toc-link:hover .toc-sub-dot,
-  .toc-link--active .toc-sub-dot {
-    background: var(--accent);
+  .toc-link:hover .toc-sub-indent,
+  .toc-link.is-active .toc-sub-indent {
+    color: #3b82f6;
   }
 
-  /* Text */
+  /* ========== Texte ========== */
   .toc-text {
-    font-family: 'Source Serif 4', Georgia, serif;
     font-size: 0.875rem;
     font-weight: 400;
-    color: var(--text-secondary);
-    line-height: 1.45;
-    transition: color 0.15s ease, font-weight 0.15s ease;
+    color: #71717a;
+    line-height: 1.4;
+    transition: color 0.15s ease;
   }
 
-  .toc-depth-3 .toc-text {
+  .toc-d2 .toc-text {
+    color: #a1a1aa;
+    font-weight: 500;
+  }
+
+  .toc-link:hover .toc-text {
+    color: #e4e4e7;
+  }
+
+  .toc-link.is-active .toc-text {
+    color: #fafafa;
+    font-weight: 600;
+  }
+
+  .toc-d3 .toc-text {
     font-size: 0.8125rem;
-    font-weight: 300;
-    color: var(--text-muted);
+    font-weight: 400;
+    color: #52525b;
   }
 
-  /* ===== Responsive ===== */
+  .toc-d3 .toc-link.is-active .toc-text {
+    color: #a1a1aa;
+    font-weight: 500;
+  }
+
+  /* ========== Responsive ========== */
   @media (max-width: 640px) {
+    .toc-link {
+      padding: 0.45rem 1rem;
+    }
     .toc-text {
       font-size: 0.8125rem;
     }
