@@ -1,5 +1,5 @@
 ---
-title: "Démos vidéo — SmartPlanning en action"
+title: "Démos vidéo : SmartPlanning en action"
 description: "Démonstrations vidéo de chaque fonctionnalité de SmartPlanning : tableau de bord, plannings, gestion d'équipes, paiements et administration."
 date: 2026-04-03
 category: "demo"
@@ -9,7 +9,7 @@ draft: false
 order: 8
 ---
 
-import VideoDemo from '../../components/blog/VideoDemo.astro';
+import VideoDemo from "../../components/blog/VideoDemo.astro";
 
 Construire SmartPlanning, c'est une chose. Le montrer en action, c'en est une autre. Dans cet article, je présente les fonctionnalités clés de la plateforme à travers des démos vidéo commentées. Chaque section couvre un pan de l'application, du tableau de bord aux notifications temps réel. Les vidéos seront ajoutées progressivement au fil des enregistrements.
 
@@ -20,6 +20,7 @@ SmartPlanning adapte son interface au rôle de l'utilisateur connecté. Cette d�
 {/* <VideoDemo src="/videos/blog/dashboard.mp4" title="Tableaux de bord — Vues par rôle (Employé, Manager, Directeur, Admin)" /> */}
 
 **Points clés de la démo :**
+
 - 4 vues différentes selon le rôle : Employé, Manager, Directeur, Admin
 - Dashboard Directeur : graphiques Recharts, indicateurs clés (112 employés, 12 équipes, 5 congés en attente), répartition par équipe en donut, courbe d'évolution des effectifs
 - Dashboard Employé : planning de la semaine en cours, congés à venir, tâches personnelles
@@ -32,6 +33,7 @@ Le coeur de SmartPlanning. Cette démo montre le calendrier interactif Schedule-
 {/* <VideoDemo src="/videos/blog/plannings.mp4" title="Plannings — Calendrier interactif, drag & drop et détection de conflits" /> */}
 
 **Points clés de la démo :**
+
 - Calendrier interactif Schedule-X avec drag & drop natif
 - Création visuelle par clic : sélection d'employés et type de créneau
 - Récurrence automatique configurable (jusqu'à 52 semaines)
@@ -45,6 +47,7 @@ Du dépôt de la demande jusqu'à la décision finale, cette démo suit le workf
 {/* <VideoDemo src="/videos/blog/conges.mp4" title="Congés — Workflow complet de demande et validation" /> */}
 
 **Points clés de la démo :**
+
 - Workflow complet : demande, statut PENDING, puis APPROVED ou REJECTED
 - 7 types de congés avec calcul automatique des jours ouvrés (exclusion week-ends et fériés)
 - Soldes de congés par employé et par année civile
@@ -58,6 +61,7 @@ Ajouter 200 employés un par un, personne n'a envie de faire ca. Cette démo mon
 {/* <VideoDemo src="/videos/blog/import-csv.mp4" title="Import CSV — Validation en temps réel et insertion massive" /> */}
 
 **Points clés de la démo :**
+
 - Import massif depuis fichiers CSV et XLSX
 - Preview interactive avec validation temps réel (cellules rouges, tooltips d'erreur)
 - Détection automatique des doublons et création des équipes manquantes
@@ -71,6 +75,7 @@ SmartPlanning intègre une messagerie complète pour éviter les allers-retours 
 {/* <VideoDemo src="/videos/blog/messagerie.mp4" title="Messagerie — Conversations temps réel et pièces jointes" /> */}
 
 **Points clés de la démo :**
+
 - 3 types de conversations : DIRECT, TEAM et GROUP
 - Temps réel via Server-Sent Events (SSE), sans WebSocket
 - Pièces jointes hébergées sur Cloudinary (images, documents)
@@ -84,6 +89,7 @@ La monétisation de SmartPlanning repose sur Stripe avec un modèle per-seat. Ce
 {/* <VideoDemo src="/videos/blog/abonnement.mp4" title="Abonnement Stripe — Essai gratuit, checkout et portail client" /> */}
 
 **Points clés de la démo :**
+
 - Essai gratuit 21 jours avec bannières progressives (info, alerte, blocage)
 - Checkout Session Stripe avec tarif per-seat calculé automatiquement
 - Portail Stripe intégré : factures, méthode de paiement, annulation
@@ -96,6 +102,7 @@ Chaque action importante dans SmartPlanning déclenche une notification. Cette d
 {/* <VideoDemo src="/videos/blog/notifications.mp4" title="Notifications — Temps réel SSE, badge et préférences" /> */}
 
 **Points clés de la démo :**
+
 - Server-Sent Events (SSE) pour la réception instantanée
 - 9 types de notifications couvrant 4 niveaux de priorité
 - Badge de notifications non-lues et toast notifications
@@ -108,6 +115,7 @@ Une application SaaS doit fonctionner partout. Cette démo montre SmartPlanning 
 {/* <VideoDemo src="/videos/blog/responsive.mp4" title="Responsive — Mobile, tablette, desktop et accessibilité" /> */}
 
 **Points clés de la démo :**
+
 - Application fonctionnelle sur mobile, tablette et desktop
 - Tableaux de données transformés en cartes empilées sur mobile
 - Conformité WCAG 2.1 AA : navigation clavier complète, skip links, contrastes suffisants

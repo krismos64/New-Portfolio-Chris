@@ -1,97 +1,172 @@
 # Portfolio — Christophe Mostefaoui
 
-Portfolio professionnel de Christophe Mostefaoui, concepteur développeur d'applications fullstack & IA. Design Apple/Google-inspired en dark mode, construit avec **Astro v5** + **TypeScript**.
+[![Site](https://img.shields.io/badge/Site-krismos.fr-3b82f6?style=flat-square)](https://krismos.fr)
+[![Astro](https://img.shields.io/badge/Astro-v5-ff5d01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![License](https://img.shields.io/badge/License-ISC-22c55e?style=flat-square)](LICENSE)
 
-**Site en ligne** : [krismos.fr](https://krismos.fr)
+Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Developpeur d'Applications Fullstack & IA. Design Apple/Google-inspired en dark mode avec fond Canvas anime.
 
-## Stack
+> **Site en ligne** : [krismos.fr](https://krismos.fr) | **Freelance** : [christophe-dev-freelance.fr](https://christophe-dev-freelance.fr/)
 
-- **Astro v5** — Framework web statique avec `@astrojs/sitemap`
-- **TypeScript** — Typage strict
-- **CSS Scoped** — Styles par composant, CSS Custom Properties (palette zinc dark mode)
-- **Inter** — Typographie Google Fonts (chargement non-bloquant)
-- **Canvas API** — Fond animé avec fragments de syntaxe dev + animation tech featured project
+---
 
-## Sections
+## Fonctionnalites
 
-| Section | Description |
-|---------|-------------|
-| **Hero** | Badge "Disponible", titre "Concepteur Développeur Fullstack & IA", localisation Béarn (64), CTA projets & CV, liens sociaux |
-| **Pitch** | Paragraphe de présentation personnelle (reconversion, motivation) |
-| **Projets** | SmartPlanning en projet phare (canvas animé tech) + 5 projets en grille (dont 4 clients freelance réels) |
-| **Compétences** | 6 catégories : Frontend, Backend & BDD, DevOps & CI/CD, IA & Automatisation, Conception & Tests, Gestion de projet |
-| **Processus** | Terminal interactif macOS avec typewriter effect — workflow en 5 étapes (analyse, architecture, dev, deploy, gestion) |
-| **Parcours** | Timeline verticale des formations (CDA spé. IA, DWWM) et expériences |
-| **Contact** | Site freelance, email, LinkedIn, GitHub |
+- **Portfolio one-page** — Hero, projets, competences, processus, parcours, contact
+- **Blog technique** — Serie de 8 articles sur la creation de SmartPlanning (SaaS), de l'analyse des besoins au deploiement
+- **Fond anime Canvas** — Fragments de syntaxe dev flottants
+- **Terminal interactif** — Typewriter effect simulant un workflow dev en 5 etapes
+- **SEO avance** — JSON-LD, Open Graph, geo meta tags, sitemap auto
+- **Accessibilite** — WCAG, skip link, aria, prefers-reduced-motion
+- **Responsive** — Mobile-first, 6 breakpoints
 
-## Architecture
+## Stack technique
+
+| Categorie | Technologie |
+|-----------|-------------|
+| Framework | [Astro v5](https://astro.build) + [React 19](https://react.dev) |
+| Langage | TypeScript (strict) |
+| Blog | MDX via `@astrojs/mdx` (Content Collections) |
+| Styles | CSS scoped par composant + CSS Custom Properties |
+| Typographie | Inter (Google Fonts, chargement non-bloquant) |
+| Animation | Canvas API (fond), CSS transitions (scroll reveal) |
+| SEO | `@astrojs/sitemap`, JSON-LD, Open Graph, geo tags |
+| Build | Vite (integre a Astro), output statique |
+
+## Demarrage rapide
+
+```bash
+# Cloner le projet
+git clone https://github.com/krismos64/New-Portfolio-Chris.git
+cd New-Portfolio-Chris
+
+# Installer les dependances
+npm install
+
+# Lancer le serveur de developpement
+npm run dev
+```
+
+Le site est accessible sur [localhost:4321](http://localhost:4321).
+
+## Scripts disponibles
+
+| Commande | Description |
+|----------|-------------|
+| `npm run dev` | Serveur de developpement (localhost:4321) |
+| `npm run build` | Build de production dans `dist/` |
+| `npm run preview` | Previsualiser le build |
+| `npm run astro check` | Verification des types TypeScript |
+
+## Architecture du projet
 
 ```
 src/
 ├── components/
-│   ├── Navigation.astro    # Navbar glassmorphism + burger mobile + Escape + focus trap
-│   ├── Hero.astro          # Section hero avec géolocalisation SEO
-│   ├── About.astro         # Timeline parcours
-│   ├── Skills.astro        # Compétences (6 catégories, SVG inline)
-│   ├── Projects.astro      # Projets (featured avec canvas animé + grille 2 colonnes)
-│   └── Process.astro       # Terminal interactif typewriter
+│   ├── Navigation.astro        # Navbar glassmorphism + burger mobile
+│   ├── Hero.astro              # Section hero avec geolocalisation SEO
+│   ├── About.astro             # Timeline parcours (formations + experience)
+│   ├── Skills.astro            # 6 categories de competences (SVG inline)
+│   ├── Projects.astro          # SmartPlanning featured + 5 projets en grille
+│   ├── Process.astro           # Terminal interactif macOS typewriter
+│   └── blog/
+│       ├── TableOfContents.astro  # Sommaire auto-genere
+│       └── VideoDemo.astro        # Composant video (YouTube / local)
+├── content/
+│   ├── config.ts               # Schema Content Collection (blog)
+│   └── blog/                   # 8 articles MDX SmartPlanning
+│       ├── 01-analyse-des-besoins.mdx
+│       ├── 02-gestion-de-projet-agile.mdx
+│       ├── 03-conception-base-de-donnees.mdx
+│       ├── 04-architecture-nextjs-saas.mdx
+│       ├── 05-developpement-fonctionnalites.mdx
+│       ├── 06-strategie-de-tests.mdx
+│       ├── 07-cicd-docker-deploiement.mdx
+│       └── 08-demos-fonctionnalites.mdx
 ├── data/
-│   └── projects.ts         # Données des 6 projets (interface typée)
+│   └── projects.ts             # Donnees des 6 projets (interface typee)
 ├── layouts/
-│   └── Layout.astro        # Layout global, SEO, CSS variables, fond animé Canvas
+│   ├── Layout.astro            # Layout global, SEO, CSS variables, Canvas
+│   └── BlogPost.astro          # Layout article (JSON-LD, breadcrumb, nav)
 └── pages/
-    └── index.astro         # Page unique : pitch + contact + scroll reveal
+    ├── index.astro             # Page d'accueil (one-page)
+    └── blog/
+        ├── index.astro         # Liste des articles avec filtres
+        └── [...slug].astro     # Route dynamique article
 
 public/
-├── images/                 # Images portfolio et projets + image Open Graph
-├── docs/                   # CV PDF
-└── video/                  # Animation logo navbar
+├── images/                     # Images portfolio, projets, blog, OG
+├── docs/                       # CV PDF
+└── video/                      # Animation logo navbar
 ```
 
-## Développement
+## Blog technique
 
-```bash
-npm install          # Installer les dépendances
-npm run dev          # Serveur de développement (localhost:4321)
-npm run build        # Build de production → dist/
-npm run preview      # Prévisualiser le build
-npm run astro check  # Type checking
-```
+Le blog documente la creation de **SmartPlanning** (SaaS Next.js 15) en 8 articles :
+
+1. **Analyse des besoins** — Benchmark, personas, user stories, maquettes Figma
+2. **Gestion de projet Agile** — Scrum solo, Jira, Confluence, sprints thematiques
+3. **Conception BDD** — Merise, PostgreSQL, Prisma, architecture multi-tenant
+4. **Architecture Next.js** — App Router, Server Actions, 4 couches, design patterns
+5. **Developpement** — Plannings, conges, Stripe, messagerie, import CSV, SSE
+6. **Strategie de tests** — 3003 tests, Vitest, Playwright, CI bloquante
+7. **CI/CD et deploiement** — Docker, GitHub Actions, VPS OVH, securite
+8. **Demos video** — Fonctionnalites en action (a venir)
+
+Chaque article inclut : SEO (JSON-LD `BlogPosting`), fil d'Ariane, barre de progression de lecture, table des matieres, navigation prev/next, et CTA recrutement.
 
 ## SEO
 
-- **Title & meta description** géolocalisés (Pau, Béarn, 64, Pyrénées-Atlantiques)
-- **Open Graph + Twitter Card** avec image OG dédiée (1200x630)
-- **JSON-LD** : WebSite + ProfilePage + Person + areaServed + hasOccupation
-- **Geo meta tags** : geo.region FR-64, geo.placename, ICBM
-- **Meta keywords** ciblés (portfolio, développeur web, CDA, IA, Pau, Artix, Orthez)
-- **Hreflang fr** explicite
-- **Sitemap auto** via `@astrojs/sitemap` (lastmod fixe)
-- **robots.txt** configuré
-- Canonical URL + Favicon PNG
-- **Google Fonts** chargé en non-bloquant (preload + media print)
+- **JSON-LD** : WebSite, ProfilePage, Person, SoftwareApplication, Blog, BlogPosting, BreadcrumbList
+- **Open Graph + Twitter Card** avec image OG dediee (1200x630)
+- **Geo meta tags** : geo.region FR-64, geo.placename, ICBM (Pau, Artix, Bearn)
+- **Meta keywords** geolocalises (portfolio, CDA, IA, Pau, Artix, Orthez, Bearn)
+- **Sitemap auto** via `@astrojs/sitemap`
+- **Hreflang fr**, canonical URL, robots.txt
 
-## Accessibilité
+## Accessibilite
 
 - Skip link vers le contenu principal
-- `aria-expanded` et `aria-hidden` dynamiques sur le menu mobile
-- Fermeture du menu mobile avec **Escape** + gestion du focus
-- `aria-label` sur le logo navbar et les liens sociaux
-- `aria-hidden="true"` sur tous les SVG décoratifs
-- **`prefers-reduced-motion`** respecté : canvas désactivé, gradient CSS stoppé, vidéo logo pausée, typewriter affiché instantanément, scroll reveal sans transition
-- `tabindex` dynamique pour empêcher le focus sur le menu fermé
+- `aria-expanded` / `aria-hidden` dynamiques sur le menu mobile
+- Fermeture menu avec Escape + focus trap
+- `aria-label` sur les liens sociaux et le logo
+- `prefers-reduced-motion` respecte (canvas, video, transitions)
+- `tabindex` dynamique sur les liens du menu ferme
 
-## Responsive
+## Design tokens
 
-- Breakpoints : 480px, 640px, 768px, 900px, 1024px
-- Menu burger mobile avec fermeture au clic dehors et Escape
-- Images responsive, photo hero adaptée par breakpoint
-- Typographie responsive avec `clamp()`
+```css
+--bg: #09090b;           /* zinc-950 */
+--bg-card: #18181b;      /* zinc-900 */
+--border: #27272a;       /* zinc-800 */
+--text: #fafafa;         /* zinc-50 */
+--text-secondary: #a1a1aa; /* zinc-400 */
+--accent: #3b82f6;       /* blue-500 */
+--green: #22c55e;
+--purple: #a855f7;
+--amber: #f59e0b;
+```
 
-## Déploiement
+## Deploiement
 
-Build statique compatible avec tout hébergeur :
+Build statique compatible avec tout hebergeur :
 
 ```bash
-npm run build        # Génère le dossier dist/
+npm run build    # Genere dist/
 ```
+
+Le dossier `dist/` peut etre deploye sur Netlify, Vercel, Cloudflare Pages, ou tout serveur statique.
+
+## Auteur
+
+**Christophe Mostefaoui** — Concepteur Developpeur d'Applications Fullstack & IA
+
+- [Portfolio](https://krismos.fr)
+- [LinkedIn](https://www.linkedin.com/in/christophemostefaoui/)
+- [GitHub](https://github.com/krismos64)
+- [Freelance](https://christophe-dev-freelance.fr/)
+
+## Licence
+
+ISC
