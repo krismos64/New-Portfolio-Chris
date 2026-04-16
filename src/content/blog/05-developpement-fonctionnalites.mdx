@@ -32,6 +32,12 @@ J'ai construit **quatre dashboards distincts**, un par rôle RBAC. La redirectio
 
 La couverture de tests est significative : **374 tests unitaires sur 13 fichiers** couvrent les services de calcul statistique qui alimentent ces dashboards.
 
+![Dashboard Manager SmartPlanning — statistiques d'équipe, congés en attente et absences du jour](/images/blog/capture1.png)
+*Dashboard Manager : vue d'ensemble de l'équipe avec KPIs en temps réel et demandes de congés*
+
+![Liste des collaborateurs SmartPlanning — tableau avec export PDF/CSV et gestion des employés](/images/blog/capture2.png)
+*Gestion des collaborateurs : tableau paginé avec export, filtres et accès rapide aux fiches*
+
 ## Le calendrier : coeur fonctionnel de l'application
 
 ### Pourquoi Schedule-X plutôt que FullCalendar
@@ -47,6 +53,12 @@ Un manager crée un créneau en cliquant sur le calendrier. Le formulaire permet
 Les plannings sont souvent répétitifs. J'ai implémenté des **règles de récurrence** avec une limite raisonnable de 52 occurrences, soit un planning hebdomadaire sur un an. C'est suffisant pour couvrir tous les cas d'usage sans surcharger la base de données.
 
 La détection de conflits est gérée par un **hook custom `useConflictDetection`** avec debounce. Il distingue deux niveaux : les **conflits bloquants** (congé approuvé, arrêt maladie, indisponibilité) qui empêchent la création du créneau, et les **avertissements** (préférence horaire, formation prévue) qui informent sans bloquer. Cette distinction évite de frustrer les managers avec des faux positifs tout en protégeant contre les erreurs réelles.
+
+![Vue planning mensuelle SmartPlanning — créneaux par employé avec filtres statut, type et équipe](/images/blog/capture3.png)
+*Vue planning mensuelle : créneaux colorés par type, filtres multi-critères et compteur d'heures*
+
+![Vue planning hebdomadaire SmartPlanning — grille horaire avec créneaux drag & drop et heures semaine](/images/blog/capture6.png)
+*Vue planning hebdomadaire : grille horaire par employé avec récapitulatif des heures planifiées*
 
 ### Export professionnel
 
@@ -64,6 +76,9 @@ La gestion des congés est la deuxième fonctionnalité la plus utilisée après
 6. Si le congé est annulé ultérieurement : le solde est **re-crédité** automatiquement.
 
 Le calcul automatique des jours ouvrés décomptés prend en compte les week-ends et jours fériés. Les soldes (`LeaveBalance`) sont suivis par type, par employé et par année. Ce module est couvert par **184 tests** dont 175 unitaires et 9 end-to-end.
+
+![Interface de gestion des congés SmartPlanning — liste filtrée avec statuts approuvé, annulé et en attente](/images/blog/capture4.png)
+*Gestion des congés Manager : filtres multi-critères, badges de statut et actions rapides par demande*
 
 ## Notifications temps réel avec SSE
 
@@ -115,7 +130,10 @@ Le contrôle d'accès s'exerce à **deux niveaux** : le middleware Edge Runtime 
 
 ### RGPD intégrée dès la conception
 
-La conformité RGPD n'est pas un patch ajouté après coup. Droit d'accès avec export JSON depuis le profil, droit à l'effacement avec suppression en cascade, consentement cookies granulaire (validité 12 mois), minimisation des données collectées. L'analytics est assurée par **Umami auto-hébergé** : aucune donnée transmise à des tiers.
+La conformité RGPD n'est pas un patch ajouté après coup.
+
+![Profil employé SmartPlanning — informations personnelles, professionnelles et actions RGPD](/images/blog/capture5.png)
+*Fiche profil employé : informations personnelles, statut du compte et actions RGPD (export, suppression)* Droit d'accès avec export JSON depuis le profil, droit à l'effacement avec suppression en cascade, consentement cookies granulaire (validité 12 mois), minimisation des données collectées. L'analytics est assurée par **Umami auto-hébergé** : aucune donnée transmise à des tiers.
 
 ### Leçon d'un incident de sécurité
 

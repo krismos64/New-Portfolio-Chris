@@ -36,6 +36,9 @@ Sur un projet solo de cette envergure, TypeScript strict n'est pas un choix tech
 
 L'architecture de SmartPlanning suit un découpage en **quatre couches distinctes**. Ce n'est pas de la théorie académique : c'est ce qui me permet de modifier une partie du système sans risquer de casser le reste.
 
+![Architecture en couches de SmartPlanning — Présentation, Métier, Accès aux données, Infrastructure](/images/blog/architecture-en-couche.png)
+*Architecture multicouche : chaque couche a une responsabilité unique et des dépendances unidirectionnelles*
+
 ### Couche présentation
 
 C'est tout ce que l'utilisateur voit et manipule. Les composants React : un mélange de Server Components pour les données statiques et de Client Components pour l'interactivité :, les pages de l'App Router, les layouts imbriqués, et les **37 composants UI** construits avec Shadcn/ui sur Radix UI. J'y intègre aussi des hooks custom comme `useConflictDetection` (détection de chevauchements en temps réel) et `useUmamiTrack` (analytics).

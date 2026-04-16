@@ -83,7 +83,12 @@ Toutes les requêtes Prisma filtrent par `companyId`. Des tests unitaires vérif
 
 ## Le modèle de données complet
 
-Le schéma comprend **20 tables principales** et 4 tables NextAuth. Voici les entités clés :
+Le schéma comprend **20 tables principales** et 4 tables NextAuth. Le MCD ci-dessous, réalisé avec Looping selon la méthode Merise, représente l'ensemble des entités et leurs associations avant toute traduction en tables relationnelles :
+
+![MCD de SmartPlanning — modèle conceptuel de données avec entités et associations Merise](/images/blog/mcd.png)
+*MCD SmartPlanning : 20 entités, leurs attributs et associations — réalisé avec Looping*
+
+Voici les entités clés :
 
 - **Company** : racine du multi-tenant, 11 associations. Supprimer une entreprise supprime tout en cascade (droit à l'oubli RGPD).
 - **User** : authentification et 4 rôles RBAC (`SYSTEM_ADMIN > DIRECTOR > MANAGER > EMPLOYEE`).

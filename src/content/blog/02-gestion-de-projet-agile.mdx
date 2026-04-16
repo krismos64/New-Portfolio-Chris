@@ -25,13 +25,25 @@ J'ai structuré le projet sur trois niveaux dans Jira :
 
 24 Epics au total, chacun correspondant à un module fonctionnel de l'application : Authentification, Dashboard, Plannings, Gestion des congés, Facturation, et ainsi de suite. L'Epic est le niveau de granularité qui permet de voir l'avancement global du projet d'un coup d'oeil.
 
+![Vue Backlog Jira avec les Epics et sprints thématiques du projet SmartPlanning](/images/blog/jira4.png)
+*Vue Backlog Jira : les Epics par module fonctionnel et les sprints associés*
+
 ### Stories : les tickets actionnables
 
 Chaque Epic est décomposé en stories, des unités de travail concrètes avec des critères d'acceptation clairs. Une story correspond à une fonctionnalité implémentable en quelques heures à quelques jours. C'est le niveau où je travaille au quotidien : je prends une story, je la développe, je la teste, je la passe en "Done".
 
+![Détail d'une story Jira avec description, tâches, tests et priorité](/images/blog/jira3.png)
+*Exemple de story Jira : objectif, liste de tâches, critères d'acceptation et priorité RGPD*
+
+![Page Confluence listant les User Stories et critères d'acceptation par rôle](/images/blog/confluence1.png)
+*Documentation Confluence des user stories avec critères d'acceptation par persona*
+
 ### Sprints thématiques
 
 Les sprints regroupent les stories par thématique fonctionnelle. Plutôt qu'un sprint fourre-tout "Sprint 7", je travaille sur un sprint "Planning" ou un sprint "Congés", centré sur une fonctionnalité complète de bout en bout. J'explique plus bas pourquoi cette approche s'est imposée.
+
+![Vue Backlog Jira avec la liste des sprints thématiques et leur avancement](/images/blog/jira1.png)
+*Backlog Jira : sprints thématiques avec statut des tickets (À faire, En cours, Terminé)*
 
 ## L'évolution de ma méthodologie : 3 adaptations clés
 
@@ -42,6 +54,9 @@ Un des apprentissages majeurs de ce projet, c'est que la méthodologie n'est pas
 Au démarrage, j'ai appliqué Scrum de manière classique : Sprint 1 du 4 au 17 novembre, Sprint 2 du 18 novembre au 1er décembre, etc. Ça n'a pas tenu. En solo, la charge de travail varie fortement d'une semaine à l'autre : entre les imprévus, la recherche technique et les moments de concentration profonde, un cadre temporel rigide devient contre-productif.
 
 J'ai basculé vers des **sprints thématiques sans dates fixes**, centrés sur une fonctionnalité complète. Le sprint se termine quand la fonctionnalité est livrée et testée, pas quand une date arbitraire est atteinte. Résultat : moins de frustration, plus de valeur livrée par sprint, un rythme plus naturel et durable.
+
+![Tableau Kanban Jira — colonnes À faire, En cours, Terminé pour un sprint Pages Légales](/images/blog/jira2.png)
+*Tableau Kanban Jira : vue en temps réel de l'avancement d'un sprint thématique*
 
 ### Gestion de crise : l'incident de sécurité
 
@@ -55,18 +70,87 @@ La troisième adaptation a été d'intégrer Confluence comme outil de documenta
 
 Cette discipline de documentation n'était pas prévue initialement, mais elle s'est avérée indispensable, à la fois comme support de soutenance pour le titre CDA et comme mémoire technique du projet.
 
+![Page Confluence — Matrice des compétences DevOps et Infrastructure avec niveaux et preuves](/images/blog/confluence2.png)
+*Confluence : matrice des compétences techniques documentée avec niveaux et preuves concrètes*
+
 ## Planning et phases de développement
 
 Le développement de SmartPlanning s'est étalé sur 5 mois, de novembre 2025 à mars 2026, découpé en 6 phases :
 
-- **Fondations** (novembre 2025) : Setup du projet, choix techniques, architecture initiale
-- **Architecture** (décembre 2025) : Structure multi-tenant, base de données, API de base
-- **Qualité** (décembre 2025) : Mise en place des tests, CI/CD, linting
-- **Authentification** (décembre 2025) : Auth complète, gestion des rôles, sécurité
-- **Fonctionnalités métier** (janvier-février 2026) : Plannings, congés, dashboard, facturation
-- **Finalisation** (mars 2026) : Polish, performances, déploiement production
+<div style="margin: 2rem 0; position: relative;">
+  <div style="position: absolute; left: 1.25rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--accent), var(--purple)); border-radius: 2px;"></div>
+
+  <div style="display: flex; gap: 1.25rem; margin-bottom: 1.5rem; align-items: flex-start; padding-left: 0.25rem;">
+    <div style="flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: #3b82f622; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: var(--accent); font-family: var(--font-mono); z-index: 1; position: relative;">01</div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0.875rem 1.125rem; flex: 1;">
+      <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+        <span style="font-weight: 700; font-size: 0.95rem; color: var(--accent);">Fondations</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Novembre 2025</span>
+      </div>
+      <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;">Setup du projet, choix techniques, architecture initiale</p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 1.25rem; margin-bottom: 1.5rem; align-items: flex-start; padding-left: 0.25rem;">
+    <div style="flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: #3b82f622; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: var(--accent); font-family: var(--font-mono); z-index: 1; position: relative;">02</div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0.875rem 1.125rem; flex: 1;">
+      <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+        <span style="font-weight: 700; font-size: 0.95rem; color: var(--accent);">Architecture</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Décembre 2025</span>
+      </div>
+      <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;">Structure multi-tenant, base de données, API de base</p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 1.25rem; margin-bottom: 1.5rem; align-items: flex-start; padding-left: 0.25rem;">
+    <div style="flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: #a855f722; border: 2px solid var(--purple); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: var(--purple); font-family: var(--font-mono); z-index: 1; position: relative;">03</div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0.875rem 1.125rem; flex: 1;">
+      <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+        <span style="font-weight: 700; font-size: 0.95rem; color: var(--purple);">Qualité</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Décembre 2025</span>
+      </div>
+      <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;">Mise en place des tests, CI/CD, linting</p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 1.25rem; margin-bottom: 1.5rem; align-items: flex-start; padding-left: 0.25rem;">
+    <div style="flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: #a855f722; border: 2px solid var(--purple); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: var(--purple); font-family: var(--font-mono); z-index: 1; position: relative;">04</div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0.875rem 1.125rem; flex: 1;">
+      <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+        <span style="font-weight: 700; font-size: 0.95rem; color: var(--purple);">Authentification</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Décembre 2025</span>
+      </div>
+      <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;">Auth complète, gestion des rôles, sécurité</p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 1.25rem; margin-bottom: 1.5rem; align-items: flex-start; padding-left: 0.25rem;">
+    <div style="flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: #22c55e22; border: 2px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: var(--green); font-family: var(--font-mono); z-index: 1; position: relative;">05</div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0.875rem 1.125rem; flex: 1;">
+      <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+        <span style="font-weight: 700; font-size: 0.95rem; color: var(--green);">Fonctionnalités métier</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Janvier – Février 2026</span>
+      </div>
+      <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;">Plannings, congés, dashboard, facturation</p>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 1.25rem; margin-bottom: 0; align-items: flex-start; padding-left: 0.25rem;">
+    <div style="flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: #f59e0b22; border: 2px solid var(--amber); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: var(--amber); font-family: var(--font-mono); z-index: 1; position: relative;">06</div>
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 0.875rem 1.125rem; flex: 1;">
+      <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+        <span style="font-weight: 700; font-size: 0.95rem; color: var(--amber);">Finalisation</span>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">Mars 2026</span>
+      </div>
+      <p style="margin: 0; font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;">Polish, performances, déploiement production</p>
+    </div>
+  </div>
+</div>
 
 Le principe directeur : fondations solides d'abord, fonctionnalités métier ensuite. J'ai résisté à la tentation de coder des écrans "visibles" dès le premier jour pour construire une base technique robuste. C'est un choix qui a payé sur la durée.
+
+![Vue Chronologie Jira — timeline des phases et tickets du projet SmartPlanning](/images/blog/jira5.png)
+*Chronologie Jira : vue macro de l'enchaînement des phases sur 5 mois de développement*
 
 ## Les outils du workflow
 

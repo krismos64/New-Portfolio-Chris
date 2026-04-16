@@ -54,6 +54,11 @@ Le pipeline CI/CD de SmartPlanning repose sur **GitHub Actions** avec trois work
 
 ### Workflow CI : valider chaque changement
 
+Chaque fonctionnalité suit un **workflow Git professionnel** avant même d'atteindre la CI : branche feature isolée, commits atomiques en Conventional Commits, Pull Request avec review, puis merge déclenche le déploiement automatique.
+
+![Workflow Git professionnel — branche feature, commits atomiques, PR, CI auto, merge main](/images/blog/workflow.png)
+*Workflow Git : de la branche feature au déploiement, chaque étape est tracée et automatisée*
+
 A chaque push, le workflow CI se déclenche et exécute quatre étapes en séquence :
 
 1. **Lint et vérification des types TypeScript** : le code doit être propre avant d'aller plus loin
@@ -63,6 +68,9 @@ A chaque push, le workflow CI se déclenche et exécute quatre étapes en séque
 
 Durée totale : **8 à 10 minutes**. Assez rapide pour ne pas casser le rythme de développement, assez complet pour attraper les régressions.
 
+![Pipeline GitHub Actions — Lint & Type Check, Unit Tests, Build Application, E2E Tests en succès](/images/blog/pipeline.png)
+*Pipeline CI réel : 4 jobs en 11 minutes, statut Success sur un push vers main*
+
 ### Workflow CD : déployer automatiquement
 
 Quand la CI passe au vert sur `main`, le déploiement se lance automatiquement :
@@ -71,6 +79,9 @@ Quand la CI passe au vert sur `main`, le déploiement se lance automatiquement :
 2. **Connexion SSH au VPS**, pull de la nouvelle image, exécution des **migrations Prisma**, redémarrage des services Docker
 
 Le tout en **environ 7 minutes**. Du merge de la PR au site live, sans intervention manuelle.
+
+![Schéma déploiement automatisé — Push main, Tests CI, Build Docker, SSH VPS, Docker pull, Prisma migrate, Restart](/images/blog/github.png)
+*Pipeline CD : 7 étapes séquentielles du push jusqu'au redémarrage des services en production*
 
 ### Workflow Nightly : surveiller la stabilité
 

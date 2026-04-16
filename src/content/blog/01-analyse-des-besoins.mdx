@@ -56,6 +56,23 @@ SmartPlanning s'adresse à des structures hiérarchisées. J'ai identifié **qua
 
 Cette segmentation m'a permis de concevoir des interfaces adaptées à chaque profil, en évitant l'écueil classique du "tout montrer à tout le monde".
 
+![Les quatre personas de SmartPlanning : employé, manager, directeur et administrateur système](/images/blog/personas.png)
+*Les quatre rôles et leurs niveaux d'accès dans SmartPlanning*
+
+Pour chaque rôle, j'ai formalisé un **diagramme de cas d'utilisation UML** détaillant les actions disponibles, les dépendances entre fonctionnalités et les droits associés :
+
+![Diagramme de cas d'utilisation UML — Directeur SmartPlanning](/images/blog/cas-utilisation1.png)
+*Cas d'utilisation Directeur : plannings, congés, dashboard, abonnement Stripe et export RGPD*
+
+![Diagramme de cas d'utilisation UML — System Admin SmartPlanning](/images/blog/cas-utilisation2.png)
+*Cas d'utilisation System Admin : gestion multi-tenant, supervision des entreprises et accès global*
+
+![Diagramme de cas d'utilisation UML — Manager SmartPlanning](/images/blog/cas-utilisation3.png)
+*Cas d'utilisation Manager : création de plannings, validation des congés et gestion des équipes*
+
+![Diagramme de cas d'utilisation UML — Employé SmartPlanning](/images/blog/cas-utilisation4.png)
+*Cas d'utilisation Employé : consultation du planning, demandes de congé et gestion du profil*
+
 ## User stories : formaliser le besoin en langage Agile
 
 Une fois les personas définis, j'ai rédigé les **user stories** au format standard Agile. En voici les principales :
@@ -85,6 +102,9 @@ Centraliser les données dans une source unique de vérité. Contrôler automati
 
 Offrir à chaque collaborateur une vue claire de son rôle et de son planning. Rendre la communication transparente entre employés, managers et direction. Un employé informé est un employé engagé.
 
+![Les trois objectifs fonctionnels de SmartPlanning : gagner du temps, fiabiliser le processus, fédérer les équipes](/images/blog/objectifs-smartplanning.png)
+*Les trois piliers fonctionnels qui guident toutes les décisions de conception de SmartPlanning*
+
 ## Maquettage : valider avant de développer
 
 Pour concrétiser cette analyse, j'ai réalisé des **wireframes basse fidélité dans Figma** couvrant les écrans principaux : tableau de bord, gestion des employés, vue planning, gestion des congés et paramètres.
@@ -94,6 +114,21 @@ Ces maquettes m'ont servi à trois choses :
 - **Valider le parcours utilisateur** avant d'écrire du code. Un wireframe se modifie en 10 minutes, une page codée en 2 heures.
 - **Identifier les manques** dans mes user stories. Certains écrans ont révélé des flux que je n'avais pas anticipés.
 - **Communiquer ma vision** de manière visuelle, que ce soit dans mon dossier de projet ou lors de présentations.
+
+![Wireframe du dashboard directeur — vue d'ensemble des KPIs, effectifs et statistiques](/images/blog/maquette2.png)
+*Dashboard directeur : KPIs en temps réel, répartition par équipe et évolution des effectifs*
+
+![Wireframe de la gestion des congés — liste filtrée avec statuts et actions par employé](/images/blog/maquette3.png)
+*Vue manager Congés : filtres multi-critères, statuts colorés et traitement rapide des demandes*
+
+![Wireframe de la vue planning hebdomadaire — calendrier avec créneaux par employé](/images/blog/maquette4.png)
+*Vue manager Plannings : calendrier hebdomadaire avec créneaux glissants par collaborateur*
+
+![Wireframes mobiles — dashboard directeur, planning manager et gestion des congés](/images/blog/maquette-mobile.png)
+*Déclinaison mobile : les écrans clés pensés dès le départ pour une utilisation terrain*
+
+![Charte graphique SmartPlanning — palette de couleurs complète en modes clair et sombre](/images/blog/charte-graphique.png)
+*Charte graphique Figma : design system complet avec tokens couleur pour les modes clair et sombre*
 
 ## Ce que cette phase m'a appris
 
@@ -107,4 +142,4 @@ L'analyse des besoins de SmartPlanning m'a pris plusieurs semaines. C'est un inv
 
 > Comprendre avant de coder, ce n'est pas ralentir. C'est s'assurer que chaque ligne de code qu'on écrit a une raison d'exister.
 
-Dans le prochain article, je détaillerai les choix techniques et l'architecture logicielle de SmartPlanning : pourquoi Next.js 15, pourquoi PostgreSQL, et comment j'ai structuré une application multi-tenant dès le départ.
+Dans le prochain article, je détaillerai comment j'ai organisé le développement de SmartPlanning avec une méthode Agile adaptée au contexte d'un développeur solo : Kanban, sprints, backlog Jira et priorisation.
