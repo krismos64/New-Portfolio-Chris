@@ -60,8 +60,17 @@ const categories = [
   <main id="main-content" class="blog-index">
     <header class="blog-header">
       <span class="blog-label">Blog technique</span>
-      <h1 class="blog-title">SmartPlanning</h1>
-      <p class="blog-subtitle">Du concept au déploiement</p>
+      <h1 class="blog-title-seo">SmartPlanning — Du concept au déploiement</h1>
+      <div class="blog-hero">
+        <img
+          src="/images/blog/smartplanning-conception.png"
+          alt="Christophe Mostefaoui — SmartPlanning, du concept au déploiement"
+          class="blog-hero-img"
+          width="900"
+          height="500"
+          loading="eager"
+        />
+      </div>
       <p class="blog-description">
         Chaque étape de la création d'un SaaS de gestion d'équipes : analyse des besoins,
         architecture, développement, tests et mise en production.
@@ -169,6 +178,33 @@ const categories = [
     margin-bottom: 3rem;
   }
 
+  .blog-title-seo {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  /* === Hero image === */
+  .blog-hero {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  }
+
+  .blog-hero-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 5;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
   .blog-label {
     font-size: 0.75rem;
     font-weight: 600;
@@ -177,21 +213,6 @@ const categories = [
     color: var(--accent);
     margin-bottom: 0.75rem;
     display: block;
-  }
-
-  .blog-title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--text);
-    margin-bottom: 0.25rem;
-  }
-
-  .blog-subtitle {
-    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-bottom: 1rem;
   }
 
   .blog-description {
