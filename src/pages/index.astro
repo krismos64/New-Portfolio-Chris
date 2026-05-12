@@ -12,6 +12,31 @@ import Process from '../components/Process.astro';
   title="Christophe Mostefaoui — Concepteur Développeur d'Applications | Pau"
   description="Portfolio de Christophe Mostefaoui, concepteur développeur d'applications fullstack à Pau (Béarn, 64). Spécialisé Next.js, React, TypeScript et IA. Création d'applications web SaaS, sites vitrines et solutions sur mesure en Pyrénées-Atlantiques."
 >
+  <!-- JSON-LD : SoftwareApplication (SmartPlanning) - uniquement sur la page d'accueil -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SmartPlanning",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "url": "https://smartplanning.fr/",
+    "description": "Solution SaaS de gestion d'équipes et de plannings. Architecture multi-tenant, paiements Stripe, conforme RGPD.",
+    "author": {
+      "@type": "Person",
+      "name": "Christophe Mostefaoui",
+      "url": "https://krismos.fr/"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/smartplanning-fr/",
+      "https://www.youtube.com/@SmartPlanning-x2c"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  })} slot="head" />
+
   <Navigation />
   <main id="main-content">
     <Hero />

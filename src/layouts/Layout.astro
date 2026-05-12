@@ -64,27 +64,6 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
 
-    <!-- JSON-LD Structured Data : SoftwareApplication (SmartPlanning) -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "SmartPlanning",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "url": "https://smartplanning.fr/",
-      "description": "Solution SaaS de gestion d'équipes et de plannings. Architecture multi-tenant, paiements Stripe, conforme RGPD.",
-      "author": {
-        "@type": "Person",
-        "name": "Christophe Mostefaoui",
-        "url": "https://krismos.fr/"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR"
-      }
-    })} />
-
     <!-- JSON-LD Structured Data : WebSite -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -153,6 +132,9 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
         }
       }
     })} />
+
+    <!-- Slot pour JSON-LD ou meta tags spécifiques à une page -->
+    <slot name="head" />
   </head>
 
   <body>

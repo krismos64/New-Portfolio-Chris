@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
+Allow: /docs/cv-christophe-mostefaoui.pdf
 Disallow: /docs/
-Disallow: /*.pdf
+Disallow: /*.pdf$
 Disallow: /video/
 
 Sitemap: https://krismos.fr/sitemap-index.xml
