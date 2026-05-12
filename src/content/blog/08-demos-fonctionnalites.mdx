@@ -21,16 +21,45 @@ Construire SmartPlanning, c'est une chose. Le montrer en action, c'en est une au
 
 ## Tableaux de bord par rôle
 
-SmartPlanning adapte son interface au rôle de l'utilisateur connecté. Cette démo parcourt les quatre vues principales : l'employé voit son planning hebdomadaire et ses congés à venir, le manager supervise son équipe, le directeur accède aux indicateurs globaux avec graphiques Recharts (répartition par équipe en donut, évolution des effectifs), et l'admin dispose d'une vue complète de la plateforme.
+SmartPlanning adapte son interface au rôle de l'utilisateur connecté. Chacune des trois démos ci-dessous parcourt en immersion l'espace dédié à un rôle. On part du **directeur** qui pilote l'organisation, on descend au **manager** qui supervise son équipe, puis on termine côté **employé** qui consulte ses propres informations.
 
-{/* <VideoDemo src="/videos/blog/dashboard.mp4" title="Tableaux de bord — Vues par rôle (Employé, Manager, Directeur, Admin)" /> */}
+### Espace Directeur — Pilotage global
 
-**Points clés de la démo :**
+Vue d'ensemble de la plateforme : indicateurs clés (effectifs totaux, équipes, congés en attente), graphiques Recharts (répartition par équipe en donut, évolution des effectifs), accès complet à la gestion d'équipes, aux abonnements Stripe et à l'export des données.
 
-- 4 vues différentes selon le rôle : Employé, Manager, Directeur, Admin
+<VideoDemo
+  src="K4bidIhB-LI"
+  title="SmartPlanning — Démo de l'espace Directeur"
+  type="youtube"
+/>
+
+### Espace Manager — Supervision d'équipe
+
+Le manager gère uniquement son périmètre : création et modification des plannings de son équipe, validation des demandes de congés, suivi des heures travaillées et messagerie avec ses collaborateurs. Les permissions sont strictement cloisonnées pour respecter la confidentialité des autres équipes.
+
+<VideoDemo
+  src="sy3ffTIj0ig"
+  title="SmartPlanning — Démo de l'espace Manager"
+  type="youtube"
+/>
+
+### Espace Employé — Vue personnelle
+
+L'employé accède à son planning de la semaine, ses congés à venir, ses tâches personnelles et la messagerie. Interface volontairement épurée : pas de surcharge informationnelle, juste les actions utiles au quotidien (déposer un congé, consulter ses créneaux, échanger avec son manager).
+
+<VideoDemo
+  src="8wJgk8i1uzQ"
+  title="SmartPlanning — Démo de l'espace Employé"
+  type="youtube"
+/>
+
+**Points clés des trois démos :**
+
+- 3 espaces distincts avec permissions strictement cloisonnées (Directeur, Manager, Employé)
 - Dashboard Directeur : graphiques Recharts, indicateurs clés (112 employés, 12 équipes, 5 congés en attente), répartition par équipe en donut, courbe d'évolution des effectifs
+- Dashboard Manager : périmètre limité à son équipe, validation des congés, supervision des plannings
 - Dashboard Employé : planning de la semaine en cours, congés à venir, tâches personnelles
-- Transition fluide entre les rôles pour illustrer la granularité des permissions
+- Démonstration concrète de la granularité du contrôle d'accès (RBAC) en production
 
 ## Gestion des plannings
 

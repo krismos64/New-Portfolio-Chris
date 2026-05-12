@@ -12,6 +12,8 @@ export interface Project {
     website?: string;
     github?: string;
     video?: string;
+    linkedin?: string;
+    youtube?: string;
   };
   featured?: boolean;
 }
@@ -37,6 +39,8 @@ export const projects: Project[] = [
       website: "https://smartplanning.fr/",
       github: "https://github.com/krismos64/SmartPlanning",
       video: "https://www.youtube.com/watch?v=jSdnkoMc8gU",
+      linkedin: "https://www.linkedin.com/company/smartplanning-fr/",
+      youtube: "https://www.youtube.com/@SmartPlanning-x2c",
     },
     featured: true,
   },
