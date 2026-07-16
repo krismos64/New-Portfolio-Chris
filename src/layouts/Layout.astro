@@ -9,7 +9,7 @@ export interface Props {
 const {
   title,
   description = "Développeur Fullstack Next.js / React : je conçois et construis des applications SaaS de A à Z. Portfolio de Christophe Mostefaoui.",
-  image = "/images/portfolio/christopge-fiche-contact.png",
+  image = "/images/portfolio/christopge-fiche-contact.jpg",
   url = "https://krismos.fr/"
 } = Astro.props;
 
@@ -493,8 +493,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     margin: 0 auto 1rem;
     font-size: 0.75rem;
     line-height: 1.6;
-    color: var(--border-light);
-    opacity: 0.6;
+    color: var(--text-muted);
   }
 
   /* === Animations === */
