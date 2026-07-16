@@ -171,7 +171,7 @@ const categories = [
           </div>
           <div class="post-content">
             <div class="post-meta">
-              <span class="post-category" style={`color: ${categoryColors[post.data.category] || 'var(--accent)'}`}>
+              <span class="post-category" style={`--cat: ${categoryColors[post.data.category] || 'var(--accent)'}`}>
                 {categoryLabels[post.data.category] || post.data.category}
               </span>
               <time datetime={post.data.date.toISOString()}>
@@ -639,7 +639,8 @@ const categories = [
     font-size: 0.875rem;
     font-weight: 700;
     font-family: var(--font-mono);
-    color: var(--step-color);
+    /* 15 % de blanc pour tenir 4,5:1 (WCAG AA) sur le fond teinté, violet et bleu compris */
+    color: color-mix(in srgb, var(--step-color) 85%, white);
     background: color-mix(in srgb, var(--step-color) 10%, transparent);
     border: 1px solid color-mix(in srgb, var(--step-color) 20%, transparent);
   }
@@ -662,6 +663,7 @@ const categories = [
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    color: color-mix(in srgb, var(--cat) 85%, white);
   }
 
   .post-title {
