@@ -256,21 +256,61 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
       })();
     </script>
 
-    <!-- Chatbot -->
+    <!-- Chatbot : script Chatbase injecté au premier clic seulement,
+         aucun cookie tiers tant que le visiteur n'interagit pas (RGPD) -->
+    <button
+      id="chat-loader"
+      class="chat-loader"
+      type="button"
+      aria-label="Ouvrir l'assistant de discussion"
+      title="Discuter avec l'assistant"
+    >
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
     <script is:inline>
-      window.embeddedChatbotConfig = {
-        chatbotId: "ChVRrroBokwiXkBw4wCcr",
-        domain: "www.chatbase.co",
-      };
+      (() => {
+        const loader = document.getElementById('chat-loader');
+        if (!loader) return;
+        let started = false;
+
+        loader.addEventListener('click', () => {
+          if (started) return;
+          started = true;
+          loader.classList.add('loading');
+          loader.setAttribute('aria-busy', 'true');
+
+          window.embeddedChatbotConfig = {
+            chatbotId: 'ChVRrroBokwiXkBw4wCcr',
+            domain: 'www.chatbase.co',
+          };
+          const s = document.createElement('script');
+          s.src = 'https://www.chatbase.co/embed.min.js';
+          s.defer = true;
+          s.setAttribute('chatbotId', 'ChVRrroBokwiXkBw4wCcr');
+          s.setAttribute('data-chatbot-id', 'ChVRrroBokwiXkBw4wCcr');
+          s.setAttribute('data-domain', 'www.chatbase.co');
+          document.body.appendChild(s);
+
+          // Dès que la vraie bulle Chatbase est montée : on l'ouvre et on retire la nôtre
+          const deadline = Date.now() + 15000;
+          const poll = setInterval(() => {
+            const bubble = document.getElementById('chatbase-bubble-button')
+              || document.querySelector('iframe[src*="chatbase"]');
+            if (bubble) {
+              clearInterval(poll);
+              loader.remove();
+              if (bubble.click) bubble.click();
+            } else if (Date.now() > deadline) {
+              // Échec de chargement : on rend la bulle cliquable à nouveau
+              clearInterval(poll);
+              started = false;
+              loader.classList.remove('loading');
+              loader.removeAttribute('aria-busy');
+            }
+          }, 200);
+        });
+      })();
     </script>
-    <!-- chatbotId et domain sont des attributs data requis par Chatbase -->
-    <script
-      is:inline
-      src="https://www.chatbase.co/embed.min.js"
-      data-chatbot-id="ChVRrroBokwiXkBw4wCcr"
-      data-domain="www.chatbase.co"
-      defer
-    ></script>
   </body>
 </html>
 
@@ -285,9 +325,12 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     --border-light: #3f3f46;
     --text: #fafafa;
     --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
+    --text-muted: #82828b; /* 4,65:1 sur --bg-card, 5,22:1 sur --bg (WCAG AA) */
     --accent: #3b82f6;
     --accent-hover: #2563eb;
+    /* Fonds de boutons à texte blanc : blanc sur #3b82f6 = 3,68:1, insuffisant */
+    --accent-btn: #2563eb; /* blanc dessus = 5,17:1 */
+    --accent-btn-hover: #1d4ed8; /* blanc dessus = 6,70:1 */
     --accent-subtle: rgba(59, 130, 246, 0.1);
     --accent-glow: rgba(59, 130, 246, 0.15);
     --green: #22c55e;
@@ -381,8 +424,8 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     z-index: 0;
   }
 
-  /* Contenu au-dessus du fond */
-  body > *:not(.skip-link):not(#code-bg):not(nav) {
+  /* Contenu au-dessus du fond (la bulle chat reste en position: fixed) */
+  body > *:not(.skip-link):not(#code-bg):not(nav):not(.chat-loader) {
     position: relative;
     z-index: 2;
   }
@@ -456,7 +499,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     top: -100%;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--accent);
+    background: var(--accent-btn);
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: var(--radius);
@@ -494,6 +537,41 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     font-size: 0.75rem;
     line-height: 1.6;
     color: var(--text-muted);
+  }
+
+  /* === Bulle chatbot (avant chargement de Chatbase) === */
+  .chat-loader {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-btn);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    z-index: 999999;
+    transition: transform var(--transition), background var(--transition);
+  }
+  .chat-loader:hover {
+    background: var(--accent-btn-hover);
+    transform: scale(1.08);
+  }
+  .chat-loader.loading {
+    cursor: wait;
+  }
+  .chat-loader.loading svg {
+    animation: chatLoaderPulse 1s ease-in-out infinite;
+  }
+  @keyframes chatLoaderPulse {
+    50% {
+      opacity: 0.35;
+    }
   }
 
   /* === Animations === */

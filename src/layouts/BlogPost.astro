@@ -46,12 +46,18 @@ const formattedUpdatedDate = updatedDate?.toLocaleDateString('fr-FR', {
 
 const canonicalUrl = `https://krismos.fr/blog/${Astro.params.slug}/`;
 const orderPadded = String(order).padStart(2, '0');
+
+// Google refuse le SVG pour les rich results BlogPosting (et les scrapers OG le gèrent mal) :
+// chaque couverture SVG a son rendu PNG 1200x630 pré-généré dans /images/blog/og/
+const socialImage = image?.endsWith('.svg')
+  ? image.replace('/images/blog/', '/images/blog/og/').replace(/\.svg$/, '.png')
+  : image;
 ---
 
 <Layout
-  title={`${title} | SmartPlanning Blog | Christophe Mostefaoui`}
+  title={`${title} | Blog SmartPlanning`}
   description={description}
-  image={image}
+  image={socialImage}
   url={canonicalUrl}
 >
   <!-- Fonts éditoriales -->
@@ -78,7 +84,7 @@ const orderPadded = String(order).padStart(2, '0');
       "name": "Christophe Mostefaoui"
     },
     "mainEntityOfPage": canonicalUrl,
-    "image": image ? new URL(image, 'https://krismos.fr').href : undefined,
+    "image": socialImage ? new URL(socialImage, 'https://krismos.fr').href : undefined,
     "keywords": tags.join(', '),
     "articleSection": categoryLabels[category] || category,
     "isPartOf": {
@@ -764,11 +770,11 @@ const orderPadded = String(order).padStart(2, '0');
   }
 
   .cta-primary {
-    background: var(--accent);
+    background: var(--accent-btn);
     color: white;
   }
   .cta-primary:hover {
-    background: var(--accent-hover);
+    background: var(--accent-btn-hover);
     color: white;
     transform: translateY(-1px);
     box-shadow: 0 4px 16px var(--accent-30);
