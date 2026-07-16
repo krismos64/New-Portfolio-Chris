@@ -1,4 +1,4 @@
-# Portfolio — Christophe Mostefaoui
+# Portfolio de Christophe Mostefaoui
 
 [![Site](https://img.shields.io/badge/Site-krismos.fr-3b82f6?style=flat-square)](https://krismos.fr)
 [![Astro](https://img.shields.io/badge/Astro-v5-ff5d01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
@@ -13,13 +13,13 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Developpeur d'A
 
 ## Fonctionnalites
 
-- **Portfolio one-page** — Hero, projets, competences, processus, parcours, contact
-- **Blog technique** — Serie de 8 articles sur la creation de SmartPlanning (SaaS), de l'analyse des besoins au deploiement
-- **Fond anime Canvas** — Fragments de syntaxe dev flottants
-- **Terminal interactif** — Typewriter effect simulant un workflow dev en 5 etapes
-- **SEO avance** — JSON-LD, Open Graph, geo meta tags, sitemap auto
-- **Accessibilite** — WCAG, skip link, aria, prefers-reduced-motion
-- **Responsive** — Mobile-first, 6 breakpoints
+- **Portfolio one-page** : Hero, projets, competences, processus, parcours, contact
+- **Blog technique** : Serie de 8 articles sur la creation de SmartPlanning (SaaS), de l'analyse des besoins au deploiement
+- **Fond anime Canvas** : Fragments de syntaxe dev flottants
+- **Terminal interactif** : Typewriter effect simulant un workflow dev en 5 etapes
+- **SEO avance** : JSON-LD, Open Graph, geo meta tags, sitemap auto
+- **Accessibilite** : WCAG, skip link, aria, prefers-reduced-motion
+- **Responsive** : Mobile-first, 6 breakpoints
 
 ## Stack technique
 
@@ -105,14 +105,14 @@ public/
 
 Le blog documente la creation de **SmartPlanning** (SaaS Next.js 15) en 8 articles :
 
-1. **Analyse des besoins** — Benchmark, personas, user stories, maquettes Figma
-2. **Gestion de projet Agile** — Scrum solo, Jira, Confluence, sprints thematiques
-3. **Conception BDD** — Merise, PostgreSQL, Prisma, architecture multi-tenant
-4. **Architecture Next.js** — App Router, Server Actions, 4 couches, design patterns
-5. **Developpement** — Plannings, conges, Stripe, messagerie, import CSV, SSE
-6. **Strategie de tests** — 3003 tests, Vitest, Playwright, CI bloquante
-7. **CI/CD et deploiement** — Docker, GitHub Actions, VPS OVH, securite
-8. **Demos video** — Fonctionnalites en action (a venir)
+1. **Analyse des besoins** : Benchmark, personas, user stories, maquettes Figma
+2. **Gestion de projet Agile** : Scrum solo, Jira, Confluence, sprints thematiques
+3. **Conception BDD** : Merise, PostgreSQL, Prisma, architecture multi-tenant
+4. **Architecture Next.js** : App Router, Server Actions, 4 couches, design patterns
+5. **Developpement** : Plannings, conges, Stripe, messagerie, import CSV, SSE
+6. **Strategie de tests** : 3003 tests, Vitest, Playwright, CI bloquante
+7. **CI/CD et deploiement** : Docker, GitHub Actions, VPS OVH, securite
+8. **Demos video** : Fonctionnalites en action (a venir)
 
 Chaque article inclut : SEO (JSON-LD `BlogPosting`), fil d'Ariane, barre de progression de lecture, table des matieres, navigation prev/next, et CTA recrutement.
 
@@ -160,7 +160,7 @@ Le dossier `dist/` peut etre deploye sur Netlify, Vercel, Cloudflare Pages, ou t
 
 ## Auteur
 
-**Christophe Mostefaoui** — Concepteur Developpeur d'Applications Fullstack
+**Christophe Mostefaoui**, Concepteur Developpeur d'Applications Fullstack
 
 - [Portfolio](https://krismos.fr)
 - [LinkedIn](https://www.linkedin.com/in/christophemostefaoui/)

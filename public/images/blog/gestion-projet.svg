@@ -10,7 +10,7 @@
   <rect width="800" height="420" fill="#09090b" rx="12" opacity="0.25"/>
 
   <!-- Titre Kanban -->
-  <text x="400" y="44" text-anchor="middle" font-family="monospace" font-size="13" fill="#a1a1aa" font-weight="600" letter-spacing="2">KANBAN BOARD — SmartPlanning Sprint 3</text>
+  <text x="400" y="44" text-anchor="middle" font-family="monospace" font-size="13" fill="#a1a1aa" font-weight="600" letter-spacing="2">KANBAN BOARD : SmartPlanning Sprint 3</text>
   <line x1="60" y1="54" x2="740" y2="54" stroke="#27272a" stroke-width="1"/>
 
   <!-- Colonne Backlog -->

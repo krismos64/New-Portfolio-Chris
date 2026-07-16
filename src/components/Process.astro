@@ -77,7 +77,7 @@ const steps: Step[] = [
         <div class="terminal-bar-spacer"></div>
       </div>
 
-      <!-- Terminal body — contenu pré-rendu pour le SEO, animé par JS au scroll -->
+      <!-- Terminal body : contenu pré-rendu pour le SEO, animé par JS au scroll -->
       <div class="terminal-body" id="terminalBody">
         {steps.map((step, i) => (
           <div
@@ -481,7 +481,7 @@ const steps: Step[] = [
       if (hasPlayed) return;
       hasPlayed = true;
 
-      // Skip animation si prefers-reduced-motion — le contenu statique reste affiché
+      // Skip animation si prefers-reduced-motion : le contenu statique reste affiché
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         return;
       }

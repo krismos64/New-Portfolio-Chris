@@ -95,7 +95,7 @@ export const projects: Project[] = [
     image: "/images/projects/coachtfe.png",
     tech: ["CSS", "JavaScript", "SEO", "GitHub", "OVH"],
     description:
-      "Refonte d'un site vitrine moderne et responsive pour CoachTFE — accompagnement à la réussite du TFE infirmier. SEO amélioré, formulaire de contact relié à l'adresse mail du client, gestion de projet et déploiement.",
+      "Refonte d'un site vitrine moderne et responsive pour CoachTFE, accompagnement à la réussite du TFE infirmier. SEO amélioré, formulaire de contact relié à l'adresse mail du client, gestion de projet et déploiement.",
     highlights: [
       "Mission freelance client réel",
       "SEO optimisé (meta, schema, sitemap)",

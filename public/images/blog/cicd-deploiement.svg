@@ -7,7 +7,7 @@
   </defs>
   <rect width="800" height="420" fill="url(#bg7)" rx="12"/>
 
-  <text x="400" y="26" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">CI/CD PIPELINE — GitHub Actions + Docker + VPS OVH</text>
+  <text x="400" y="26" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">CI/CD PIPELINE : GitHub Actions + Docker + VPS OVH</text>
 
   <!-- Pipeline horizontal principal -->
   <!-- Étape 1: Push -->
@@ -119,7 +119,7 @@
 
   <!-- VPS Architecture -->
   <rect x="394" y="145" width="388" height="200" rx="8" fill="#111113" stroke="#27272a"/>
-  <text x="588" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="600">VPS OVH — Production</text>
+  <text x="588" y="170" text-anchor="middle" font-family="monospace" font-size="10" fill="#a1a1aa" font-weight="600">VPS OVH : Production</text>
   <line x1="402" y1="178" x2="774" y2="178" stroke="#27272a" stroke-width="1"/>
 
   <!-- Nginx -->
@@ -135,7 +135,7 @@
   <!-- App -->
   <rect x="410" y="258" width="160" height="42" rx="6" fill="#0d1f0d" stroke="#22c55e"/>
   <text x="490" y="278" text-anchor="middle" font-family="monospace" font-size="9" fill="#86efac" font-weight="600">Next.js App</text>
-  <text x="490" y="292" text-anchor="middle" font-family="monospace" font-size="8" fill="#4ade80">:3000 — Docker</text>
+  <text x="490" y="292" text-anchor="middle" font-family="monospace" font-size="8" fill="#4ade80">:3000 : Docker</text>
 
   <!-- DB -->
   <rect x="604" y="190" width="160" height="110" rx="6" fill="#1a1030" stroke="#a855f7"/>
@@ -153,9 +153,9 @@
   <rect x="394" y="356" width="388" height="26" rx="5" fill="#0d1f0d" stroke="#22c55e" stroke-width="1"/>
   <text x="460" y="373" font-family="monospace" font-size="9" fill="#86efac">● smartplanning.fr</text>
   <text x="566" y="373" font-family="monospace" font-size="9" fill="#4ade80">LIVE</text>
-  <text x="606" y="373" font-family="monospace" font-size="9" fill="#71717a">— Uptime 99.9%  — Deploy: 2m34s</text>
+  <text x="606" y="373" font-family="monospace" font-size="9" fill="#71717a">Uptime 99.9%, Deploy: 2m34s</text>
 
   <!-- Timing badge -->
   <rect x="20" y="356" width="360" height="26" rx="5" fill="#1e3a5f" opacity="0.4"/>
-  <text x="200" y="373" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">07 — CI/CD Docker &amp; Déploiement</text>
+  <text x="200" y="373" text-anchor="middle" font-family="monospace" font-size="9" fill="#93c5fd">07 : CI/CD Docker &amp; Déploiement</text>
 </svg>

@@ -12,7 +12,7 @@ const others = projects.slice(1);
   <div class="featured fade-up">
     <a href={featured.links.website} target="_blank" rel="noopener noreferrer" class="featured-image-link" aria-label={`Voir ${featured.title}`}>
       <canvas class="featured-canvas" id="featuredCanvas" aria-hidden="true"></canvas>
-      <img src={featured.image} alt={`Capture d'écran de ${featured.title} — ${featured.tagline}`} loading="eager" />
+      <img src={featured.image} alt={`Capture d'écran de ${featured.title} : ${featured.tagline}`} loading="eager" />
       <div class="featured-overlay">
         <span class="featured-cta">
           Voir le projet
@@ -94,7 +94,7 @@ const others = projects.slice(1);
     {others.map((project) => (
       <article class={`card fade-up ${project.id === 'kocinaspeed' ? 'card-contain' : ''}`}>
         <div class="card-image">
-          <img src={project.image} alt={`Capture d'écran de ${project.title} — ${project.tagline}`} loading="lazy" />
+          <img src={project.image} alt={`Capture d'écran de ${project.title} : ${project.tagline}`} loading="lazy" />
           <span class={`badge badge-${project.badgeColor}`}>{project.badge}</span>
         </div>
         <div class="card-body">

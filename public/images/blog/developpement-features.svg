@@ -8,7 +8,7 @@
   <rect width="800" height="420" fill="url(#bg5)" rx="12"/>
 
   <!-- Header -->
-  <text x="400" y="28" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">FONCTIONNALITÉS CLÉS — SmartPlanning</text>
+  <text x="400" y="28" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">FONCTIONNALITÉS CLÉS : SmartPlanning</text>
 
   <!-- Feature: Planner (grande, à gauche) -->
   <rect x="20" y="42" width="340" height="240" rx="10" fill="#111113" stroke="#27272a"/>
@@ -34,21 +34,21 @@
   <!-- Shifts: lignes employés -->
   <text x="35" y="124" font-family="monospace" font-size="9" fill="#a1a1aa">Alice</text>
   <rect x="47" y="113" width="100" height="16" rx="3" fill="#1e3a5f" stroke="#3b82f6" stroke-width="0.5"/>
-  <text x="97" y="124" text-anchor="middle" font-family="monospace" font-size="8" fill="#93c5fd">08:00 – 16:00</text>
+  <text x="97" y="124" text-anchor="middle" font-family="monospace" font-size="8" fill="#93c5fd">08:00 - 16:00</text>
 
   <text x="35" y="144" font-family="monospace" font-size="9" fill="#a1a1aa">Bob</text>
   <rect x="97" y="133" width="150" height="16" rx="3" fill="#14532d" stroke="#22c55e" stroke-width="0.5"/>
-  <text x="172" y="144" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">10:00 – 18:00</text>
+  <text x="172" y="144" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">10:00 - 18:00</text>
 
   <text x="35" y="164" font-family="monospace" font-size="9" fill="#a1a1aa">Carol</text>
   <rect x="47" y="153" width="75" height="16" rx="3" fill="#2d1f0a" stroke="#f59e0b" stroke-width="0.5"/>
-  <text x="84" y="164" text-anchor="middle" font-family="monospace" font-size="8" fill="#fcd34d">08–12</text>
+  <text x="84" y="164" text-anchor="middle" font-family="monospace" font-size="8" fill="#fcd34d">08-12</text>
   <rect x="147" y="153" width="75" height="16" rx="3" fill="#2d1f0a" stroke="#f59e0b" stroke-width="0.5"/>
-  <text x="184" y="164" text-anchor="middle" font-family="monospace" font-size="8" fill="#fcd34d">14–18</text>
+  <text x="184" y="164" text-anchor="middle" font-family="monospace" font-size="8" fill="#fcd34d">14-18</text>
 
   <text x="35" y="184" font-family="monospace" font-size="9" fill="#a1a1aa">Dave</text>
   <rect x="247" y="173" width="100" height="16" rx="3" fill="#1a1030" stroke="#a855f7" stroke-width="0.5"/>
-  <text x="297" y="184" text-anchor="middle" font-family="monospace" font-size="8" fill="#c4b5fd">14:00 – 22:00</text>
+  <text x="297" y="184" text-anchor="middle" font-family="monospace" font-size="8" fill="#c4b5fd">14:00 - 22:00</text>
 
   <text x="35" y="204" font-family="monospace" font-size="9" fill="#71717a">Eve</text>
   <rect x="47" y="193" width="275" height="16" rx="3" fill="#1c1c1e" stroke="#3f3f46" stroke-dasharray="3,2"/>
@@ -69,7 +69,7 @@
   <line x1="372" y1="72" x2="572" y2="72" stroke="#27272a" stroke-width="1"/>
 
   <rect x="388" y="82" width="156" height="28" rx="5" fill="#14532d" stroke="#22c55e"/>
-  <text x="466" y="93" text-anchor="middle" font-family="monospace" font-size="9" fill="#fafafa">Plan Pro — 29€/mois</text>
+  <text x="466" y="93" text-anchor="middle" font-family="monospace" font-size="9" fill="#fafafa">Plan Pro : 29€/mois</text>
   <text x="466" y="104" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">✓ Actif • Renouvelle le 15/05</text>
 
   <rect x="388" y="118" width="72" height="22" rx="4" fill="#1e3a5f"/>
@@ -138,5 +138,5 @@
 
   <!-- Label -->
   <rect x="20" y="368" width="250" height="26" rx="5" fill="#0d1f0d" opacity="0.7"/>
-  <text x="145" y="385" text-anchor="middle" font-family="monospace" font-size="10" fill="#86efac">05 — Développement des fonctionnalités</text>
+  <text x="145" y="385" text-anchor="middle" font-family="monospace" font-size="10" fill="#86efac">05 : Développement des fonctionnalités</text>
 </svg>

@@ -8,7 +8,7 @@ export interface Props {
 
 const {
   title,
-  description = "Développeur Fullstack Next.js / React — Je conçois et construis des applications SaaS de A à Z. Portfolio de Christophe Mostefaoui.",
+  description = "Développeur Fullstack Next.js / React : je conçois et construis des applications SaaS de A à Z. Portfolio de Christophe Mostefaoui.",
   image = "/images/portfolio/christopge-fiche-contact.png",
   url = "https://krismos.fr/"
 } = Astro.props;
@@ -45,7 +45,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <meta property="og:image:height" content="630" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Christophe Mostefaoui — Portfolio" />
+    <meta property="og:site_name" content="Portfolio de Christophe Mostefaoui" />
     <meta property="og:locale" content="fr_FR" />
 
     <!-- Twitter Card -->
@@ -57,7 +57,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/portfolio/favicon.png" />
 
-    <!-- Font : Inter (Apple/Google style) — chargement non-bloquant -->
+    <!-- Font : Inter (Apple/Google style), chargement non-bloquant -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
@@ -68,7 +68,7 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Portfolio Christophe Mostefaoui — Développeur Web Pau",
+      "name": "Portfolio Christophe Mostefaoui, Développeur Web Pau",
       "url": canonicalUrl,
       "description": description,
       "inLanguage": "fr-FR"
