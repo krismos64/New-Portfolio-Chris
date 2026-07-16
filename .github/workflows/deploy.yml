@@ -27,7 +27,7 @@ jobs:
 
       - name: Contrôle rédactionnel (aucun tiret cadratin)
         run: |
-          if grep -rn "—\|–" src/ README.md; then
+          if grep -rn "—\|–" src/ README.md public/llms.txt; then
             echo "::error::Tirets cadratins ou demi-cadratins détectés : remplacer par virgule ou deux-points."
             exit 1
           fi

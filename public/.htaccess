@@ -1,0 +1,29 @@
+# .htaccess de krismos.fr (Hostinger mutualisé, serveur LiteSpeed)
+# Ce fichier vit dans public/ et est copié tel quel dans dist/ au build,
+# puis déployé à la racine du site par la CI (la redirection HTTP vers HTTPS
+# est déjà gérée par Hostinger, ne pas la dupliquer ici).
+
+# Alias conventionnel du sitemap : le fichier réel est sitemap-index.xml,
+# généré par @astrojs/sitemap et déclaré dans robots.txt
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^sitemap\.xml$ /sitemap-index.xml [R=301,L]
+</IfModule>
+
+# Headers de sécurité
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# Cache 1 an immutable sur les assets fingerprintés par Astro (/_astro/*),
+# le hash dans le nom de fichier change à chaque build
+<IfModule mod_setenvif.c>
+  SetEnvIf Request_URI "^/_astro/" ASTRO_ASSET
+</IfModule>
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable" env=ASTRO_ASSET
+  Header unset Expires env=ASTRO_ASSET
+</IfModule>
