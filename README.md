@@ -141,6 +141,7 @@ d'architecture.
 - différenciation visuelle nette entre questions et réponses ;
 - liens et emails transformés en actions identifiables et cliquables ;
 - réinitialisation de la conversation et mode plein écran ;
+- cartes visuelles contextuelles issues des captures réelles du portfolio ;
 - interface responsive, accessible au clavier et compatible avec la réduction
   des animations ;
 - dépôt SmartPlanning présenté comme privé et partageable sur demande dans un

@@ -17,7 +17,7 @@
   <section class="recruiter-chat__panel" role="dialog" aria-modal="false" aria-labelledby="recruiter-chat-title" hidden data-chat-panel>
     <header class="recruiter-chat__header">
       <div>
-        <p class="recruiter-chat__eyebrow">Assistant Mistral</p>
+        <p class="recruiter-chat__eyebrow">Assistant IA de Christophe</p>
         <h2 id="recruiter-chat-title">Explorez mon profil technique</h2>
       </div>
       <div class="recruiter-chat__header-actions">
@@ -65,6 +65,7 @@
 <script>
   type ChatRole = "user" | "assistant";
   interface ChatMessage { role: ChatRole; content: string }
+  interface ChatMedia { pattern: RegExp; image: string; title: string; description: string; url: string }
 
   const root = document.querySelector<HTMLElement>("[data-chatbot]");
   if (root) {
@@ -96,6 +97,24 @@
       ["🔍", "Parlez-moi d'un problème technique complexe"],
       ["📍", "Quelles sont vos disponibilités et votre mobilité ?"],
       ["📈", "Quels sont vos axes de progression ?"],
+    ];
+
+    const CHAT_MEDIA: ChatMedia[] = [
+      { pattern: /planning|calendrier|créneau|conflit|drag and drop/i, image: "/images/blog/capture6.webp", title: "Planning SmartPlanning", description: "Vue hebdomadaire et créneaux interactifs", url: "/blog/05-developpement-fonctionnalites/" },
+      { pattern: /architecture en couche|quatre couche|server component|server action|pattern strategy|pattern observer/i, image: "/images/blog/architecture-en-couche.webp", title: "Architecture en quatre couches", description: "Présentation, métier, données et infrastructure", url: "/blog/04-architecture-nextjs-saas/" },
+      { pattern: /base de données|postgresql|prisma|multi-tenant|multitenant|mcd|merise/i, image: "/images/blog/mcd.webp", title: "Modèle de données SmartPlanning", description: "MCD du SaaS multi-tenant", url: "/blog/03-conception-base-de-donnees/" },
+      { pattern: /test|vitest|playwright|non-régression|qualité logicielle/i, image: "/images/blog/strategie-tests.svg", title: "Stratégie de tests", description: "Tests unitaires, intégration, E2E et CI", url: "/blog/06-strategie-de-tests/" },
+      { pattern: /ci\/cd|pipeline|github actions|docker|déploiement|vps|nginx/i, image: "/images/blog/pipeline.webp", title: "Pipeline CI/CD", description: "Contrôles automatisés avant déploiement", url: "/blog/07-cicd-docker-deploiement/" },
+      { pattern: /jira|backlog|sprint|kanban|agile/i, image: "/images/blog/jira4.webp", title: "Backlog Jira", description: "Epics, stories et sprints thématiques", url: "/blog/02-gestion-de-projet-agile/" },
+      { pattern: /confluence|documentation|documenter/i, image: "/images/blog/confluence2.webp", title: "Documentation Confluence", description: "Compétences et preuves documentées", url: "/blog/02-gestion-de-projet-agile/" },
+      { pattern: /analyse des besoins|persona|user stor|product owner|produit/i, image: "/images/blog/personas.webp", title: "Personas SmartPlanning", description: "Quatre rôles et besoins métier", url: "/blog/01-analyse-des-besoins/" },
+      { pattern: /figma|maquette|\bui\b|\bux\b|interface/i, image: "/images/blog/maquette2.webp", title: "Maquette du dashboard", description: "Conception Figma avant développement", url: "/blog/01-analyse-des-besoins/" },
+      { pattern: /staka|manuscrit|édition/i, image: "/images/projects/livrestaka.webp", title: "Staka Livres", description: "Plateforme fullstack réalisée pour un client", url: "https://livrestaka.fr/" },
+      { pattern: /coachtfe|tfe infirmier/i, image: "/images/projects/coachtfe.webp", title: "CoachTFE", description: "Refonte et SEO pour un client réel", url: "https://coachtfe.fr/" },
+      { pattern: /cabinet infirmier|graslin|doctolib/i, image: "/images/projects/graslin.webp", title: "Cabinet Infirmier Graslin", description: "Site responsive et SEO local", url: "https://cabinet-infirmier-graslin.fr/" },
+      { pattern: /kocinaspeed|symfony|recette/i, image: "/images/projects/kocinaspeed.webp", title: "Kocinaspeed", description: "Projet Symfony avec chatbot IA", url: "https://kocinaspeed.fr/" },
+      { pattern: /smartplanning|saas de gestion/i, image: "/images/projects/smart.webp", title: "SmartPlanning", description: "SaaS de gestion d'équipes et de plannings", url: "https://smartplanning.fr/" },
+      { pattern: /parcours|profil|cv|recrut|formation|diplôme/i, image: "/images/portfolio/chris7.webp", title: "CV de Christophe", description: "Parcours, compétences et coordonnées", url: "/docs/cv-christophe-mostefaoui.pdf" },
     ];
 
     const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (character) => ({
@@ -135,17 +154,52 @@
         storeLink(email, `mailto:${email}`)
       );
       output = output.replace(/https?:\/\/[^\s<]+/g, (rawTarget) => {
-        const target = rawTarget.replace(/[.,;:!?)]*$/, "");
+        const target = rawTarget.replace(/[.,;:!?)\]*]+$/, "");
         return storeLink(target, target) + rawTarget.slice(target.length);
       });
       return output.replace(/@@CHATLINK(\d+)@@/g, (_match, index: string) => links[Number(index)] || "");
     };
 
-    const formatAssistantText = (value: string) => linkify(escapeHtml(normalizeTypography(value)))
+    const formatAssistantText = (value: string) => linkify(escapeHtml(normalizeTypography(value))
       .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
       .replace(/^\s*-\s+(.+)$/gm, "<span class=\"chat-list-item\">• $1</span>")
       .replace(/\n{2,}/g, "</p><p>")
-      .replace(/\n/g, "<br>");
+      .replace(/\n/g, "<br>"));
+
+    const addMediaAttachments = (answer: string, item: HTMLElement) => {
+      if (answer.startsWith("Bonjour, je suis l'assistant IA")) return;
+      const selected = CHAT_MEDIA.filter((media) => media.pattern.test(answer)).slice(0, 2);
+      if (selected.length === 0) return;
+
+      const mediaList = document.createElement("div");
+      mediaList.className = "recruiter-chat__media-list";
+      selected.forEach((media) => {
+        const card = document.createElement("a");
+        card.className = "recruiter-chat__media-card";
+        card.href = media.url;
+        if (media.url.startsWith("http")) {
+          card.target = "_blank";
+          card.rel = "noopener noreferrer";
+        }
+
+        const image = document.createElement("img");
+        image.src = media.image;
+        image.alt = media.title;
+        image.loading = "lazy";
+        image.decoding = "async";
+
+        const caption = document.createElement("span");
+        caption.className = "recruiter-chat__media-caption";
+        const title = document.createElement("strong");
+        title.textContent = media.title;
+        const description = document.createElement("small");
+        description.textContent = media.description;
+        caption.append(title, description);
+        card.append(image, caption);
+        mediaList.appendChild(card);
+      });
+      item.appendChild(mediaList);
+    };
 
     const addMessage = (message: ChatMessage, streaming = false) => {
       const item = document.createElement("article");
@@ -166,6 +220,7 @@
 
       item.append(meta, content);
       messagesElement.appendChild(item);
+      if (message.role === "assistant" && !streaming) addMediaAttachments(message.content, item);
       messagesElement.scrollTop = messagesElement.scrollHeight;
       return content;
     };
@@ -348,6 +403,7 @@
         assistantContent.textContent = "";
         const answer = await consumeSse(response, assistantContent);
         conversation.push({ role: "assistant", content: answer });
+        addMediaAttachments(answer, assistantItem);
         saveConversation();
         updateSuggestions(answer);
       } catch (error) {
@@ -459,6 +515,13 @@
   .recruiter-chat__link { display: inline-flex; align-items: center; gap: .3rem; max-width: 100%; margin: .18rem .08rem; padding: .28rem .5rem; color: #dbeafe; background: rgba(59,130,246,.15); border: 1px solid rgba(96,165,250,.28); border-radius: 7px; font-weight: 600; line-height: 1.35; text-decoration: none; overflow-wrap: anywhere; transition: color var(--transition), background var(--transition), border-color var(--transition); }
   .recruiter-chat__link:hover { color: white; background: rgba(59,130,246,.28); border-color: rgba(147,197,253,.58); }
   .recruiter-chat__link span { flex: 0 0 auto; }
+  .recruiter-chat__media-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; width: 100%; margin-top: .65rem; }
+  .recruiter-chat__media-card { min-width: 0; overflow: hidden; color: var(--text); background: rgba(30,41,59,.58); border: 1px solid rgba(96,165,250,.24); border-radius: 12px; text-decoration: none; box-shadow: 0 6px 18px rgba(0,0,0,.16); transition: transform var(--transition), border-color var(--transition), background var(--transition); }
+  .recruiter-chat__media-card:hover { color: white; background: rgba(37,99,235,.18); border-color: rgba(147,197,253,.55); transform: translateY(-2px); }
+  .recruiter-chat__media-card img { display: block; width: 100%; height: 82px; object-fit: cover; object-position: top center; background: #111827; }
+  .recruiter-chat__media-caption { display: flex; flex-direction: column; gap: .12rem; padding: .55rem .6rem .65rem; }
+  .recruiter-chat__media-caption strong { overflow: hidden; color: #eff6ff; font-size: .72rem; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+  .recruiter-chat__media-caption small { display: -webkit-box; overflow: hidden; color: var(--text-muted); font-size: .62rem; line-height: 1.35; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
   .recruiter-chat__suggestions { padding: .25rem 1rem .85rem; }
   .recruiter-chat__suggestions > p { margin: 0 0 .5rem; color: var(--text-muted); font: 600 .65rem/1.2 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
   .recruiter-chat__suggestion-list { display: flex; gap: .5rem; overflow-x: auto; padding: .1rem .1rem .35rem; scrollbar-width: thin; scroll-snap-type: x proximity; }
@@ -489,6 +552,8 @@
     .recruiter-chat__panel, .recruiter-chat__panel--fullscreen { position: fixed; inset: .75rem; width: auto; height: auto; border-radius: 16px; }
     .recruiter-chat__panel--fullscreen .recruiter-chat__messages { padding-right: 1rem; padding-left: 1rem; }
     .recruiter-chat__panel--fullscreen .recruiter-chat__message { width: 94%; }
+    .recruiter-chat__media-list { grid-template-columns: 1fr; }
+    .recruiter-chat__media-card img { height: 105px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .recruiter-chat__panel:not([hidden]), .recruiter-chat__launcher, .recruiter-chat__launcher::before { animation: none; }
