@@ -4,5 +4,7 @@ Allow: /docs/cv-christophe-mostefaoui.pdf
 Disallow: /docs/
 Disallow: /*.pdf$
 Disallow: /video/
+Disallow: /chatbot-knowledge.txt
+Disallow: /api/
 
 Sitemap: https://krismos.fr/sitemap-index.xml

@@ -18,6 +18,14 @@
   Header always set X-Frame-Options "SAMEORIGIN"
 </IfModule>
 
+# Base de connaissances du chatbot : lue côté serveur par le proxy PHP,
+# jamais destinée à l'indexation. noindex même si l'URL est déjà connue de Google.
+<IfModule mod_headers.c>
+  <FilesMatch "^chatbot-knowledge\.txt$">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </FilesMatch>
+</IfModule>
+
 # Cache 1 an immutable sur les assets fingerprintés par Astro (/_astro/*),
 # le hash dans le nom de fichier change à chaque build
 <IfModule mod_setenvif.c>
