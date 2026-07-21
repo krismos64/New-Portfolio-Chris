@@ -28,9 +28,19 @@
     <div class="recruiter-chat__messages" aria-live="polite" aria-busy="false" data-chat-messages></div>
 
     <div class="recruiter-chat__suggestions" data-chat-suggestions>
-      <button type="button">Quel projet démontre le mieux son niveau ?</button>
-      <button type="button">Comment est structurée son architecture SaaS ?</button>
-      <button type="button">Quelle est son expérience en tests et CI/CD ?</button>
+      <p>Quelques pistes pour commencer</p>
+      <div class="recruiter-chat__suggestion-list">
+        <button type="button"><span>👋</span> Pourquoi vous recruter ?</button>
+        <button type="button"><span>🎯</span> Quel poste recherchez-vous ?</button>
+        <button type="button"><span>🚀</span> Quel projet démontre le mieux votre niveau ?</button>
+        <button type="button"><span>🏗️</span> Expliquez-moi l'architecture de SmartPlanning</button>
+        <button type="button"><span>🧪</span> Quelle est votre stratégie de tests ?</button>
+        <button type="button"><span>🤝</span> Quelle expérience avez-vous du travail en équipe ?</button>
+        <button type="button"><span>🤖</span> Comment utilisez-vous l'IA pour développer ?</button>
+        <button type="button"><span>🔍</span> Parlez-moi d'un problème technique complexe</button>
+        <button type="button"><span>📍</span> Quelles sont vos disponibilités et votre mobilité ?</button>
+        <button type="button"><span>📈</span> Quels sont vos axes de progression ?</button>
+      </div>
     </div>
 
     <form class="recruiter-chat__form" data-chat-form>
@@ -66,19 +76,37 @@
       "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;",
     })[character]!);
 
-    const formatAssistantText = (value: string) => escapeHtml(value)
+    const normalizeTypography = (value: string) => value
+      .replace(/\s*[\u2013\u2014]\s*/g, ": ")
+      .replace(/:\s*:/g, ":");
+
+    const formatAssistantText = (value: string) => escapeHtml(normalizeTypography(value))
       .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
       .replace(/^\s*-\s+(.+)$/gm, "<span class=\"chat-list-item\">• $1</span>")
+      .replace(/\n{2,}/g, "</p><p>")
       .replace(/\n/g, "<br>");
 
     const addMessage = (message: ChatMessage, streaming = false) => {
-      const bubble = document.createElement("div");
-      bubble.className = `recruiter-chat__message recruiter-chat__message--${message.role}`;
-      if (streaming) bubble.dataset.streaming = "true";
-      bubble.innerHTML = message.role === "assistant" ? formatAssistantText(message.content) : escapeHtml(message.content);
-      messagesElement.appendChild(bubble);
+      const item = document.createElement("article");
+      item.className = `recruiter-chat__message recruiter-chat__message--${message.role}`;
+      if (streaming) item.dataset.streaming = "true";
+
+      const meta = document.createElement("div");
+      meta.className = "recruiter-chat__message-meta";
+      meta.innerHTML = message.role === "assistant"
+        ? '<span class="recruiter-chat__avatar" aria-hidden="true">✦</span><span>Assistant IA</span>'
+        : '<span>Votre question</span>';
+
+      const content = document.createElement("div");
+      content.className = "recruiter-chat__message-content";
+      content.innerHTML = message.role === "assistant"
+        ? `<p>${formatAssistantText(message.content)}</p>`
+        : escapeHtml(message.content);
+
+      item.append(meta, content);
+      messagesElement.appendChild(item);
       messagesElement.scrollTop = messagesElement.scrollHeight;
-      return bubble;
+      return content;
     };
 
     const saveConversation = () => {
@@ -114,12 +142,23 @@
       messagesElement.setAttribute("aria-busy", String(isSending));
     };
 
-    const consumeSse = async (response: Response, bubble: HTMLElement) => {
+    const consumeSse = async (response: Response, content: HTMLElement) => {
       if (!response.body) throw new Error("Flux indisponible");
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
       let answer = "";
+      let displayed = "";
+      let streamFinished = false;
+
+      const typewriter = window.setInterval(() => {
+        const remaining = answer.length - displayed.length;
+        if (remaining <= 0) return;
+        const step = remaining > 240 ? 3 : remaining > 80 ? 2 : 1;
+        displayed = answer.slice(0, displayed.length + step);
+        content.innerHTML = `<p>${formatAssistantText(displayed)}</p>`;
+        messagesElement.scrollTop = messagesElement.scrollHeight;
+      }, 24);
 
       const parseLine = (line: string) => {
         if (!line.startsWith("data:")) return;
@@ -129,22 +168,36 @@
           const token = JSON.parse(data).choices?.[0]?.delta?.content;
           if (typeof token === "string") {
             answer += token;
-            bubble.innerHTML = formatAssistantText(answer);
-            messagesElement.scrollTop = messagesElement.scrollHeight;
           }
         } catch { /* un événement incomplet reste ignoré */ }
       };
 
-      while (true) {
-        const { value, done } = await reader.read();
-        buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
-        const lines = buffer.split(/\r?\n/);
-        buffer = lines.pop() || "";
-        lines.forEach(parseLine);
-        if (done) break;
+      try {
+        while (true) {
+          const { value, done } = await reader.read();
+          buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+          const lines = buffer.split(/\r?\n/);
+          buffer = lines.pop() || "";
+          lines.forEach(parseLine);
+          if (done) break;
+        }
+        if (buffer) parseLine(buffer);
+        if (!answer.trim()) throw new Error("Réponse vide");
+        streamFinished = true;
+
+        await new Promise<void>((resolve) => {
+          const waitForTypewriter = window.setInterval(() => {
+            if (streamFinished && displayed.length >= answer.length) {
+              window.clearInterval(waitForTypewriter);
+              resolve();
+            }
+          }, 25);
+        });
+      } finally {
+        window.clearInterval(typewriter);
       }
-      if (buffer) parseLine(buffer);
-      if (!answer.trim()) throw new Error("Réponse vide");
+      displayed = answer;
+      content.innerHTML = `<p>${formatAssistantText(answer)}</p>`;
       return answer.trim();
     };
 
@@ -159,7 +212,8 @@
       input.style.height = "auto";
       setSending(true);
 
-      const assistantBubble = addMessage({ role: "assistant", content: "Analyse en cours..." }, true);
+      const assistantContent = addMessage({ role: "assistant", content: "Analyse en cours..." }, true);
+      const assistantItem = assistantContent.closest<HTMLElement>(".recruiter-chat__message")!;
       try {
         const response = await fetch("/api/chat.php", {
           method: "POST",
@@ -167,18 +221,18 @@
           body: JSON.stringify({ messages: conversation.slice(-10) }),
         });
         if (!response.ok) throw new Error(`Proxy HTTP ${response.status}`);
-        assistantBubble.textContent = "";
-        const answer = await consumeSse(response, assistantBubble);
+        assistantContent.textContent = "";
+        const answer = await consumeSse(response, assistantContent);
         conversation.push({ role: "assistant", content: answer });
         saveConversation();
       } catch (error) {
         console.error("Chatbot Mistral:", error);
         const fallback = "L'assistant est temporairement indisponible. Vous pouvez consulter le CV ou contacter Christophe à christophe.mostefaoui.dev@gmail.com.";
-        assistantBubble.innerHTML = formatAssistantText(fallback);
+        assistantContent.innerHTML = `<p>${formatAssistantText(fallback)}</p>`;
         conversation.push({ role: "assistant", content: fallback });
         saveConversation();
       } finally {
-        delete assistantBubble.dataset.streaming;
+        delete assistantItem.dataset.streaming;
         setSending(false);
         input.focus();
       }
@@ -221,16 +275,27 @@
   .recruiter-chat__header h2 { margin: 0; font-size: .98rem; line-height: 1.3; }
   .recruiter-chat__close { display: grid; place-items: center; width: 36px; height: 36px; color: var(--text-secondary); background: transparent; border: 0; border-radius: var(--radius-sm); cursor: pointer; }
   .recruiter-chat__close:hover { color: var(--text); background: var(--white-05); }
-  .recruiter-chat__messages { flex: 1; display: flex; flex-direction: column; gap: .75rem; overflow-y: auto; padding: 1rem; scrollbar-width: thin; }
-  .recruiter-chat__message { max-width: 88%; padding: .75rem .875rem; border-radius: 14px; font-size: .875rem; line-height: 1.55; overflow-wrap: anywhere; }
-  .recruiter-chat__message--assistant { align-self: flex-start; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
-  .recruiter-chat__message--user { align-self: flex-end; color: white; background: var(--accent-btn); border-bottom-right-radius: 4px; white-space: pre-wrap; }
-  .recruiter-chat__message[data-streaming]::after { content: ""; display: inline-block; width: 6px; height: 1em; margin-left: 3px; vertical-align: -2px; background: var(--accent); animation: chat-caret .8s infinite; }
-  .recruiter-chat__message :global(.chat-list-item) { display: block; padding-left: .25rem; }
-  .recruiter-chat__message strong { color: var(--text); }
-  .recruiter-chat__suggestions { display: flex; gap: .45rem; overflow-x: auto; padding: .25rem 1rem .75rem; }
-  .recruiter-chat__suggestions button { flex: 0 0 auto; max-width: 235px; padding: .5rem .65rem; color: var(--text-secondary); background: var(--accent-05); border: 1px solid var(--accent-30); border-radius: var(--radius-sm); font-size: .75rem; text-align: left; cursor: pointer; }
-  .recruiter-chat__suggestions button:hover { color: var(--text); border-color: var(--accent); }
+  .recruiter-chat__messages { flex: 1; display: flex; flex-direction: column; gap: 1.15rem; overflow-y: auto; padding: 1.15rem 1rem; scroll-behavior: smooth; scrollbar-width: thin; }
+  .recruiter-chat__message { display: flex; flex-direction: column; width: 92%; font-size: .875rem; line-height: 1.65; overflow-wrap: anywhere; }
+  .recruiter-chat__message--assistant { align-self: flex-start; }
+  .recruiter-chat__message--user { align-self: flex-end; align-items: flex-end; }
+  .recruiter-chat__message-meta { display: flex; align-items: center; gap: .4rem; margin: 0 .25rem .4rem; color: var(--text-muted); font: 600 .65rem/1.2 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; }
+  .recruiter-chat__message--user .recruiter-chat__message-meta { color: #93c5fd; }
+  .recruiter-chat__avatar { display: grid; place-items: center; width: 20px; height: 20px; color: #bfdbfe; background: var(--accent-btn); border-radius: 6px; font-size: .7rem; }
+  .recruiter-chat__message-content { width: fit-content; max-width: 100%; padding: .85rem 1rem; border-radius: 15px; box-shadow: 0 5px 16px rgba(0,0,0,.14); }
+  .recruiter-chat__message--assistant .recruiter-chat__message-content { color: #d4d4d8; background: linear-gradient(145deg, #1b1b20, #151519); border: 1px solid #34343a; border-left: 3px solid var(--accent); border-top-left-radius: 5px; }
+  .recruiter-chat__message--user .recruiter-chat__message-content { color: white; background: linear-gradient(135deg, var(--accent-btn), #4338ca); border: 1px solid rgba(147,197,253,.38); border-bottom-right-radius: 5px; white-space: pre-wrap; }
+  .recruiter-chat__message-content p { margin: 0; }
+  .recruiter-chat__message-content p + p { margin-top: .8rem; padding-top: .75rem; border-top: 1px solid rgba(161,161,170,.14); }
+  .recruiter-chat__message[data-streaming] .recruiter-chat__message-content::after { content: ""; display: inline-block; width: 7px; height: 1em; margin-left: 4px; vertical-align: -2px; background: var(--accent); border-radius: 1px; animation: chat-caret .8s infinite; }
+  .recruiter-chat__message :global(.chat-list-item) { display: block; margin-top: .35rem; padding-left: .15rem; }
+  .recruiter-chat__message strong { color: white; font-weight: 650; }
+  .recruiter-chat__suggestions { padding: .25rem 1rem .85rem; }
+  .recruiter-chat__suggestions > p { margin: 0 0 .5rem; color: var(--text-muted); font: 600 .65rem/1.2 var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+  .recruiter-chat__suggestion-list { display: flex; gap: .5rem; overflow-x: auto; padding: .1rem .1rem .35rem; scrollbar-width: thin; scroll-snap-type: x proximity; }
+  .recruiter-chat__suggestions button { flex: 0 0 auto; display: flex; align-items: center; gap: .45rem; max-width: 245px; padding: .58rem .72rem; color: #d4d4d8; background: linear-gradient(145deg, rgba(59,130,246,.13), rgba(67,56,202,.08)); border: 1px solid var(--accent-30); border-radius: 10px; font-size: .73rem; line-height: 1.35; text-align: left; cursor: pointer; scroll-snap-align: start; transition: color var(--transition), border-color var(--transition), transform var(--transition), background var(--transition); }
+  .recruiter-chat__suggestions button span { font-size: .9rem; }
+  .recruiter-chat__suggestions button:hover { color: white; background: rgba(59,130,246,.2); border-color: var(--accent); transform: translateY(-1px); }
   .recruiter-chat__form { display: flex; align-items: flex-end; gap: .5rem; margin: 0 .75rem; padding: .5rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius); }
   .recruiter-chat__form:focus-within { border-color: var(--accent); }
   .recruiter-chat__form textarea { flex: 1; min-height: 38px; max-height: 112px; resize: none; padding: .5rem; color: var(--text); background: transparent; border: 0; font: inherit; line-height: 1.4; }

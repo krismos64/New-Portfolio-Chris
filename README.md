@@ -135,7 +135,9 @@ d'architecture.
   technique ;
 - mise en avant de preuves concrètes, sans inventer de métriques ou d'expérience ;
 - historique conservé dans `sessionStorage` pendant la navigation ;
-- suggestions de questions adaptées au recrutement ;
+- affichage progressif avec une machine à écrire découplée du débit réseau ;
+- dix suggestions de premières questions adaptées au recrutement ;
+- différenciation visuelle nette entre questions et réponses ;
 - interface responsive, accessible au clavier et compatible avec la réduction
   des animations ;
 - dépôt SmartPlanning présenté comme privé et partageable sur demande dans un
