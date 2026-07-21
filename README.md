@@ -18,6 +18,8 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 - **Blog technique** : série de 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
 - **Terminal interactif** : typewriter effect simulant un workflow dev en 5 étapes
+- **Assistant IA Mistral** : chatbot personnalisé pour recruteurs techniques, UI
+  Astro/JavaScript vanilla, proxy PHP et streaming SSE
 - **SEO avancé** : JSON-LD, Open Graph, geo meta tags, sitemap auto
 - **Accessibilité** : WCAG, skip link, aria, prefers-reduced-motion
 - **Responsive** : mobile-first, 6 breakpoints
@@ -25,17 +27,18 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 
 ## Stack technique
 
-| Catégorie   | Technologie                                                     |
-| ----------- | --------------------------------------------------------------- |
-| Framework   | [Astro v5](https://astro.build) + [React 19](https://react.dev) |
-| Langage     | TypeScript (strict)                                             |
-| Blog        | MDX via `@astrojs/mdx` (Content Collections)                    |
-| Styles      | CSS scoped par composant + CSS Custom Properties                |
-| Typographie | Inter (Google Fonts, chargement non-bloquant)                   |
-| Animation   | Canvas API (fond), CSS transitions (scroll reveal)              |
-| SEO         | `@astrojs/sitemap`, JSON-LD, Open Graph, geo tags               |
-| Build       | Vite (intégré à Astro), output statique                         |
-| CI/CD       | GitHub Actions (contrôles qualité + déploiement FTPS)           |
+| Catégorie   | Technologie                                                    |
+| ----------- | -------------------------------------------------------------- |
+| Framework   | [Astro v5](https://astro.build), composants `.astro`           |
+| Client      | TypeScript et JavaScript vanilla, sans runtime React global    |
+| Blog        | MDX via `@astrojs/mdx` et Content Collections                  |
+| Chatbot     | Mistral AI, PHP, cURL et streaming SSE                         |
+| Styles      | CSS scoped par composant et CSS Custom Properties              |
+| Typographie | Inter, chargement non bloquant                                 |
+| Animation   | Canvas API, CSS transitions et `prefers-reduced-motion`        |
+| SEO         | `@astrojs/sitemap`, JSON-LD, Open Graph et geo tags            |
+| Build       | Vite intégré à Astro, sortie statique                          |
+| CI/CD       | GitHub Actions, contrôles qualité et déploiement FTPS          |
 
 ## Démarrage rapide
 
@@ -52,6 +55,10 @@ npm run dev
 ```
 
 Le site est accessible sur [localhost:4321](http://localhost:4321).
+
+> Astro ne lance pas PHP en développement. L'interface du chatbot fonctionne en
+> local, mais une question affiche le message de repli tant que le proxy n'est
+> pas servi par un environnement PHP.
 
 ## Scripts disponibles
 
@@ -73,6 +80,7 @@ src/
 │   ├── Skills.astro            # 6 catégories de compétences (SVG inline)
 │   ├── Projects.astro          # SmartPlanning featured + 5 projets en grille
 │   ├── Process.astro           # Terminal interactif macOS typewriter
+│   ├── RecruiterChatbot.astro  # Widget Mistral en JavaScript vanilla
 │   ├── BlogNav.astro           # Navbar dédiée aux pages blog
 │   └── blog/
 │       ├── TableOfContents.astro  # Sommaire auto-généré
@@ -101,10 +109,86 @@ src/
         └── [...slug].astro     # Route dynamique article
 
 public/
+├── api/
+│   └── chat.php                # Proxy Mistral, sécurité, quotas et relais SSE
+├── chatbot-knowledge.txt       # Base de connaissances détaillée du chatbot
+├── llms.txt                    # Résumé public pour moteurs et assistants IA
 ├── images/                     # Images portfolio, projets, blog, OG
 ├── docs/                       # CV PDF
 └── video/                      # Animation logo navbar
+
+docs/
+└── mistral-chatbot-setup.md    # Configuration de la clé sur Hostinger
 ```
+
+## Assistant IA pour recruteurs techniques
+
+Le chatbot remplace l'ancien widget Chatbase par une solution maîtrisée de bout
+en bout. Il s'adresse aux recruteurs, CTO, DSI, engineering managers et leads
+tech qui souhaitent explorer le parcours de Christophe, ses projets et ses choix
+d'architecture.
+
+### Comportement
+
+- réponses à la première personne, avec un ton chaleureux et professionnel ;
+- réponses courtes aux questions simples et développées lorsque le sujet est
+  technique ;
+- mise en avant de preuves concrètes, sans inventer de métriques ou d'expérience ;
+- historique conservé dans `sessionStorage` pendant la navigation ;
+- suggestions de questions adaptées au recrutement ;
+- interface responsive, accessible au clavier et compatible avec la réduction
+  des animations ;
+- dépôt SmartPlanning présenté comme privé et partageable sur demande dans un
+  contexte de recrutement.
+
+La base [public/chatbot-knowledge.txt](public/chatbot-knowledge.txt) contient les
+informations rédigées et validées par Christophe : disponibilité, mobilité,
+positionnement, projets, retours d'expérience, limites assumées, pratiques IA et
+coordonnées. Le fichier [public/llms.txt](public/llms.txt) reste un résumé public
+destiné au référencement dans les moteurs et assistants IA.
+
+### Flux technique
+
+```text
+RecruiterChatbot.astro
+        |
+        | POST /api/chat.php avec les 10 derniers messages
+        v
+Proxy PHP Hostinger
+        |
+        | clé hors webroot + prompt serveur + bases de connaissances
+        v
+API Mistral, modèle mistral-small-latest
+        |
+        | événements SSE relayés sans mise en mémoire complète
+        v
+Affichage progressif dans le navigateur
+```
+
+Le navigateur n'envoie que les rôles `user` et `assistant`. Le modèle, le prompt,
+la température, la limite de tokens et les sources sont imposés côté serveur.
+
+### Sécurité et maîtrise des coûts
+
+- méthode `POST` obligatoire ;
+- origine limitée à `krismos.fr` ;
+- corps limité à 20 000 octets ;
+- 10 messages maximum et 2 000 caractères par message ;
+- 10 requêtes par minute et par IP ;
+- plafond global de 500 requêtes par jour ;
+- clé API absente du dépôt, du bundle client et de `public_html` ;
+- erreurs Mistral détaillées uniquement dans les journaux serveur ;
+- modèle et plafond de 600 tokens imposés par le proxy.
+
+La clé Mistral doit être créée manuellement dans
+`domains/krismos.fr/mistral-key.php`, au même niveau que `public_html` :
+
+```php
+<?php return 'VOTRE_CLE_MISTRAL';
+```
+
+Le guide complet de configuration et de rotation se trouve dans
+[docs/mistral-chatbot-setup.md](docs/mistral-chatbot-setup.md).
 
 ## Blog technique
 
@@ -138,6 +222,8 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting`), fil d'Ariane, barre de prog
 - `aria-label` sur les liens sociaux et le logo
 - `prefers-reduced-motion` respecté (canvas, vidéo, transitions)
 - `tabindex` dynamique sur les liens du menu fermé
+- chatbot utilisable au clavier, fermeture avec Escape et zone de messages
+  annoncée avec `aria-live`
 
 ## Design tokens
 
@@ -155,7 +241,7 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting`), fil d'Ariane, barre de prog
 
 ## Déploiement
 
-Le déploiement est **entièrement automatisé** via GitHub Actions ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) : chaque push sur `main` déclenche les contrôles qualité (typage, règles rédactionnelles), le build Astro, puis la synchronisation incrémentale de `dist/` vers l'hébergement Hostinger en FTPS.
+Le déploiement est **entièrement automatisé** via GitHub Actions ([`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)) : chaque push sur `main` déclenche les contrôles qualité (typage, règles rédactionnelles), le build Astro, puis la synchronisation incrémentale de `dist/` vers l'hébergement Hostinger en FTPS. Astro copie également `public/api/chat.php`, `public/chatbot-knowledge.txt` et `public/llms.txt` dans `dist/` avant le transfert.
 
 ```bash
 git push origin main    # = mise en production (environ 2 minutes)

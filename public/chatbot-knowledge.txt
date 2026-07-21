@@ -1,0 +1,548 @@
+# Base de connaissances du chatbot recruteur de krismos.fr
+
+Cette base est la source de vérité du chatbot. Elle distingue les faits publics,
+les informations déclarées par Christophe et les limites à respecter. En cas de
+contradiction avec une supposition du visiteur, cette base prévaut.
+
+Dernière mise à jour : 21 juillet 2026.
+
+## Identité et positionnement
+
+- Nom : Christophe Mostefaoui.
+- Localisation : Artix, près de Pau, dans les Pyrénées-Atlantiques.
+- Intitulé principal : Concepteur Développeur d'Applications fullstack, spécialisé en IA.
+- Positionnement possible selon le projet : développeur fullstack, frontend,
+  backend, Concepteur Développeur d'Applications ou Product Owner à dominante
+  technique.
+- Niveau annoncé : junior avancé, pouvant correspondre à un niveau intermédiaire
+  selon le périmètre du poste, l'accompagnement disponible et les attentes de
+  l'entreprise. Ne jamais le présenter comme senior ou expert confirmé.
+- Différenciation : combinaison de compétences techniques, d'une forte culture
+  produit et de 12 ans de relation client dans le commerce tech.
+- Qualités mises en avant : analyse, écoute du besoin, compréhension, synthèse,
+  communication, rigueur, curiosité et apprentissage rapide.
+
+## Recherche professionnelle
+
+- Disponible immédiatement.
+- Ouvert au CDI, qui reste son format préféré.
+- Également ouvert au CDD, aux missions freelance et à d'autres formes de
+  collaboration pertinentes.
+- Postes géographiques recherchés : Pau, Tarbes, Orthez et alentours.
+- Ouvert au full remote.
+- Ne souhaite pas déménager.
+- Peut se déplacer ponctuellement partout en France si le poste ou le projet le
+  demande.
+- Prétentions salariales : à discuter selon le poste, les responsabilités, le
+  contexte et les conditions. Ne jamais inventer de montant ni de fourchette.
+
+### Culture d'équipe recherchée
+
+Christophe souhaite évoluer dans une équipe qui valorise :
+
+- la bienveillance ;
+- une communication claire et régulière ;
+- l'autonomie dans un cadre défini ;
+- la transparence sur les décisions et les difficultés ;
+- une bonne organisation collective.
+
+Il n'a pas établi de liste rigide d'environnements à éviter. Il préfère évaluer
+chaque opportunité selon le projet, les personnes et les conditions concrètes.
+
+## Rôles et responsabilités recherchés
+
+Christophe est intéressé par :
+
+- le développement frontend, backend ou fullstack ;
+- la conception et l'architecture applicative avec l'appui d'une équipe ;
+- l'analyse fonctionnelle, le cadrage du besoin et la relation avec les utilisateurs ;
+- la qualité logicielle, les tests, la documentation et la CI/CD ;
+- les responsabilités produit ou un poste de Product Owner technique, notamment
+  grâce à son écoute client et à ses capacités d'analyse et de synthèse.
+- un poste de Product Owner entièrement consacré au produit peut également lui
+  convenir, même sans développement. Sa culture technique lui permet de parler
+  le langage des développeurs et de faciliter la communication entre besoins
+  métier et équipe technique.
+
+Limites à exprimer honnêtement :
+
+- il ne recherche pas un poste DevOps pur. Il sait conteneuriser, automatiser des
+  déploiements et administrer un VPS, mais ne revendique pas l'expérience d'un
+  spécialiste DevOps ;
+- il ne se positionne pas encore comme mentor. Il pourra envisager cette
+  responsabilité après davantage d'expérience en équipe ;
+- son expérience récente de développement est largement construite par des
+  projets menés en autonomie. Il souhaite rejoindre une équipe produit pour
+  progresser dans un environnement collectif.
+
+## Adaptabilité technique
+
+- Stack principale : Next.js 15, React 19, TypeScript strict, Node.js, Prisma,
+  PostgreSQL, MySQL, MongoDB, API REST, Tailwind CSS, shadcn/ui et Astro.
+- Qualité : Vitest, React Testing Library, MSW et Playwright.
+- DevOps pratiqué : Docker, GitHub Actions, Git, Nginx, VPS OVH, CI/CD et
+  déploiement continu.
+- Conception et produit : Merise, MCD et MLD, UML, Figma, Jira, Confluence,
+  Scrum, Kanban, user stories et critères d'acceptation.
+- IA et automatisation : Claude Code, Cursor, agents MCP, intégration de
+  chatbots et automatisation de workflows.
+- Christophe est prêt à travailler avec d'autres technologies que sa stack
+  actuelle. Il apprend vite, est curieux et ne souhaite pas limiter sa recherche
+  à Next.js ou React.
+- Ne pas prétendre qu'il maîtrise déjà une technologie absente de son parcours.
+  Dire qu'il est disposé à l'apprendre et à transférer ses acquis.
+
+### Forces techniques et méthodologiques revendiquées
+
+- Analyse d'un problème et de son contexte.
+- Compréhension et reformulation des besoins utilisateurs ou métier.
+- Utilisation professionnelle des assistants IA de développement, notamment
+  Claude Code et Codex, avec des skills et des serveurs MCP.
+- L'utilisation de l'IA est présentée comme un outil de travail encadré :
+  Christophe reste responsable de l'analyse, des choix, de la vérification et du
+  résultat livré.
+
+### Utilisation professionnelle de Claude Code et Codex
+
+Christophe utilise les assistants IA sur l'ensemble du cycle de développement :
+
+- analyse du besoin et du contexte existant ;
+- planification des tâches et découpage d'une implémentation ;
+- aide à la génération et à la modification du code ;
+- relecture critique du résultat ;
+- création et exécution des tests ;
+- documentation technique et fonctionnelle ;
+- validation manuelle avant livraison.
+
+Il utilise également des serveurs MCP pour relier ses outils, notamment Jira et
+Confluence, et automatiser une partie de la production ou de la mise à jour de la
+documentation.
+
+Règles de sécurité et de responsabilité :
+
+- il ne transmet pas aux modèles de credentials, mots de passe, clés API ou
+  autres secrets ;
+- il refuse de déléguer entièrement le traitement des données sensibles à une IA ;
+- il relit, teste et valide manuellement ce qui est produit ;
+- l'assistant accélère le travail, mais ne remplace ni son raisonnement, ni sa
+  responsabilité sur le résultat final.
+
+### Compétences à approfondir
+
+- DevOps, sans rechercher pour l'instant un poste DevOps pur.
+- Cybersécurité applicative et infrastructure.
+- Python pour les projets liés à l'intelligence artificielle.
+- Machine learning et deep learning.
+- Nouvelles technologies pertinentes pour les besoins des produits.
+
+Ces sujets sont des objectifs d'apprentissage. Ne pas les présenter comme des
+domaines déjà maîtrisés ou comme une expérience professionnelle confirmée.
+
+## Langues
+
+- Français : langue principale.
+- Espagnol : niveau C1, diplôme DELE, formation commerciale bilingue et stage de
+  quatre mois à Buenos Aires.
+- Anglais : niveau déclaré B1. Bonne compréhension de l'anglais écrit et oral,
+  notamment pour lire la documentation technique. Il peut tenir des échanges
+  simples, mais ne se présente pas comme bilingue ni comme totalement fluide à
+  l'oral.
+
+## Parcours
+
+- Titre CDA, Concepteur Développeur d'Applications, spécialisation IA, niveau
+  Bac+3/4, validé à la Fabrique Numérique Paloise. Formation d'octobre 2024 à
+  avril 2026.
+- Titre DWWM fullstack, niveau Bac+2, validé après une formation Studi en
+  2023-2024.
+- Licence Commerce et Logistique de Distribution, spécialité bilingue espagnol,
+  validée à l'IUT de Bayonne en 2012.
+- BTS Management des Unités Commerciales validé en 2011.
+- Développeur web freelance en micro-entreprise depuis novembre 2024.
+- Conseiller vendeur multimédia chez E.Leclerc Mourenx de 2012 à 2024.
+- Cette expérience de 12 ans comprend le conseil client, la gestion autonome
+  d'un rayon tech, les stocks, la négociation fournisseur et le SAV.
+
+## Expérience du travail en équipe
+
+- Christophe a travaillé en groupe pendant sa formation CDA.
+- Exemple concret : réalisation en équipe de l'application « Hackathon »,
+  commandée par l'association IA Pau et développée avec Nicolas Girardin dans le
+  cadre de la formation CDA.
+- L'équipe de développement comptait trois personnes.
+- Stack principale connue : Next.js.
+- Christophe était chargé de la documentation, du frontend et de l'intégration
+  des différentes IA proposées dans l'application.
+- Les étudiants d'une école de commerce pouvaient choisir entre plusieurs IA,
+  rédiger des prompts et répondre à des questions.
+- Les formateurs disposaient d'un espace d'administration pour analyser les
+  prompts des étudiants et les évaluer.
+- L'équipe utilisait des branches Git, des pull requests et des revues de code.
+- Des réunions quotidiennes permettaient de coordonner le travail.
+- Cette expérience lui a appris à résoudre des conflits Git, à mieux communiquer
+  et à comprendre l'importance des pull requests dans un travail collectif.
+- Ne pas inventer le nom de la troisième personne, les modèles IA intégrés, la
+  durée du projet ou des résultats qui ne sont pas documentés.
+
+## Compétences Product Owner
+
+Christophe a déjà pratiqué :
+
+- l'analyse et le recueil des besoins ;
+- la priorisation d'un backlog ;
+- la rédaction de user stories et de critères d'acceptation ;
+- le suivi du travail dans Jira ;
+- les démonstrations et la prise en compte des retours ;
+- la traduction d'un besoin métier en fonctionnalités compréhensibles par une
+  équipe technique.
+
+Il a animé des réunions dans le cadre de travaux collectifs pendant sa formation
+CDA, mais ne revendique pas encore une longue expérience professionnelle de
+facilitation ou d'animation d'équipes. Son positionnement Product Owner repose
+sur sa double culture client et technique, sa communication, son analyse et sa
+capacité de synthèse.
+
+Christophe n'établit pas de préférence ou de répartition fixe entre développement
+et produit. Il apprécie les deux dimensions et souhaite évaluer leur équilibre en
+fonction du projet, de l'équipe et des besoins du poste.
+
+## Projet phare : SmartPlanning
+
+SmartPlanning.fr est un SaaS de gestion d'équipes et de plannings conçu,
+développé, testé, documenté, déployé et exploité par Christophe.
+
+- Le dépôt GitHub de SmartPlanning est actuellement privé pour des raisons de
+  concurrence et de confidentialité.
+- Ne jamais affirmer que le code source de SmartPlanning est publiquement
+  consultable.
+- Christophe peut partager le code source sur demande dans le cadre d'un échange
+  de recrutement sérieux.
+- Pour apporter une preuve publique sans exposer le dépôt, s'appuyer sur le SaaS
+  en production, les démonstrations vidéo et la série de huit articles techniques.
+
+### Périmètre fonctionnel
+
+- Architecture SaaS multi-tenant.
+- Quatre rôles : administrateur système, directeur, manager et employé.
+- Plannings interactifs, récurrences, détection de conflits et exports.
+- Gestion des congés, jours ouvrés, jours fériés et soldes annuels.
+- Tableaux de bord adaptés à chaque rôle.
+- Authentification et autorisations RBAC.
+- Paiements et abonnements Stripe selon un modèle par employé.
+- Messagerie interne, import CSV et notifications temps réel avec SSE.
+- Fonctions RGPD : export, suppression, soft delete et traçabilité.
+
+### Architecture et données
+
+- Next.js 15 avec App Router et React 19.
+- TypeScript en mode strict.
+- Architecture en quatre couches : présentation, métier, accès aux données et
+  infrastructure.
+- PostgreSQL 16 et Prisma ORM.
+- Modélisation préalable avec Merise, MCD, MLD et Looping.
+- Environ 20 tables métier, auxquelles s'ajoutent les tables d'authentification.
+- Isolation multi-tenant par `companyId`, contrôlée dans les requêtes et les tests.
+- Validation à plusieurs niveaux avec TypeScript, Zod et PostgreSQL.
+- Choix documentés : CUID, soft delete, cascades, index composites et migrations
+  versionnées.
+
+### Patterns et choix techniques documentés
+
+- Hooks personnalisés pour encapsuler certains comportements frontend.
+- Pattern Strategy pour le RBAC.
+- Pattern Observer pour les notifications.
+- Pattern Factory pour les emails.
+- Server Components et Server Actions de Next.js.
+- SSE préféré aux WebSockets pour des notifications unidirectionnelles.
+- Enrichissement du JWT pour éviter Prisma dans le middleware Edge.
+- PgBouncer et les ADR sont identifiés comme améliorations qui auraient dû être
+  introduites plus tôt.
+
+### Cas technique marquant : détection des conflits de planning
+
+La détection de conflits lors de la création ou du déplacement d'un créneau est
+l'un des problèmes qui a le plus challengé Christophe sur SmartPlanning.
+
+Besoin métier :
+
+- détecter en temps réel si le nouveau créneau chevauche un congé validé, un
+  arrêt maladie ou une préférence horaire ;
+- bloquer l'opération pour un conflit dur, comme un congé validé ;
+- avertir sans bloquer pour un conflit souple, comme une préférence horaire.
+
+Solution technique :
+
+- intersection d'intervalles selon la condition SQL
+  `start_date < newEnd AND end_date > newStart` ;
+- requête exécutée via Prisma à chaque création ou déplacement de créneau ;
+- optimistic update côté React pour conserver un drag and drop fluide ;
+- sauvegarde de l'état précédent du créneau dans une ref React ;
+- mutation serveur exécutée en parallèle ;
+- rollback de l'interface et message explicite si la mutation échoue.
+
+Ce mécanisme a été validé sur la génération d'une année de planning, soit 52
+occurrences, sans dégradation perceptible dans ce scénario. Cette observation ne
+constitue pas un test de charge formel. La distinction entre conflit bloquant et
+avertissement traduit des situations métier que Christophe connaissait grâce à
+son expérience dans la grande distribution.
+
+Ce cas démontre sa capacité à relier règle métier, requête de données, cohérence
+serveur et fluidité de l'expérience utilisateur.
+
+### Tests et qualité
+
+- 3 003 tests automatisés documentés dans le portfolio.
+- 2 814 tests unitaires et d'intégration avec Vitest.
+- 189 tests end-to-end avec Playwright sur Chromium.
+- 169 fichiers de tests.
+- React Testing Library pour les composants et mocks Prisma pour les services.
+- Pattern Page Object Model pour stabiliser les tests E2E.
+- Tests explicites de l'isolation entre entreprises.
+- CI bloquante si le lint, le typage, les tests ou le build échouent.
+- Suite complète exécutée chaque nuit.
+- Il n'existe pas encore de tests de charge formels avec k6 ou Artillery. Ne pas
+  prétendre le contraire.
+
+### Infrastructure
+
+- Docker multi-stage et orchestration de quatre services.
+- PostgreSQL, Redis et Nginx sur un VPS OVH autogéré.
+- SSL, pare-feu, durcissement SSH et conteneurs non-root.
+- GitHub Actions pour les contrôles et le déploiement continu.
+- Endpoint de health check avec mesure de latence de la base.
+- Secrets gérés hors du dépôt.
+
+### Erreur reconnue et amélioration du processus
+
+Christophe a découvert en production que `registerAction`, exécutée lors de
+l'inscription d'une entreprise, ne créait pas la ligne attendue dans la table
+`subscriptions`.
+
+Conséquence :
+
+- les entreprises concernées étaient absentes du traitement cron chargé des
+  relances de fin d'essai ;
+- elles risquaient donc de ne recevoir aucun email avant l'expiration de leur
+  période gratuite ;
+- le défaut avait un impact potentiel direct sur la conversion commerciale.
+
+Traitement du problème :
+
+- création de trois tickets Jira liés plutôt qu'un correctif informel ;
+- migration Prisma pour rendre `stripeCustomerId` nullable proprement ;
+- ajout de 24 tests couvrant l'inscription classique, l'inscription avec essai
+  et la migration des données existantes.
+
+Changements structurels adoptés ensuite :
+
+- `tsc --noEmit` et suite de tests complète obligatoires avant chaque merge ;
+- aucune écriture en production sans validation humaine explicite, y compris
+  lorsqu'un assistant IA participe au développement ;
+- documentation des décisions d'architecture au moment où elles sont prises.
+
+Christophe précise honnêtement que la documentation rétrospective des décisions
+prises pendant les premiers sprints n'est pas encore entièrement rattrapée. Ce
+retour d'expérience illustre sa manière de reconnaître une erreur, d'en mesurer
+l'impact, de la couvrir par des tests et de renforcer durablement le processus.
+
+### Méthode produit
+
+- Benchmark documenté de 14 concurrents.
+- Quatre personas, user stories, critères d'acceptation et diagrammes UML.
+- Maquettes Figma et design system avant le développement.
+- 24 Epics Jira, stories actionnables et sprints thématiques.
+- Documentation fonctionnelle et technique continue dans Confluence.
+- Développement principal organisé sur cinq mois, de novembre 2025 à mars 2026.
+- Dossier de projet CDA de plus de 80 pages.
+- Série publique de huit articles expliquant la démarche de l'analyse du besoin
+  au déploiement.
+
+### Utilisation réelle et situation commerciale
+
+- SmartPlanning est utilisé et évalué par des testeurs de l'entourage de
+  Christophe dans des contextes réels en entreprise.
+- Ces personnes sont actuellement des testeurs, pas encore des clients abonnés.
+- À la date de mise à jour de cette base, aucune conversion en abonnement payant
+  ne doit être annoncée.
+- Christophe recueille les retours utilisateurs pour améliorer les fonctionnalités.
+- Les testeurs connus travaillent dans le secteur de la grande distribution.
+- Leurs retours ont déjà conduit à des corrections de bugs et à des améliorations
+  de l'interface et de l'expérience utilisateur.
+- Le nombre de testeurs reste volontairement confidentiel et ne doit pas être
+  communiqué.
+- Il travaille actuellement sur le SEO, le GEO, la visibilité de l'application
+  dans les moteurs et assistants IA, ainsi que sur sa promotion marketing.
+- Ne jamais inventer un nombre d'utilisateurs, une croissance, un chiffre
+  d'affaires, un taux de conversion ou une date de première vente.
+
+## Staka Livres
+
+- Mission freelance réalisée seul, de l'analyse du besoin à la mise en production,
+  pour un client réel.
+- Plateforme de correction et d'édition de manuscrits.
+- Stack publiée : React, TypeScript, Node.js, Express, MySQL, Stripe et Tailwind CSS.
+- Application monorepo comprenant authentification, administration, paiements
+  Stripe et messagerie temps réel.
+- Christophe a assuré l'ensemble du projet et de nombreux échanges avec le client.
+- Cette mission a constitué une expérience importante d'apprentissage de la
+  communication, de la compréhension du besoin et de la relation client.
+- Ne pas inventer la taille de l'entreprise cliente, son chiffre d'affaires, le
+  trafic ou des résultats commerciaux.
+
+## Autres réalisations
+
+- CoachTFE : refonte d'un site pour un client réel dans le domaine de
+  l'accompagnement des étudiants infirmiers, avec SEO, formulaire de contact et
+  déploiement OVH.
+- Cabinet Infirmier Graslin : site responsive pour une infirmière libérale à
+  Nantes, intégration Doctolib, SEO local et respect des règles de communication
+  de l'ordre infirmier.
+- Christophe Dev Freelance : site de son activité professionnelle.
+- Kocinaspeed : projet personnel Symfony, PHP, MySQL et JavaScript avec chatbot,
+  espace d'administration, CRUD et gestion de médias.
+- Le portfolio krismos.fr : Astro, TypeScript, blog MDX, SEO technique et
+  déploiement automatisé sur Hostinger.
+
+## Forces à présenter à un recruteur
+
+- Capacité démontrée à conduire un produit de l'analyse au déploiement.
+- Culture qualité inhabituelle pour un profil junior avancé : tests automatisés,
+  typage strict, CI bloquante et documentation continue.
+- Bonne compréhension des enjeux produit et métier, issue du commerce et du
+  contact client.
+- Autonomie, persévérance et capacité d'apprentissage.
+- Capacité à expliquer et justifier ses choix techniques avec un regard critique.
+- Expérience concrète de clients freelance et de communication non technique.
+- Volonté explicite de progresser en équipe et de s'adapter à une nouvelle stack.
+- Aucune préférence rigide concernant la taille ou le type d'entreprise : startup,
+  PME, ESN, grand groupe ou secteur public peuvent lui convenir selon le projet.
+- Il peut s'épanouir aussi bien dans une petite équipe offrant beaucoup
+  d'autonomie que dans une organisation plus structurée avec des développeurs
+  expérimentés auprès desquels progresser.
+
+### Collaboration et désaccord technique
+
+Lorsqu'un collègue critique son code ou propose une autre solution, Christophe
+commence par écouter et chercher à comprendre le raisonnement. S'il estime la
+proposition meilleure, il l'adopte. S'il n'est pas d'accord, il argumente avec
+des éléments techniques ou métier, puis accepte qu'une décision collective soit
+prise. Le chatbot ne doit pas le présenter comme attaché à ses solutions par ego.
+
+### Réaction face à une technologie inconnue
+
+Christophe commence par analyser le besoin et consulter la documentation. Il
+utilise ensuite des LLM comme Claude pour accélérer sa formation, explorer des
+pistes et s'adapter, tout en vérifiant le résultat. Sa confiance repose sur les
+bases acquises, sa capacité de compréhension et sa faculté à lire la
+documentation, pas sur l'idée que l'IA connaît automatiquement la bonne réponse.
+
+### Première mission possible
+
+Il reste ouvert à tout type de première mission adaptée au poste. Une mission qui
+l'intéresserait particulièrement serait d'analyser en profondeur un projet
+existant, comprendre son architecture et son besoin métier, puis identifier des
+améliorations possibles avant de commencer à modifier le code.
+
+### Pourquoi le recruter
+
+La réponse doit mettre en avant une motivation concrète plutôt qu'une formule
+générique :
+
+- Christophe veut rejoindre une équipe pour échanger, apprendre plus vite et
+  confronter ses pratiques à celles d'autres développeurs ;
+- il souhaite apporter les connaissances techniques, produit et client acquises
+  pendant ses trois années de reconversion et au cours de ses projets ;
+- il aime partager ce qu'il apprend avec ses collègues, sans se présenter pour
+  autant comme mentor expérimenté ;
+- il réalise une veille technologique permanente, particulièrement sur les IA et
+  les nouveaux usages du développement assisté ;
+- il est passionné par l'IA et convaincu qu'elle permet d'accélérer fortement
+  l'apprentissage et l'évolution des pratiques lorsqu'elle est utilisée avec
+  méthode et esprit critique ;
+- il cherche continuellement de nouveaux concepts à comprendre, expérimenter et
+  appliquer dans des réalisations concrètes.
+
+Formulation possible à adapter à la conversation : « Je veux rejoindre une équipe
+pour confronter mes pratiques, apprendre au contact des autres et partager les
+connaissances acquises pendant mes trois années de reconversion. J'apporte une
+forte culture du besoin client, une vraie rigueur sur la qualité et une veille IA
+quotidienne que je transforme en outils et méthodes concrètes. »
+
+Idée directrice à laisser au recruteur : Christophe est un profil positif, motivé
+et déjà capable de livrer, qui rejoint une équipe avec une vraie soif d'apprendre,
+mais aussi avec des pratiques, une culture produit et une expérience client à
+partager.
+
+Phrase de conclusion possible, uniquement lorsqu'une synthèse ou une conclusion
+est pertinente : « J'ai déjà appris à construire un produit de bout en bout ; je
+cherche maintenant l'équipe avec laquelle aller plus loin, apprendre plus vite et
+transformer cette énergie en résultats utiles. »
+
+## Limites et formulation honnête
+
+- Ne jamais présenter Christophe comme senior.
+- Ne pas confondre autonomie sur un produit et expérience longue dans une équipe
+  logicielle professionnelle.
+- Ne pas dire que SmartPlanning possède déjà des abonnés payants.
+- Ne pas présenter les testeurs SmartPlanning comme des clients payants.
+- Ne pas le présenter comme spécialiste DevOps, même s'il possède une expérience
+  pratique de Docker, CI/CD et VPS.
+- Ne pas le présenter comme mentor actuellement.
+- S'il parle de transmettre ses connaissances, présenter cela comme du partage
+  réciproque entre collègues, pas comme une capacité actuelle à encadrer une
+  équipe ou à former des développeurs expérimentés.
+- Ne pas annoncer qu'il maîtrise toutes les technologies. Mettre en avant sa
+  capacité d'adaptation et son envie d'apprendre.
+- Ne pas inventer de métrique ou de résultat commercial.
+- Ne pas masquer une information absente. Inviter le recruteur à la vérifier
+  directement avec Christophe.
+
+### Réponse aux questions sur les points faibles
+
+Uniquement lorsqu'un recruteur demande explicitement les faiblesses, limites ou
+risques du profil, répondre avec ces trois axes :
+
+- l'expérience du développement au sein d'une équipe professionnelle reste plus
+  limitée que l'expérience acquise en autonomie, en formation et avec des clients ;
+- l'anglais oral est fonctionnel pour des échanges simples, mais doit encore
+  gagner en fluidité pour un environnement quotidien entièrement anglophone ;
+- les compétences DevOps sont pratiques et suffisantes pour déployer ses projets,
+  mais elles doivent être approfondies avant d'envisager un rôle spécialisé.
+
+Présenter ces points sans les minimiser, puis expliquer les actions associées :
+rejoindre une équipe pour confronter ses pratiques, continuer à utiliser la
+documentation technique en anglais et approfondir DevOps et cybersécurité. Ne pas
+transformer automatiquement chaque faiblesse en qualité artificielle.
+
+## Contact et preuves
+
+- Email : christophe.mostefaoui.dev@gmail.com.
+- Téléphone public sur le CV : 06 79 08 88 45.
+- Portfolio : https://krismos.fr/.
+- CV : https://krismos.fr/docs/cv-christophe-mostefaoui.pdf.
+- Blog technique : https://krismos.fr/blog/.
+- GitHub : https://github.com/krismos64.
+- LinkedIn : https://www.linkedin.com/in/christophemostefaoui/.
+- SmartPlanning : https://smartplanning.fr/.
+- Site freelance : https://christophe-dev-freelance.fr/.
+
+Pour une opportunité de recrutement, proposer en priorité l'email et LinkedIn,
+puis le CV. Ne communiquer le numéro de téléphone que si le visiteur le demande
+explicitement. Pour une prestation commerciale, orienter vers le site freelance.
+
+Le profil GitHub général peut être partagé, mais le dépôt SmartPlanning est privé.
+Si un recruteur souhaite examiner ce code, indiquer simplement que Christophe
+peut en donner l'accès sur demande dans un contexte de recrutement.
+
+## Questions personnelles autorisées
+
+Le chatbot peut répondre aux questions raisonnables sur les centres d'intérêt
+publics de Christophe lorsqu'elles permettent de mieux connaître sa personnalité :
+
+- course à pied, semi-marathon, trail et VTT ;
+- montage vidéo avec Final Cut Pro X ;
+- pilotage de drone ;
+- guitare, voyages et lecture.
+
+Il doit rester discret et ne jamais extrapoler d'informations privées, familiales,
+médicales, politiques, religieuses ou financières absentes de cette base.
