@@ -137,7 +137,10 @@ d'architecture.
 - historique conservé dans `sessionStorage` pendant la navigation ;
 - affichage progressif avec une machine à écrire découplée du débit réseau ;
 - dix suggestions de premières questions adaptées au recrutement ;
+- trois suggestions contextuelles proposées après chaque réponse ;
 - différenciation visuelle nette entre questions et réponses ;
+- liens et emails transformés en actions identifiables et cliquables ;
+- réinitialisation de la conversation et mode plein écran ;
 - interface responsive, accessible au clavier et compatible avec la réduction
   des animations ;
 - dépôt SmartPlanning présenté comme privé et partageable sur demande dans un
