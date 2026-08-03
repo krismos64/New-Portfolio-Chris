@@ -1,7 +1,10 @@
 <div class="recruiter-chat" data-chatbot>
-  <!-- Le nom accessible reprend le texte visible du bouton (WCAG 2.5.3, Label in Name) :
-       la commande vocale doit pouvoir cibler « Vous recrutez ». -->
-  <button class="recruiter-chat__launcher" type="button" aria-label="Vous recrutez ? Ouvrir l'assistant IA" aria-expanded="false" data-chat-open>
+  <!-- Pas d'aria-label ici : le bouton porte déjà son libellé en texte visible
+       (« Assistant IA / Vous recrutez ? / Interrogez mon profil technique »), qui sert
+       donc de nom accessible. Un aria-label l'écraserait partiellement et casserait
+       la correspondance exigée par WCAG 2.5.3 (Label in Name), au détriment de la
+       commande vocale. -->
+  <button class="recruiter-chat__launcher" type="button" aria-expanded="false" data-chat-open>
     <span class="recruiter-chat__launcher-copy">
       <span class="recruiter-chat__launcher-label">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.1L5 10l5.1 1.9L12 17l1.9-5.1L19 10l-5.1-1.9Z"/><path d="m5 3-.6 1.4L3 5l1.4.6L5 7l.6-1.4L7 5l-1.4-.6Z"/></svg>
