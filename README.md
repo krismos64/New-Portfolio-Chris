@@ -15,7 +15,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 ## Fonctionnalités
 
 - **Portfolio one-page** : Hero, projets, compétences, processus, parcours, contact
-- **Blog technique** : série de 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement
+- **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 3 articles sur l'encadrement d'un agent de code en production
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
 - **Terminal interactif** : typewriter effect simulant un workflow dev en 5 étapes
 - **Assistant IA Mistral** : chatbot personnalisé pour recruteurs techniques, UI
@@ -78,7 +78,7 @@ src/
 │   ├── Hero.astro              # Section hero avec géolocalisation SEO
 │   ├── About.astro             # Timeline parcours (formations + expérience)
 │   ├── Skills.astro            # 6 catégories de compétences (SVG inline)
-│   ├── Projects.astro          # SmartPlanning featured + 5 projets en grille
+│   ├── Projects.astro          # SmartPlanning featured + 6 projets en grille + accès aux séries
 │   ├── Process.astro           # Terminal interactif macOS typewriter
 │   ├── RecruiterChatbot.astro  # Widget Mistral en JavaScript vanilla
 │   ├── BlogNav.astro           # Navbar dédiée aux pages blog
@@ -86,18 +86,17 @@ src/
 │       ├── TableOfContents.astro  # Sommaire auto-généré
 │       └── VideoDemo.astro        # Composant vidéo (YouTube / local)
 ├── content/
-│   ├── config.ts               # Schéma Content Collection (blog)
-│   └── blog/                   # 8 articles MDX SmartPlanning
-│       ├── 01-analyse-des-besoins.mdx
-│       ├── 02-gestion-de-projet-agile.mdx
-│       ├── 03-conception-base-de-donnees.mdx
-│       ├── 04-architecture-nextjs-saas.mdx
-│       ├── 05-developpement-fonctionnalites.mdx
-│       ├── 06-strategie-de-tests.mdx
-│       ├── 07-cicd-docker-deploiement.mdx
-│       └── 08-demos-fonctionnalites.mdx
+│   ├── config.ts               # Schéma Content Collection (blog), champ `series`
+│   └── blog/                   # 11 articles MDX répartis en 2 séries
+│       ├── 01-analyse-des-besoins.mdx        # série smartplanning
+│       ├── ...                                # 02 à 07
+│       ├── 08-demos-fonctionnalites.mdx
+│       ├── claude-code-01-pourquoi-encadrer-un-agent.mdx   # série claude-code
+│       ├── claude-code-02-hooks-et-permissions.mdx
+│       └── claude-code-03-skills-et-sous-agents.mdx
 ├── data/
-│   ├── projects.ts             # Données des 6 projets (interface typée)
+│   ├── projects.ts             # Données des 7 projets (interface typée)
+│   ├── series.ts               # Métadonnées des 2 séries du blog
 │   └── categories.ts           # Couleurs et labels des catégories blog
 ├── layouts/
 │   ├── Layout.astro            # Layout global, SEO, CSS variables, Canvas
@@ -105,8 +104,9 @@ src/
 └── pages/
     ├── index.astro             # Page d'accueil (one-page)
     └── blog/
-        ├── index.astro         # Liste des articles avec filtres
-        └── [...slug].astro     # Route dynamique article
+        ├── index.astro         # Hub : cartes des deux séries
+        ├── [series]/index.astro # Page d'une série, articles filtrés
+        └── [...slug].astro     # Route dynamique article (URL à plat)
 
 public/
 ├── api/
@@ -119,6 +119,9 @@ public/
 
 docs/
 └── mistral-chatbot-setup.md    # Configuration de la clé sur Hostinger
+
+assets-sources/                 # Sources d'images hors webroot, non déployées
+└── lune-soleil-logo-source.jpg # Original du logo, sert à régénérer le WebP
 ```
 
 ## Assistant IA pour recruteurs techniques
@@ -136,7 +139,7 @@ d'architecture.
 - mise en avant de preuves concrètes, sans inventer de métriques ou d'expérience ;
 - historique conservé dans `sessionStorage` pendant la navigation ;
 - affichage progressif avec une machine à écrire découplée du débit réseau ;
-- dix suggestions de premières questions adaptées au recrutement ;
+- onze suggestions de premières questions adaptées au recrutement ;
 - trois suggestions contextuelles proposées après chaque réponse ;
 - différenciation visuelle nette entre questions et réponses ;
 - liens et emails transformés en actions identifiables et cliquables ;
@@ -198,7 +201,13 @@ Le guide complet de configuration et de rotation se trouve dans
 
 ## Blog technique
 
-Le blog documente la création de **SmartPlanning** (SaaS Next.js 15) en 8 articles :
+Le blog porte **deux séries**, via un champ `series` dans la collection plutôt que
+deux collections Astro : les URLs d'articles restent à plat (`/blog/<slug>/`), ce
+qui préserve celles déjà indexées. `/blog/` est un hub, chaque série a sa page.
+
+### Série 1 : SmartPlanning, du concept au déploiement
+
+Création de **SmartPlanning** (SaaS Next.js 15) en 8 articles :
 
 1. **Analyse des besoins** : benchmark, personas, user stories, maquettes Figma
 2. **Gestion de projet Agile** : Scrum solo, Jira, Confluence, sprints thématiques
@@ -209,7 +218,15 @@ Le blog documente la création de **SmartPlanning** (SaaS Next.js 15) en 8 artic
 7. **CI/CD et déploiement** : Docker, GitHub Actions, VPS OVH, sécurité
 8. **Démos vidéo** : fonctionnalités en action
 
-Chaque article inclut : SEO (JSON-LD `BlogPosting`), fil d'Ariane, barre de progression de lecture, table des matières, navigation prev/next, et CTA recrutement.
+### Série 2 : encadrer un agent de code sur un vrai projet
+
+Configuration Claude Code en usage réel sur une boutique e-commerce en construction, à partir d'incidents datés :
+
+1. **Pourquoi encadrer un agent** : trois incidents et les garde-fous qu'ils ont produits
+2. **Hooks et permissions** : code des hooks, et la règle qui décide entre hook et permission
+3. **Skills et sous-agents** : le skill qui conduit le travail, le relecteur des zones à risque
+
+Chaque article inclut : SEO (JSON-LD `BlogPosting` rattaché à sa série), fil d'Ariane, barre de progression de lecture, table des matières, navigation prev/next cloisonnée par série, et CTA recrutement.
 
 ## SEO
 
