@@ -46,5 +46,12 @@ pids
 *.tsbuildinfo
 
 # Claude Code
+# La config partagee (settings.json, hooks, skills) est versionnee.
+# Tout le reste de .claude/ reste local, notamment settings.local.json
+# qui contient les permissions propres a la machine.
 CLAUDE.md
-.claude/
+.claude/*
+!.claude/settings.json
+!.claude/hooks/
+!.claude/skills/
+.claude/settings.local.json
