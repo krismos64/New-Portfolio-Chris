@@ -2,6 +2,7 @@
 title: "CI/CD, Docker et déploiement : Du code à la production"
 description: "Pipeline CI/CD complet pour SmartPlanning : GitHub Actions, Docker multi-stage, déploiement automatisé sur VPS OVH. De la PR au live en toute confiance."
 date: 2026-04-03
+series: "smartplanning"
 category: "deploiement"
 tags:
   ["CI/CD", "Docker", "GitHub Actions", "VPS", "OVH", "DevOps", "Déploiement"]
@@ -139,5 +140,7 @@ Mettre en place l'ensemble de cette chaîne : de Docker à la CI/CD en passant p
 Chaque composant de cette infrastructure a été choisi, configuré et durci avec intention. Le VPS autogéré m'a forcé à comprendre ce que les PaaS cachent. L'incident de sécurité m'a appris que "ça marche" ne suffit pas : il faut que ce soit **robuste par design**. Et le pipeline CI/CD, avec ses 3 000+ tests exécutés à chaque changement, me donne la confiance nécessaire pour déployer plusieurs fois par semaine sans appréhension.
 
 Pour un développeur fullstack, maîtriser la chaîne complète du code à la production n'est pas un bonus : c'est ce qui distingue un développeur qui livre des fonctionnalités d'un développeur qui livre un **produit fiable**.
+
+La même discipline s'applique désormais à ma façon de travailler avec un agent de code. Sur mon projet en cours, un hook de fin de session vérifie qu'aucun commit ne dort sur une branche locale, après que deux stories ont été déclarées terminées avec six commits jamais poussés. Je détaille ces garde-fous dans la série [Encadrer un agent de code sur un vrai projet](/blog/claude-code/).
 
 Dans le prochain article, je présenterai des démonstrations concrètes des fonctionnalités de SmartPlanning en action.

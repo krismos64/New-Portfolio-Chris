@@ -4,11 +4,17 @@ import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-  const sortedPosts = allPosts.sort((a, b) => a.data.order - b.data.order);
 
-  return sortedPosts.map((post, index) => {
-    const prevPost = index > 0 ? sortedPosts[index - 1] : null;
-    const nextPost = index < sortedPosts.length - 1 ? sortedPosts[index + 1] : null;
+  // La navigation precedent/suivant reste a l'interieur d'une serie : passer du
+  // dernier article SmartPlanning au premier article Claude Code n'a pas de sens.
+  return allPosts.flatMap((post) => {
+    const siblings = allPosts
+      .filter((p) => p.data.series === post.data.series)
+      .sort((a, b) => a.data.order - b.data.order);
+
+    const index = siblings.findIndex((p) => p.slug === post.slug);
+    const prevPost = index > 0 ? siblings[index - 1] : null;
+    const nextPost = index < siblings.length - 1 ? siblings[index + 1] : null;
 
     return {
       params: { slug: post.slug },
@@ -31,6 +37,7 @@ const { Content, headings } = await post.render();
   date={post.data.date}
   updatedDate={post.data.updatedDate}
   category={post.data.category}
+  series={post.data.series}
   tags={post.data.tags}
   image={post.data.image}
   order={post.data.order}

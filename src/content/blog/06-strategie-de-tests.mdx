@@ -2,6 +2,7 @@
 title: "Stratégie de tests : Garantir la qualité"
 description: "Ma stratégie de tests pour SmartPlanning : tests unitaires Vitest, tests E2E Playwright, coverage et intégration continue. Comment tester un SaaS efficacement."
 date: 2026-04-03
+series: "smartplanning"
 category: "tests"
 tags: ["Vitest", "Playwright", "Tests", "E2E", "Unitaire", "CI", "Qualité"]
 image: "/images/blog/strategie-tests.svg"
@@ -106,3 +107,5 @@ La règle est claire : **tout merge est bloqué si un seul test échoue**. Pas d
 Avec 3 003 tests et une CI bloquante, je peux refactorer un service entier en confiance. Quand je modifie le calcul des soldes de congés ou que je restructure la logique de planification, les tests me disent immédiatement si j'ai cassé quelque chose. Le temps investi dans les tests est largement rentabilisé par le temps économisé en débogage et en corrections urgentes.
 
 Les tests ne ralentissent pas le développement : ils l'accélèrent. Chaque nouveau développeur qui lirait ce codebase comprendrait instantanément le comportement attendu de chaque module, simplement en lisant les fichiers de tests. C'est de la documentation vivante, toujours à jour, qui ne ment jamais.
+
+Cette suite a pourtant une limite que j'ai mesurée depuis : un test vérifie du code, jamais la documentation qui le décrit. Sur un projet plus récent, j'ai vu des règles métier en prose décrire des colonnes qui n'existaient plus, sans qu'aucun des tests ne bronche. J'explique dans [Pourquoi j'encadre mon agent de code](/blog/claude-code-01-pourquoi-encadrer-un-agent/) comment un contrôle automatique rattrape cette dérive, et pourquoi un contrôle qui n'a jamais échoué sur le défaut qu'il prétend attraper n'est pas un contrôle.

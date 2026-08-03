@@ -7,6 +7,10 @@ const blog = defineCollection({
     description: z.string(),
     date: z.date(),
     updatedDate: z.date().optional(),
+    // Une série regroupe les articles d'un même récit. `order` est séquentiel
+    // au sein d'une série, pas sur l'ensemble de la collection : la navigation
+    // precedent/suivant et le fil de la page d'index se calculent par série.
+    series: z.enum(['smartplanning', 'claude-code']).default('smartplanning'),
     category: z.enum([
       'analyse',
       'gestion-projet',
@@ -15,6 +19,7 @@ const blog = defineCollection({
       'tests',
       'deploiement',
       'demo',
+      'ia-outillage',
     ]),
     tags: z.array(z.string()),
     image: z.string().optional(),

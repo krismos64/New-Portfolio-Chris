@@ -6,6 +6,7 @@ export const categoryColors: Record<string, string> = {
   'tests': 'var(--amber)',
   'deploiement': 'var(--purple)',
   'demo': 'var(--accent)',
+  'ia-outillage': 'var(--green)',
 };
 
 export const categoryLabels: Record<string, string> = {
@@ -16,4 +17,5 @@ export const categoryLabels: Record<string, string> = {
   'tests': 'Tests',
   'deploiement': 'Déploiement',
   'demo': 'Démos',
+  'ia-outillage': 'IA et outillage',
 };
