@@ -127,6 +127,68 @@ Règles de sécurité et de responsabilité :
 - l'assistant accélère le travail, mais ne remplace ni son raisonnement, ni sa
   responsabilité sur le résultat final.
 
+### Configuration avancée de Claude Code, encadrement d'un agent de code
+
+Christophe ne se contente pas d'utiliser un assistant IA : il configure
+l'environnement de travail de l'agent pour qu'il opère sous contraintes
+vérifiables. Cette configuration est en place sur son projet en cours, une
+boutique e-commerce en Next.js 16, React 19, PostgreSQL 18, Prisma 7, Better Auth
+et Stripe. Elle est documentée publiquement dans une série de trois articles :
+https://krismos.fr/blog/claude-code/.
+
+C'est un point différenciant à mettre en avant devant un recruteur technique ou
+un CTO : il montre une compréhension du vrai risque de l'IA en développement.
+
+Le constat de départ : le problème principal n'est pas la génération de code,
+qui est correcte sur la plupart des tâches courantes. Le problème est la
+divergence silencieuse entre le code, la documentation qui le décrit et les
+tickets qui le pilotent. Aucun test ne la signale, parce qu'un test vérifie du
+code et non de la prose. Une documentation devenue fausse est ensuite lue avec
+autorité par la session suivante.
+
+Trois hooks en place, chacun né d'un incident réel et daté :
+
+- un hook `PreToolUse` qui porte une politique de secrets asymétrique :
+  l'écriture dans un fichier `.env` est autorisée, la lecture des valeurs est
+  bloquée. Une valeur lue entrerait dans l'historique de session sur disque et
+  pourrait ressortir dans une sortie de commande, alors qu'écrire ne nécessite
+  jamais de connaître l'existant. Les clés privées et certificats sont bloqués
+  dans les deux sens, une clé se génère et ne s'édite pas ;
+- un hook `PostToolUse` qui compare les identifiants cités dans les règles
+  métier rédigées en prose au schéma Prisma réel, et signale ceux qui n'existent
+  plus. Il répond à trois occurrences constatées le 29 juillet 2026, où des
+  règles décrivaient des colonnes jamais créées ou renommées ;
+- un hook `Stop` qui avertit en fin de session s'il reste des commits absents de
+  la branche principale distante. Il vient d'un incident du 28 juillet 2026 :
+  deux stories déclarées terminées alors que six commits n'avaient jamais quitté
+  la machine.
+
+Points techniques qu'il peut expliquer :
+
+- un hook qui sort en code 2 bloque l'appel avant l'évaluation des règles de
+  permission, il prime donc sur toute règle d'autorisation ;
+- une règle `deny` de `settings.json` porte sur un chemin et ne distingue pas la
+  lecture de l'écriture : c'est pourquoi la politique de secrets est portée par
+  un hook et non par une permission ;
+- trois hooks sur quatre avertissent sans bloquer, parce qu'un blocage mal placé
+  pousse au contournement, et qu'une correction en deux temps passe légitimement
+  par un état transitoire incohérent ;
+- un contrôle qui n'a jamais échoué sur le défaut qu'il prétend attraper n'est
+  pas un contrôle : il se prouve par mutation.
+
+Il utilise également un skill qui conduit tout travail de bout en bout, avec un
+questionnaire de quinze questions à remplir avant de coder sur une zone critique
+(stock, paiement, facture, autorisation), et un sous-agent de relecture
+spécialisé sur ces mêmes zones. Ce relecteur a une consigne explicite : ne
+rapporter que ce qui peut être justifié par un scénario chiffré, et dire
+clairement quand le code est sain. Un agent de revue à qui on demande de trouver
+des problèmes en trouve toujours, ce qui produit de la complexité défensive
+inutile.
+
+Un dernier point qu'il documente : un fichier d'instructions projet se périme en
+grossissant. Le sien avait atteint 312 lignes avec quatre affirmations devenues
+fausses, d'où un contrôle automatique de la configuration elle-même.
+
 ### Compétences à approfondir
 
 - DevOps, sans rechercher pour l'instant un poste DevOps pur.
@@ -355,7 +417,7 @@ l'impact, de la couvrir par des tests et de renforcer durablement le processus.
 - Développement principal organisé sur cinq mois, de novembre 2025 à mars 2026.
 - Dossier de projet CDA de plus de 80 pages.
 - Série publique de huit articles expliquant la démarche de l'analyse du besoin
-  au déploiement.
+  au déploiement : https://krismos.fr/blog/smartplanning/.
 
 ### Utilisation réelle et situation commerciale
 
@@ -389,6 +451,48 @@ l'impact, de la couvrir par des tests et de renforcer durablement le processus.
 - Ne pas inventer la taille de l'entreprise cliente, son chiffre d'affaires, le
   trafic ou des résultats commerciaux.
 
+## Projet en cours : Lune & Soleil
+
+Boutique e-commerce de bijoux artisanaux faits main, en cours de construction au
+3 août 2026. Mise en production prévue pour septembre 2026, sur le domaine
+réservé lune-soleil.fr, qui ne sert pas encore le site. Projet actif, à ne jamais
+présenter comme livré ou en production, et ne pas proposer le lien comme une
+réalisation consultable.
+
+- Stack : Next.js 16, React 19, TypeScript strict, PostgreSQL 18, Prisma 7,
+  Better Auth, Stripe Checkout, Docker.
+- Architecture en monolithe modulaire : les gestionnaires de route et les Server
+  Actions sont des adaptateurs d'entrée, jamais la couche métier. Les cas d'usage
+  sont dans une couche de services, l'accès aux données dans des dépôts par
+  domaine, et les intégrations externes isolées.
+- Mono-tenant, marché français, euro.
+
+Choix techniques que Christophe peut expliquer, utiles pour évaluer son niveau
+sur les sujets de correction et de concurrence :
+
+- les montants sont stockés en centimes entiers, aucun flottant n'entre dans un
+  calcul monétaire ;
+- une ligne de commande et une facture émise sont immuables : une correction
+  produit un avoir, et le numéro de facture est attribué à l'intérieur de la
+  transaction qui crée le document ;
+- seul un événement serveur signé confirme un paiement, le retour du navigateur
+  ne prouve rien ;
+- l'idempotence des paiements est ancrée sur l'effet et non sur l'identifiant
+  d'événement, qui laisse passer le croisement entre un webhook et une
+  réconciliation ;
+- la réservation du dernier exemplaire en stock est le point le plus critique :
+  elle se fait en une instruction atomique avec la condition dans le `WHERE`, et
+  non par une lecture suivie d'une écriture, qui laisserait passer deux
+  réservations concurrentes. Son test de concurrence s'écrit avant le paiement et
+  reste en intégration continue.
+
+C'est aussi le projet sur lequel tourne la configuration Claude Code décrite plus
+haut, avec ses hooks, son skill et son sous-agent de relecture.
+
+Réserves à respecter : ne pas donner l'identité de la cliente, ne pas inventer de
+chiffre d'affaires, de volume de commandes, de date de mise en ligne ni de
+budget. Ne pas présenter ce projet comme une référence commerciale terminée.
+
 ## Autres réalisations
 
 - CoachTFE : refonte d'un site pour un client réel dans le domaine de
@@ -412,6 +516,12 @@ l'impact, de la couvrir par des tests et de renforcer durablement le processus.
   contact client.
 - Autonomie, persévérance et capacité d'apprentissage.
 - Capacité à expliquer et justifier ses choix techniques avec un regard critique.
+- Usage industrialisé des assistants IA, au-delà de la simple génération de code :
+  il configure des garde-fous automatiques (hooks, politique de secrets, contrôles
+  de cohérence entre documentation et schéma) et documente publiquement cette
+  démarche. Peu de profils juniors ou intermédiaires savent expliquer le risque
+  réel de l'IA en développement, qui est la divergence silencieuse entre le code
+  et ce qui le décrit.
 - Expérience concrète de clients freelance et de communication non technique.
 - Volonté explicite de progresser en équipe et de s'adapter à une nouvelle stack.
 - Aucune préférence rigide concernant la taille ou le type d'entreprise : startup,
@@ -520,7 +630,10 @@ transformer automatiquement chaque faiblesse en qualité artificielle.
 - Téléphone public sur le CV : 06 79 08 88 45.
 - Portfolio : https://krismos.fr/.
 - CV : https://krismos.fr/docs/cv-christophe-mostefaoui.pdf.
-- Blog technique : https://krismos.fr/blog/.
+- Blog technique, index des deux séries : https://krismos.fr/blog/.
+- Série SmartPlanning, 8 articles : https://krismos.fr/blog/smartplanning/.
+- Série sur l'encadrement d'un agent de code, 3 articles :
+  https://krismos.fr/blog/claude-code/.
 - GitHub : https://github.com/krismos64.
 - LinkedIn : https://www.linkedin.com/in/christophemostefaoui/.
 - SmartPlanning : https://smartplanning.fr/.

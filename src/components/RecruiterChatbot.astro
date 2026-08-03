@@ -37,6 +37,9 @@
 
     <div class="recruiter-chat__suggestions" data-chat-suggestions>
       <p data-suggestions-title>Quelques pistes pour commencer</p>
+      <!-- Ces boutons sont rendus au chargement ; INITIAL_SUGGESTIONS les
+           reconstruit après une réinitialisation de la conversation. Toute
+           modification doit être reportée dans les deux endroits. -->
       <div class="recruiter-chat__suggestion-list">
         <button type="button" data-question="Pourquoi vous recruter ?"><span>👋</span> Pourquoi vous recruter ?</button>
         <button type="button" data-question="Quel poste recherchez-vous ?"><span>🎯</span> Quel poste recherchez-vous ?</button>
@@ -45,6 +48,7 @@
         <button type="button" data-question="Quelle est votre stratégie de tests ?"><span>🧪</span> Quelle est votre stratégie de tests ?</button>
         <button type="button" data-question="Quelle expérience avez-vous du travail en équipe ?"><span>🤝</span> Quelle expérience avez-vous du travail en équipe ?</button>
         <button type="button" data-question="Comment utilisez-vous l'IA pour développer ?"><span>🤖</span> Comment utilisez-vous l'IA pour développer ?</button>
+        <button type="button" data-question="Comment encadrez-vous un agent de code ?"><span>🛡️</span> Comment encadrez-vous un agent de code ?</button>
         <button type="button" data-question="Parlez-moi d'un problème technique complexe"><span>🔍</span> Parlez-moi d'un problème technique complexe</button>
         <button type="button" data-question="Quelles sont vos disponibilités et votre mobilité ?"><span>📍</span> Quelles sont vos disponibilités et votre mobilité ?</button>
         <button type="button" data-question="Quels sont vos axes de progression ?"><span>📈</span> Quels sont vos axes de progression ?</button>
@@ -94,15 +98,24 @@
       ["🧪", "Quelle est votre stratégie de tests ?"],
       ["🤝", "Quelle expérience avez-vous du travail en équipe ?"],
       ["🤖", "Comment utilisez-vous l'IA pour développer ?"],
+      ["🛡️", "Comment encadrez-vous un agent de code ?"],
       ["🔍", "Parlez-moi d'un problème technique complexe"],
       ["📍", "Quelles sont vos disponibilités et votre mobilité ?"],
       ["📈", "Quels sont vos axes de progression ?"],
     ];
 
     const CHAT_MEDIA: ChatMedia[] = [
+      // Série sur l'encadrement d'un agent de code : placée avant les patterns
+      // génériques (test, documentation) qui capteraient sinon ces questions.
+      { pattern: /hook|pretooluse|posttooluse|settings\.json|permission|garde-fou|garde fou/i, image: "/images/blog/claude-code-hooks.svg", title: "Les hooks Claude Code", description: "PreToolUse, PostToolUse et Stop sur un projet réel", url: "/blog/claude-code-02-hooks-et-permissions/" },
+      { pattern: /skill|sous-agent|sous agent|subagent|relecteur|revue de code|code review/i, image: "/images/blog/claude-code-skills.svg", title: "Skills et sous-agents", description: "Déléguer le processus, pas seulement la tâche", url: "/blog/claude-code-03-skills-et-sous-agents/" },
+      { pattern: /claude code|agent de code|encadr|configuration ia|cursor|codex|assistant ia|vibe coding/i, image: "/images/blog/claude-code-garde-fous.svg", title: "Encadrer un agent de code", description: "Les garde-fous en place sur un projet en cours", url: "/blog/claude-code/" },
       { pattern: /planning|calendrier|créneau|conflit|drag and drop/i, image: "/images/blog/capture6.webp", title: "Planning SmartPlanning", description: "Vue hebdomadaire et créneaux interactifs", url: "/blog/05-developpement-fonctionnalites/" },
       { pattern: /architecture en couche|quatre couche|server component|server action|pattern strategy|pattern observer/i, image: "/images/blog/architecture-en-couche.webp", title: "Architecture en quatre couches", description: "Présentation, métier, données et infrastructure", url: "/blog/04-architecture-nextjs-saas/" },
-      { pattern: /base de données|postgresql|prisma|multi-tenant|multitenant|mcd|merise/i, image: "/images/blog/mcd.webp", title: "Modèle de données SmartPlanning", description: "MCD du SaaS multi-tenant", url: "/blog/03-conception-base-de-donnees/" },
+      // `prisma` seul remontait cette carte sur des réponses parlant du schéma
+      // d'un autre projet : le modèle de données SmartPlanning demande un
+      // contexte de modélisation ou de multi-tenant.
+      { pattern: /base de données|multi-tenant|multitenant|mcd|merise|modèle de données|schéma relationnel/i, image: "/images/blog/mcd.webp", title: "Modèle de données SmartPlanning", description: "MCD du SaaS multi-tenant", url: "/blog/03-conception-base-de-donnees/" },
       { pattern: /test|vitest|playwright|non-régression|qualité logicielle/i, image: "/images/blog/strategie-tests.svg", title: "Stratégie de tests", description: "Tests unitaires, intégration, E2E et CI", url: "/blog/06-strategie-de-tests/" },
       { pattern: /ci\/cd|pipeline|github actions|docker|déploiement|vps|nginx/i, image: "/images/blog/pipeline.webp", title: "Pipeline CI/CD", description: "Contrôles automatisés avant déploiement", url: "/blog/07-cicd-docker-deploiement/" },
       { pattern: /jira|backlog|sprint|kanban|agile/i, image: "/images/blog/jira4.webp", title: "Backlog Jira", description: "Epics, stories et sprints thématiques", url: "/blog/02-gestion-de-projet-agile/" },
