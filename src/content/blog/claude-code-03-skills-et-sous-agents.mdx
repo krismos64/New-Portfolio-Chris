@@ -1,0 +1,164 @@
+---
+title: "Skills et sous-agents Claude Code : déléguer le processus, pas seulement la tâche"
+description: "Un skill qui conduit tout travail de bout en bout, un relecteur spécialisé sur les zones à risque, et l'anti-pattern qui rend un agent de revue inutile : trouver des problèmes partout."
+date: 2026-08-03
+series: "claude-code"
+category: "ia-outillage"
+tags:
+  ["Claude Code", "Agents IA", "Revue de code", "Process", "Qualité logicielle"]
+image: "/images/blog/claude-code-skills.svg"
+draft: false
+order: 3
+---
+
+## Ce que les hooks ne savent pas faire
+
+Les [trois hooks du projet](/blog/claude-code-02-hooks-et-permissions/) attrapent
+la dérive mécanique : un identifiant absent du schéma, un commit non poussé, un
+fichier trop long. Un script sait vérifier ces choses parce qu'elles se comparent.
+
+Il ne sait rien dire de la pertinence d'une décision, de la couverture réelle
+d'un test ou de la présence d'une faille d'autorisation. Ce jugement se délègue
+autrement : par des **skills**, qui décrivent un processus à suivre, et des
+**sous-agents**, qui portent une expertise sur un périmètre restreint.
+
+Cet article détaille les deux que j'utilise sur Lune & Soleil, ma boutique
+e-commerce en construction.
+
+## Un skill qui conduit le travail, pas qui exécute une tâche
+
+Un skill est un document chargé à la demande, qui décrit comment mener un type de
+travail. L'usage courant est utilitaire : générer un composant, formater un
+changelog.
+
+Le mien fait autre chose. Il conduit **tout** travail sur le projet du début à la
+fin, ticket Jira ou simple exploration. Sa valeur ne tient pas aux étapes qu'il
+énumère, mais aux erreurs qu'il empêche de refaire, chacune ayant été commise.
+
+### Lire les commentaires d'un ticket, pas seulement sa description
+
+La règle qui m'a le plus servi tient en une contrainte d'appel :
+
+```
+getJiraIssue  fields: ["summary","status","description","comment"]
+```
+
+Le champ `comment` ne revient pas par défaut. Or une description de ticket n'est
+presque jamais réécrite après un arbitrage : c'est un commentaire qui la
+rectifie. Le 29 juillet 2026, la description de LS-27 annonçait « Point Relais et
+Locker » avec un tarif unique, quand un commentaire du même jour actait trois
+modes de livraison et deux tarifs.
+
+Se fier à la description seule fait reconstruire une conception abandonnée, et
+aucun contrôle automatique ne le signale. Le skill impose donc de demander les
+commentaires, de considérer que **le plus récent l'emporte**, et de signaler
+l'écart plutôt que de le résoudre en silence.
+
+### Un questionnaire avant les zones critiques
+
+Quand le travail touche le stock, un paiement, une facture ou une autorisation,
+le skill impose de répondre par écrit à quinze questions avant d'écrire du code.
+Quelques-unes :
+
+- Une contrainte de base de données peut-elle garantir l'invariant ?
+- L'autorisation est-elle dérivée de la session ou d'un jeton signé ?
+- L'opération doit-elle être idempotente ?
+- Que se passe-t-il si le prestataire de paiement est indisponible ?
+
+L'effet recherché n'est pas la réponse elle-même, c'est le moment où on la donne.
+Répondre après avoir écrit le code produit une justification ; répondre avant
+produit une conception. Si une réponse révèle une décision non prise, le skill
+impose de créer une décision d'architecture avant de coder.
+
+### Clore sur quatre canaux
+
+La fin du skill énumère ce qu'un travail terminé doit avoir mis à jour : le
+dépôt, le journal de session, la mémoire du projet et Jira. Avec une table de
+propagation qui dit quoi mettre à jour selon ce qui a été touché, par exemple
+qu'une modification du schéma entraîne le modèle logique et les scripts de
+vérification.
+
+Une ligne de cette table vise la configuration elle-même : si les skills, agents
+ou hooks changent, la table d'aiguillage et le fichier d'instructions doivent
+suivre. C'est ce qui a manqué quand `CLAUDE.md` a dérivé jusqu'à 312 lignes.
+
+## Un sous-agent pour les zones à risque
+
+Un sous-agent travaille dans son propre contexte, avec ses propres instructions
+et des outils restreints. Le mien relit les six zones où une erreur coûte de
+l'argent ou fuite des données : réservation de stock, événements de paiement,
+documents comptables, autorisation, montants, transactions.
+
+Ce qui le rend utile, c'est la **précision de ce qu'il cherche**. Il ne relit
+pas « le code », il cherche des défauts nommés :
+
+> Vérifier que la réservation se fait en une instruction atomique, avec la
+> condition dans le `WHERE`, et non par un `SELECT` suivi d'un `UPDATE`. Une
+> lecture puis écriture séparées, même dans une transaction, laisse passer deux
+> réservations concurrentes en `READ COMMITTED`.
+
+Et pour l'idempotence des paiements :
+
+> Vérifier que l'identifiant d'événement fournisseur est persisté avec une
+> contrainte `UNIQUE`, dans la même transaction que les effets. Un contrôle
+> d'existence préalable hors transaction ne protège pas d'un rejeu concurrent.
+
+Un agent à qui on demande « relis ce code » produit des remarques de style. Un
+agent à qui on décrit le défaut exact et son mécanisme trouve le défaut, ou dit
+qu'il n'y est pas.
+
+### L'anti-pattern qui rend un relecteur inutile
+
+La partie la plus importante de cet agent n'est pas ce qu'il doit chercher, c'est
+ce qu'il doit s'interdire :
+
+> Ne rapporte que ce que tu peux justifier par un scénario. Un relecteur à qui on
+> demande de trouver des problèmes en trouve toujours, y compris quand le code
+> est correct. Ça mène à de la complexité défensive inutile. Si le code est sain
+> sur une zone, dis-le clairement plutôt que d'inventer une réserve.
+
+C'est le travers naturel d'un modèle à qui on confie une revue. Il produira des
+observations parce que c'est ce qu'on attend de lui, et une partie sera du bruit
+plausible : une vérification redondante à ajouter, une garde défensive sur un cas
+impossible. Le coût n'est pas le temps de lecture, c'est le code inutile que ces
+remarques finissent par produire, et la perte de confiance dans les vraies
+alertes.
+
+D'où l'exigence de format : chaque défaut doit venir avec un scénario chiffré.
+
+> « stock à 1, deux requêtes à 40 ms d'écart, les deux réservations réussissent »
+
+Un défaut qui ne peut pas s'écrire sous cette forme n'est pas rapporté.
+
+### Le cloisonnement des agents
+
+Une ligne de mon fichier d'instructions interdit d'utiliser ici trois agents que
+j'ai pourtant écrits et qui me servent ailleurs. Ils sont calibrés sur une autre
+stack, avec du multi-tenant et une version d'authentification différente, quand
+ce projet est mono-tenant sur d'autres versions.
+
+Un agent générique appliqué au mauvais contexte produit des recommandations
+cohérentes avec sa propre configuration et fausses pour le projet en cours. Plus
+gênant qu'une absence d'agent, parce que ses conseils ont l'air pertinents.
+
+## Ce que je retiens des trois articles
+
+Le fil commun de cette configuration n'est pas la contrainte, c'est la
+**détectabilité**. Les hooks rendent visible l'écart entre le code et sa
+documentation. Le skill rend visible ce qui n'a pas été tracé. Le relecteur rend
+visible un défaut de concurrence qu'aucun test existant n'exerce.
+
+Trois principes s'en dégagent, applicables à n'importe quel projet.
+
+**Un contrôle qui n'a jamais échoué sur le défaut qu'il prétend attraper n'est
+pas un contrôle.** Il se prouve par mutation.
+
+**Un avertissement vaut souvent mieux qu'un blocage**, parce qu'un blocage mal
+placé pousse au contournement.
+
+**Un agent qui doit trouver des problèmes en trouvera**, y compris là où il n'y
+en a pas. Lui donner le droit de conclure que tout va bien fait partie de sa
+configuration.
+
+Reste ce qu'aucune configuration ne remplace : relire soi-même ce qui touche à
+l'argent et aux données personnelles.

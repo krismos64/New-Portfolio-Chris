@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="Repartition entre hooks, skill et sous-agent : le mecanique se verifie par script, le processus par un skill, le jugement par un relecteur specialise">
+  <defs>
+    <radialGradient id="bgs" cx="50%" cy="15%" r="80%">
+      <stop offset="0%" stop-color="#0d1a16" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bgs)" rx="12"/>
+
+  <text x="400" y="30" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">QUI VERIFIE QUOI</text>
+
+  <!-- Colonne 1 : hooks, mecanique -->
+  <g transform="translate(30, 56)">
+    <rect x="0" y="0" width="235" height="300" rx="10" fill="#18181b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect x="0" y="0" width="235" height="42" rx="10" fill="#0b1220"/>
+    <text x="117" y="27" text-anchor="middle" font-family="monospace" font-size="11" fill="#60a5fa" font-weight="700">HOOKS</text>
+
+    <text x="16" y="68" font-family="monospace" font-size="9" fill="#d4d4d8" font-weight="700">LE MECANIQUE</text>
+    <text x="16" y="86" font-family="monospace" font-size="8" fill="#71717a">ce qui se compare</text>
+
+    <text x="16" y="116" font-family="monospace" font-size="9" fill="#e4e4e7">identifiant absent</text>
+    <text x="16" y="134" font-family="monospace" font-size="8" fill="#71717a">regle vs schema.prisma</text>
+
+    <text x="16" y="164" font-family="monospace" font-size="9" fill="#e4e4e7">commit non pousse</text>
+    <text x="16" y="182" font-family="monospace" font-size="8" fill="#71717a">origin/main..HEAD</text>
+
+    <text x="16" y="212" font-family="monospace" font-size="9" fill="#e4e4e7">lecture d'un secret</text>
+    <text x="16" y="230" font-family="monospace" font-size="8" fill="#71717a">bloque, sortie 2</text>
+
+    <text x="16" y="260" font-family="monospace" font-size="9" fill="#e4e4e7">config qui derive</text>
+    <text x="16" y="278" font-family="monospace" font-size="8" fill="#71717a">taille, renvois morts</text>
+  </g>
+
+  <!-- Colonne 2 : skill, processus -->
+  <g transform="translate(283, 56)">
+    <rect x="0" y="0" width="235" height="300" rx="10" fill="#18181b" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="0" y="0" width="235" height="42" rx="10" fill="#1a1206"/>
+    <text x="117" y="27" text-anchor="middle" font-family="monospace" font-size="11" fill="#fbbf24" font-weight="700">SKILL story</text>
+
+    <text x="16" y="68" font-family="monospace" font-size="9" fill="#d4d4d8" font-weight="700">LE PROCESSUS</text>
+    <text x="16" y="86" font-family="monospace" font-size="8" fill="#71717a">l'ordre des etapes</text>
+
+    <text x="16" y="116" font-family="monospace" font-size="9" fill="#e4e4e7">lire les commentaires</text>
+    <text x="16" y="134" font-family="monospace" font-size="8" fill="#71717a">le recent l'emporte</text>
+
+    <text x="16" y="164" font-family="monospace" font-size="9" fill="#e4e4e7">15 questions avant</text>
+    <text x="16" y="182" font-family="monospace" font-size="8" fill="#71717a">zone critique, puis code</text>
+
+    <text x="16" y="212" font-family="monospace" font-size="9" fill="#e4e4e7">test d'abord</text>
+    <text x="16" y="230" font-family="monospace" font-size="8" fill="#71717a">stock, paiement, facture</text>
+
+    <text x="16" y="260" font-family="monospace" font-size="9" fill="#e4e4e7">clore 4 canaux</text>
+    <text x="16" y="278" font-family="monospace" font-size="8" fill="#71717a">depot, journal, memoire, Jira</text>
+  </g>
+
+  <!-- Colonne 3 : sous-agent, jugement -->
+  <g transform="translate(536, 56)">
+    <rect x="0" y="0" width="235" height="300" rx="10" fill="#18181b" stroke="#22c55e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="235" height="42" rx="10" fill="#07200f"/>
+    <text x="117" y="27" text-anchor="middle" font-family="monospace" font-size="11" fill="#86efac" font-weight="700">SOUS-AGENT</text>
+
+    <text x="16" y="68" font-family="monospace" font-size="9" fill="#d4d4d8" font-weight="700">LE JUGEMENT</text>
+    <text x="16" y="86" font-family="monospace" font-size="8" fill="#71717a">ce qui ne se compare pas</text>
+
+    <text x="16" y="116" font-family="monospace" font-size="9" fill="#e4e4e7">reservation atomique</text>
+    <text x="16" y="134" font-family="monospace" font-size="8" fill="#71717a">condition dans le WHERE</text>
+
+    <text x="16" y="164" font-family="monospace" font-size="9" fill="#e4e4e7">idempotence du rejeu</text>
+    <text x="16" y="182" font-family="monospace" font-size="8" fill="#71717a">UNIQUE dans la transaction</text>
+
+    <text x="16" y="212" font-family="monospace" font-size="9" fill="#e4e4e7">acces croise</text>
+    <text x="16" y="230" font-family="monospace" font-size="8" fill="#71717a">identifiant d'URL non verifie</text>
+
+    <text x="16" y="260" font-family="monospace" font-size="9" fill="#f87171">droit de dire RAS</text>
+    <text x="16" y="278" font-family="monospace" font-size="8" fill="#71717a">sinon il invente une reserve</text>
+  </g>
+
+  <text x="400" y="392" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">un defaut sans scenario chiffre n'est pas rapporte</text>
+</svg>

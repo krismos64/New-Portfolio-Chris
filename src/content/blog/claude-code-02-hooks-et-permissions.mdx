@@ -1,0 +1,280 @@
+---
+title: "Hooks Claude Code : où placer un garde-fou, et pourquoi pas dans les permissions"
+description: "PreToolUse, PostToolUse et Stop sur un projet réel : le code des trois hooks, la règle qui décide entre hook et permission, et les pièges du filtrage par chemin."
+date: 2026-08-03
+series: "claude-code"
+category: "ia-outillage"
+tags:
+  ["Claude Code", "Hooks", "Bash", "Sécurité", "Agents IA"]
+image: "/images/blog/claude-code-hooks.svg"
+draft: false
+order: 2
+---
+
+## Deux mécanismes qui semblent faire la même chose
+
+Claude Code offre deux façons d'encadrer ce qu'un agent peut faire : les **règles
+de permission** dans `settings.json`, et les **hooks**, des scripts déclenchés
+avant ou après un appel d'outil.
+
+Au premier abord ils se recouvrent. Les deux peuvent empêcher une lecture de
+fichier. Le choix entre les deux n'est pourtant pas une question de goût, et je
+l'ai découvert en essayant d'exprimer une politique que les permissions ne
+savaient pas dire.
+
+Cet article détaille les trois hooks en place sur Lune & Soleil, ma boutique
+e-commerce en construction. Le [premier article de la série](/blog/claude-code-01-pourquoi-encadrer-un-agent/)
+raconte les incidents qui les ont produits ; celui-ci montre le code et les
+décisions d'implémentation.
+
+## La règle de répartition
+
+Une règle de permission est **déclarative** : un motif de chemin, une décision.
+Elle est lisible d'un coup d'oeil, versionnée, et ne coûte rien à l'exécution.
+
+```json
+{
+  "permissions": {
+    "deny": ["Read(./**/*.pem)", "Read(./secrets/**)"],
+    "allow": ["Bash(npm run:*)", "Bash(npx prisma migrate dev:*)"]
+  }
+}
+```
+
+Sa limite tient en une phrase : **une règle `deny` porte sur un chemin, pas sur
+une intention**. Elle ne sait pas distinguer la lecture de l'écriture sur le même
+fichier, ni conditionner sa décision à l'état du dépôt.
+
+D'où la répartition que j'applique :
+
+- Ce qui s'exprime par « ce chemin, jamais » va dans `settings.json`
+- Ce qui demande une nuance, une condition ou un message explicatif va dans un
+  hook
+
+Les permissions couvrent la majorité des cas et restent le premier réflexe. Les
+trois hooks ci-dessous existent parce qu'aucune règle déclarative ne pouvait
+faire le travail.
+
+## PreToolUse : la politique de secrets asymétrique
+
+Le besoin : autoriser l'agent à **écrire** dans un `.env` tout en lui interdisant
+d'en **lire** les valeurs. Ajouter une variable ou générer un secret avec
+`openssl` ne nécessite pas de connaître l'existant, alors qu'une valeur lue entre
+dans l'historique de session sur disque et peut ressortir dans un message
+d'erreur.
+
+Impossible à exprimer en `deny`, qui ne connaît pas la différence. Le hook lit
+l'appel d'outil sur son entrée standard, en JSON, et décide.
+
+```bash
+set -u
+input=$(cat)
+
+file=$(echo "$input" | jq -r '.tool_input.file_path // ""' 2>/dev/null)
+[ -z "$file" ] && exit 0
+
+tool=$(echo "$input" | jq -r '.tool_name // ""' 2>/dev/null)
+base=$(basename "$file")
+
+# Clés privées et certificats : bloqués dans les deux sens.
+# Une clé se génère, elle ne s'édite pas à la main.
+case "$base" in
+  *.pem|*.key|*.p12|*.pfx|id_rsa|id_ed25519)
+    echo "Hook BLOCK: acces refuse a une cle ou un certificat." >&2
+    exit 2 ;;
+esac
+
+# Fichiers d'environnement : écriture autorisée, lecture bloquée
+case "$base" in
+  .env|.env.*)
+    if [ "$tool" = "Read" ]; then
+      echo "Hook BLOCK: lecture refusee sur un fichier d'environnement." >&2
+      echo "L'ECRITURE reste autorisee. Pour diagnostiquer sans lire :" >&2
+      echo "  grep -oE '^[A-Z_]+=' \"$file\"" >&2
+      exit 2
+    fi
+    exit 0 ;;
+esac
+
+exit 0
+```
+
+Trois points d'implémentation méritent d'être soulignés.
+
+**Le code de sortie 2 est ce qui bloque.** Un hook `PreToolUse` qui sort en 2
+annule l'appel d'outil et renvoie stderr à l'agent. Toute autre valeur laisse
+passer. C'est aussi ce qui en fait la couche principale plutôt qu'un filet de
+secours : le blocage intervient **avant** l'évaluation des règles de permission,
+donc il prime sur n'importe quelle règle `allow`.
+
+**Le message d'erreur propose une issue.** Quand le hook refuse une lecture, il
+rappelle que l'écriture reste possible et donne la commande de diagnostic qui
+liste les noms de variables sans leur valeur. Un blocage sans alternative produit
+des contournements : l'agent cherchera un `cat` via Bash, ou demandera la valeur
+en clair dans la conversation.
+
+**Les fichiers d'exemple sont exclus en premier.** `.env.example` ne contient que
+des noms et des formats, le bloquer n'apporterait rien et gênerait le travail
+courant.
+
+## PostToolUse : détecter la documentation qui ment
+
+Ce hook compare les identifiants cités dans mes règles métier en prose au schéma
+Prisma réel, et signale ceux qui n'existent pas. Il traite le problème décrit
+dans le premier article : une règle périmée est lue avec autorité, et peut
+conduire à modifier le schéma pour l'aligner sur une documentation fausse.
+
+Le point délicat n'est pas la comparaison, c'est le **filtrage**.
+
+```bash
+# Le matcher de settings.json porte sur le type d'outil, pas sur le chemin
+# écrit. Le filtrage se fait donc ici : sans lui, le contrôle tournerait à
+# chaque écriture du dépôt, y compris sur le journal ou un document.
+input=$(cat 2>/dev/null) || exit 0
+fichier=$(echo "$input" | jq -r '.tool_input.file_path // ""' 2>/dev/null) || exit 0
+
+case "$fichier" in
+    *.claude/rules/*) ;;
+    */prisma/schema.prisma|prisma/schema.prisma) ;;
+    *) exit 0 ;;
+esac
+```
+
+Le `matcher` de `settings.json` sélectionne un **type d'outil** (`Edit|Write`),
+jamais un chemin. Sans ce second filtre dans le script, le contrôle se
+déclencherait à chaque écriture du dépôt, y compris sur un fichier de journal.
+Une lenteur inutile, et surtout du bruit.
+
+Deux décisions de conception valent plus que le code lui-même.
+
+**Il avertit, il ne bloque pas**, et sort toujours en 0. Une correction en deux
+temps passe légitimement par un état incohérent : on renomme dans le schéma, puis
+dans la règle. Un hook bloquant rendrait cet ordre impossible.
+
+**Il est silencieux quand le contrôle est vert.** Un hook qui parle à chaque
+écriture devient un bruit qu'on apprend à ignorer en quelques jours, et le jour
+où il dit quelque chose d'important, personne ne le lit.
+
+Quand il sort, il nomme les deux corrections possibles sans choisir :
+
+```
+RÈGLES, un identifiant cité n'existe pas dans le schéma :
+
+Deux corrections possibles, selon le sens de la divergence : soit la
+règle nomme mal une chose qui existe, soit elle décrit un état du
+schéma qui n'a jamais été atteint. Vérifier avant de choisir.
+```
+
+Cette formulation compte. Un message qui dirait « corriger la règle » ferait
+prendre la mauvaise décision une fois sur deux.
+
+## Stop : ce qui reste non livré en fin de session
+
+Le hook `Stop` se déclenche quand l'agent rend la main. Il répond à une seule
+question : reste-t-il du travail qui n'existe que sur ma machine ?
+
+```bash
+git rev-parse --git-dir >/dev/null 2>&1 || exit 0
+
+branche=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
+[ "$branche" = "HEAD" ] && exit 0   # détaché, cas hors périmètre
+
+avertissements=()
+
+if ! git diff --quiet HEAD 2>/dev/null; then
+    n=$(git status --porcelain 2>/dev/null | grep -cv '^??' || true)
+    [ "${n:-0}" -gt 0 ] && avertissements+=("$n fichier(s) modifié(s) non commité(s)")
+fi
+
+# Le contrôle qui compte : un commit sur une branche locale, ou sur une
+# branche poussée mais non fusionnée, ne livre rien.
+if git rev-parse --verify origin/main >/dev/null 2>&1; then
+    non_livres=$(git rev-list --count origin/main..HEAD 2>/dev/null || echo 0)
+    [ "${non_livres:-0}" -gt 0 ] && \
+        avertissements+=("$non_livres commit(s) absents de origin/main")
+fi
+
+[ ${#avertissements[@]} -eq 0 ] && exit 0
+```
+
+Le contrôle utile est le second. Le premier, sur les fichiers non commités, est
+presque toujours du bruit légitime en cours de session. Le second répond à la
+question qui a été ratée le 28 juillet 2026 : `git rev-list --count
+origin/main..HEAD` renvoie zéro si et seulement si tout est sur la branche
+principale distante.
+
+Ici aussi le hook avertit sans bloquer : une session peut légitimement s'arrêter
+au milieu d'un travail. Le message le dit explicitement, pour que l'agent ne
+tente pas de « réparer » une situation normale en poussant du code inachevé.
+
+## Le fichier de configuration
+
+Les trois hooks se déclarent ainsi :
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/scripts/hook-block-secret-files.sh"
+        }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [{
+          "type": "command",
+          "command": "$CLAUDE_PROJECT_DIR/.claude/scripts/hook-verifier-regles.sh"
+        }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/scripts/hook-warn-unpushed.sh" },
+          { "type": "command", "command": "$CLAUDE_PROJECT_DIR/scripts/verifier-config-claude.sh" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+`$CLAUDE_PROJECT_DIR` évite les chemins absolus, qui casseraient sur une autre
+machine ou dans un autre clone. Un événement peut porter plusieurs hooks, comme
+`Stop` ici.
+
+## Trois pièges rencontrés
+
+**Un hook qui échoue silencieusement ne protège plus.** Chaque script commence
+par des sorties précoces sur les cas dégradés : dépôt absent, `jq` indisponible,
+script non exécutable après une copie qui perd les permissions. C'est
+volontaire pour les hooks qui avertissent. Pour un hook qui bloque, l'arbitrage
+inverse se défend : refuser par défaut plutôt que laisser passer. Le mien laisse
+passer quand il ne peut pas conclure, parce qu'il porte sur des fichiers dont les
+chemins sont aussi couverts par des règles `deny`.
+
+**stderr va à l'agent, pas à l'utilisateur.** Les messages sont donc rédigés pour
+être lus par le modèle : ils expliquent la politique et proposent une action, ils
+ne s'adressent pas à un humain devant un terminal.
+
+**Un contrôle jamais vu au rouge n'est pas un contrôle.** J'ai testé chacun de
+ces hooks en cassant volontairement ce qu'il surveille : demander la lecture d'un
+`.env`, renommer une colonne sans toucher la règle, terminer une session avec un
+commit local. Sans cette vérification, on ne sait pas si le garde-fou protège ou
+s'il est décoratif.
+
+## Ce que les hooks ne font pas
+
+Ils attrapent la dérive **mécanique** : un identifiant qui n'existe pas, un
+commit non poussé, un fichier trop long. Ils ne disent rien de la pertinence
+d'une décision, de la justesse d'une règle métier ou de la qualité d'un test.
+
+Ce jugement se délègue autrement, à des sous-agents dont c'est le rôle, avec le
+piège que ça comporte : un relecteur à qui on demande de trouver des problèmes en
+trouve toujours, même quand le code est correct. C'est le sujet du prochain
+article.

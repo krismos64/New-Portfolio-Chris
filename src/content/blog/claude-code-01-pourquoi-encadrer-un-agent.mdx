@@ -1,0 +1,199 @@
+---
+title: "Configurer Claude Code : pourquoi j'encadre mon agent, et ce que ça empêche"
+description: "Trois incidents réels sur un projet e-commerce : une règle devenue fausse, six commits jamais poussés, un CLAUDE.md à 312 lignes. Les hooks et garde-fous que j'en ai tirés."
+date: 2026-08-03
+series: "claude-code"
+category: "ia-outillage"
+tags:
+  ["Claude Code", "Agents IA", "Hooks", "Next.js", "Qualité logicielle"]
+image: "/images/blog/claude-code-garde-fous.svg"
+draft: false
+order: 1
+---
+
+## Le problème n'est pas la génération de code
+
+Un agent de code produit aujourd'hui du code correct sur la plupart des tâches
+courantes. Ce n'est plus là que ça casse. Ce qui casse, c'est le lien entre le
+code, la documentation qui le décrit et les tickets qui le pilotent. Ces trois
+choses divergent en silence, et rien ne le signale.
+
+Le mécanisme est toujours le même. Une session écrit du code et met à jour un
+document. Une autre session, deux jours plus tard, lit ce document, le croit sur
+parole, et travaille dessus. Si le document est devenu faux entre-temps, la
+seconde session construit sur du faux avec une confiance totale. Aucun test ne
+tombe au rouge, parce qu'un test vérifie du code, pas de la prose.
+
+Je construis actuellement **Lune & Soleil**, une boutique e-commerce de bijoux
+artisanaux en Next.js 16, React 19, PostgreSQL 18, Prisma 7 et Stripe. Le projet
+est mono-tenant, les montants sont en euro, et le dépôt est public. Cet article
+raconte trois incidents précis qui s'y sont produits, et les garde-fous que
+chacun a produits.
+
+## Incident 1 : la règle qui décrit un schéma qui n'existe plus
+
+J'écris des règles métier en prose, dans `.claude/rules/`, chargées selon les
+fichiers touchés. Le fichier sur la base de données décrit le modèle : quelles
+tables existent, quelles colonnes portent quoi, quels invariants tiennent.
+
+Le 29 juillet 2026, sur le ticket LS-46, trois erreurs coexistaient dans ces
+règles. Elles annonçaient trois colonnes de taxe (`taxRate`, `taxAmount`,
+`priceIncludesTax`) comme existantes alors qu'elles n'avaient jamais été créées.
+Elles nommaient une table `evenement_webhook`, renommée depuis en
+`evenement_fournisseur`. Elles citaient un `quantite_ligne` là où le schéma porte
+`ligne_commande.quantite`.
+
+Chacune de ces erreurs vient d'un renommage légitime dans le schéma, jamais
+répercuté dans la prose. Le danger n'est pas que la règle soit inexacte : c'est
+qu'elle est lue **avec autorité**. Une session qui lit « la colonne `taxRate`
+porte le taux » et qui ne la trouve pas dans le schéma a deux interprétations
+possibles, et la mauvaise consiste à « corriger » le schéma pour l'aligner sur la
+documentation. Une migration inutile, sur un modèle de facturation, pour se
+conformer à un texte périmé.
+
+Le garde-fou est un hook `PostToolUse`. À chaque écriture dans
+`.claude/rules/` ou dans `schema.prisma`, un script compare les identifiants
+cités dans la prose au schéma réel, et signale ceux qui n'existent pas.
+
+Deux décisions comptent dans ce hook, plus que le script lui-même.
+
+**Il avertit, il ne bloque pas.** Une correction en deux temps passe
+légitimement par un état incohérent : on renomme dans le schéma, puis dans la
+règle. Un hook bloquant rendrait cet ordre impossible et forcerait à tout faire
+dans une seule écriture, ce qui n'a aucun sens.
+
+**Il est silencieux quand tout va bien.** Un hook qui parle à chaque écriture
+devient un bruit qu'on apprend à ignorer en trois jours. Il ne sort que sur
+échec, et quand il sort, il dit les deux corrections possibles sans choisir à ma
+place : soit la règle nomme mal une chose qui existe, soit elle décrit un état du
+schéma jamais atteint. Le sens de la divergence se vérifie avant de trancher.
+
+## Incident 2 : six commits qui n'avaient jamais quitté ma machine
+
+Le 28 juillet 2026, deux stories ont été déclarées terminées. Le code était
+écrit, testé, commité proprement, référencé dans Jira. Les tickets étaient passés
+en terminé.
+
+Six commits dormaient sur une branche locale.
+
+Cet incident est plus embarrassant que le premier, parce qu'il ne demande aucune
+subtilité pour être évité. Il illustre pourtant bien comment une session d'agent
+se termine mal : toute la traçabilité déclarative était irréprochable, et rien de
+ce travail n'existait pour qui que ce soit d'autre. Un commit local ne livre
+rien.
+
+Le garde-fou est un hook `Stop`, qui se déclenche en fin de session et vérifie
+s'il reste des commits absents de `main` distante. La vérification tient en une
+commande, `git log origin/main..HEAD`, et la sortie non vide suffit à conclure.
+
+J'ai ajouté la même question en tête de la liste de contrôle de fin de travail,
+avant celles sur le journal, la mémoire et Jira. Elle y est en premier parce que
+c'est celle qui a été ratée : les trois autres peuvent être parfaites pendant que
+le code dort sur une branche locale.
+
+Le dépôt impose par ailleurs une pull request systématique, même en solo, même
+pour de la documentation. `main` est protégée avec `enforce_admins` actif : un
+push direct est refusé, y compris pour moi. Ce n'est pas de la cérémonie. C'est
+ce qui garantit que les contrôles d'intégration continue tournent sur chaque
+changement, sans exception possible un soir de fatigue.
+
+## Incident 3 : le fichier d'instructions qui grossit et se périme
+
+`CLAUDE.md` porte les instructions permanentes du projet : architecture,
+invariants, interdits, conventions. Il est lu à chaque session.
+
+Il avait atteint 312 lignes quand je m'en suis aperçu, et **quatre de ses
+affirmations étaient devenues fausses**. Elles décrivaient des commandes
+renommées et des choix techniques abandonnés depuis.
+
+Un fichier d'instructions grossit naturellement : chaque incident donne envie
+d'ajouter un paragraphe. Le problème, c'est que sa valeur ne croît pas avec sa
+taille. Passé un certain volume, les instructions se noient, et les plus
+anciennes se périment sans que personne les relise.
+
+Le garde-fou ici est un script de contrôle de la configuration elle-même,
+`verifier-config-claude.sh`, lancé par le même hook `Stop`. Il vérifie ce qui est
+mécaniquement mesurable : `CLAUDE.md` au-delà de 200 lignes, un renvoi vers un
+fichier qui n'existe pas, une décision d'architecture absente de la table
+d'aiguillage, une fiche mémoire hors index, un lien mort entre deux fiches.
+
+Il ne dit rien de ce qui relève du jugement. La pertinence d'une fiche mémoire ou
+la justesse d'une décision d'architecture se relisent, aucun script ne s'en
+charge. Il attrape la dérive mécanique, qui est justement celle qu'on ne voit
+plus à force de la côtoyer.
+
+`CLAUDE.md` fait aujourd'hui 200 lignes, et le contrôle m'avertit dès qu'il les
+dépasse.
+
+## La politique de secrets, qui ne ressemble pas à ce qu'on attend
+
+Un quatrième garde-fou n'est né d'aucun incident, mais d'un arbitrage. Il mérite
+d'être détaillé parce qu'il est contre-intuitif.
+
+L'écriture dans un fichier `.env` est **autorisée** pour l'agent. La lecture est
+**bloquée**.
+
+L'intuition dit l'inverse : la lecture semble inoffensive, l'écriture semble
+dangereuse. En pratique, une valeur lue entre dans le contexte de l'assistant,
+donc dans l'historique de session stocké sur le disque, et peut ressortir plus
+tard dans une sortie de commande ou un message d'erreur. Alors qu'écrire ne
+nécessite jamais de connaître l'existant : ajouter une variable, en modifier une,
+générer un secret avec `openssl`, tout cela se fait sans lire.
+
+Et presque aucune tâche n'exige vraiment de lire une valeur. Pour diagnostiquer
+une variable manquante, lister les noms suffit :
+
+```bash
+# Les variables définies, sans leur contenu
+grep -oE '^[A-Z_]+=' .env
+
+# Ce qui manque par rapport au fichier d'exemple
+comm -23 <(grep -oE '^[A-Z_]+=' .env.example | sort) \
+         <(grep -oE '^[A-Z_]+=' .env | sort)
+```
+
+Les clés privées et les certificats sont bloqués dans les deux sens, eux. Une clé
+privée ne s'édite pas à la main, elle se génère, et la sortie de `ssh-keygen` ou
+d'`openssl` va directement dans le fichier sans passer par l'assistant.
+
+Ce qui m'intéresse ici, c'est **où** cette politique est implémentée. Les règles
+de permission de `settings.json` ne peuvent pas l'exprimer : une règle `deny` ne
+distingue pas la lecture de l'écriture sur un même chemin. C'est donc un hook
+`PreToolUse` qui porte la nuance. Il a un autre avantage : un hook qui sort en
+code 2 bloque l'appel **avant** l'évaluation des règles de permission, il prime
+donc sur toute règle d'autorisation. C'est la couche principale, pas le filet de
+secours.
+
+Quand il bloque, il n'écrit pas seulement « refusé ». Il rappelle que l'écriture
+reste possible, explique pourquoi la lecture ne l'est pas, et propose les
+commandes de diagnostic ci-dessus. Un blocage qui n'offre pas d'issue produit des
+contournements.
+
+## Ce que ces quatre garde-fous ont en commun
+
+Aucun ne cherche à améliorer le code produit. Ils traitent tous la même chose :
+**l'écart entre ce que le projet est et ce que le projet dit de lui-même.**
+
+C'est le point que j'aurais aimé comprendre plus tôt. Encadrer un agent de code
+ne consiste pas à lui interdire des choses ni à multiplier les instructions. Ça
+consiste à rendre les divergences détectables par une machine, parce qu'une
+divergence qu'aucun contrôle n'attrape finit toujours par être lue comme une
+vérité.
+
+Deux principes se dégagent, qui valent au-delà de mon projet.
+
+**Un contrôle qui n'a jamais échoué sur le défaut qu'il prétend attraper n'est
+pas un contrôle.** Il faut le prouver par mutation : casser volontairement la
+chose, vérifier que le contrôle sort au rouge, remettre en état. Sans cette
+preuve, on ne sait pas si le contrôle protège ou s'il est décoratif. C'est le
+prolongement direct de ce que m'avait appris la [suite de 3 003 tests de
+SmartPlanning](/blog/06-strategie-de-tests/), avec une différence qui compte :
+ces contrôles portent sur la documentation et la traçabilité, là où les tests
+ne vont pas.
+
+**Un avertissement vaut souvent mieux qu'un blocage.** Trois de mes quatre hooks
+avertissent sans bloquer. Un blocage mal placé pousse à le contourner, et un
+garde-fou contourné ne garde plus rien.
+
+L'article suivant détaille l'implémentation : [le code des trois hooks et la
+règle qui décide entre hook et permission](/blog/claude-code-02-hooks-et-permissions/).
