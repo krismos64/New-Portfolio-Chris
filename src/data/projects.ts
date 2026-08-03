@@ -5,6 +5,12 @@ export interface Project {
   badge: string;
   badgeColor: "blue" | "green" | "purple" | "amber";
   image: string;
+  /** Affiche l'image entière sans rognage : logos et visuels non photographiques */
+  imageContain?: boolean;
+  /** Remplace les boutons de liens quand le projet n'est pas encore en ligne */
+  status?: string;
+  /** Domaine réservé, affiché sans lien tant que le site n'est pas ouvert */
+  upcomingDomain?: string;
   tech: string[];
   description: string;
   highlights: string[];
@@ -65,6 +71,27 @@ export const projects: Project[] = [
       github: "https://github.com/krismos64/Staka-livres",
       video: "https://www.youtube.com/watch?v=yxl47xKgfN4",
     },
+  },
+  {
+    id: "lune-soleil",
+    title: "Lune & Soleil",
+    tagline: "Boutique e-commerce de bijoux artisanaux faits main",
+    badge: "En développement",
+    badgeColor: "amber",
+    image: "/images/projects/lune-soleil.webp",
+    imageContain: true,
+    tech: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL 18", "Prisma 7", "Stripe", "Docker"],
+    description:
+      "Boutique e-commerce en cours de construction pour une créatrice de bijoux. Montants en centimes entiers, factures immuables avec avoirs, réservation atomique du dernier exemplaire en stock et paiements confirmés uniquement par événement serveur signé.",
+    highlights: [
+      "Monolithe modulaire en couches",
+      "Idempotence des paiements ancrée sur l'effet",
+      "Test de concurrence sur le stock en CI",
+      "Développement encadré par des garde-fous IA",
+    ],
+    status: "En cours de développement, mise en production prévue pour septembre 2026",
+    upcomingDomain: "lune-soleil.fr",
+    links: {},
   },
   {
     id: "freelance",
@@ -134,6 +161,7 @@ export const projects: Project[] = [
     badge: "Projet personnel",
     badgeColor: "purple",
     image: "/images/projects/kocinaspeed.webp",
+    imageContain: true,
     tech: ["Symfony", "PHP", "MySQL", "JavaScript", "Chatbot IA"],
     description:
       "Site de recettes de cuisine avec chatbot interactif, espace admin CRUD complet, gestion images et vidéos.",

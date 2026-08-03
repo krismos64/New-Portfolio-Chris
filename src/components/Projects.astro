@@ -75,7 +75,7 @@ const others = projects.slice(1);
       </div>
 
       <div class="featured-blog-cta">
-        <a href="/blog" class="blog-cta-btn">
+        <a href="/blog/smartplanning/" class="blog-cta-btn">
           <span class="blog-cta-icon" aria-hidden="true">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           </span>
@@ -92,7 +92,7 @@ const others = projects.slice(1);
   <!-- Autres projets -->
   <div class="projects-grid">
     {others.map((project) => (
-      <article class={`card fade-up ${project.id === 'kocinaspeed' ? 'card-contain' : ''}`}>
+      <article class={`card fade-up ${project.imageContain ? 'card-contain' : ''}`}>
         <div class="card-image">
           <img src={project.image} alt={`Capture d'écran de ${project.title} : ${project.tagline}`} loading="lazy" />
           <span class={`badge badge-${project.badgeColor}`}>{project.badge}</span>
@@ -127,11 +127,53 @@ const others = projects.slice(1);
                 Démo
               </a>
             )}
+            {!project.links.website && !project.links.github && !project.links.video && project.status && (
+              <p class="card-status">
+                <span class="card-status-line">
+                  <span class="card-status-dot" aria-hidden="true"></span>
+                  {project.status}
+                </span>
+                {project.upcomingDomain && (
+                  <span class="card-status-domain">{project.upcomingDomain}</span>
+                )}
+              </p>
+            )}
           </div>
         </div>
       </article>
     ))}
   </div>
+
+  <!-- Accès aux deux séries du blog technique -->
+  <aside class="blog-series fade-up" aria-labelledby="blog-series-title">
+    <div class="blog-series-head">
+      <h3 id="blog-series-title" class="blog-series-title">Le blog technique</h3>
+      <p class="blog-series-intro">
+        Deux séries qui détaillent comment je travaille : la conception complète d'un
+        SaaS, et la façon dont j'encadre un agent de code sur un projet en production.
+      </p>
+    </div>
+    <div class="blog-series-links">
+      <a href="/blog/smartplanning/" class="blog-series-link" style="--series-accent: var(--accent)">
+        <span class="blog-series-count">8 articles</span>
+        <span class="blog-series-name">SmartPlanning : du concept au déploiement</span>
+        <span class="blog-series-desc">Analyse des besoins, architecture, tests, CI/CD et mise en production</span>
+        <span class="blog-series-go">
+          Lire la série
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+      <a href="/blog/claude-code/" class="blog-series-link" style="--series-accent: var(--green)">
+        <span class="blog-series-count">3 articles</span>
+        <span class="blog-series-name">Encadrer un agent de code sur un vrai projet</span>
+        <span class="blog-series-desc">Hooks, permissions et garde-fous qui rendent Claude Code fiable</span>
+        <span class="blog-series-go">
+          Lire la série
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </a>
+    </div>
+  </aside>
 </section>
 
 <style>
@@ -509,6 +551,47 @@ const others = projects.slice(1);
     border-top: 1px solid var(--border);
   }
 
+  /* Projet sans lien public : une mention de statut remplace les boutons,
+     sinon la zone garderait son filet supérieur au-dessus du vide */
+  .card-status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0.5rem 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  /* La pastille reste alignée sur la première ligne quand le texte enroule */
+  .card-status-line {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.5rem;
+  }
+
+  .card-status-dot {
+    width: 7px;
+    height: 7px;
+    margin-top: 0.42rem;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--amber) 18%, transparent);
+  }
+
+  .card-status-domain {
+    align-self: flex-start;
+    padding: 0.2rem 0.55rem;
+    border: 1px dashed var(--border-light);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    /* 15 % de blanc pour tenir 4,5:1 (WCAG AA) sur le fond des cartes */
+    color: color-mix(in srgb, var(--amber) 85%, white);
+  }
+
   .card-link {
     display: inline-flex;
     align-items: center;
@@ -634,6 +717,117 @@ const others = projects.slice(1);
     }
     .featured-title {
       font-size: 1.375rem;
+    }
+  }
+
+  /* ===== Accès aux séries du blog ===== */
+  .blog-series {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .blog-series-head {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .blog-series-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-series-intro {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .blog-series-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .blog-series-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+
+  .blog-series-link:hover {
+    border-color: color-mix(in srgb, var(--series-accent) 45%, var(--border));
+    transform: translateY(-2px);
+    color: inherit;
+  }
+
+  .blog-series-link:focus-visible {
+    outline: 2px solid var(--series-accent);
+    outline-offset: 3px;
+  }
+
+  .blog-series-count {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    /* 15 % de blanc pour tenir 4,5:1 (WCAG AA) sur le fond des cartes */
+    color: color-mix(in srgb, var(--series-accent) 85%, white);
+  }
+
+  .blog-series-name {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  .blog-series-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-series-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--series-accent) 85%, white);
+  }
+
+  .blog-series-go svg {
+    transition: transform var(--transition);
+  }
+
+  .blog-series-link:hover .blog-series-go svg {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 640px) {
+    .blog-series {
+      padding: 1.5rem 1.25rem;
+    }
+    .blog-series-links {
+      grid-template-columns: 1fr;
     }
   }
 </style>
