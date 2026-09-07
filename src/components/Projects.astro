@@ -164,7 +164,7 @@ const others = projects.slice(1);
         </span>
       </a>
       <a href="/blog/claude-code/" class="blog-series-link" style="--series-accent: var(--green)">
-        <span class="blog-series-count">3 articles</span>
+        <span class="blog-series-count">4 articles</span>
         <span class="blog-series-name">Encadrer un agent de code sur un vrai projet</span>
         <span class="blog-series-desc">Hooks, permissions et garde-fous qui rendent Claude Code fiable</span>
         <span class="blog-series-go">
@@ -172,6 +172,27 @@ const others = projects.slice(1);
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </span>
       </a>
+    </div>
+    <!-- Liens directs vers chaque article : une page de série seule ne suffit
+         pas à faire explorer les articles qu'elle liste. Six d'entre eux étaient
+         « détectés, actuellement non indexés » au 7 septembre 2026, sans aucune
+         exploration par Google. -->
+    <div class="blog-articles">
+      <p class="blog-articles-label">Tous les articles</p>
+      <ul class="blog-articles-list">
+        <li><a href="/blog/01-analyse-des-besoins/">Analyse des besoins : comprendre avant de coder</a></li>
+        <li><a href="/blog/02-gestion-de-projet-agile/">Gestion de projet Agile : organiser le développement</a></li>
+        <li><a href="/blog/03-conception-base-de-donnees/">Conception de la base de données : modéliser un SaaS multi-tenant</a></li>
+        <li><a href="/blog/04-architecture-nextjs-saas/">Architecture Next.js : structurer un SaaS scalable</a></li>
+        <li><a href="/blog/05-developpement-fonctionnalites/">Développement des fonctionnalités : problèmes et solutions</a></li>
+        <li><a href="/blog/06-strategie-de-tests/">Stratégie de tests : garantir la qualité</a></li>
+        <li><a href="/blog/07-cicd-docker-deploiement/">CI/CD, Docker et déploiement : du code à la production</a></li>
+        <li><a href="/blog/08-demos-fonctionnalites/">Démos vidéo : SmartPlanning en action</a></li>
+        <li><a href="/blog/claude-code-01-pourquoi-encadrer-un-agent/">Pourquoi j'encadre mon agent de code</a></li>
+        <li><a href="/blog/claude-code-02-hooks-et-permissions/">Hooks Claude Code : où placer un garde-fou</a></li>
+        <li><a href="/blog/claude-code-03-skills-et-sous-agents/">Skills et sous-agents : déléguer le processus</a></li>
+        <li><a href="/blog/claude-code-04-preuve-par-mutation/">La preuve par mutation : vérifier que les tests servent</a></li>
+      </ul>
     </div>
   </aside>
 </section>
@@ -754,6 +775,47 @@ const others = projects.slice(1);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1rem;
+  }
+
+  .blog-articles {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .blog-articles-label {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .blog-articles-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.35rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .blog-articles-list a {
+    display: block;
+    padding: 0.3rem 0;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .blog-articles-list a:hover,
+  .blog-articles-list a:focus-visible {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .blog-series-link {
