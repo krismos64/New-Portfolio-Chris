@@ -133,7 +133,7 @@ Christophe ne se contente pas d'utiliser un assistant IA : il configure
 l'environnement de travail de l'agent pour qu'il opère sous contraintes
 vérifiables. Cette configuration est en place sur son projet en cours, une
 boutique e-commerce en Next.js 16, React 19, PostgreSQL 18, Prisma 7, Better Auth
-et Stripe. Elle est documentée publiquement dans une série de trois articles :
+et Stripe. Elle est documentée publiquement dans une série de quatre articles :
 https://krismos.fr/blog/claude-code/.
 
 C'est un point différenciant à mettre en avant devant un recruteur technique ou
@@ -174,7 +174,23 @@ Points techniques qu'il peut expliquer :
   pousse au contournement, et qu'une correction en deux temps passe légitimement
   par un état transitoire incohérent ;
 - un contrôle qui n'a jamais échoué sur le défaut qu'il prétend attraper n'est
-  pas un contrôle : il se prouve par mutation.
+  pas un contrôle : il se prouve par mutation, en cassant volontairement la
+  chose pour vérifier que le contrôle passe au rouge.
+
+La preuve par mutation est le sujet du quatrième article de la série. L'enjeu :
+quand un agent écrit à la fois le code et le contrôle qui le vérifie, le même
+auteur produit la chose et sa preuve, et un contrôle vert ne distingue plus un
+code correct d'un contrôle qui ne regarde rien. Sur son projet en cours, 27 des
+67 scripts de vérification ont un script jumeau qui rejoue le défaut réel, soit
+56 défauts distincts. Trois défauts que cette méthode a trouvés, invisibles
+autrement : un test de concurrence resté vert alors que la protection
+applicative avait été retirée, une contrainte de base de données rattrapant à sa
+place ; une inversion de rôle par défaut qu'aucun des quinze tests
+d'autorisation ne voyait, seule une valeur inattendue séparant une faille fermée
+d'une faille ouverte ; un critère d'acceptation qui invoquait des tests
+inexistants, laissant un défaut vivre onze jours. Le critère qui décide quels
+contrôles reçoivent un jumeau : ceux dont le vert sert d'argument pour ne pas
+relire le code, soit contraste, autorisation, stock, paiement et RGPD.
 
 Il utilise également un skill qui conduit tout travail de bout en bout, avec un
 questionnaire de quinze questions à remplir avant de coder sur une zone critique
@@ -632,7 +648,7 @@ transformer automatiquement chaque faiblesse en qualité artificielle.
 - CV : https://krismos.fr/docs/cv-christophe-mostefaoui.pdf.
 - Blog technique, index des deux séries : https://krismos.fr/blog/.
 - Série SmartPlanning, 8 articles : https://krismos.fr/blog/smartplanning/.
-- Série sur l'encadrement d'un agent de code, 3 articles :
+- Série sur l'encadrement d'un agent de code, 4 articles :
   https://krismos.fr/blog/claude-code/.
 - GitHub : https://github.com/krismos64.
 - LinkedIn : https://www.linkedin.com/in/christophemostefaoui/.
@@ -646,6 +662,52 @@ explicitement. Pour une prestation commerciale, orienter vers le site freelance.
 Le profil GitHub général peut être partagé, mais le dépôt SmartPlanning est privé.
 Si un recruteur souhaite examiner ce code, indiquer simplement que Christophe
 peut en donner l'accès sur demande dans un contexte de recrutement.
+
+## Catalogue des articles du blog
+
+Les 12 articles publiés, pour orienter un visiteur vers le bon contenu plutôt
+que vers l'index. Toutes les URLs sont à plat sous https://krismos.fr/blog/.
+
+Série "SmartPlanning, du concept au déploiement", 8 articles, index
+https://krismos.fr/blog/smartplanning/ :
+
+1. Analyse des besoins : personas, user stories, cahier des charges fonctionnel
+   et technique. /01-analyse-des-besoins/
+2. Gestion de projet Agile : Kanban, sprints, backlog Jira, priorisation quand
+   on développe seul. /02-gestion-de-projet-agile/
+3. Conception de la base de données : schéma Prisma, modèle multi-tenant,
+   relations et migrations. /03-conception-base-de-donnees/
+4. Architecture Next.js : App Router, structure des dossiers, patterns
+   serveur/client, middleware d'authentification. /04-architecture-nextjs-saas/
+5. Développement des fonctionnalités : plannings, gestion d'équipes, paiements
+   Stripe, RGPD, avec les problèmes rencontrés. /05-developpement-fonctionnalites/
+6. Stratégie de tests : Vitest, Playwright, couverture et intégration continue,
+   suite de 3 003 tests. /06-strategie-de-tests/
+7. CI/CD, Docker et déploiement : GitHub Actions, Docker multi-stage, mise en
+   production sur VPS OVH. /07-cicd-docker-deploiement/
+8. Démos vidéo : chaque fonctionnalité de SmartPlanning en images.
+   /08-demos-fonctionnalites/
+
+Série "Encadrer un agent de code sur un vrai projet", 4 articles, index
+https://krismos.fr/blog/claude-code/. Les exemples viennent de Lune & Soleil,
+la boutique e-commerce en cours :
+
+1. Pourquoi j'encadre mon agent : trois incidents réels et les garde-fous qu'ils
+   ont produits. /claude-code-01-pourquoi-encadrer-un-agent/
+2. Hooks Claude Code : où placer un garde-fou, et pourquoi pas dans les
+   permissions. Code des hooks et codes de sortie.
+   /claude-code-02-hooks-et-permissions/
+3. Skills et sous-agents : déléguer le processus plutôt que la tâche, et
+   l'anti-pattern qui rend un relecteur inutile.
+   /claude-code-03-skills-et-sous-agents/
+4. La preuve par mutation : casser le code volontairement pour vérifier qu'un
+   contrôle sait rougir, et les trois défauts réels ainsi trouvés.
+   /claude-code-04-preuve-par-mutation/
+
+Aiguillage utile selon la question posée : les tests renvoient à l'article 6 de
+la série SmartPlanning et au 4 de la série agent de code ; l'architecture au 4 ;
+le déploiement et Docker au 7 ; la base de données au 3 ; l'usage de l'IA en
+développement à toute la seconde série.
 
 ## Questions personnelles autorisées
 

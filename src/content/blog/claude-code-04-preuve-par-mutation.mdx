@@ -1,0 +1,161 @@
+---
+title: "La preuve par mutation : vérifier que les tests de l'agent servent à quelque chose"
+description: "Un agent qui écrit le code et le test qui le vérifie juge son propre travail. Casser le code exprès pour voir si le test rougit : 3 défauts réels trouvés ainsi."
+date: 2026-09-07
+series: "claude-code"
+category: "ia-outillage"
+tags:
+  ["Claude Code", "Tests", "Mutation testing", "Qualité logicielle", "Agents IA"]
+image: "/images/blog/claude-code-mutation.svg"
+draft: false
+order: 4
+---
+
+## Le problème en une phrase
+
+Quand je demande à Claude Code d'écrire du code **et** le test qui le vérifie,
+c'est le même auteur des deux côtés. Le test passe au vert, l'agent annonce que
+c'est bon, et personne n'a vérifié que ce test regarde vraiment quelque chose.
+
+C'est le point aveugle du travail avec un agent. Il ne vient pas de l'agent :
+un développeur humain qui écrit son propre test a exactement le même angle mort.
+La différence est le volume. Sur ma boutique e-commerce
+[Lune & Soleil](/blog/claude-code-01-pourquoi-encadrer-un-agent/), l'agent a
+produit **67 scripts de vérification** en quelques semaines. Je ne les relis pas
+un par un.
+
+![La boucle fermée : l'agent écrit le code, écrit le contrôle, le contrôle passe, il conclut que c'est bon. La mutation rejoue le vrai défaut et exige que le contrôle rougisse.](/images/blog/claude-code-boucle-fermee.svg)
+
+## Un contrôle vert ne dit pas ce qu'on croit
+
+Un test qui passe a **deux explications possibles**, et elles se ressemblent
+comme deux gouttes d'eau :
+
+1. le code est bon, le test a regardé et n'a rien trouvé
+2. le test ne regarde rien du tout
+
+Le cas 2 arrive plus souvent qu'on l'imagine. Un chemin de fichier qui n'existe
+plus, une assertion qui compare une valeur à elle-même, un code d'erreur avalé
+en cours de route. Le résultat affiché est identique : vert.
+
+![Un contrôle qui passe a deux causes possibles. On casse le code exprès : s'il rougit il protège, s'il reste vert il ne protège pas.](/images/blog/claude-code-mutation.svg)
+
+La sortie de ce doute tient en une idée simple : **casser le code exprès**, et
+regarder si le contrôle s'en aperçoit. S'il rougit, il fait son travail. S'il
+reste vert alors que le défaut est là, sous son nez, il ne sert à rien.
+
+Cette technique porte le nom de test par mutation. Elle existe depuis les années
+1970, et des outils l'automatisent. Ce que j'en fais ici est plus artisanal et
+plus ciblé : je rejoue **le défaut réel** que le contrôle a été écrit pour
+attraper, pas des mutations générées au hasard.
+
+## À quoi ça ressemble en pratique
+
+Chaque contrôle du projet a un jumeau. `verifier-contraste.sh` mesure les
+contrastes de couleur du site, et `verifier-contraste-mutation.sh` prouve que ce
+premier script sait rougir.
+
+Le squelette tient en trois temps, répétés pour chaque défaut testé :
+
+```bash
+sauvegarder            # copie des fichiers qu'on va abîmer
+introduire_le_defaut   # la couleur trop claire, le seuil retiré...
+attendre_echec "..."   # le contrôle DOIT échouer ici
+restaurer              # on remet tout en état
+```
+
+Six défauts différents sont rejoués dans ce script. Deux exemples, pour rendre
+la chose concrète :
+
+- **une couleur grise sur un fond sable**, qui donne un contraste de 4,35 alors
+  que le minimum légal est 4,5. C'est le défaut réel qui était passé en
+  production, remis à l'identique
+- **le chiffre du seuil effacé du document de conception**. Sans le nombre écrit
+  noir sur blanc, la règle se lit « texte large ou gras », ce qui se comprend
+  de bonne foi comme « tout texte gras est permis ». Le prototype avait fait
+  cette lecture 35 fois
+
+Le second cas est celui qui m'intéresse le plus. Il ne mute pas du code : il
+mute **une phrase de documentation**, et vérifie que le contrôle s'écroule
+quand la règle qu'il applique n'est plus écrite nulle part.
+
+## Le garde-fou qui m'a le plus servi
+
+Une mutation ne prouve rien si le contrôle était déjà rouge avant qu'on touche
+à quoi que ce soit. D'où ces quelques lignes en tête de chaque script :
+
+```bash
+if ! "$CONTROLE" >/dev/null 2>&1; then
+  echo "  ECHEC le contrôle n'est pas vert AVANT mutation."
+  echo "        Aucune mutation ne peut rien prouver dans cet état."
+  exit 1
+fi
+```
+
+Ça paraît évident écrit comme ça. Ça ne l'était pas : **un de mes contrôles est
+resté mort pendant trois semaines** sans que je le voie. Une page avait changé
+de dossier, le script pointait vers un fichier disparu, et il s'arrêtait sur ce
+garde-fou avant de jouer la moindre mutation. Il rendait un code d'erreur, ce
+qui ressemble beaucoup à une mutation ratée. Personne ne regarde de près un
+script qui a l'air de faire son travail.
+
+## Trois défauts trouvés, tous invisibles autrement
+
+Voilà pourquoi je continue à écrire ces jumeaux plutôt que de les considérer
+comme du zèle.
+
+**Un test de concurrence entièrement vert sur du code cassé.** Le test vérifiait
+qu'on ne vend pas deux fois le dernier exemplaire d'un bijou. J'ai retiré la
+protection dans le code : le test est resté vert. La base de données rattrapait
+à la place, avec le même résultat final. Seule la **nature** du refus changeait.
+Le test ne distinguait pas « refusé proprement » de « rattrapé de justesse par
+un filet de sécurité ».
+
+**Une inversion de rôle sans effet visible.** Sur quinze tests d'autorisation,
+inverser le rôle par défaut ne changeait strictement rien. Les deux versions
+donnent le même résultat sur toutes les valeurs prévues. Seule une valeur
+inattendue sépare une faille fermée d'une faille ouverte, et aucun test n'en
+essayait.
+
+**Un critère d'acceptation qui s'appuyait sur des tests inexistants.** Le ticket
+disait « prouvé par les tests de l'écran de commande ». Ce fichier n'avait
+**aucun test**, alors que dix autres fichiers l'utilisent. Le défaut a vécu onze
+jours derrière cette phrase rassurante.
+
+## Ce que ça coûte, et ce que je ne fais pas
+
+Le jumeau coûte à peu près autant à écrire que le contrôle lui-même. C'est cher,
+et je ne l'applique donc pas partout : **27 contrôles sur 67** ont leur mutation,
+soit 56 défauts rejoués à chaque passage. Les dix autres contrôles sans jumeau
+sont assumés, pas oubliés.
+
+La règle que j'applique pour trancher : **un contrôle reçoit son jumeau quand
+son vert sert d'argument pour ne pas relire**. Contraste, autorisation, stock,
+paiement, conformité RGPD. Un contrôle de mise en forme peut rester nu, son
+échec se voit à l'œil sur la page.
+
+Deux pièges m'ont coûté du temps, si vous tentez l'exercice :
+
+- **restaurer par copie de fichiers, pas par `git checkout`**. La commande git
+  est atomique et échoue en bloc dès qu'un fichier n'est pas suivi, ce qui laisse
+  aussi les autres non restaurés
+- **ne jamais mettre le contrôle dans un tuyau vers `grep`**. Le code de retour
+  devient celui de `grep`, pas celui du contrôle. Sept mutations sont passées
+  pour « non détectées » à tort avant que je comprenne
+
+## Ce que j'en retiens
+
+La mutation ne rend pas l'agent plus fiable. Elle rend son travail
+**vérifiable sans le relire**, ce qui n'est pas la même chose et vaut mieux à
+mon échelle.
+
+Le mécanisme tient en une phrase : le défaut d'hier, écrit une fois, devient le
+juge permanent du contrôle censé l'empêcher de revenir. Je ne relis pas les
+67 scripts. Je lance les 27 jumeaux, et je sais lesquels de mes contrôles sont
+autre chose qu'un vert décoratif.
+
+Cet article clôt pour l'instant la série sur l'encadrement d'un agent de code.
+Les trois précédents posent le décor :
+[pourquoi encadrer](/blog/claude-code-01-pourquoi-encadrer-un-agent/),
+[où placer les garde-fous](/blog/claude-code-02-hooks-et-permissions/) et
+[déléguer le processus](/blog/claude-code-03-skills-et-sous-agents/).

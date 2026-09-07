@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="Quand l'agent ecrit le code et le controle qui le verifie, il juge son propre travail. La mutation est le tiers qui rouvre la boucle.">
+  <defs>
+    <radialGradient id="bgb" cx="50%" cy="15%" r="80%">
+      <stop offset="0%" stop-color="#12111a" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bgb)" rx="12"/>
+
+  <text x="400" y="30" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">LA BOUCLE FERMEE, ET CE QUI LA ROUVRE</text>
+
+  <!-- Cadre gauche : la boucle fermee -->
+  <g transform="translate(34, 54)">
+    <rect x="0" y="0" width="340" height="300" rx="10" fill="#18181b" stroke="#f87171" stroke-width="1.5"/>
+    <rect x="0" y="0" width="340" height="40" rx="10" fill="#2a0f0f"/>
+    <text x="170" y="26" text-anchor="middle" font-family="monospace" font-size="11" fill="#f87171" font-weight="700">SANS MUTATION</text>
+
+    <!-- boucle -->
+    <rect x="42" y="66" width="118" height="40" rx="6" fill="#0b1220" stroke="#3f3f46" stroke-width="1"/>
+    <text x="101" y="91" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">l'agent code</text>
+
+    <rect x="182" y="66" width="118" height="40" rx="6" fill="#0b1220" stroke="#3f3f46" stroke-width="1"/>
+    <text x="241" y="85" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">il ecrit le</text>
+    <text x="241" y="98" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">controle</text>
+
+    <rect x="182" y="146" width="118" height="40" rx="6" fill="#07200f" stroke="#22c55e" stroke-width="1"/>
+    <text x="241" y="171" text-anchor="middle" font-family="monospace" font-size="9" fill="#4ade80">le controle passe</text>
+
+    <rect x="42" y="146" width="118" height="40" rx="6" fill="#0b1220" stroke="#3f3f46" stroke-width="1"/>
+    <text x="101" y="165" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">il conclut</text>
+    <text x="101" y="178" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">que c'est bon</text>
+
+    <!-- fleches boucle -->
+    <line x1="160" y1="86" x2="176" y2="86" stroke="#71717a" stroke-width="1.5"/>
+    <path d="M 176 82 L 184 86 L 176 90 Z" fill="#71717a"/>
+
+    <line x1="241" y1="106" x2="241" y2="140" stroke="#71717a" stroke-width="1.5"/>
+    <path d="M 237 140 L 241 148 L 245 140 Z" fill="#71717a"/>
+
+    <line x1="182" y1="166" x2="166" y2="166" stroke="#71717a" stroke-width="1.5"/>
+    <path d="M 166 162 L 158 166 L 166 170 Z" fill="#71717a"/>
+
+    <line x1="101" y1="146" x2="101" y2="112" stroke="#71717a" stroke-width="1.5"/>
+    <path d="M 97 112 L 101 104 L 105 112 Z" fill="#71717a"/>
+
+    <text x="170" y="224" text-anchor="middle" font-family="monospace" font-size="9" fill="#fca5a5">personne n'a verifie</text>
+    <text x="170" y="240" text-anchor="middle" font-family="monospace" font-size="9" fill="#fca5a5">que le controle regarde</text>
+
+    <rect x="42" y="256" width="258" height="28" rx="4" fill="#111113"/>
+    <text x="171" y="274" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">meme auteur pour le code et pour sa preuve</text>
+  </g>
+
+  <!-- Cadre droit : la boucle rouverte -->
+  <g transform="translate(426, 54)">
+    <rect x="0" y="0" width="340" height="300" rx="10" fill="#18181b" stroke="#22c55e" stroke-width="1.5"/>
+    <rect x="0" y="0" width="340" height="40" rx="10" fill="#07200f"/>
+    <text x="170" y="26" text-anchor="middle" font-family="monospace" font-size="11" fill="#86efac" font-weight="700">AVEC MUTATION</text>
+
+    <rect x="42" y="66" width="118" height="40" rx="6" fill="#0b1220" stroke="#3f3f46" stroke-width="1"/>
+    <text x="101" y="91" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">l'agent code</text>
+
+    <rect x="182" y="66" width="118" height="40" rx="6" fill="#0b1220" stroke="#3f3f46" stroke-width="1"/>
+    <text x="241" y="85" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">il ecrit le</text>
+    <text x="241" y="98" text-anchor="middle" font-family="monospace" font-size="9" fill="#e4e4e7">controle</text>
+
+    <line x1="160" y1="86" x2="176" y2="86" stroke="#71717a" stroke-width="1.5"/>
+    <path d="M 176 82 L 184 86 L 176 90 Z" fill="#71717a"/>
+
+    <!-- le tiers -->
+    <rect x="62" y="134" width="216" height="56" rx="8" fill="#1a1206" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="170" y="156" text-anchor="middle" font-family="monospace" font-size="10" fill="#fbbf24" font-weight="700">LE DEFAUT REEL, REJOUE</text>
+    <text x="170" y="176" text-anchor="middle" font-family="monospace" font-size="8" fill="#a1a1aa">ecrit une fois, rejoue a chaque fois</text>
+
+    <line x1="241" y1="106" x2="241" y2="126" stroke="#f59e0b" stroke-width="1.5"/>
+    <path d="M 237 126 L 241 134 L 245 126 Z" fill="#f59e0b"/>
+
+    <line x1="170" y1="190" x2="170" y2="210" stroke="#f59e0b" stroke-width="1.5"/>
+    <path d="M 166 210 L 170 218 L 174 210 Z" fill="#f59e0b"/>
+
+    <rect x="62" y="218" width="216" height="44" rx="6" fill="#07200f" stroke="#22c55e" stroke-width="1"/>
+    <text x="170" y="238" text-anchor="middle" font-family="monospace" font-size="9" fill="#4ade80">le controle doit ROUGIR</text>
+    <text x="170" y="254" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">sinon il ne sert a rien, et on le sait</text>
+
+    <text x="170" y="284" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">le defaut d'hier devient le juge d'aujourd'hui</text>
+  </g>
+
+  <text x="400" y="378" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">3 defauts reels trouves de cette facon sur le projet, dont un controle mort depuis 3 semaines</text>
+</svg>

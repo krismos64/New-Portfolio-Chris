@@ -185,7 +185,9 @@ Deux principes se dégagent, qui valent au-delà de mon projet.
 **Un contrôle qui n'a jamais échoué sur le défaut qu'il prétend attraper n'est
 pas un contrôle.** Il faut le prouver par mutation : casser volontairement la
 chose, vérifier que le contrôle sort au rouge, remettre en état. Sans cette
-preuve, on ne sait pas si le contrôle protège ou s'il est décoratif. C'est le
+preuve, on ne sait pas si le contrôle protège ou s'il est décoratif. Le
+[quatrième article](/blog/claude-code-04-preuve-par-mutation/) détaille la
+méthode et les défauts qu'elle a trouvés. C'est le
 prolongement direct de ce que m'avait appris la [suite de 3 003 tests de
 SmartPlanning](/blog/06-strategie-de-tests/), avec une différence qui compte :
 ces contrôles portent sur la documentation et la traçabilité, là où les tests

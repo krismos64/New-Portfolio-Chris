@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="800" height="420" role="img" aria-label="La preuve par mutation : un controle vert peut etre vert parce que le code est bon, ou parce qu'il ne regarde rien. Casser le code volontairement separe les deux cas.">
+  <defs>
+    <radialGradient id="bgm" cx="50%" cy="15%" r="80%">
+      <stop offset="0%" stop-color="#1a1206" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="420" fill="url(#bgm)" rx="12"/>
+
+  <text x="400" y="32" text-anchor="middle" font-family="monospace" font-size="11" fill="#a1a1aa" letter-spacing="2">POURQUOI CE VERT EST VERT</text>
+
+  <!-- Colonne gauche : le doute -->
+  <g transform="translate(30, 58)">
+    <rect x="0" y="0" width="230" height="286" rx="10" fill="#18181b" stroke="#71717a" stroke-width="1.5"/>
+    <rect x="0" y="0" width="230" height="42" rx="10" fill="#111113"/>
+    <text x="115" y="27" text-anchor="middle" font-family="monospace" font-size="11" fill="#d4d4d8" font-weight="700">LE CONTROLE PASSE</text>
+
+    <circle cx="115" cy="92" r="22" fill="#07200f" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="115" y="98" text-anchor="middle" font-family="monospace" font-size="16" fill="#4ade80" font-weight="700">OK</text>
+
+    <text x="115" y="146" text-anchor="middle" font-family="monospace" font-size="10" fill="#e4e4e7">deux causes possibles</text>
+
+    <text x="16" y="184" font-family="monospace" font-size="9" fill="#4ade80">1. le code est bon</text>
+    <text x="16" y="202" font-family="monospace" font-size="8" fill="#71717a">le controle a vraiment</text>
+    <text x="16" y="216" font-family="monospace" font-size="8" fill="#71717a">regarde, et n'a rien trouve</text>
+
+    <text x="16" y="248" font-family="monospace" font-size="9" fill="#f87171">2. il ne regarde rien</text>
+    <text x="16" y="266" font-family="monospace" font-size="8" fill="#71717a">mauvais chemin, assertion</text>
+    <text x="16" y="280" font-family="monospace" font-size="8" fill="#71717a">vide, code retour perdu</text>
+  </g>
+
+  <!-- Fleche -->
+  <g transform="translate(268, 190)">
+    <line x1="0" y1="10" x2="42" y2="10" stroke="#f59e0b" stroke-width="2"/>
+    <path d="M 42 4 L 52 10 L 42 16 Z" fill="#f59e0b"/>
+    <text x="26" y="-8" text-anchor="middle" font-family="monospace" font-size="8" fill="#fbbf24">on casse</text>
+    <text x="26" y="34" text-anchor="middle" font-family="monospace" font-size="8" fill="#fbbf24">exprès</text>
+  </g>
+
+  <!-- Colonne milieu : la mutation -->
+  <g transform="translate(330, 58)">
+    <rect x="0" y="0" width="230" height="286" rx="10" fill="#18181b" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="0" y="0" width="230" height="42" rx="10" fill="#1a1206"/>
+    <text x="115" y="27" text-anchor="middle" font-family="monospace" font-size="11" fill="#fbbf24" font-weight="700">LA MUTATION</text>
+
+    <text x="16" y="70" font-family="monospace" font-size="9" fill="#d4d4d8" font-weight="700">3 ETAPES, EN BOUCLE</text>
+
+    <text x="16" y="104" font-family="monospace" font-size="9" fill="#e4e4e7">1. sauvegarder</text>
+    <text x="16" y="120" font-family="monospace" font-size="8" fill="#71717a">copie des fichiers vises</text>
+
+    <text x="16" y="152" font-family="monospace" font-size="9" fill="#e4e4e7">2. introduire le defaut</text>
+    <text x="16" y="168" font-family="monospace" font-size="8" fill="#71717a">celui que le controle</text>
+    <text x="16" y="182" font-family="monospace" font-size="8" fill="#71717a">pretend attraper</text>
+
+    <text x="16" y="214" font-family="monospace" font-size="9" fill="#e4e4e7">3. rejouer le controle</text>
+    <text x="16" y="230" font-family="monospace" font-size="8" fill="#71717a">puis tout restaurer</text>
+
+    <rect x="16" y="248" width="198" height="24" rx="4" fill="#0b1220"/>
+    <text x="115" y="264" text-anchor="middle" font-family="monospace" font-size="8" fill="#60a5fa">6 defauts differents, ici</text>
+  </g>
+
+  <!-- Fleche -->
+  <g transform="translate(568, 190)">
+    <line x1="0" y1="10" x2="42" y2="10" stroke="#f59e0b" stroke-width="2"/>
+    <path d="M 42 4 L 52 10 L 42 16 Z" fill="#f59e0b"/>
+  </g>
+
+  <!-- Colonne droite : le verdict -->
+  <g transform="translate(630, 58)">
+    <rect x="0" y="0" width="140" height="286" rx="10" fill="#18181b" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect x="0" y="0" width="140" height="42" rx="10" fill="#0b1220"/>
+    <text x="70" y="27" text-anchor="middle" font-family="monospace" font-size="11" fill="#60a5fa" font-weight="700">LE VERDICT</text>
+
+    <rect x="14" y="62" width="112" height="94" rx="6" fill="#07200f" stroke="#22c55e" stroke-width="1"/>
+    <text x="70" y="86" text-anchor="middle" font-family="monospace" font-size="14" fill="#4ade80" font-weight="700">ROUGE</text>
+    <text x="70" y="108" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">le controle a vu</text>
+    <text x="70" y="122" text-anchor="middle" font-family="monospace" font-size="8" fill="#86efac">le defaut passer</text>
+    <text x="70" y="144" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">il protege</text>
+
+    <rect x="14" y="172" width="112" height="94" rx="6" fill="#2a0f0f" stroke="#f87171" stroke-width="1"/>
+    <text x="70" y="196" text-anchor="middle" font-family="monospace" font-size="14" fill="#f87171" font-weight="700">VERT</text>
+    <text x="70" y="218" text-anchor="middle" font-family="monospace" font-size="8" fill="#fca5a5">le defaut est passe</text>
+    <text x="70" y="232" text-anchor="middle" font-family="monospace" font-size="8" fill="#fca5a5">sans le reveiller</text>
+    <text x="70" y="254" text-anchor="middle" font-family="monospace" font-size="8" fill="#71717a">il ne protege pas</text>
+  </g>
+
+  <text x="400" y="382" text-anchor="middle" font-family="monospace" font-size="9" fill="#71717a">un controle qui n'a jamais rougi n'a jamais rien prouve</text>
+</svg>
