@@ -15,7 +15,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 ## Fonctionnalités
 
 - **Portfolio one-page** : Hero, projets, compétences, processus, parcours, contact
-- **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 3 articles sur l'encadrement d'un agent de code en production
+- **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
 - **Terminal interactif** : typewriter effect simulant un workflow dev en 5 étapes
 - **Assistant IA Mistral** : chatbot personnalisé pour recruteurs techniques, UI
@@ -87,7 +87,7 @@ src/
 │       └── VideoDemo.astro        # Composant vidéo (YouTube / local)
 ├── content/
 │   ├── config.ts               # Schéma Content Collection (blog), champ `series`
-│   └── blog/                   # 11 articles MDX répartis en 2 séries
+│   └── blog/                   # 12 articles MDX répartis en 2 séries
 │       ├── 01-analyse-des-besoins.mdx        # série smartplanning
 │       ├── ...                                # 02 à 07
 │       ├── 08-demos-fonctionnalites.mdx
@@ -225,6 +225,7 @@ Configuration Claude Code en usage réel sur une boutique e-commerce en construc
 1. **Pourquoi encadrer un agent** : trois incidents et les garde-fous qu'ils ont produits
 2. **Hooks et permissions** : code des hooks, et la règle qui décide entre hook et permission
 3. **Skills et sous-agents** : le skill qui conduit le travail, le relecteur des zones à risque
+4. **La preuve par mutation** : casser le code exprès pour vérifier qu'un contrôle sait rougir
 
 Chaque article inclut : SEO (JSON-LD `BlogPosting` rattaché à sa série), fil d'Ariane, barre de progression de lecture, table des matières, navigation prev/next cloisonnée par série, et CTA recrutement.
 

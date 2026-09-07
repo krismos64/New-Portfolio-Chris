@@ -14,7 +14,7 @@ Le site est statique et **chaque push sur `main` déclenche le déploiement auto
 3. **Rédaction** : `grep -rn "—\|–" src/ README.md public/llms.txt public/chatbot-knowledge.txt` doit être vide (aucun tiret cadratin ou demi-cadratin, marqueur de texte IA ; virgule ou deux-points à la place). C'est le même périmètre que le contrôle bloquant de la CI : le vérifier en local évite un déploiement en échec.
 4. **Drafts** : `grep -H "^draft:" src/content/blog/*.mdx`, vérifier qu'aucun article censé être publié n'est resté en draft (et inversement, qu'aucun brouillon ne part par erreur).
 5. **Sitemap** : le `lastmod` est dynamique (`new Date()` au build), rien à modifier. Vérifier la présence de `dist/sitemap-index.xml` et compter les URLs : `grep -o "<loc>" dist/sitemap-0.xml | wc -l` (le fichier est sur une seule ligne, `grep -c` renverrait 1).
-6. **robots.txt** : `public/robots.txt` intact (Allow /, Allow CV PDF, Disallow /docs/ /video/ /*.pdf$).
+6. **robots.txt** : `public/robots.txt` intact (Allow /, Allow CV PDF, Disallow /docs/ /video/ /*.pdf$ /chatbot-knowledge.txt /api/, plus la ligne Sitemap).
 7. **SEO on-page** (si une page a changé) : title/description, Open Graph, et JSON-LD parsable sur chaque page modifiée :
    ```bash
    python3 -c "
