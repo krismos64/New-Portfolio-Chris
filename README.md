@@ -17,6 +17,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 - **Portfolio one-page** : Hero, projets, compétences, processus, parcours, contact
 - **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
+- **Aperçus défilants des projets** : chaque carte montre une vraie capture du site, qui défile au survol (CSS seul, image fixe sur écran tactile et en mouvement réduit)
 - **Terminal interactif** : typewriter effect simulant un workflow dev en 5 étapes
 - **Assistant IA Mistral** : chatbot personnalisé pour recruteurs techniques, UI
   Astro/JavaScript vanilla, proxy PHP et streaming SSE
@@ -35,7 +36,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 | Chatbot     | Mistral AI, PHP, cURL et streaming SSE                         |
 | Styles      | CSS scoped par composant et CSS Custom Properties              |
 | Typographie | Inter, chargement non bloquant                                 |
-| Animation   | Canvas API, CSS transitions et `prefers-reduced-motion`        |
+| Animation   | Canvas API, CSS transitions, container queries (`cqh`) et `prefers-reduced-motion` |
 | SEO         | `@astrojs/sitemap`, JSON-LD, Open Graph et geo tags            |
 | Build       | Vite intégré à Astro, sortie statique                          |
 | CI/CD       | GitHub Actions, contrôles qualité et déploiement FTPS          |
@@ -93,7 +94,8 @@ src/
 │       ├── 08-demos-fonctionnalites.mdx
 │       ├── claude-code-01-pourquoi-encadrer-un-agent.mdx   # série claude-code
 │       ├── claude-code-02-hooks-et-permissions.mdx
-│       └── claude-code-03-skills-et-sous-agents.mdx
+│       ├── claude-code-03-skills-et-sous-agents.mdx
+│       └── claude-code-04-preuve-par-mutation.mdx
 ├── data/
 │   ├── projects.ts             # Données des 7 projets (interface typée)
 │   ├── series.ts               # Métadonnées des 2 séries du blog
@@ -113,7 +115,7 @@ public/
 │   └── chat.php                # Proxy Mistral, sécurité, quotas et relais SSE
 ├── chatbot-knowledge.txt       # Base de connaissances détaillée du chatbot
 ├── llms.txt                    # Résumé public pour moteurs et assistants IA
-├── images/                     # Images portfolio, projets, blog, OG
+├── images/                     # Images portfolio, projets (*-apercu.webp : captures défilantes), blog, OG
 ├── docs/                       # CV PDF
 └── video/                      # Animation logo navbar
 
@@ -123,6 +125,19 @@ docs/
 assets-sources/                 # Sources d'images hors webroot, non déployées
 └── lune-soleil-logo-source.jpg # Original du logo, sert à régénérer le WebP
 ```
+
+## Aperçus défilants des projets
+
+Les cartes marquées `scrollPreview: true` dans `src/data/projects.ts` affichent
+une capture verticale du vrai site (`public/images/projects/<id>-apercu.webp`,
+1000 px de large, 50 à 120 Ko). Au survol, elle descend après une pause de
+0,35 s et remonte plus vite. La course vaut `calc(-100% + 100cqh)` : hauteur de
+l'image moins hauteur du cadre, quelle que soit la taille de la carte.
+
+Pour régénérer une capture : Playwright en 1280 px de large, éléments `fixed`
+masqués (popups, cookies, bulles de chat), recadrage sur la partie utile du site
+plutôt que la page entière, puis sharp en WebP qualité 72. Staka Livres garde
+une image fixe, son site étant en maintenance.
 
 ## Assistant IA pour recruteurs techniques
 
@@ -220,7 +235,7 @@ Création de **SmartPlanning** (SaaS Next.js 15) en 8 articles :
 
 ### Série 2 : encadrer un agent de code sur un vrai projet
 
-Configuration Claude Code en usage réel sur une boutique e-commerce en construction, à partir d'incidents datés :
+Configuration Claude Code en usage réel sur Lune-Soleil, boutique e-commerce en production sur [lune-soleil.fr](https://lune-soleil.fr), à partir d'incidents datés :
 
 1. **Pourquoi encadrer un agent** : trois incidents et les garde-fous qu'ils ont produits
 2. **Hooks et permissions** : code des hooks, et la règle qui décide entre hook et permission
@@ -244,7 +259,7 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting` rattaché à sa série), fil 
 - `aria-expanded` / `aria-hidden` dynamiques sur le menu mobile
 - Fermeture menu avec Escape + focus trap
 - `aria-label` sur les liens sociaux et le logo
-- `prefers-reduced-motion` respecté (canvas, vidéo, transitions)
+- `prefers-reduced-motion` respecté (canvas, vidéo, transitions, aperçus défilants des projets)
 - `tabindex` dynamique sur les liens du menu fermé
 - chatbot utilisable au clavier, fermeture avec Escape et zone de messages
   annoncée avec `aria-live`
