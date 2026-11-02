@@ -1,5 +1,10 @@
 ---
 import Layout from './Layout.astro';
+// Polices éditoriales auto-hébergées (npm), à la place du @import Google Fonts
+import '@fontsource/dm-serif-display/400.css';
+import '@fontsource/dm-serif-display/400-italic.css';
+import '@fontsource-variable/source-serif-4/opsz.css';
+import '@fontsource-variable/source-serif-4/opsz-italic.css';
 import BlogNav from '../components/BlogNav.astro';
 import TableOfContents from '../components/blog/TableOfContents.astro';
 import { categoryColors, categoryLabels } from '../data/categories';
@@ -65,9 +70,6 @@ const socialImage = image?.endsWith('.svg')
   image={socialImage}
   url={canonicalUrl}
 >
-  <!-- Fonts éditoriales -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" slot="head" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin slot="head" />
 
   <BlogNav activeLink="blog" />
 
@@ -253,9 +255,6 @@ const socialImage = image?.endsWith('.svg')
 </script>
 
 <style>
-  /* ===== Google Fonts : éditoriales ===== */
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap');
-
   /* ===== Progress bar ===== */
   .reading-progress {
     position: fixed;
@@ -386,7 +385,7 @@ const socialImage = image?.endsWith('.svg')
 
   /* ===== Lead / description ===== */
   .post-lead {
-    font-family: 'Source Serif 4', Georgia, serif;
+    font-family: 'Source Serif 4 Variable', Georgia, serif;
     font-size: clamp(1.0625rem, 2vw, 1.2rem);
     font-weight: 300;
     line-height: 1.75;
@@ -442,7 +441,7 @@ const socialImage = image?.endsWith('.svg')
 
   /* ===== PROSE : le cœur du redesign ===== */
   .prose {
-    font-family: 'Source Serif 4', Georgia, serif;
+    font-family: 'Source Serif 4 Variable', Georgia, serif;
     font-size: clamp(1rem, 1.8vw, 1.125rem);
     font-weight: 400;
     line-height: 1.9;
@@ -493,7 +492,7 @@ const socialImage = image?.endsWith('.svg')
 
   /* H3 */
   .prose :global(h3) {
-    font-family: 'Source Serif 4', Georgia, serif;
+    font-family: 'Source Serif 4 Variable', Georgia, serif;
     font-size: clamp(1.0625rem, 2vw, 1.25rem);
     font-weight: 600;
     color: var(--text);
@@ -861,7 +860,7 @@ const socialImage = image?.endsWith('.svg')
   }
 
   .post-nav-title {
-    font-family: 'Source Serif 4', Georgia, serif;
+    font-family: 'Source Serif 4 Variable', Georgia, serif;
     font-size: 0.9375rem;
     font-weight: 600;
     color: var(--text);

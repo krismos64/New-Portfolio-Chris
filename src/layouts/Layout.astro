@@ -1,5 +1,9 @@
 ---
 import RecruiterChatbot from '../components/RecruiterChatbot.astro';
+// Inter auto-hébergée (npm) : plus d'appel à Google Fonts. Le sous-ensemble
+// latin est préchargé, les autres ne se téléchargent que si une page en a besoin.
+import '@fontsource-variable/inter/wght.css';
+import interLatin from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
 export interface Props {
   title: string;
@@ -59,12 +63,8 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/portfolio/favicon.png" />
 
-    <!-- Font : Inter (Apple/Google style), chargement non-bloquant -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
+    <!-- Font : Inter auto-hébergée, préchargée pour arriver avant le premier rendu du texte -->
+    <link rel="preload" as="font" type="font/woff2" href={interLatin} crossorigin />
 
     <!-- JSON-LD Structured Data : WebSite -->
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -337,8 +337,19 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Repli aux métriques d'Inter (valeurs de next/font) : si Inter arrive après le
+     premier rendu, le texte ne change ni de taille ni de place, pas de décalage */
+  @font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial');
+    ascent-override: 90.44%;
+    descent-override: 22.52%;
+    line-gap-override: 0%;
+    size-adjust: 107.12%;
+  }
+
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter Variable', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.6;

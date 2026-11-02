@@ -35,7 +35,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 | Blog        | MDX via `@astrojs/mdx` et Content Collections                  |
 | Chatbot     | Mistral AI, PHP, cURL et streaming SSE                         |
 | Styles      | CSS scoped par composant et CSS Custom Properties              |
-| Typographie | Inter, chargement non bloquant                                 |
+| Typographie | Inter, DM Serif Display et Source Serif 4 auto-hébergées (Fontsource), Inter préchargée, aucun appel à Google Fonts |
 | Animation   | Canvas API, CSS transitions, container queries (`cqh`) et `prefers-reduced-motion` |
 | SEO         | `@astrojs/sitemap`, JSON-LD, Open Graph et geo tags            |
 | Build       | Vite intégré à Astro, sortie statique                          |
