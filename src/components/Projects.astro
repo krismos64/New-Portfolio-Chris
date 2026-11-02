@@ -91,8 +91,8 @@ const others = projects.slice(1);
 
   <!-- Autres projets -->
   <div class="projects-grid">
-    {others.map((project) => (
-      <article class={`card fade-up ${project.imageContain ? 'card-contain' : ''}`}>
+    {others.map((project, index) => (
+      <article class={`card fade-up ${project.imageContain ? 'card-contain' : ''} ${project.scrollPreview ? 'card-scroll' : ''}`} style={`--i: ${index % 2}`}>
         <div class="card-image">
           <img src={project.image} alt={`Capture d'écran de ${project.title} : ${project.tagline}`} loading="lazy" />
           {project.badge && (
@@ -468,6 +468,20 @@ const others = projects.slice(1);
     flex-direction: column;
     transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
   }
+  /* Apparition décalée par colonne : une animation plutôt qu'un transition-delay,
+     qui retarderait aussi le survol. Le remplissage "backwards" ne fige rien
+     après coup, la carte garde son translateY de survol. */
+  .card.sr-visible {
+    transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+    animation: card-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 140ms);
+  }
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(28px) scale(0.98); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card.sr-visible { animation: none; }
+  }
   .card:hover {
     border-color: var(--border-light);
     box-shadow: var(--shadow);
@@ -494,6 +508,39 @@ const others = projects.slice(1);
     transform: scale(1.04);
   }
 
+  /* Aperçu défilant : la capture part du haut, descend au survol après une
+     courte pause, et remonte plus vite qu'elle ne descend. La course vaut la
+     hauteur de l'image moins celle du cadre (100cqh), quelle que soit la taille
+     de la carte. Sur écran tactile et en mouvement réduit, l'image reste fixe. */
+  .card-scroll .card-image {
+    container-type: size;
+  }
+  .card-scroll .card-image img {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: auto;
+    object-fit: initial;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card-scroll .card-image::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 28%;
+    background: linear-gradient(to top, rgba(9, 9, 11, 0.35), transparent);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .card-scroll:hover .card-image img {
+      transform: translateY(calc(-100% + 100cqh));
+      transition: transform 4.5s cubic-bezier(0.45, 0, 0.55, 1) 0.35s;
+    }
+    .card-scroll:hover .card-image::after {
+      opacity: 0;
+    }
+  }
+
   /* ===== BADGES ===== */
   .badge {
     display: inline-block;
@@ -508,6 +555,19 @@ const others = projects.slice(1);
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
+  }
+  /* Sur un aperçu défilant, le haut de l'image est la navbar du site capturé :
+     le badge descend en bas à gauche, sur un fond opaque lisible sur tout site */
+  .card-scroll .card-image .badge {
+    top: auto;
+    right: auto;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    z-index: 1;
+    background-color: rgba(9, 9, 11, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
   }
   .badge-blue {
     color: var(--accent);

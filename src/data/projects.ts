@@ -8,6 +8,8 @@ export interface Project {
   image: string;
   /** Affiche l'image entière sans rognage : logos et visuels non photographiques */
   imageContain?: boolean;
+  /** L'image est une capture verticale du site, qui défile dans la carte au survol */
+  scrollPreview?: boolean;
   /** Remplace les boutons de liens quand le projet n'est pas encore en ligne */
   status?: string;
   /** Domaine réservé, affiché sans lien tant que le site n'est pas ouvert */
@@ -56,8 +58,8 @@ export const projects: Project[] = [
     id: "lune-soleil",
     title: "Lune-Soleil",
     tagline: "Boutique e-commerce de bijoux artisanaux faits main",
-    image: "/images/projects/lune-soleil.webp",
-    imageContain: true,
+    image: "/images/projects/lune-soleil-apercu.webp",
+    scrollPreview: true,
     tech: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL 18", "Prisma 7", "Stripe", "Docker"],
     description:
       "Boutique en ligne sur mesure pour une créatrice de bijoux du Béarn, ouverte sur lune-soleil.fr. Cycle commercial complet : catalogue, paiement Stripe, stock partagé entre site et marchés, factures et avoirs, expédition Mondial Relay, espace client et back-office mobile.",
@@ -101,7 +103,8 @@ export const projects: Project[] = [
     tagline: "Site vitrine professionnel pour mon activité freelance",
     badge: "Freelance · En ligne",
     badgeColor: "purple",
-    image: "/images/portfolio/miniature.webp",
+    image: "/images/projects/freelance-apercu.webp",
+    scrollPreview: true,
     tech: ["Next.js", "React", "TypeScript", "SEO", "Responsive"],
     description:
       "Site web professionnel présentant mes services de conception et développement de solutions digitales sur mesure pour entreprises et indépendants.",
@@ -121,7 +124,8 @@ export const projects: Project[] = [
     tagline: "Guide en ligne pour la réussite du TFE infirmier",
     badge: "Freelance · Client réel",
     badgeColor: "amber",
-    image: "/images/projects/coachtfe.webp",
+    image: "/images/projects/coachtfe-apercu.webp",
+    scrollPreview: true,
     tech: ["CSS", "JavaScript", "SEO", "GitHub", "OVH"],
     description:
       "Refonte d'un site vitrine moderne et responsive pour CoachTFE, accompagnement à la réussite du TFE infirmier. SEO amélioré, formulaire de contact relié à l'adresse mail du client, gestion de projet et déploiement.",
@@ -142,7 +146,8 @@ export const projects: Project[] = [
     tagline: "Site vitrine pour cabinet infirmier libéral à Nantes",
     badge: "Freelance · Client réel",
     badgeColor: "amber",
-    image: "/images/projects/graslin.webp",
+    image: "/images/projects/graslin-apercu.webp",
+    scrollPreview: true,
     tech: ["React", "CSS Modules", "SEO", "Responsive", "Doctolib"],
     description:
       "Site one-page professionnel pour une infirmière libérale, conforme aux règles de l'ordre infirmier (contenu informatif, sans promotion). Lien Doctolib intégré pour la prise de rendez-vous.",
@@ -162,8 +167,8 @@ export const projects: Project[] = [
     tagline: "Site de recettes avec chatbot IA intégré",
     badge: "Projet personnel",
     badgeColor: "purple",
-    image: "/images/projects/kocinaspeed.webp",
-    imageContain: true,
+    image: "/images/projects/kocinaspeed-apercu.webp",
+    scrollPreview: true,
     tech: ["Symfony", "PHP", "MySQL", "JavaScript", "Chatbot IA"],
     description:
       "Site de recettes de cuisine avec chatbot interactif, espace admin CRUD complet, gestion images et vidéos.",
