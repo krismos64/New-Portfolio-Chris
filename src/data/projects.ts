@@ -2,8 +2,9 @@ export interface Project {
   id: string;
   title: string;
   tagline: string;
-  badge: string;
-  badgeColor: "blue" | "green" | "purple" | "amber";
+  /** Optionnel : sans badge, la carte n'affiche aucune étiquette sur l'image */
+  badge?: string;
+  badgeColor?: "blue" | "green" | "purple" | "amber";
   image: string;
   /** Affiche l'image entière sans rognage : logos et visuels non photographiques */
   imageContain?: boolean;
@@ -20,6 +21,7 @@ export interface Project {
     video?: string;
     linkedin?: string;
     youtube?: string;
+    facebook?: string;
   };
   featured?: boolean;
 }
@@ -51,6 +53,27 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "lune-soleil",
+    title: "Lune-Soleil",
+    tagline: "Boutique e-commerce de bijoux artisanaux faits main",
+    image: "/images/projects/lune-soleil.webp",
+    imageContain: true,
+    tech: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL 18", "Prisma 7", "Stripe", "Docker"],
+    description:
+      "Boutique en ligne sur mesure pour une créatrice de bijoux du Béarn, ouverte sur lune-soleil.fr. Cycle commercial complet : catalogue, paiement Stripe, stock partagé entre site et marchés, factures et avoirs, expédition Mondial Relay, espace client et back-office mobile.",
+    highlights: [
+      "Réservation atomique du dernier exemplaire",
+      "Paiement confirmé par webhook signé et idempotent",
+      "Factures immuables, corrections par avoir",
+      "Développement encadré par des garde-fous IA",
+    ],
+    links: {
+      website: "https://lune-soleil.fr/",
+      github: "https://github.com/krismos64/lune-soleil",
+      facebook: "https://www.facebook.com/profile.php?id=61592696335840",
+    },
+  },
+  {
     id: "livrestaka",
     title: "Staka Livres",
     tagline: "Plateforme de correction et d'édition de manuscrits",
@@ -70,28 +93,6 @@ export const projects: Project[] = [
       website: "https://livrestaka.fr/",
       github: "https://github.com/krismos64/Staka-livres",
       video: "https://www.youtube.com/watch?v=yxl47xKgfN4",
-    },
-  },
-  {
-    id: "lune-soleil",
-    title: "Lune & Soleil",
-    tagline: "Boutique e-commerce de bijoux artisanaux faits main",
-    badge: "Client réel · En production",
-    badgeColor: "green",
-    image: "/images/projects/lune-soleil.webp",
-    imageContain: true,
-    tech: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL 18", "Prisma 7", "Stripe", "Docker"],
-    description:
-      "Boutique en ligne sur mesure pour une créatrice de bijoux du Béarn, ouverte sur lune-soleil.fr. Cycle commercial complet : catalogue, paiement Stripe, stock partagé entre site et marchés, factures et avoirs, expédition Mondial Relay, espace client et back-office mobile.",
-    highlights: [
-      "Réservation atomique du dernier exemplaire",
-      "Paiement confirmé par webhook signé et idempotent",
-      "Factures immuables, corrections par avoir",
-      "Développement encadré par des garde-fous IA",
-    ],
-    links: {
-      website: "https://lune-soleil.fr/",
-      github: "https://github.com/krismos64/lune-soleil",
     },
   },
   {

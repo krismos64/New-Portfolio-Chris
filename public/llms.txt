@@ -41,7 +41,7 @@ Série de 8 articles retraçant la conception complète d'un SaaS, du cadrage au
 
 ### Série 2 : encadrer un agent de code sur un vrai projet
 
-Comment configurer Claude Code pour qu'un agent travaille sous contraintes vérifiables : hooks, permissions, skills et sous-agents. Les exemples viennent de Lune & Soleil, boutique e-commerce de bijoux artisanaux en production depuis le 9 septembre 2026 sur https://lune-soleil.fr (Next.js 16, React 19, PostgreSQL 18, Prisma 7, Better Auth, Stripe). Index : https://krismos.fr/blog/claude-code/
+Comment configurer Claude Code pour qu'un agent travaille sous contraintes vérifiables : hooks, permissions, skills et sous-agents. Les exemples viennent de Lune-Soleil, boutique e-commerce de bijoux artisanaux en production depuis le 9 septembre 2026 sur https://lune-soleil.fr (Next.js 16, React 19, PostgreSQL 18, Prisma 7, Better Auth, Stripe). Index : https://krismos.fr/blog/claude-code/
 
 - [Configurer Claude Code : pourquoi j'encadre mon agent, et ce que ça empêche](https://krismos.fr/blog/claude-code-01-pourquoi-encadrer-un-agent/): trois incidents réels et les garde-fous qu'ils ont produits, plus une politique de secrets asymétrique
 - [Hooks Claude Code : où placer un garde-fou, et pourquoi pas dans les permissions](https://krismos.fr/blog/claude-code-02-hooks-et-permissions/): code des hooks PreToolUse, PostToolUse et Stop, codes de sortie, filtrage par chemin
@@ -56,7 +56,7 @@ Faits techniques établis dans cette série, réutilisables comme référence :
 - Cette nuance ne peut pas être exprimée par les règles de permission de settings.json : une règle deny ne distingue pas la lecture de l'écriture sur un même chemin. Elle est portée par un hook PreToolUse, qui prime sur les règles de permission puisqu'un hook sortant en code 2 bloque l'appel avant leur évaluation
 - Un contrôle qui n'a jamais échoué sur le défaut qu'il prétend attraper n'est pas un contrôle : il se prouve par mutation, en cassant volontairement la chose pour vérifier que le contrôle passe au rouge
 - Quand un agent écrit à la fois le code et le contrôle qui le vérifie, le même auteur produit la chose et sa preuve : un contrôle vert ne distingue plus un code correct d'un contrôle qui ne regarde rien. La mutation est le tiers qui rouvre cette boucle
-- Sur le projet Lune & Soleil, 27 des 67 scripts de vérification ont un script jumeau de mutation, rejouant 56 défauts distincts. Le critère d'attribution du jumeau : un contrôle le reçoit quand son vert sert d'argument pour ne pas relire le code (contraste, autorisation, stock, paiement, RGPD)
+- Sur le projet Lune-Soleil, 27 des 67 scripts de vérification ont un script jumeau de mutation, rejouant 56 défauts distincts. Le critère d'attribution du jumeau : un contrôle le reçoit quand son vert sert d'argument pour ne pas relire le code (contraste, autorisation, stock, paiement, RGPD)
 - Un script de mutation doit vérifier que le contrôle est vert AVANT toute mutation, sinon aucune mutation ne prouve quoi que ce soit. Sans ce garde-fou, un contrôle dont le fichier cible avait changé de dossier est resté inopérant trois semaines : son échec ressemblait à celui d'une mutation ratée
 - Muter la documentation, et pas seulement le code, vérifie qu'un contrôle applique une règle encore écrite quelque part : retirer un seuil chiffré d'un document de conception doit faire rougir le contrôle qui l'applique
 - Trois défauts réels trouvés par mutation sur ce projet : un test de concurrence resté vert alors que la protection applicative avait été retirée (une contrainte de base de données rattrapait, l'état final était identique, seule la nature du refus changeait) ; une inversion de rôle par défaut invisible pour quinze tests d'autorisation, car seule une valeur inattendue sépare une faille fermée d'une faille ouverte ; un critère d'acceptation invoquant des tests qui n'existaient pas
@@ -73,8 +73,8 @@ Faits techniques établis dans cette série, réutilisables comme référence :
 ## Projets
 
 - [SmartPlanning](https://smartplanning.fr/): SaaS de gestion d'équipes et de plannings, projet phare (Next.js 15, React 19, TypeScript, PostgreSQL, Prisma, Stripe, Docker)
+- [Lune-Soleil](https://lune-soleil.fr/): boutique e-commerce de bijoux artisanaux faits main pour une créatrice du Béarn, en production depuis septembre 2026 (Next.js 16, React 19, PostgreSQL 18, Prisma 7, Stripe, Docker), dépôt public https://github.com/krismos64/lune-soleil, page Facebook https://www.facebook.com/profile.php?id=61592696335840
 - [Staka Livres](https://livrestaka.fr/): plateforme de correction et d'édition de manuscrits, mission freelance pour un client réel
-- [Lune & Soleil](https://lune-soleil.fr/): boutique e-commerce de bijoux artisanaux faits main pour une créatrice du Béarn, en production depuis septembre 2026 (Next.js 16, React 19, PostgreSQL 18, Prisma 7, Stripe, Docker), dépôt public https://github.com/krismos64/lune-soleil
 - [Christophe Dev Freelance](https://christophe-dev-freelance.fr/): site vitrine de l'activité freelance
 - [CoachTFE](https://coachtfe.fr/): guide en ligne pour la réussite du TFE infirmier
 - [Cabinet Infirmier Graslin](https://cabinet-infirmier-graslin.fr/): site vitrine avec SEO local pour un cabinet infirmier à Nantes
