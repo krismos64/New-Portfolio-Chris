@@ -9,9 +9,11 @@ const others = projects.slice(1);
   <h2 class="section-title">Mes projets web et SaaS</h2>
 
   <!-- Projet phare : SmartPlanning -->
-  <div class="featured fade-up">
+  <div class={`featured fade-up ${featured.scrollPreview ? 'featured-scroll' : ''}`}>
     <a href={featured.links.website} target="_blank" rel="noopener noreferrer" class="featured-image-link" aria-label={`Voir ${featured.title}`}>
-      <canvas class="featured-canvas" id="featuredCanvas" aria-hidden="true"></canvas>
+      {!featured.scrollPreview && (
+        <canvas class="featured-canvas" id="featuredCanvas" aria-hidden="true"></canvas>
+      )}
       <img src={featured.image} alt={`Capture d'écran de ${featured.title} : ${featured.tagline}`} loading="eager" />
       <div class="featured-overlay">
         <span class="featured-cta">
@@ -253,6 +255,24 @@ const others = projects.slice(1);
   }
   .featured:hover .featured-image-link img {
     transform: scale(1.04);
+  }
+  /* Aperçu défilant du projet phare : même principe que les cartes de la grille,
+     course calculée sur la hauteur réelle du cadre (100cqh) */
+  .featured-scroll .featured-image-link {
+    container-type: size;
+  }
+  .featured-scroll .featured-image-link img {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: auto;
+    object-fit: initial;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .featured-scroll:hover .featured-image-link img {
+      transform: translateY(calc(-100% + 100cqh));
+      transition: transform 5.5s cubic-bezier(0.45, 0, 0.55, 1) 0.35s;
+    }
   }
   .featured-overlay {
     position: absolute;
@@ -551,16 +571,10 @@ const others = projects.slice(1);
     letter-spacing: 0.01em;
     white-space: nowrap;
   }
+  /* Le haut de chaque image est la navbar du site capturé : le badge se place
+     en bas à gauche, sur un fond opaque lisible quel que soit le site */
   .card-image .badge {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-  }
-  /* Sur un aperçu défilant, le haut de l'image est la navbar du site capturé :
-     le badge descend en bas à gauche, sur un fond opaque lisible sur tout site */
-  .card-scroll .card-image .badge {
-    top: auto;
-    right: auto;
     bottom: 0.75rem;
     left: 0.75rem;
     z-index: 1;

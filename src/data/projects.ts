@@ -35,7 +35,8 @@ export const projects: Project[] = [
     tagline: "SaaS de gestion d'équipes et de plannings",
     badge: "Projet CDA · En production",
     badgeColor: "blue",
-    image: "/images/projects/smart.webp",
+    image: "/images/projects/smartplanning-apercu.webp",
+    scrollPreview: true,
     tech: ["Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma", "Stripe", "Docker"],
     description:
       "Solution SaaS réelle et fonctionnelle de gestion d'équipes : plannings, gestion des congés, tâches personnelles. Paiements Stripe opérationnels, conforme RGPD. Projet final CDA.",
@@ -58,6 +59,8 @@ export const projects: Project[] = [
     id: "lune-soleil",
     title: "Lune-Soleil",
     tagline: "Boutique e-commerce de bijoux artisanaux faits main",
+    badge: "Freelance · Client réel",
+    badgeColor: "green",
     image: "/images/projects/lune-soleil-apercu.webp",
     scrollPreview: true,
     tech: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL 18", "Prisma 7", "Stripe", "Docker"],
