@@ -112,6 +112,9 @@
     ];
 
     const CHAT_MEDIA: ChatMedia[] = [
+      // Lune-Soleil en tête : ses réponses citent Docker, Stripe ou les tests,
+      // dont les vignettes génériques prendraient sinon les deux places.
+      { pattern: /lune[- ]?(et |& )?soleil|bijou/i, image: "/images/projects/lune-soleil-apercu.webp", title: "Lune-Soleil", description: "Boutique e-commerce de bijoux artisanaux, en production", url: "https://lune-soleil.fr/" },
       // Série sur l'encadrement d'un agent de code : placée avant les patterns
       // génériques (test, documentation) qui capteraient sinon ces questions.
       { pattern: /hook|pretooluse|posttooluse|settings\.json|permission|garde-fou|garde fou/i, image: "/images/blog/claude-code-hooks.svg", title: "Les hooks Claude Code", description: "PreToolUse, PostToolUse et Stop sur un projet réel", url: "/blog/claude-code-02-hooks-et-permissions/" },
