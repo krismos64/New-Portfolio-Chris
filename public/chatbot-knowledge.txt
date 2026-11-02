@@ -131,8 +131,8 @@ Règles de sécurité et de responsabilité :
 
 Christophe ne se contente pas d'utiliser un assistant IA : il configure
 l'environnement de travail de l'agent pour qu'il opère sous contraintes
-vérifiables. Cette configuration est en place sur son projet en cours, une
-boutique e-commerce en Next.js 16, React 19, PostgreSQL 18, Prisma 7, Better Auth
+vérifiables. Cette configuration est en place sur Lune & Soleil, une
+boutique e-commerce en production en Next.js 16, React 19, PostgreSQL 18, Prisma 7, Better Auth
 et Stripe. Elle est documentée publiquement dans une série de quatre articles :
 https://krismos.fr/blog/claude-code/.
 
@@ -180,7 +180,7 @@ Points techniques qu'il peut expliquer :
 La preuve par mutation est le sujet du quatrième article de la série. L'enjeu :
 quand un agent écrit à la fois le code et le contrôle qui le vérifie, le même
 auteur produit la chose et sa preuve, et un contrôle vert ne distingue plus un
-code correct d'un contrôle qui ne regarde rien. Sur son projet en cours, 27 des
+code correct d'un contrôle qui ne regarde rien. Sur Lune & Soleil, 27 des
 67 scripts de vérification ont un script jumeau qui rejoue le défaut réel, soit
 56 défauts distincts. Trois défauts que cette méthode a trouvés, invisibles
 autrement : un test de concurrence resté vert alors que la protection
@@ -467,13 +467,21 @@ l'impact, de la couvrir par des tests et de renforcer durablement le processus.
 - Ne pas inventer la taille de l'entreprise cliente, son chiffre d'affaires, le
   trafic ou des résultats commerciaux.
 
-## Projet en cours : Lune & Soleil
+## Projet en production : Lune & Soleil
 
-Boutique e-commerce de bijoux artisanaux faits main, en cours de construction au
-3 août 2026. Mise en production prévue pour septembre 2026, sur le domaine
-réservé lune-soleil.fr, qui ne sert pas encore le site. Projet actif, à ne jamais
-présenter comme livré ou en production, et ne pas proposer le lien comme une
-réalisation consultable.
+Boutique en ligne sur mesure de bijoux artisanaux faits main, pour une créatrice
+du Béarn. En production sur https://lune-soleil.fr depuis le 9 septembre 2026,
+paiements réels depuis le 24 octobre 2026, ouverture au public actée le
+1er novembre 2026. Le dépôt est public : https://github.com/krismos64/lune-soleil.
+Le site peut être proposé comme réalisation consultable. Le projet reste
+maintenu activement (corrections, sécurité, demandes de la cliente).
+
+- Cycle commercial complet : catalogue, panier, paiement Stripe Checkout, stock
+  partagé entre la vente en ligne et les marchés, factures et avoirs en PDF,
+  expédition Mondial Relay via Sendcloud, espace client avec avis vérifiés et
+  rétractation en ligne, back-office utilisable depuis un smartphone.
+- Hébergement : VPS OVHcloud, Docker Compose, Nginx, image construite en CI
+  GitHub Actions et taguée par SHA.
 
 - Stack : Next.js 16, React 19, TypeScript strict, PostgreSQL 18, Prisma 7,
   Better Auth, Stripe Checkout, Docker.
@@ -506,8 +514,8 @@ C'est aussi le projet sur lequel tourne la configuration Claude Code décrite pl
 haut, avec ses hooks, son skill et son sous-agent de relecture.
 
 Réserves à respecter : ne pas donner l'identité de la cliente, ne pas inventer de
-chiffre d'affaires, de volume de commandes, de date de mise en ligne ni de
-budget. Ne pas présenter ce projet comme une référence commerciale terminée.
+chiffre d'affaires, de volume de commandes, de nombre de produits ni de budget.
+Ne pas avancer de résultats commerciaux : la boutique vient d'ouvrir.
 
 ## Autres réalisations
 
@@ -690,7 +698,7 @@ https://krismos.fr/blog/smartplanning/ :
 
 Série "Encadrer un agent de code sur un vrai projet", 4 articles, index
 https://krismos.fr/blog/claude-code/. Les exemples viennent de Lune & Soleil,
-la boutique e-commerce en cours :
+la boutique e-commerce en production sur lune-soleil.fr :
 
 1. Pourquoi j'encadre mon agent : trois incidents réels et les garde-fous qu'ils
    ont produits. /claude-code-01-pourquoi-encadrer-un-agent/

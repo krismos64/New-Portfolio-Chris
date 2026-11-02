@@ -53,7 +53,7 @@ export const series: Record<string, Series> = {
     title: 'Encadrer un agent de code sur un vrai projet',
     tagline: 'Les garde-fous qui rendent Claude Code fiable en production',
     description:
-      "Configurer un agent de code pour qu'il travaille sous contraintes vérifiables : hooks, permissions, skills et sous-agents, sur une boutique e-commerce en cours de construction.",
+      "Configurer un agent de code pour qu'il travaille sous contraintes vérifiables : hooks, permissions, skills et sous-agents, sur une boutique e-commerce en production.",
     metaTitle: 'Encadrer un agent de code : config Claude Code | Christophe Mostefaoui',
     metaDescription:
       "Hooks, permissions, skills et sous-agents : comment je configure Claude Code sur un projet e-commerce réel pour que l'agent travaille sous contraintes vérifiables.",
