@@ -79,6 +79,12 @@ Faits techniques établis dans cette série, réutilisables comme référence :
 - [CoachTFE](https://coachtfe.fr/): guide en ligne pour la réussite du TFE infirmier
 - [Cabinet Infirmier Graslin](https://cabinet-infirmier-graslin.fr/): site vitrine avec SEO local pour un cabinet infirmier à Nantes
 - [Kocinaspeed](https://kocinaspeed.fr/): site de recettes avec chatbot IA intégré (Symfony, PHP, MySQL)
+- [MasterMentor](https://mastermentor.fr/): site vitrine d'accompagnement méthodologique au mémoire de Master 2, pour le client Staka (PHP, JavaScript, URLs sans extension)
+- [CoachDEC](https://coachdec.fr/): site vitrine d'accompagnement méthodologique au mémoire d'expertise comptable, pour le client Staka (PHP, quiz, formulaire anti-spam, données structurées)
+- [Doctorat.me](https://doctorat.me/): landing page d'accompagnement doctoral assuré par des docteurs, pour le client Staka (HTML, CSS, JavaScript, données structurées)
+- [Methodea](https://methodea.netlify.app/): refonte d'un site de formation à la recherche scientifique, pour le client Staka (HTML, CSS, JavaScript)
+- [Garage V. Parrot](https://garage-parrot.online/): projet fictif de l'évaluation finale (ECF) de la formation Studi, catalogue de véhicules, rendez-vous et espace d'administration (Symfony, PHP, Twig, MySQL)
+- [Poulp Fiction](https://poulpfiction.netlify.app/): démo personnelle d'un site de club de plongée, animations Lottie et galerie filtrable (HTML, CSS, JavaScript)
 
 ## Liens et contact
 

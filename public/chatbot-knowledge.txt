@@ -529,6 +529,17 @@ Ne pas avancer de résultats commerciaux : la boutique vient d'ouvrir.
 - Christophe Dev Freelance : site de son activité professionnelle.
 - Kocinaspeed : projet personnel Symfony, PHP, MySQL et JavaScript avec chatbot,
   espace d'administration, CRUD et gestion de médias.
+- MasterMentor, CoachDEC, Doctorat.me et Methodea : quatre sites vitrines
+  réalisés pour le client Staka, qui propose un accompagnement méthodologique
+  aux étudiants (mémoire de Master 2, mémoire d'expertise comptable, doctorat,
+  recherche scientifique). PHP ou HTML, CSS et JavaScript, formulaires sécurisés,
+  données structurées, SEO. Toujours parler d'accompagnement méthodologique,
+  jamais de rédaction ni de correction de thèse : l'étudiant reste l'auteur.
+- Garage V. Parrot : projet fictif réalisé pour l'évaluation finale (ECF) de
+  sa formation Studi, en Symfony, PHP, Twig et MySQL : catalogue de véhicules
+  d'occasion, rendez-vous et espace d'administration. Ce n'est pas un client.
+- Poulp Fiction : démo personnelle d'un site de club de plongée, en HTML, CSS
+  et JavaScript avec animations Lottie. Ce n'est pas un client.
 - Le portfolio krismos.fr : Astro, TypeScript, blog MDX, SEO technique et
   déploiement automatisé sur Hostinger.
 

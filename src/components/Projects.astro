@@ -2,19 +2,21 @@
 import { projects } from '../data/projects';
 
 const featured = projects[0]; // SmartPlanning
-const others = projects.slice(1);
+const others = projects.slice(1).filter((p) => !p.secondary);
+const secondary = projects.filter((p) => p.secondary);
+
+// Chaque maquette existe en 1200 px et en 800 px (suffixe -800)
+const srcset = (src: string) => `${src.replace('.webp', '-800.webp')} 800w, ${src} 1200w`;
+const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordinateur portable et un smartphone`;
 ---
 
 <section id="projects">
   <h2 class="section-title">Mes projets web et SaaS</h2>
 
   <!-- Projet phare : SmartPlanning -->
-  <div class={`featured fade-up ${featured.scrollPreview ? 'featured-scroll' : ''}`}>
+  <div class="featured fade-up">
     <a href={featured.links.website} target="_blank" rel="noopener noreferrer" class="featured-image-link" aria-label={`Voir ${featured.title}`}>
-      {!featured.scrollPreview && (
-        <canvas class="featured-canvas" id="featuredCanvas" aria-hidden="true"></canvas>
-      )}
-      <img src={featured.image} alt={`Capture d'écran de ${featured.title} : ${featured.tagline}`} loading="eager" />
+      <img src={featured.image} srcset={srcset(featured.image)} sizes="(max-width: 900px) 100vw, 600px" width="1200" height="675" alt={alt(featured)} loading="lazy" decoding="async" />
       <div class="featured-overlay">
         <span class="featured-cta">
           Voir le projet
@@ -94,9 +96,9 @@ const others = projects.slice(1);
   <!-- Autres projets -->
   <div class="projects-grid">
     {others.map((project, index) => (
-      <article class={`card fade-up ${project.imageContain ? 'card-contain' : ''} ${project.scrollPreview ? 'card-scroll' : ''}`} style={`--i: ${index % 2}`}>
+      <article class="card fade-up" style={`--i: ${index % 2}`}>
         <div class="card-image">
-          <img src={project.image} alt={`Capture d'écran de ${project.title} : ${project.tagline}`} loading="lazy" />
+          <img src={project.image} srcset={srcset(project.image)} sizes="(max-width: 640px) 100vw, 560px" width="1200" height="675" alt={alt(project)} loading="lazy" decoding="async" />
           {project.badge && (
             <span class={`badge badge-${project.badgeColor}`}>{project.badge}</span>
           )}
@@ -152,6 +154,51 @@ const others = projects.slice(1);
         </div>
       </article>
     ))}
+  </div>
+
+  <!-- Réalisations secondaires : sites vitrines clients, projet de formation, démo.
+       Cartes compactes sous la grille, pour que les projets techniques passent devant -->
+  <div class="more" aria-labelledby="more-title">
+    <div class="more-head fade-up">
+      <h3 id="more-title" class="more-title">Autres réalisations</h3>
+      <p class="more-intro">Sites vitrines livrés à des clients, projet d'examen et démo, en HTML, PHP ou Symfony.</p>
+    </div>
+    <div class="more-grid">
+      {secondary.map((project, index) => (
+        <article class="card card-compact fade-up" style={`--i: ${index % 3}`}>
+          <div class="card-image">
+            <img src={project.image} srcset={srcset(project.image)} sizes="(max-width: 640px) 100vw, 380px" width="1200" height="675" alt={alt(project)} loading="lazy" decoding="async" />
+            {project.badge && (
+              <span class={`badge badge-${project.badgeColor}`}>{project.badge}</span>
+            )}
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">{project.title}</h4>
+            <p class="card-tagline">{project.tagline}</p>
+            <p class="card-desc">{project.description}</p>
+            <div class="card-tech">
+              {project.tech.map((t) => (
+                <span class="tech-pill">{t}</span>
+              ))}
+            </div>
+            <div class="card-links">
+              {project.links.website && (
+                <a href={project.links.website} target="_blank" rel="noopener noreferrer" class="card-link card-link-primary">
+                  Voir le site
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </a>
+              )}
+              {project.links.github && (
+                <a href={project.links.github} target="_blank" rel="noopener noreferrer" class="card-link" aria-label={`Code source de ${project.title} sur GitHub`}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                  Code
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
   </div>
 
   <!-- Accès aux deux séries du blog technique -->
@@ -230,49 +277,26 @@ const others = projects.slice(1);
     box-shadow: 0 0 0 1px var(--accent), 0 8px 40px rgba(59, 130, 246, 0.1);
   }
 
+  /* Maquette 16:9 posée dans la carte, centrée verticalement face au texte */
   .featured-image-link {
     position: relative;
     display: block;
+    align-self: center;
+    aspect-ratio: 16 / 9;
+    margin: 1.5rem 0 1.5rem 1.5rem;
     overflow: hidden;
-    min-height: 340px;
-    background: #0a0a0f;
+    border-radius: var(--radius-lg);
+    background: var(--bg-alt);
     text-decoration: none;
   }
-  .featured-canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
   .featured-image-link img {
-    position: relative;
-    z-index: 1;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    transition: transform 0.5s ease;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .featured:hover .featured-image-link img {
-    transform: scale(1.04);
-  }
-  /* Aperçu défilant du projet phare : même principe que les cartes de la grille,
-     course calculée sur la hauteur réelle du cadre (100cqh) */
-  .featured-scroll .featured-image-link {
-    container-type: size;
-  }
-  .featured-scroll .featured-image-link img {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: auto;
-    object-fit: initial;
-    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .featured-scroll:hover .featured-image-link img {
-      transform: translateY(calc(-100% + 100cqh));
-      transition: transform 5.5s cubic-bezier(0.45, 0, 0.55, 1) 0.35s;
-    }
+    transform: scale(1.03);
   }
   .featured-overlay {
     position: absolute;
@@ -518,46 +542,27 @@ const others = projects.slice(1);
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .card-contain .card-image img {
-    object-fit: contain;
-    background: var(--bg-alt);
-  }
-  .card:hover .card-image img {
-    transform: scale(1.04);
-  }
-
-  /* Aperçu défilant : la capture part du haut, descend au survol après une
-     courte pause, et remonte plus vite qu'elle ne descend. La course vaut la
-     hauteur de l'image moins celle du cadre (100cqh), quelle que soit la taille
-     de la carte. Sur écran tactile et en mouvement réduit, l'image reste fixe. */
-  .card-scroll .card-image {
-    container-type: size;
-  }
-  .card-scroll .card-image img {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: auto;
-    object-fit: initial;
-    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .card-scroll .card-image::after {
+  /* Survol repris du site pro : zoom léger de la maquette et liseré accent */
+  .card-image::after {
     content: "";
     position: absolute;
-    inset: auto 0 0 0;
-    height: 28%;
-    background: linear-gradient(to top, rgba(9, 9, 11, 0.35), transparent);
+    inset: 0;
+    box-shadow: inset 0 0 0 1px transparent;
+    transition: box-shadow 0.3s ease;
     pointer-events: none;
-    transition: opacity 0.4s ease;
   }
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .card-scroll:hover .card-image img {
-      transform: translateY(calc(-100% + 100cqh));
-      transition: transform 4.5s cubic-bezier(0.45, 0, 0.55, 1) 0.35s;
-    }
-    .card-scroll:hover .card-image::after {
-      opacity: 0;
+  .card:hover .card-image img {
+    transform: scale(1.03);
+  }
+  .card:hover .card-image::after {
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover .card-image img,
+    .featured:hover .featured-image-link img {
+      transform: none;
     }
   }
 
@@ -571,8 +576,7 @@ const others = projects.slice(1);
     letter-spacing: 0.01em;
     white-space: nowrap;
   }
-  /* Le haut de chaque image est la navbar du site capturé : le badge se place
-     en bas à gauche, sur un fond opaque lisible quel que soit le site */
+  /* Badge en bas à gauche de la maquette, sur un fond opaque lisible quelle que soit la photo */
   .card-image .badge {
     position: absolute;
     bottom: 0.75rem;
@@ -804,7 +808,7 @@ const others = projects.slice(1);
       grid-template-columns: 1fr;
     }
     .featured-image-link {
-      min-height: 220px;
+      margin: 1rem 1rem 0;
     }
     .featured-body {
       padding: 1.5rem;
@@ -820,6 +824,65 @@ const others = projects.slice(1);
     }
     .featured-title {
       font-size: 1.375rem;
+    }
+  }
+
+  /* ===== Autres réalisations ===== */
+  .more {
+    margin-top: 3rem;
+  }
+  .more-head {
+    margin-bottom: 1.25rem;
+  }
+  .more-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 0.35rem;
+  }
+  .more-intro {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .card-compact .card-body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+  .card-compact .card-title {
+    font-size: 1rem;
+  }
+  .card-compact .card-tagline {
+    margin-bottom: 0.5rem;
+  }
+  .card-desc {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+  .card-compact .card-tech {
+    padding-bottom: 0.875rem;
+  }
+  .card-compact .card-links {
+    padding-top: 0.875rem;
+  }
+  .card-compact .card-link {
+    padding: 0.4rem 0.8rem;
+  }
+  @media (max-width: 900px) {
+    .more-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .more-grid {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -976,139 +1039,3 @@ const others = projects.slice(1);
   }
 </style>
 
-<script>
-  (function () {
-    const canvas = document.getElementById("featuredCanvas") as HTMLCanvasElement;
-    if (!canvas) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      canvas.style.background = "linear-gradient(135deg, #0a0a1a 0%, #0f172a 50%, #0a0a1a 100%)";
-      return;
-    }
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const techWords = [
-      "Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma",
-      "Stripe", "Docker", "CI/CD", "SaaS", "RGPD",
-      "REST API", "SSR", "Auth", "Multi-tenant", "OVH",
-      "GitHub Actions", "Vitest", "async/await", "JWT", "Webhook",
-    ];
-
-    interface FloatingWord {
-      x: number; y: number; text: string;
-      speed: number; opacity: number; maxOpacity: number;
-      size: number; phase: number;
-    }
-
-    let words: FloatingWord[] = [];
-    let w = 0, h = 0, animId = 0;
-
-    function resize() {
-      const rect = canvas.getBoundingClientRect();
-      w = canvas.width = rect.width;
-      h = canvas.height = rect.height;
-      initWords();
-    }
-
-    function initWords() {
-      const count = Math.max(12, Math.floor((w * h) / 12000));
-      words = [];
-      for (let i = 0; i < count; i++) {
-        words.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          text: techWords[Math.floor(Math.random() * techWords.length)],
-          speed: 0.1 + Math.random() * 0.25,
-          opacity: 0,
-          maxOpacity: 0.08 + Math.random() * 0.14,
-          size: 9 + Math.random() * 5,
-          phase: Math.random() * Math.PI * 2,
-        });
-      }
-    }
-
-    function draw() {
-      ctx!.clearRect(0, 0, w, h);
-
-      // Fond gradient subtil
-      const grad = ctx!.createLinearGradient(0, 0, w, h);
-      grad.addColorStop(0, "#07070f");
-      grad.addColorStop(0.5, "#0c1222");
-      grad.addColorStop(1, "#07070f");
-      ctx!.fillStyle = grad;
-      ctx!.fillRect(0, 0, w, h);
-
-      // Halo bleu pulsant
-      const time = Date.now() * 0.001;
-      const pulse = 0.4 + Math.sin(time * 0.8) * 0.15;
-      const glow = ctx!.createRadialGradient(w * 0.5, h * 0.5, 0, w * 0.5, h * 0.5, w * 0.6);
-      glow.addColorStop(0, `rgba(59, 130, 246, ${0.06 * pulse})`);
-      glow.addColorStop(0.6, `rgba(59, 130, 246, ${0.02 * pulse})`);
-      glow.addColorStop(1, "transparent");
-      ctx!.fillStyle = glow;
-      ctx!.fillRect(0, 0, w, h);
-
-      // Mots flottants
-      for (const word of words) {
-        word.y -= word.speed;
-        word.x += Math.sin(time + word.phase) * 0.15;
-
-        // Fade in/out aux bords
-        const fadeZone = h * 0.15;
-        if (word.y > h - fadeZone) {
-          word.opacity = Math.min(word.maxOpacity, word.maxOpacity * ((h - word.y) / fadeZone));
-        } else if (word.y < fadeZone) {
-          word.opacity = Math.max(0, word.maxOpacity * (word.y / fadeZone));
-        } else {
-          word.opacity = Math.min(word.opacity + 0.003, word.maxOpacity);
-        }
-
-        if (word.y < -20) {
-          word.y = h + 10;
-          word.x = Math.random() * w;
-          word.text = techWords[Math.floor(Math.random() * techWords.length)];
-          word.opacity = 0;
-        }
-
-        ctx!.font = `500 ${word.size}px 'Inter Variable', -apple-system, sans-serif`;
-        ctx!.fillStyle = `rgba(59, 130, 246, ${word.opacity})`;
-        ctx!.fillText(word.text, word.x, word.y);
-      }
-
-      // Lignes de connexion subtiles entre mots proches
-      ctx!.strokeStyle = "rgba(59, 130, 246, 0.03)";
-      ctx!.lineWidth = 0.5;
-      for (let i = 0; i < words.length; i++) {
-        for (let j = i + 1; j < words.length; j++) {
-          const dx = words[i].x - words[j].x;
-          const dy = words[i].y - words[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx!.beginPath();
-            ctx!.moveTo(words[i].x, words[i].y);
-            ctx!.lineTo(words[j].x, words[j].y);
-            ctx!.stroke();
-          }
-        }
-      }
-
-      animId = requestAnimationFrame(draw);
-    }
-
-    resize();
-    draw();
-
-    const ro = new ResizeObserver(() => resize());
-    ro.observe(canvas.parentElement!);
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        cancelAnimationFrame(animId);
-      } else {
-        draw();
-      }
-    });
-  })();
-</script>

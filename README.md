@@ -17,7 +17,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 - **Portfolio one-page** : Hero, projets, compétences, processus, parcours, contact
 - **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
-- **Aperçus défilants des projets** : chaque carte montre une vraie capture du site, qui défile au survol (CSS seul, image fixe sur écran tactile et en mouvement réduit)
+- **Maquettes des projets** : chaque carte montre le vrai site dans un portable et un smartphone, mêmes visuels que la page Réalisations du site freelance ; projets techniques en grille, sites vitrines et démos dans « Autres réalisations »
 - **Terminal interactif** : typewriter effect simulant un workflow dev en 5 étapes
 - **Assistant IA Mistral** : chatbot personnalisé pour recruteurs techniques, UI
   Astro/JavaScript vanilla, proxy PHP et streaming SSE
@@ -115,7 +115,7 @@ public/
 │   └── chat.php                # Proxy Mistral, sécurité, quotas et relais SSE
 ├── chatbot-knowledge.txt       # Base de connaissances détaillée du chatbot
 ├── llms.txt                    # Résumé public pour moteurs et assistants IA
-├── images/                     # Images portfolio, projets (*-apercu.webp : captures défilantes), blog, OG
+├── images/                     # Images portfolio, projets (*-mockup.webp et *-mockup-800.webp : maquettes 16:9), blog, OG
 ├── docs/                       # CV PDF
 └── video/                      # Animation logo navbar
 
@@ -126,18 +126,21 @@ assets-sources/                 # Sources d'images hors webroot, non déployées
 └── lune-soleil-logo-source.jpg # Original du logo, sert à régénérer le WebP
 ```
 
-## Aperçus défilants des projets
+## Maquettes des projets
 
-Les cartes marquées `scrollPreview: true` dans `src/data/projects.ts` affichent
-une capture verticale du vrai site (`public/images/projects/<id>-apercu.webp`,
-1000 px de large, 50 à 120 Ko). Au survol, elle descend après une pause de
-0,35 s et remonte plus vite. La course vaut `calc(-100% + 100cqh)` : hauteur de
-l'image moins hauteur du cadre, quelle que soit la taille de la carte.
+Chaque carte affiche `public/images/projects/<id>-mockup.webp` (1200 px) avec
+une variante `-800.webp` servie par `srcset`, 25 à 70 Ko. Ce sont les vignettes
+du site freelance (dépôt `Christophe-Mostefaoui-Dev`) : la capture réelle du
+site incrustée dans un portable et un téléphone posés sur un bureau. Au survol,
+la maquette zoome à 1,03 et un liseré accent apparaît (désactivé en mouvement
+réduit).
 
-Pour régénérer une capture : Playwright en 1280 px de large, éléments `fixed`
-masqués (popups, cookies, bulles de chat), recadrage sur la partie utile du site
-plutôt que la page entière, puis sharp en WebP qualité 72. Staka Livres garde
-une image fixe, son site étant en maintenance.
+Pour ajouter un projet : capturer l'accueil en 1440x900 et en 393x852 densité 3
+(bandeaux de cookies masqués, jamais acceptés), lancer
+`scripts/mockup/incruster.sh <nom>` du dépôt freelance, puis convertir le JPEG
+avec sharp en WebP qualité 78 aux deux largeurs. Un projet marqué
+`secondary: true` dans `src/data/projects.ts` part dans la section compacte
+« Autres réalisations ».
 
 ## Assistant IA pour recruteurs techniques
 
@@ -259,7 +262,7 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting` rattaché à sa série), fil 
 - `aria-expanded` / `aria-hidden` dynamiques sur le menu mobile
 - Fermeture menu avec Escape + focus trap
 - `aria-label` sur les liens sociaux et le logo
-- `prefers-reduced-motion` respecté (canvas, vidéo, transitions, aperçus défilants des projets)
+- `prefers-reduced-motion` respecté (canvas, vidéo, transitions, zoom des maquettes de projets)
 - `tabindex` dynamique sur les liens du menu fermé
 - chatbot utilisable au clavier, fermeture avec Escape et zone de messages
   annoncée avec `aria-live`
