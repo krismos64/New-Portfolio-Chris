@@ -3,6 +3,21 @@
 
 <section id="header" class="hero">
   <div class="hero-inner">
+    <!-- La photo précède le texte dans le HTML : sur mobile elle s'affiche au-dessus.
+         Placée après, elle arrivait en fin de parsing et poussait le texte déjà
+         peint de 192 px (CLS 0,17). Sur desktop, row-reverse la garde à droite. -->
+    <div class="hero-photo">
+      <div class="photo-wrapper">
+        <img
+          src="/images/portfolio/chris7.webp"
+          alt="Christophe Mostefaoui : Concepteur Développeur d'Applications Fullstack, Pau (64)"
+          loading="eager"
+          fetchpriority="high"
+          width="320"
+          height="320"
+        />
+      </div>
+    </div>
     <div class="hero-content">
       <div class="hero-badge">Disponible pour une opportunité</div>
       <h1 class="hero-title">
@@ -39,18 +54,6 @@
       </div>
     </div>
 
-    <div class="hero-photo">
-      <div class="photo-wrapper">
-        <img
-          src="/images/portfolio/chris7.webp"
-          alt="Christophe Mostefaoui : Concepteur Développeur d'Applications Fullstack, Pau (64)"
-          loading="eager"
-          fetchpriority="high"
-          width="320"
-          height="320"
-        />
-      </div>
-    </div>
   </div>
 </section>
 
@@ -67,6 +70,7 @@
     margin: 0 auto;
     width: 100%;
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
     gap: 4rem;
@@ -309,7 +313,7 @@
     }
 
     .hero-inner {
-      flex-direction: column-reverse;
+      flex-direction: column;
       text-align: center;
       gap: 2.5rem;
     }
