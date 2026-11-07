@@ -75,6 +75,10 @@
   .hero-content {
     flex: 1;
     max-width: 640px;
+  }
+
+  /* Le H1 est l'élément LCP : il s'affiche sans animation (un départ à opacité 0 retarde le LCP de la durée du fondu) */
+  .hero-content > :not(.hero-title) {
     animation: fadeUp 0.8s ease both;
   }
 

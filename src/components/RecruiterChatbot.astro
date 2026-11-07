@@ -567,7 +567,8 @@
   @keyframes chat-caret { 50% { opacity: 0; } }
   @keyframes chat-launcher-enter { from { opacity: 0; transform: translateY(12px); } }
   @keyframes chat-attention { 0%, 82%, 100% { transform: translateY(0); } 87% { transform: translateY(-4px); } 92% { transform: translateY(0); } 96% { transform: translateY(-2px); } }
-  @keyframes chat-shimmer { 0%, 72% { left: -35%; } 88%, 100% { left: 130%; } }
+  /* transform plutôt que left : même trajet (165 % du bouton = 515 % de la largeur du reflet), sans recalcul de mise en page ni décalage CLS */
+  @keyframes chat-shimmer { 0%, 72% { transform: translateX(0) rotate(16deg); } 88%, 100% { transform: translateX(515%) rotate(16deg); } }
   @media (max-width: 520px) {
     .recruiter-chat { right: 1rem; bottom: 1rem; }
     .recruiter-chat__launcher { min-width: 0; padding: .55rem; gap: .65rem; border-radius: 16px; }
