@@ -39,6 +39,9 @@ Dernière mise à jour : 8 novembre 2026.
 
 - Disponible immédiatement.
 - Ouvert au CDI, qui reste son format préféré.
+- Ouvert aussi aux postes de communication digitale (chargé de communication,
+  community manager), en plus des postes de développement. Voir la section
+  « Communication digitale ».
 - Également ouvert au CDD, aux missions freelance et à d'autres formes de
   collaboration pertinentes.
 - Postes géographiques recherchés : Pau, Tarbes, Orthez et alentours.
@@ -531,6 +534,30 @@ haut, avec ses hooks, son skill et son sous-agent de relecture.
 Réserves à respecter : ne pas donner l'identité de la cliente, ne pas inventer de
 chiffre d'affaires, de volume de commandes, de nombre de produits ni de budget.
 Ne pas avancer de résultats commerciaux : la boutique vient d'ouvrir.
+
+## Communication digitale
+
+Deuxième casquette de Christophe, détaillée sur https://krismos.fr/communication/.
+Chiffres relevés le 8 novembre 2026, sans publicité payante : ce sont des
+volumes modestes, à présenter comme une pratique réelle sur deux lancements,
+jamais comme des résultats de croissance.
+
+- Page Facebook de Lune-Soleil (marque de bijoux artisanaux d'une cliente),
+  gérée de juillet à novembre 2026 : 10 visuels, 2 reels (304 et 68 vues), un
+  événement Facebook, 38 abonnés. Campagne de Noël en plusieurs temps : appel
+  aux organisateurs de marchés du 64, compte à rebours J-7, annonce des dates,
+  question d'engagement « Team Noël ou Team Classique ». Textes écrits à la
+  première personne de la créatrice et validés par elle.
+- SmartPlanning : quatre vidéos de démonstration, une par profil (directeur,
+  manager, employé, présentation générale), vignettes conçues, titres optimisés
+  pour YouTube (482 vues au total). Série LinkedIn du 12 au 19 mai 2026 et un
+  post visuel en juin : 675 impressions organiques sur douze mois, 49 abonnés.
+- Outils réellement utilisés : Canva, ChatGPT et Codex pour les visuels (une
+  partie est générée par IA puis retravaillée dans Canva, ce que Facebook
+  signale), CapCut, Final Cut Pro et Canva pour la vidéo, Claude pour le motion
+  design, Figma pour les maquettes.
+- Ne pas affirmer qu'il maîtrise la suite Adobe, WordPress, Elementor, Brevo ou
+  Sarbacane : rien ne l'indique à ce jour.
 
 ## Autres réalisations
 

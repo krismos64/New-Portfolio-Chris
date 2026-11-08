@@ -1,7 +1,7 @@
 ---
 interface Props {
   /** Page courante, signalée par aria-current */
-  active?: 'projets' | 'parcours' | 'blog';
+  active?: 'projets' | 'parcours' | 'communication' | 'blog';
   /** "#contact" sur les pages qui incluent <Contact />, "/#contact" ailleurs */
   contactHref?: string;
 }
@@ -10,6 +10,7 @@ const { active, contactHref = '#contact' } = Astro.props;
 const navLinks = [
   { href: "/projets/", label: "Projets", key: "projets" },
   { href: "/parcours/", label: "Parcours", key: "parcours" },
+  { href: "/communication/", label: "Communication", key: "communication" },
   { href: "/blog/", label: "Blog", key: "blog" },
   { href: contactHref, label: "Contact", key: "contact" },
 ];

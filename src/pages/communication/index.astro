@@ -1,0 +1,442 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Contact from '../../components/Contact.astro';
+import ScrollReveal from '../../components/ScrollReveal.astro';
+
+// Deuxième casquette : communication digitale (8 novembre 2026).
+// Chiffres relevés le 8 novembre 2026 sur les pages Facebook Lune-Soleil,
+// LinkedIn et YouTube SmartPlanning (mémoire communication-digitale-inventaire).
+// Volumes modestes, sans publicité payante : les présenter comme pratique
+// réelle, jamais comme des résultats de croissance. Visuels capturés depuis
+// les publications, partiellement générés par IA (dit dans la page).
+const url = 'https://krismos.fr/communication/';
+const title = 'Communication digitale à Pau | Christophe Mostefaoui';
+const description = "Communication digitale à Pau : visuels et reels Facebook pour une marque artisanale, campagne vidéo LinkedIn et YouTube pour un SaaS, sites et rédaction web.";
+
+const visuels = [
+  { file: 'ls-recherche-marches', w: 600, h: 900, alt: "Visuel Lune-Soleil : recherche de marchés de Noël et manifestations artisanales dans le 64", caption: "Appel aux organisateurs de marchés du 64" },
+  { file: 'ls-j7', w: 600, h: 753, alt: "Visuel Lune-Soleil : J-7 avant l'annonce des premiers marchés de Noël", caption: "Teasing : J-7 avant l'annonce des marchés" },
+  { file: 'ls-marche-noel', w: 600, h: 753, alt: "Visuel Lune-Soleil : annonce du marché de Noël avec les dates et les lieux", caption: "Annonce des dates et des lieux" },
+  { file: 'ls-team-noel', w: 600, h: 600, alt: "Visuel Lune-Soleil : Team Noël ou Team Classique, quelle est votre team ?", caption: "Question d'engagement : Team Noël ou Team Classique" },
+  { file: 'ls-site-en-developpement', w: 600, h: 600, alt: "Visuel Lune-Soleil : notre site officiel est en développement", caption: "Annonce du site avant son ouverture" },
+];
+
+const videos = [
+  { id: 'K4bidIhB-LI', file: 'sp-yt-directeur', title: 'Démo directeur', duree: '2 min 41', vues: 255 },
+  { id: 'sy3ffTIj0ig', file: 'sp-yt-manager', title: 'Démo manager', duree: '2 min 30', vues: 53 },
+  { id: '8wJgk8i1uzQ', file: 'sp-yt-employe', title: 'Démo employé', duree: '1 min 58', vues: 45 },
+  { id: 'Drd2_9te5LM', file: 'sp-yt-presentation', title: 'Présentation générale', duree: '2 min 42', vues: 129, w: 694, h: 372 },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#page`,
+    "url": url,
+    "name": "Communication digitale de Christophe Mostefaoui",
+    "description": description,
+    "inLanguage": "fr-FR",
+    "isPartOf": { "@id": "https://krismos.fr/#website" },
+    "about": { "@id": "https://krismos.fr/#person" },
+    "keywords": "communication digitale, réseaux sociaux, Facebook, LinkedIn, YouTube, montage vidéo, Canva, CapCut, Final Cut Pro, création de visuels, rédaction web, Pau"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Communication digitale", "item": url }
+    ]
+  }
+];
+---
+
+<Layout title={title} description={description} url={url} image="/images/communication/og-communication.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <Navigation active="communication" />
+
+  <main id="main-content" class="com">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="/">Portfolio</a>
+      <span aria-hidden="true">·</span>
+      <span aria-current="page">Communication digitale</span>
+    </nav>
+
+    <header class="com-head">
+      <p class="eyebrow">Deuxième casquette</p>
+      <h1>Communication digitale</h1>
+      <p class="lead">
+        Je conçois des produits numériques et je sais les faire connaître. Pour deux lancements
+        réels, une marque de bijoux artisanaux et un logiciel de planning, j'ai créé les
+        visuels, monté les vidéos, rédigé les publications et animé les pages, en plus de
+        développer les sites.
+      </p>
+      <div class="head-links">
+        <a class="btn btn-primary" href="#contact">Me contacter</a>
+        <a class="btn" href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </header>
+
+    <section class="summary" aria-labelledby="en-bref">
+      <h2 id="en-bref">En bref</h2>
+      <dl>
+        <div><dt>Réseaux sociaux</dt><dd>Page Facebook d'une marque artisanale, page LinkedIn et chaîne YouTube d'un logiciel B2B</dd></div>
+        <div><dt>Création</dt><dd>Visuels pour les réseaux, vignettes de vidéos, maquettes de sites</dd></div>
+        <div><dt>Vidéo</dt><dd>Reels de lancement et vidéos de démonstration de 2 à 3 minutes, scénarisées et montées</dd></div>
+        <div><dt>Web</dt><dd>13 sites et applications en ligne (projets clients, personnels et de formation), référencement local</dd></div>
+        <div><dt>Rédaction</dt><dd>12 articles publiés, publications écrites dans la voix d'une cliente et validées par elle</dd></div>
+      </dl>
+    </section>
+
+    <!-- Cas 1 -->
+    <section class="cas" aria-labelledby="cas-ls">
+      <p class="cas-tag">Facebook · Marque artisanale</p>
+      <h2 id="cas-ls">Lancer une marque de bijoux artisanaux</h2>
+      <p>
+        Une créatrice de bijoux faits main, installée en Béarn, vend en ligne et sur les marchés.
+        Il fallait annoncer l'arrivée de sa boutique en ligne, trouver des marchés de Noël et
+        faire venir du monde sur son stand. J'ai géré sa page Facebook de juillet à novembre
+        2026 : les textes sont écrits à sa première personne, et elle les valide avant
+        publication.
+      </p>
+
+      <h3>Une campagne de Noël en plusieurs temps</h3>
+      <ol class="etapes">
+        <li><strong>Chercher les marchés</strong> : un appel aux organisateurs du département.</li>
+        <li><strong>Créer l'attente</strong> : un compte à rebours, J-7 avant l'annonce.</li>
+        <li><strong>Annoncer</strong> : les dates et les lieux des marchés.</li>
+        <li><strong>Faire réagir</strong> : une question simple, « Team Noël ou Team Classique ? ».</li>
+      </ol>
+
+      <div class="galerie">
+        {visuels.map((v) => (
+          <figure class="visuel fade-up">
+            <img src={`/images/communication/${v.file}.webp`} width={v.w} height={v.h} alt={v.alt} loading="lazy" decoding="async" />
+            <figcaption>{v.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <dl class="chiffres">
+        <div><dt>10</dt><dd>visuels publiés</dd></div>
+        <div><dt>2</dt><dd>reels, dont l'annonce d'ouverture de la boutique</dd></div>
+        <div><dt>304</dt><dd>vues sur le reel d'ouverture (68 sur le second)</dd></div>
+        <div><dt>1</dt><dd>événement Facebook créé</dd></div>
+      </dl>
+      <p class="note">
+        Chiffres relevés le 8 novembre 2026, sans publicité payante, sur une page de 38 abonnés.
+        Ils mesurent la diffusion : je n'ai pas mesuré l'effet sur la fréquentation du stand.
+        Une partie des visuels part d'images générées par IA (ChatGPT, Codex), retravaillées et
+        mises en page dans Canva. Facebook les signale d'ailleurs comme « Contenu IA ».
+      </p>
+      <p class="cas-links">
+        <a href="https://www.facebook.com/profile.php?id=61592696335840" target="_blank" rel="noopener noreferrer">Voir la page Facebook</a>
+        <a href="/projets/lune-soleil/">Le site que j'ai développé pour elle</a>
+      </p>
+    </section>
+
+    <!-- Cas 2 -->
+    <section class="cas" aria-labelledby="cas-sp">
+      <p class="cas-tag">LinkedIn et YouTube · Logiciel B2B</p>
+      <h2 id="cas-sp">Une campagne vidéo, une cible par vidéo</h2>
+      <p>
+        SmartPlanning est un logiciel de planning pour les entreprises. Un directeur, un manager
+        et un employé ne l'utilisent pas pour les mêmes raisons : j'ai donc réalisé une
+        démonstration par profil, chacune centrée sur ce que ce profil fait dans le logiciel.
+      </p>
+      <ul class="liste">
+        <li>Écriture et montage de quatre vidéos de démonstration de 2 à 3 minutes</li>
+        <li>Vignettes conçues pour chaque vidéo, titres et descriptions rédigés pour la recherche YouTube</li>
+        <li>Diffusion en série sur LinkedIn du 12 au 19 mai 2026, en ouvrant sur un problème connu de la cible : « Vous gérez encore les plannings de votre équipe sur Excel ? »</li>
+        <li>Un post visuel pour prolonger la série : « 5 signes que votre gestion de planning coûte de l'argent »</li>
+      </ul>
+
+      <div class="videos">
+        {videos.map((v) => (
+          <a class="video fade-up" href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener noreferrer">
+            <img src={`/images/communication/${v.file}.webp`} width={v.w ?? 506} height={v.h ?? 276} alt={`Vignette de la vidéo SmartPlanning : ${v.title.toLowerCase()}`} loading="lazy" decoding="async" />
+            <span class="video-meta">
+              <span class="video-title">{v.title}</span>
+              <span class="video-stats">{v.duree} · {v.vues} vues</span>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <figure class="visuel-large fade-up">
+        <img src="/images/communication/sp-linkedin-5-signes.webp" width="800" height="447" alt="Visuel LinkedIn SmartPlanning : un planning Excel surchargé face au planning de l'application" loading="lazy" decoding="async" />
+        <figcaption>Post LinkedIn : le planning sur tableur face au planning dans l'application</figcaption>
+      </figure>
+
+      <dl class="chiffres">
+        <div><dt>482</dt><dd>vues YouTube sur les quatre vidéos</dd></div>
+        <div><dt>189</dt><dd>vues LinkedIn sur les quatre vidéos de la série de mai</dd></div>
+        <div><dt>79</dt><dd>vues sur la vidéo d'accroche, la seule republiée</dd></div>
+        <div><dt>67</dt><dd>impressions sur le post visuel de juin</dd></div>
+      </dl>
+      <p class="note">
+        Chiffres relevés le 8 novembre 2026, sans publicité payante, sur une page LinkedIn de
+        49 abonnés. Le logiciel n'a pas encore de clients abonnés : ces vidéos servent à le
+        présenter, pas à mesurer des ventes.
+      </p>
+      <p class="cas-links">
+        <a href="https://www.youtube.com/@SmartPlanning-x2c" target="_blank" rel="noopener noreferrer">Voir la chaîne YouTube</a>
+        <a href="https://www.linkedin.com/company/smartplanning-fr/" target="_blank" rel="noopener noreferrer">Voir la page LinkedIn</a>
+      </p>
+    </section>
+
+    <!-- Cas 3 et 4 -->
+    <section class="cas" aria-labelledby="cas-web">
+      <p class="cas-tag">Web et rédaction</p>
+      <h2 id="cas-web">Création de sites et rédaction de contenus</h2>
+      <p>
+        Je crée et je mets à jour des sites : une boutique en ligne, des sites vitrines pour des
+        professionnels de la santé et de la formation, le site de ma propre activité. Je
+        structure les informations sur l'activité, les services et les coordonnées pour que les
+        moteurs de recherche les comprennent, avec une attention particulière au référencement
+        local. Ce portfolio obtient 100 sur 100 dans les catégories accessibilité, bonnes
+        pratiques et référencement du rapport Lighthouse de Google, sur mobile (mesure du
+        8 novembre 2026).
+      </p>
+      <p>
+        Je publie aussi des articles. Certains expliquent une notion technique à un lecteur
+        débutant, en langage simple et avec des schémas, comme
+        <a href="/blog/claude-code-04-preuve-par-mutation/">l'article sur la preuve par mutation</a>.
+        Chaque étude de cas de projet s'ouvre sur un résumé lisible en quelques secondes, et
+        certaines contiennent un schéma animé, comme
+        <a href="/projets/lune-soleil/">celui de la boutique Lune-Soleil</a>.
+      </p>
+      <p class="cas-links">
+        <a href="/projets/">Voir les sites et projets</a>
+        <a href="/blog/">Lire le blog</a>
+      </p>
+    </section>
+
+    <section class="outils" aria-labelledby="outils">
+      <h2 id="outils">Outils utilisés sur ces projets</h2>
+      <dl>
+        <div><dt>Visuels</dt><dd>Canva, ChatGPT, Codex, Figma</dd></div>
+        <div><dt>Vidéo</dt><dd>CapCut, Final Cut Pro, Canva</dd></div>
+        <div><dt>Motion design</dt><dd>schémas animés conçus avec Claude, en SVG et CSS (<a href="/projets/smartplanning/">exemple</a>)</dd></div>
+        <div><dt>Réseaux</dt><dd>Facebook (page et événements), LinkedIn (page entreprise), YouTube Studio</dd></div>
+        <div><dt>Web</dt><dd>HTML, CSS, React, Astro, Next.js, référencement et données structurées</dd></div>
+        <div><dt>Organisation</dt><dd>Jira et Confluence, utilisés pour piloter le projet SmartPlanning</dd></div>
+      </dl>
+    </section>
+
+    <Contact />
+  </main>
+  <ScrollReveal />
+</Layout>
+
+<style>
+  .com {
+    position: relative;
+    z-index: 2;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: calc(var(--nav-height) + 2rem) 1.25rem 0;
+  }
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a { color: var(--text-secondary); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--accent); }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--purple) 80%, white);
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .lead {
+    max-width: 720px;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+  .head-links, .cas-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
+  }
+  .btn:hover { color: var(--text); border-color: var(--border-light); }
+  .btn-primary { background: var(--accent-btn); border-color: var(--accent-btn); color: white; }
+  .btn-primary:hover { background: var(--accent-btn-hover); border-color: var(--accent-btn-hover); color: white; }
+
+  .summary, .outils {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.75rem;
+    margin: 2.5rem 0;
+  }
+  .summary h2, .outils h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .summary dl, .outils dl { display: grid; gap: 0.75rem; margin: 0; }
+  .summary dl > div, .outils dl > div {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1rem;
+  }
+  .summary dt, .outils dt { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+  .summary dd, .outils dd { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); }
+
+  .cas {
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .cas-tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+  .cas h2 {
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .cas h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 1.75rem 0 0.75rem;
+  }
+  .cas p, .liste li, .etapes li {
+    max-width: 760px;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .cas p { margin-bottom: 1rem; }
+  .liste, .etapes { padding-left: 1.4rem; margin-bottom: 1.5rem; display: grid; gap: 0.35rem; }
+  .etapes strong { color: var(--text); }
+
+  .galerie {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.875rem;
+    align-items: start;
+    margin: 1.75rem 0;
+  }
+  .visuel { margin: 0; }
+  .visuel img, .visuel-large img, .video img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+  .visuel figcaption, .visuel-large figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+  }
+  .visuel-large { margin: 1.75rem 0; max-width: 640px; }
+
+  .videos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.875rem;
+    margin: 1.75rem 0;
+  }
+  .video {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .video img { aspect-ratio: 506 / 276; object-fit: cover; transition: border-color var(--transition), transform var(--transition); }
+  .video:hover img { border-color: var(--accent); transform: translateY(-2px); }
+  .video-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+  .video-title { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+  .video-stats { font-size: 0.8125rem; color: var(--text-muted); }
+
+  .chiffres {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.875rem;
+    margin: 1.5rem 0 1rem;
+  }
+  .chiffres > div {
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .chiffres dt {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .chiffres dd { margin: 0.2rem 0 0; font-size: 0.8125rem; line-height: 1.45; color: var(--text-secondary); }
+
+  .note {
+    font-size: 0.875rem !important;
+    color: var(--text-muted) !important;
+  }
+  /* Liens dans le texte : soulignés, la couleur seule ne suffit pas (WCAG 1.4.1) */
+  .outils a, .cas p a {
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .cas-links a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .galerie { grid-template-columns: repeat(3, 1fr); }
+    .videos, .chiffres { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .galerie { grid-template-columns: repeat(2, 1fr); }
+    .summary dl > div, .outils dl > div { grid-template-columns: 1fr; gap: 0.15rem; }
+    .summary, .outils { padding: 1.25rem; }
+  }
+</style>
