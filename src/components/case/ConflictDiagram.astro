@@ -1,0 +1,295 @@
+---
+// Schéma animé : détection d'un conflit de planning avec mise à jour optimiste
+// et retour en arrière (étude de cas SmartPlanning).
+// - SVG inline, animation CSS seule, jouée une fois (4,6 s) quand le schéma
+//   devient visible, bouton « Rejouer ». Moins de 5 s : pas de pause requise
+//   (WCAG 2.2.2).
+// - Mouvement réduit : état final affiché d'emblée, sans animation.
+// - Les étapes sont aussi en texte HTML sous le schéma (moteurs, LLM, lecteurs
+//   d'écran) : le SVG est décoratif pour les technologies d'assistance.
+// - Aucune image, aucun script tiers : quelques Ko, sans effet sur LCP ni CLS
+//   (dimensions fixées par viewBox + aspect-ratio).
+---
+
+<figure class="cd" data-cd>
+  <div class="cd-frame">
+    <svg class="cd-svg cd-svg-wide" viewBox="0 0 720 330" aria-hidden="true" focusable="false">
+      <!-- Panneau interface -->
+      <rect x="10" y="10" width="420" height="250" rx="14" class="cd-panel" />
+      <text x="30" y="40" class="cd-label">Interface (React)</text>
+
+      <!-- Jours -->
+      {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven'].map((d, i) => (
+        <text x={62 + i * 76} y="78" class="cd-day" text-anchor="middle">{d}</text>
+      ))}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <rect x={28 + i * 76} y="90" width="68" height="120" rx="8" class="cd-col" />
+      ))}
+
+      <!-- Congé validé (jeudi) -->
+      <rect x="256" y="98" width="68" height="104" rx="8" class="cd-leave" />
+      <text x="290" y="146" class="cd-leave-txt" text-anchor="middle">Congé</text>
+      <text x="290" y="162" class="cd-leave-txt" text-anchor="middle">validé</text>
+
+      <!-- Créneau déplacé : part du mardi, va sur le jeudi, revient -->
+      <g class="cd-shift">
+        <rect x="104" y="112" width="68" height="64" rx="8" class="cd-shift-box" />
+        <text x="138" y="140" class="cd-shift-txt" text-anchor="middle">Léa</text>
+        <text x="138" y="158" class="cd-shift-txt cd-shift-sub" text-anchor="middle">9h-17h</text>
+      </g>
+      <text x="30" y="238" class="cd-note cd-note-opt">Mise à jour optimiste : l'écran bouge tout de suite</text>
+
+      <!-- Flèches aller et retour -->
+      <path d="M432 110 H500" class="cd-arrow cd-arrow-go" marker-end="url(#cd-head)" />
+      <path d="M500 190 H432" class="cd-arrow cd-arrow-back" marker-end="url(#cd-head-red)" />
+      <defs>
+        <marker id="cd-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="cd-head" />
+        </marker>
+        <marker id="cd-head-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="cd-head-red" />
+        </marker>
+      </defs>
+
+      <!-- Panneau serveur -->
+      <rect x="500" y="10" width="210" height="250" rx="14" class="cd-panel" />
+      <text x="518" y="40" class="cd-label">Serveur (Prisma)</text>
+      <text x="518" y="80" class="cd-code">start_date &lt; newEnd</text>
+      <text x="518" y="100" class="cd-code">AND end_date &gt; newStart</text>
+      <rect x="512" y="64" width="186" height="46" rx="6" class="cd-scan" />
+      <g class="cd-result">
+        <rect x="514" y="132" width="182" height="58" rx="8" class="cd-result-box" />
+        <text x="605" y="156" class="cd-result-txt" text-anchor="middle">Chevauchement :</text>
+        <text x="605" y="175" class="cd-result-txt" text-anchor="middle">congé validé</text>
+      </g>
+      <text x="605" y="230" class="cd-note cd-note-block" text-anchor="middle">Conflit dur : refusé</text>
+
+      <!-- Message final -->
+      <g class="cd-toast">
+        <rect x="70" y="280" width="580" height="40" rx="10" class="cd-toast-box" />
+        <text x="360" y="305" class="cd-toast-txt" text-anchor="middle">Retour en arrière : « Léa est en congé validé ce jour-là »</text>
+      </g>
+    </svg>
+
+    <!-- Version verticale pour les écrans étroits : mêmes classes, mêmes animations -->
+    <svg class="cd-svg cd-svg-tall" viewBox="0 0 360 590" aria-hidden="true" focusable="false">
+      <rect x="10" y="10" width="340" height="250" rx="14" class="cd-panel" />
+      <text x="24" y="38" class="cd-label">Interface (React)</text>
+      {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven'].map((d, i) => (
+        <text x={50 + i * 64} y="72" class="cd-day" text-anchor="middle">{d}</text>
+      ))}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <rect x={22 + i * 64} y="84" width="56" height="120" rx="8" class="cd-col" />
+      ))}
+      <rect x="216" y="90" width="52" height="108" rx="8" class="cd-leave" />
+      <text x="242" y="140" class="cd-leave-txt" text-anchor="middle">Congé</text>
+      <text x="242" y="156" class="cd-leave-txt" text-anchor="middle">validé</text>
+      <g class="cd-shift">
+        <rect x="88" y="104" width="52" height="60" rx="8" class="cd-shift-box" />
+        <text x="114" y="130" class="cd-shift-txt" text-anchor="middle">Léa</text>
+        <text x="114" y="148" class="cd-shift-txt cd-shift-sub" text-anchor="middle">9h-17h</text>
+      </g>
+      <text x="24" y="236" class="cd-note cd-note-opt">Mise à jour optimiste : l'écran bouge aussitôt</text>
+
+      <path d="M120 262 V316" class="cd-arrow cd-arrow-go" marker-end="url(#cd-head-t)" />
+      <path d="M240 316 V262" class="cd-arrow cd-arrow-back" marker-end="url(#cd-head-red-t)" />
+      <defs>
+        <marker id="cd-head-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="cd-head" />
+        </marker>
+        <marker id="cd-head-red-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="cd-head-red" />
+        </marker>
+      </defs>
+
+      <rect x="10" y="320" width="340" height="190" rx="14" class="cd-panel" />
+      <text x="24" y="348" class="cd-label">Serveur (Prisma)</text>
+      <text x="28" y="380" class="cd-code">start_date &lt; newEnd</text>
+      <text x="28" y="398" class="cd-code">AND end_date &gt; newStart</text>
+      <rect x="20" y="364" width="200" height="44" rx="6" class="cd-scan" />
+      <g class="cd-result">
+        <rect x="20" y="420" width="200" height="54" rx="8" class="cd-result-box" />
+        <text x="120" y="442" class="cd-result-txt" text-anchor="middle">Chevauchement :</text>
+        <text x="120" y="461" class="cd-result-txt" text-anchor="middle">congé validé</text>
+      </g>
+      <text x="24" y="496" class="cd-note cd-note-block">Conflit dur : refusé</text>
+
+      <g class="cd-toast">
+        <rect x="10" y="522" width="340" height="60" rx="10" class="cd-toast-box" />
+        <text x="180" y="546" class="cd-toast-txt" text-anchor="middle">Retour en arrière :</text>
+        <text x="180" y="566" class="cd-toast-txt" text-anchor="middle">« Léa est en congé validé ce jour-là »</text>
+      </g>
+    </svg>
+  </div>
+
+  <figcaption class="cd-caption">
+    <ol class="cd-steps">
+      <li class="cd-step cd-step-1">Le manager glisse le créneau de Léa du mardi au jeudi : l'interface l'affiche aussitôt, sans attendre le serveur.</li>
+      <li class="cd-step cd-step-2">En parallèle, le serveur cherche un chevauchement avec la condition <code>start_date &lt; newEnd AND end_date &gt; newStart</code>.</li>
+      <li class="cd-step cd-step-3">Il trouve un congé validé : c'est un conflit dur, l'opération est refusée.</li>
+      <li class="cd-step cd-step-4">L'interface remet le créneau à sa place, à partir de l'état gardé avant le déplacement, et explique pourquoi.</li>
+    </ol>
+    <button type="button" class="cd-replay" data-cd-replay hidden>Rejouer l'animation</button>
+  </figcaption>
+</figure>
+
+<style>
+  .cd {
+    margin: 1.5rem 0 2rem;
+  }
+  .cd-frame {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem;
+  }
+  .cd-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  /* Le créneau se déplace de deux colonnes : 152 unités en large, 128 en vertical */
+  .cd-svg-wide { aspect-ratio: 720 / 330; --dx: 152px; }
+  .cd-svg-tall { aspect-ratio: 360 / 590; --dx: 128px; display: none; max-width: 420px; margin: 0 auto; }
+  @media (max-width: 640px) {
+    .cd-svg-wide { display: none; }
+    .cd-svg-tall { display: block; }
+  }
+
+  /* Couleurs */
+  .cd-panel { fill: var(--bg); stroke: var(--border); }
+  .cd-col { fill: rgba(255, 255, 255, 0.025); stroke: var(--border); }
+  .cd-label { fill: var(--text); font: 600 15px 'Inter Variable', sans-serif; }
+  .cd-day { fill: var(--text-muted); font: 500 12px 'Inter Variable', sans-serif; }
+  .cd-leave { fill: color-mix(in srgb, var(--amber) 18%, transparent); stroke: var(--amber); stroke-dasharray: 4 3; }
+  .cd-leave-txt { fill: color-mix(in srgb, var(--amber) 85%, white); font: 600 12px 'Inter Variable', sans-serif; }
+  .cd-shift-box { fill: var(--accent-btn); }
+  .cd-shift-txt { fill: #fff; font: 600 13px 'Inter Variable', sans-serif; }
+  .cd-shift-sub { font-weight: 500; font-size: 11px; }
+  .cd-note { fill: var(--text-secondary); font: 500 12px 'Inter Variable', sans-serif; }
+  .cd-note-block { fill: #f87171; font-weight: 600; }
+  .cd-code { fill: var(--text-secondary); font: 500 12px var(--font-mono); }
+  .cd-scan { fill: color-mix(in srgb, var(--accent) 14%, transparent); stroke: var(--accent); }
+  .cd-result-box { fill: rgba(239, 68, 68, 0.14); stroke: #ef4444; }
+  .cd-result-txt { fill: #fca5a5; font: 600 13px 'Inter Variable', sans-serif; }
+  .cd-arrow { fill: none; stroke-width: 2.5; }
+  .cd-arrow-go { stroke: var(--accent); }
+  .cd-arrow-back { stroke: #ef4444; }
+  .cd-head { fill: var(--accent); }
+  .cd-head-red { fill: #ef4444; }
+  .cd-toast-box { fill: rgba(239, 68, 68, 0.12); stroke: rgba(239, 68, 68, 0.5); }
+  .cd-toast-txt { fill: #fecaca; font: 600 13px 'Inter Variable', sans-serif; }
+
+  /* Étapes en texte */
+  .cd-caption { margin-top: 1rem; }
+  .cd-steps {
+    margin: 0;
+    padding-left: 1.4rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+  .cd-step {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+  }
+  .cd-replay {
+    margin-top: 0.9rem;
+    padding: 0.45rem 0.9rem;
+    font: 600 0.8125rem 'Inter Variable', sans-serif;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .cd-replay:hover { color: var(--text); border-color: var(--accent); }
+  .cd-replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* État final par défaut (mouvement réduit, sans JavaScript) : tout est visible,
+     le créneau est revenu à sa place */
+  .cd-scan, .cd-result, .cd-toast, .cd-arrow, .cd-note { opacity: 1; }
+
+  /* Animation : uniquement si le mouvement est autorisé et que le script a
+     armé le schéma (.cd-armed). Elle démarre avec .cd-play. */
+  @media (prefers-reduced-motion: no-preference) {
+    .cd-armed .cd-shift { transform: translateX(0); }
+    .cd-armed .cd-note-opt,
+    .cd-armed .cd-arrow-go,
+    .cd-armed .cd-scan,
+    .cd-armed .cd-result,
+    .cd-armed .cd-note-block,
+    .cd-armed .cd-arrow-back,
+    .cd-armed .cd-toast { opacity: 0; }
+
+    .cd-play .cd-shift { animation: cd-move 4.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .cd-play .cd-note-opt { animation: cd-flash 4.6s ease forwards; }
+    .cd-play .cd-arrow-go { animation: cd-in 4.6s ease forwards; --at: 22%; }
+    .cd-play .cd-scan { animation: cd-scan 4.6s ease forwards; }
+    .cd-play .cd-result,
+    .cd-play .cd-note-block { animation: cd-in-late 4.6s ease forwards; }
+    .cd-play .cd-arrow-back { animation: cd-in-back 4.6s ease forwards; }
+    .cd-play .cd-toast { animation: cd-in-end 4.6s ease forwards; }
+
+    .cd-play .cd-step-1 { animation: cd-hl-1 4.6s ease forwards; }
+    .cd-play .cd-step-2 { animation: cd-hl-2 4.6s ease forwards; }
+    .cd-play .cd-step-3 { animation: cd-hl-3 4.6s ease forwards; }
+    .cd-play .cd-step-4 { animation: cd-hl-4 4.6s ease forwards; }
+  }
+
+  /* Le créneau va du mardi au jeudi (deux colonnes, --dx), puis revient */
+  @keyframes cd-move {
+    0%, 8% { transform: translateX(0); }
+    22%, 66% { transform: translateX(var(--dx)); }
+    80%, 100% { transform: translateX(0); }
+  }
+  @keyframes cd-flash {
+    0%, 12% { opacity: 0; }
+    20%, 62% { opacity: 1; }
+    72%, 100% { opacity: 0.35; }
+  }
+  @keyframes cd-in { 0%, 22% { opacity: 0; } 28%, 100% { opacity: 1; } }
+  @keyframes cd-scan {
+    0%, 28% { opacity: 0; }
+    34%, 46% { opacity: 1; }
+    52%, 100% { opacity: 0.4; }
+  }
+  @keyframes cd-in-late { 0%, 48% { opacity: 0; } 54%, 100% { opacity: 1; } }
+  @keyframes cd-in-back { 0%, 60% { opacity: 0; } 66%, 100% { opacity: 1; } }
+  @keyframes cd-in-end { 0%, 78% { opacity: 0; } 86%, 100% { opacity: 1; } }
+
+  @keyframes cd-hl-1 { 0% { color: var(--text-secondary); } 4%, 26% { color: var(--text); } 30%, 100% { color: var(--text-secondary); } }
+  @keyframes cd-hl-2 { 0%, 26% { color: var(--text-secondary); } 30%, 48% { color: var(--text); } 52%, 100% { color: var(--text-secondary); } }
+  @keyframes cd-hl-3 { 0%, 48% { color: var(--text-secondary); } 52%, 66% { color: var(--text); } 70%, 100% { color: var(--text-secondary); } }
+  @keyframes cd-hl-4 { 0%, 66% { color: var(--text-secondary); } 72%, 100% { color: var(--text); } }
+</style>
+
+<script>
+  // Arme chaque schéma (masque les éléments qui apparaîtront), le joue une fois
+  // quand il est visible à 40 %, puis propose « Rejouer ». Sans JavaScript ou en
+  // mouvement réduit, l'état final reste affiché.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-cd]').forEach((fig) => {
+    if (reduce.matches) return;
+    const replay = fig.querySelector<HTMLButtonElement>('[data-cd-replay]');
+    fig.classList.add('cd-armed');
+
+    const play = () => {
+      fig.classList.remove('cd-play');
+      void fig.offsetWidth; // relance les animations CSS
+      fig.classList.add('cd-play');
+      if (replay) replay.hidden = false;
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        play();
+        io.disconnect();
+      }
+    }, { threshold: 0.4 });
+    io.observe(fig);
+
+    replay?.addEventListener('click', play);
+  });
+</script>

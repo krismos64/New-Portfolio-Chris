@@ -1,5 +1,6 @@
 ---
 import CaseStudy from '../../layouts/CaseStudy.astro';
+import ConflictDiagram from '../../components/case/ConflictDiagram.astro';
 
 // Étude de cas pilote (phase 1 du découpage multi-pages, 8 novembre 2026).
 // Chaque chiffre vient de public/chatbot-knowledge.txt (section SmartPlanning),
@@ -84,7 +85,7 @@ const jsonLd = [
         sizes="(max-width: 860px) 100vw, 820px"
         width="1200" height="675"
         alt="SmartPlanning affiché sur un ordinateur portable et un smartphone"
-        loading="lazy" decoding="async"
+        loading="eager" decoding="async"
       />
     </figure>
 
@@ -153,6 +154,8 @@ const jsonLd = [
         année de planning, soit 52 occurrences, sans ralentissement visible. Je n'ai pas
         encore mesuré les performances sous charge.
       </p>
+
+      <ConflictDiagram />
 
       <h3>2. Garder la base de données hors du middleware</h3>
       <p>
