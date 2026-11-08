@@ -1,0 +1,276 @@
+---
+// Mise en page commune des études de cas (/projets/<id>/).
+// Le contenu est passé en slot : styles globaux préfixés par .case.
+import Layout from './Layout.astro';
+import Navigation from '../components/Navigation.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  /** Image de partage 1200x630 */
+  image: string;
+  jsonLd: unknown;
+  crumb: string;
+  eyebrow: string;
+  heading: string;
+  lead: string;
+}
+
+const { title, description, url, image, jsonLd, crumb, eyebrow, heading, lead } = Astro.props;
+---
+
+<Layout title={title} description={description} url={url} image={image}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <Navigation active="projets" contactHref="/#contact" />
+
+  <main id="main-content" class="case">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="/">Portfolio</a>
+      <span aria-hidden="true">·</span>
+      <a href="/projets/">Projets</a>
+      <span aria-hidden="true">·</span>
+      <span aria-current="page">{crumb}</span>
+    </nav>
+
+    <header class="case-head">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{heading}</h1>
+      <p class="lead">{lead}</p>
+      <div class="head-links">
+        <slot name="links" />
+      </div>
+    </header>
+
+    <slot />
+
+    <aside class="cta" aria-label="Contact">
+      <p>Je recherche un CDI en conception et développement d'applications, à Pau et alentours ou en remote.</p>
+      <div class="head-links">
+        <a class="btn btn-primary" href="/docs/cv-christophe-mostefaoui.pdf" target="_blank" rel="noopener noreferrer">Voir mon CV</a>
+        <a class="btn" href="/#contact">Me contacter</a>
+        <a class="btn" href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </aside>
+  </main>
+</Layout>
+
+<style is:global>
+  .case {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: calc(var(--nav-height, 64px) + 2rem) 1.25rem 4rem;
+  }
+
+  .case .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+  .case .breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .case .breadcrumb a:hover {
+    color: var(--accent);
+  }
+
+  .case .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    margin-bottom: 0.75rem;
+  }
+
+  .case h1 {
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .case .lead {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .case .head-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .case .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
+  }
+  .case .btn:hover {
+    color: var(--text);
+    border-color: var(--border-light);
+  }
+  .case .btn-primary {
+    background: var(--accent-btn);
+    border-color: var(--accent-btn);
+    color: white;
+  }
+  .case .btn-primary:hover {
+    background: var(--accent-btn-hover);
+    border-color: var(--accent-btn-hover);
+    color: white;
+  }
+
+  .case .cover {
+    margin: 2.5rem 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    aspect-ratio: 16 / 9;
+    background: var(--bg-alt);
+  }
+  .case .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case .summary {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .case .summary h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .case .summary dl {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .case .summary dl > div {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 1rem;
+  }
+  .case .summary dt {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .case .summary dd {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .case .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 2.5rem 0 0.875rem;
+  }
+  .case .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 1.75rem 0 0.625rem;
+  }
+  .case .prose p,
+  .case .prose li {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .case .prose p {
+    margin-bottom: 1rem;
+  }
+  .case .prose ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .case .prose li {
+    margin-bottom: 0.35rem;
+  }
+  .case .prose a,
+  .case .series a,
+  .case .summary a {
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    text-underline-offset: 3px;
+  }
+  .case .prose .more {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .case .series {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .case .series h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .case .series ol {
+    padding-left: 1.5rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .case .series li {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .case .cta {
+    margin-top: 3rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .case .cta p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .case .summary {
+      padding: 1.25rem;
+    }
+    .case .summary dl > div {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+</style>

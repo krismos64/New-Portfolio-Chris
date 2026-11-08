@@ -2,7 +2,7 @@
 
 > Portfolio technique de Christophe Mostefaoui, Concepteur Développeur d'Applications (CDA, spécialisation IA) basé à Artix, près de Pau (Pyrénées-Atlantiques, 64). Fondateur du SaaS SmartPlanning.fr, conçu, développé et exploité seul. Stack : Next.js 15, React 19, TypeScript strict, PostgreSQL, Prisma, Docker. Ce site s'adresse aux recruteurs, CTO, DSI et agences ; pour les prestations freelance, voir https://christophe-dev-freelance.fr. Contact : christophe.mostefaoui.dev@gmail.com.
 
-Dernière mise à jour : 3 août 2026.
+Dernière mise à jour : 8 novembre 2026.
 
 ## Identité
 
@@ -85,6 +85,15 @@ Faits techniques établis dans cette série, réutilisables comme référence :
 - [Methodea](https://methodea.netlify.app/): refonte d'un site de formation à la recherche scientifique, pour le client Staka (HTML, CSS, JavaScript)
 - [Garage V. Parrot](https://garage-parrot.online/): projet fictif de l'évaluation finale (ECF) de la formation Studi, catalogue de véhicules, rendez-vous et espace d'administration (Symfony, PHP, Twig, MySQL)
 - [Poulp Fiction](https://poulpfiction.netlify.app/): démo personnelle d'un site de club de plongée, animations Lottie et galerie filtrable (HTML, CSS, JavaScript)
+
+## Pages du site
+
+- [Accueil](https://krismos.fr/): présentation, projets phares, parcours en bref, accès au blog, contact
+- [Projets](https://krismos.fr/projets/): les 13 projets, du SaaS en production aux sites vitrines et projets de formation
+- [Étude de cas SmartPlanning](https://krismos.fr/projets/smartplanning/): SaaS multi-tenant Next.js 15, décisions techniques, 3 003 tests, erreur en production et correctifs
+- [Étude de cas Lune-Soleil](https://krismos.fr/projets/lune-soleil/): e-commerce Next.js 16, stock partagé avec les marchés, réservation atomique du dernier exemplaire, paiement confirmé par webhook signé, factures immuables
+- [Parcours et compétences](https://krismos.fr/parcours/): formations CDA et DWWM, expérience, compétences techniques, processus de développement
+- [Blog technique](https://krismos.fr/blog/): deux séries, 12 articles
 
 ## Liens et contact
 

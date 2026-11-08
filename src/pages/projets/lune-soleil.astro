@@ -1,0 +1,194 @@
+---
+import CaseStudy from '../../layouts/CaseStudy.astro';
+
+// Étude de cas Lune-Soleil (8 novembre 2026). Faits repris de
+// public/chatbot-knowledge.txt (section Lune-Soleil) et du README public du dépôt.
+// Réserves : jamais l'identité de la cliente, aucun chiffre d'affaires, volume
+// de commandes, nombre de produits ni budget.
+const url = 'https://krismos.fr/projets/lune-soleil/';
+const title = "Lune-Soleil : étude de cas e-commerce Next.js | Christophe Mostefaoui";
+const description = "Boutique de bijoux développée seul pour une créatrice du Béarn : Next.js 16, Stripe, stock partagé avec les marchés, factures immuables, réservation atomique.";
+const published = '2026-11-08';
+
+const articles = [
+  { slug: 'claude-code-01-pourquoi-encadrer-un-agent', title: "Pourquoi j'encadre mon agent de code" },
+  { slug: 'claude-code-02-hooks-et-permissions', title: 'Hooks Claude Code : où placer un garde-fou' },
+  { slug: 'claude-code-03-skills-et-sous-agents', title: 'Skills et sous-agents : déléguer le processus' },
+  { slug: 'claude-code-04-preuve-par-mutation', title: 'La preuve par mutation : vérifier que les tests servent' },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    "headline": "Lune-Soleil : une boutique e-commerce sur mesure en Next.js, du stock au paiement",
+    "description": description,
+    "url": url,
+    "mainEntityOfPage": url,
+    "datePublished": published,
+    "dateModified": published,
+    "inLanguage": "fr-FR",
+    "image": "https://krismos.fr/images/projects/og/lune-soleil.jpg",
+    "author": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui", "url": "https://krismos.fr/" },
+    "publisher": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui" },
+    "about": {
+      "@type": "WebSite",
+      "@id": "https://lune-soleil.fr/#website",
+      "name": "Lune-Soleil",
+      "url": "https://lune-soleil.fr/",
+      "creator": { "@id": "https://krismos.fr/#person" },
+      "sameAs": [
+        "https://github.com/krismos64/lune-soleil",
+        "https://www.facebook.com/profile.php?id=61592696335840"
+      ]
+    },
+    "keywords": "e-commerce sur mesure, Next.js 16, React 19, TypeScript, PostgreSQL 18, Prisma 7, Stripe Checkout, Better Auth, Docker"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Projets", "item": "https://krismos.fr/projets/" },
+      { "@type": "ListItem", "position": 3, "name": "Lune-Soleil, étude de cas", "item": url }
+    ]
+  }
+];
+---
+
+<CaseStudy
+  title={title}
+  description={description}
+  url={url}
+  image="/images/projects/og/lune-soleil.jpg"
+  jsonLd={jsonLd}
+  crumb="Lune-Soleil"
+  eyebrow="Étude de cas · Freelance, client réel"
+  heading="Lune-Soleil : une boutique e-commerce sur mesure en Next.js, du stock au paiement"
+  lead="Une créatrice de bijoux du Béarn vend ses pièces en ligne et sur les marchés, souvent en exemplaire unique. J'ai développé seul sa boutique, du catalogue à la facture, avec un stock commun aux deux canaux."
+>
+  <a slot="links" class="btn btn-primary" href="https://lune-soleil.fr/" target="_blank" rel="noopener noreferrer">
+    Voir lune-soleil.fr
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+  </a>
+  <a slot="links" class="btn" href="https://github.com/krismos64/lune-soleil" target="_blank" rel="noopener noreferrer">Code source sur GitHub</a>
+  <a slot="links" class="btn" href="/blog/claude-code/">La série sur l'agent de code</a>
+
+  <figure class="cover">
+    <img
+      src="/images/projects/lune-soleil-mockup.webp"
+      srcset="/images/projects/lune-soleil-mockup-800.webp 800w, /images/projects/lune-soleil-mockup.webp 1200w"
+      sizes="(max-width: 860px) 100vw, 820px"
+      width="1200" height="675"
+      alt="La boutique Lune-Soleil affichée sur un ordinateur portable et un smartphone"
+      loading="lazy" decoding="async"
+    />
+  </figure>
+
+  <section class="summary" aria-labelledby="en-bref">
+    <h2 id="en-bref">En bref</h2>
+    <dl>
+      <div><dt>Produit</dt><dd>Boutique en ligne sur mesure de bijoux artisanaux faits main, sur lune-soleil.fr</dd></div>
+      <div><dt>Mon rôle</dt><dd>Développeur freelance, seul sur le projet : conception, développement, tests, déploiement et maintenance</dd></div>
+      <div><dt>Dates</dt><dd>En production depuis le 9 septembre 2026, paiements réels depuis le 24 octobre, ouverture au public le 1er novembre 2026</dd></div>
+      <div><dt>Stack</dt><dd>Next.js 16, React 19, TypeScript strict, PostgreSQL 18, Prisma 7, Better Auth, Stripe Checkout, Docker, VPS OVHcloud</dd></div>
+      <div><dt>Code</dt><dd>Dépôt public : <a href="https://github.com/krismos64/lune-soleil" target="_blank" rel="noopener noreferrer">github.com/krismos64/lune-soleil</a></dd></div>
+      <div><dt>Statut</dt><dd>Boutique ouverte et maintenue : corrections, sécurité et demandes de la cliente</dd></div>
+    </dl>
+  </section>
+
+  <article class="prose">
+    <h2>Le besoin</h2>
+    <p>
+      La créatrice vend la même pièce sur internet et sur un stand de marché. Beaucoup de
+      bijoux existent en un seul exemplaire : si une pièce part au marché, elle ne doit plus
+      pouvoir être payée en ligne, et inversement. Elle gère aussi la boutique seule, souvent
+      depuis son téléphone, y compris derrière son stand.
+    </p>
+
+    <h2>Ce que fait la boutique</h2>
+    <ul>
+      <li>Catalogue de pièces uniques et de déclinaisons, photos traitées à l'envoi (métadonnées de localisation retirées, formats AVIF, WebP et JPEG)</li>
+      <li>Panier et paiement par Stripe Checkout</li>
+      <li>Stock partagé entre la vente en ligne et les marchés</li>
+      <li>Factures et avoirs en PDF</li>
+      <li>Expédition Mondial Relay via Sendcloud : point relais, locker ou domicile, étiquette et suivi</li>
+      <li>Espace client : commandes, factures, carnet d'adresses, avis vérifiés et rétractation en ligne</li>
+      <li>Back-office utilisable depuis un smartphone, avec connexion par passkey</li>
+    </ul>
+
+    <h2>L'architecture</h2>
+    <p>
+      L'application est un monolithe modulaire, pour une seule boutique, en France et en euros.
+      Les gestionnaires de route et les Server Actions de Next.js servent d'adaptateurs
+      d'entrée et ne portent aucune règle métier. Les cas d'usage vivent dans une couche de
+      services, l'accès aux données dans des dépôts par domaine, et les services externes
+      (Stripe, Sendcloud, emails) sont isolés derrière leurs propres modules.
+    </p>
+
+    <h2>Quatre règles qui protègent l'argent et le stock</h2>
+
+    <h3>1. Le dernier exemplaire ne se vend qu'une fois</h3>
+    <p>
+      C'est le point le plus critique de la boutique. Lire le stock puis l'écrire laisserait
+      passer deux réservations simultanées de la même pièce. La réservation se fait donc en
+      une seule instruction SQL atomique, avec la condition de stock dans le
+      <code>WHERE</code>. Le test de concurrence qui le prouve a été écrit avant le paiement et
+      tourne en intégration continue.
+    </p>
+
+    <h3>2. Seul Stripe confirme un paiement</h3>
+    <p>
+      Le retour du navigateur après paiement ne prouve rien : seul un événement signé envoyé
+      par Stripe au serveur confirme une commande. L'idempotence est ancrée sur l'effet
+      (la commande déjà payée) et non sur l'identifiant de l'événement, qui laisserait passer
+      le croisement entre un webhook et une réconciliation.
+    </p>
+
+    <h3>3. Une facture émise ne change plus</h3>
+    <p>
+      Une ligne de commande et une facture émise sont immuables. Une correction produit un
+      avoir. Le numéro de facture est attribué dans la transaction qui crée le document, ce
+      qui évite les trous et les doublons de numérotation.
+    </p>
+
+    <h3>4. Aucun nombre à virgule dans les montants</h3>
+    <p>
+      Tous les montants sont stockés en centimes entiers. Aucun flottant n'entre dans un
+      calcul monétaire, ce qui écarte les erreurs d'arrondi sur les totaux, les remises et
+      les remboursements.
+    </p>
+
+    <h2>Infrastructure et déploiement</h2>
+    <p>
+      La boutique tourne sur un VPS OVHcloud avec Docker Compose derrière Nginx. GitHub Actions
+      construit l'image de l'application en intégration continue et la tague par le SHA du
+      commit, ce qui permet de savoir exactement quelle version tourne en production.
+    </p>
+
+    <h2>Un développement encadré par des garde-fous</h2>
+    <p>
+      J'ai développé Lune-Soleil avec un agent de code, Claude Code, encadré par des hooks, un
+      skill de processus et un sous-agent de relecture. Les tests sont eux-mêmes vérifiés par
+      mutation : on casse volontairement le code pour s'assurer qu'un test échoue. La série
+      ci-dessous détaille cette configuration.
+    </p>
+
+    <h2>Où en est la boutique</h2>
+    <p>
+      La boutique est en production depuis septembre 2026 et ouverte au public depuis le
+      1er novembre. Je la maintiens : corrections, mises à jour de sécurité et demandes de la
+      cliente. Elle vient d'ouvrir, je ne publie donc aucun résultat commercial.
+    </p>
+  </article>
+
+  <section class="series" aria-labelledby="serie">
+    <h2 id="serie">Encadrer un agent de code sur ce projet : la série</h2>
+    <ol>
+      {articles.map((a) => (
+        <li><a href={`/blog/${a.slug}/`}>{a.title}</a></li>
+      ))}
+    </ol>
+  </section>
+</CaseStudy>

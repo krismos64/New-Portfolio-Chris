@@ -1,0 +1,31 @@
+---
+// Apparition au défilement des éléments .fade-up (classes .sr-hidden / .sr-visible,
+// styles globaux dans Layout.astro). À inclure une fois par page.
+---
+
+<script>
+  // Scroll reveal : cacher les éléments hors viewport, animer à l'entrée
+  const fadeEls = document.querySelectorAll(".fade-up");
+
+  fadeEls.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top >= window.innerHeight) {
+      el.classList.add("sr-hidden");
+    }
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("sr-hidden");
+          entry.target.classList.add("sr-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.05, rootMargin: "0px 0px -20px 0px" }
+  );
+
+  fadeEls.forEach((el) => observer.observe(el));
+</script>

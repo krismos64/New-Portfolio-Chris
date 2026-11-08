@@ -9,6 +9,8 @@ export interface Project {
   image: string;
   /** Réalisation secondaire : carte compacte dans « Autres réalisations », sous la grille principale */
   secondary?: boolean;
+  /** Chemin de l'étude de cas sur le portfolio, quand elle existe */
+  caseStudy?: string;
   /** Remplace les boutons de liens quand le projet n'est pas encore en ligne */
   status?: string;
   /** Domaine réservé, affiché sans lien tant que le site n'est pas ouvert */
@@ -35,6 +37,7 @@ export const projects: Project[] = [
     badge: "Projet CDA · En production",
     badgeColor: "blue",
     image: "/images/projects/smartplanning-mockup.webp",
+    caseStudy: "/projets/smartplanning/",
     tech: ["Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma", "Stripe", "Docker"],
     description:
       "Solution SaaS réelle et fonctionnelle de gestion d'équipes : plannings, gestion des congés, tâches personnelles. Paiements Stripe opérationnels, conforme RGPD. Projet final CDA.",
@@ -60,6 +63,7 @@ export const projects: Project[] = [
     badge: "Freelance · Client réel",
     badgeColor: "green",
     image: "/images/projects/lune-soleil-mockup.webp",
+    caseStudy: "/projets/lune-soleil/",
     tech: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL 18", "Prisma 7", "Stripe", "Docker"],
     description:
       "Boutique en ligne sur mesure pour une créatrice de bijoux du Béarn, ouverte sur lune-soleil.fr. Cycle commercial complet : catalogue, paiement Stripe, stock partagé entre site et marchés, factures et avoirs, expédition Mondial Relay, espace client et back-office mobile.",

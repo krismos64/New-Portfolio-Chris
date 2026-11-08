@@ -4,7 +4,18 @@ Cette base est la source de vérité du chatbot. Elle distingue les faits public
 les informations déclarées par Christophe et les limites à respecter. En cas de
 contradiction avec une supposition du visiteur, cette base prévaut.
 
-Dernière mise à jour : 21 juillet 2026.
+Dernière mise à jour : 8 novembre 2026.
+
+## Pages du portfolio à recommander
+
+- Vue d'ensemble des 13 projets : https://krismos.fr/projets/
+- Étude de cas SmartPlanning (SaaS, architecture, tests, erreur en production) :
+  https://krismos.fr/projets/smartplanning/
+- Étude de cas Lune-Soleil (e-commerce, stock, paiement, facturation) :
+  https://krismos.fr/projets/lune-soleil/
+- Parcours, formations, compétences et méthode : https://krismos.fr/parcours/
+- Blog technique, deux séries : https://krismos.fr/blog/
+- Contact : section Contact en bas de l'accueil, https://krismos.fr/#contact
 
 ## Identité et positionnement
 

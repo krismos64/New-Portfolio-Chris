@@ -1,17 +1,40 @@
 ---
 import { projects } from '../data/projects';
 
+interface Props {
+  /** home : projet phare + 2 cartes et lien vers /projets/ ; full : page /projets/ complète */
+  variant?: 'home' | 'full';
+}
+const { variant = 'full' } = Astro.props;
+const isHome = variant === 'home';
+
 const featured = projects[0]; // SmartPlanning
-const others = projects.slice(1).filter((p) => !p.secondary);
-const secondary = projects.filter((p) => p.secondary);
+const allMain = projects.slice(1).filter((p) => !p.secondary);
+const others = isHome ? allMain.slice(0, 2) : allMain;
+const secondary = isHome ? [] : projects.filter((p) => p.secondary);
+
+// Sur /projets/, le titre de page est le h1 : les titres de cartes descendent d'un cran
+const H = isHome ? 'h3' : 'h2';
+const HSub = isHome ? 'h4' : 'h3';
 
 // Chaque maquette existe en 1200 px et en 800 px (suffixe -800)
 const srcset = (src: string) => `${src.replace('.webp', '-800.webp')} 800w, ${src} 1200w`;
 const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordinateur portable et un smartphone`;
 ---
 
-<section id="projects">
-  <h2 class="section-title">Mes projets web et SaaS</h2>
+<section id="projects" class={isHome ? 'projects-home' : 'projects-full'}>
+  {isHome ? (
+    <h2 class="section-title">Projets phares</h2>
+  ) : (
+    <header class="page-head">
+      <h1 class="section-title">Projets web et SaaS</h1>
+      <p class="page-intro">
+        Un SaaS en production, une boutique e-commerce pour une cliente, une plateforme
+        d'édition, puis les sites vitrines et projets de formation. Chaque carte renvoie
+        au site en ligne et, quand il est public, au code source.
+      </p>
+    </header>
+  )}
 
   <!-- Projet phare : SmartPlanning -->
   <div class="featured fade-up">
@@ -62,7 +85,7 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
           )}
         </div>
       </div>
-      <h3 class="featured-title">{featured.title}</h3>
+      <H class="featured-title">{featured.title}</H>
       <p class="featured-tagline">{featured.tagline}</p>
       <div class="featured-tech">
         {featured.tech.map((t) => (
@@ -78,7 +101,7 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
         ))}
       </div>
 
-      <a href="/projets/smartplanning/" class="case-link">
+      <a href={featured.caseStudy} class="case-link">
         Lire l'étude de cas : décisions, tests et retours d'expérience
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -109,7 +132,7 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
           )}
         </div>
         <div class="card-body">
-          <h3 class="card-title">{project.title}</h3>
+          <H class="card-title">{project.title}</H>
           <p class="card-tagline">{project.tagline}</p>
           <div class="card-tech">
             {project.tech.slice(0, 4).map((t) => (
@@ -120,6 +143,12 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
             )}
           </div>
           <div class="card-links">
+            {project.caseStudy && (
+              <a href={project.caseStudy} class="card-link card-link-case">
+                Étude de cas
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            )}
             {project.links.website && (
               <a href={project.links.website} target="_blank" rel="noopener noreferrer" class="card-link card-link-primary">
                 Voir le site
@@ -161,11 +190,20 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
     ))}
   </div>
 
+  {isHome && (
+    <div class="all-projects fade-up">
+      <a href="/projets/" class="all-projects-link">
+        Voir les {projects.length} projets
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  )}
+
   <!-- Réalisations secondaires : sites vitrines clients, projet de formation, démo.
        Cartes compactes sous la grille, pour que les projets techniques passent devant -->
-  <div class="more" aria-labelledby="more-title">
+  {secondary.length > 0 && <div class="more" aria-labelledby="more-title">
     <div class="more-head fade-up">
-      <h3 id="more-title" class="more-title">Autres réalisations</h3>
+      <H id="more-title" class="more-title">Autres réalisations</H>
       <p class="more-intro">Sites vitrines livrés à des clients, projet d'examen et démo, en HTML, PHP ou Symfony.</p>
     </div>
     <div class="more-grid">
@@ -178,7 +216,7 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
             )}
           </div>
           <div class="card-body">
-            <h4 class="card-title">{project.title}</h4>
+            <HSub class="card-title">{project.title}</HSub>
             <p class="card-tagline">{project.tagline}</p>
             <p class="card-desc">{project.description}</p>
             <div class="card-tech">
@@ -204,59 +242,8 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
         </article>
       ))}
     </div>
-  </div>
+  </div>}
 
-  <!-- Accès aux deux séries du blog technique -->
-  <aside class="blog-series fade-up" aria-labelledby="blog-series-title">
-    <div class="blog-series-head">
-      <h3 id="blog-series-title" class="blog-series-title">Le blog technique</h3>
-      <p class="blog-series-intro">
-        Deux séries qui détaillent comment je travaille : la conception complète d'un
-        SaaS, et la façon dont j'encadre un agent de code sur un projet en production.
-      </p>
-    </div>
-    <div class="blog-series-links">
-      <a href="/blog/smartplanning/" class="blog-series-link" style="--series-accent: var(--accent)">
-        <span class="blog-series-count">8 articles</span>
-        <span class="blog-series-name">SmartPlanning : du concept au déploiement</span>
-        <span class="blog-series-desc">Analyse des besoins, architecture, tests, CI/CD et mise en production</span>
-        <span class="blog-series-go">
-          Lire la série
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-      </a>
-      <a href="/blog/claude-code/" class="blog-series-link" style="--series-accent: var(--green)">
-        <span class="blog-series-count">4 articles</span>
-        <span class="blog-series-name">Encadrer un agent de code sur un vrai projet</span>
-        <span class="blog-series-desc">Hooks, permissions et garde-fous qui rendent Claude Code fiable</span>
-        <span class="blog-series-go">
-          Lire la série
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-      </a>
-    </div>
-    <!-- Liens directs vers chaque article : une page de série seule ne suffit
-         pas à faire explorer les articles qu'elle liste. Six d'entre eux étaient
-         « détectés, actuellement non indexés » au 7 septembre 2026, sans aucune
-         exploration par Google. -->
-    <div class="blog-articles">
-      <p class="blog-articles-label">Tous les articles</p>
-      <ul class="blog-articles-list">
-        <li><a href="/blog/01-analyse-des-besoins/">Analyse des besoins : comprendre avant de coder</a></li>
-        <li><a href="/blog/02-gestion-de-projet-agile/">Gestion de projet Agile : organiser le développement</a></li>
-        <li><a href="/blog/03-conception-base-de-donnees/">Conception de la base de données : modéliser un SaaS multi-tenant</a></li>
-        <li><a href="/blog/04-architecture-nextjs-saas/">Architecture Next.js : structurer un SaaS scalable</a></li>
-        <li><a href="/blog/05-developpement-fonctionnalites/">Développement des fonctionnalités : problèmes et solutions</a></li>
-        <li><a href="/blog/06-strategie-de-tests/">Stratégie de tests : garantir la qualité</a></li>
-        <li><a href="/blog/07-cicd-docker-deploiement/">CI/CD, Docker et déploiement : du code à la production</a></li>
-        <li><a href="/blog/08-demos-fonctionnalites/">Démos vidéo : SmartPlanning en action</a></li>
-        <li><a href="/blog/claude-code-01-pourquoi-encadrer-un-agent/">Pourquoi j'encadre mon agent de code</a></li>
-        <li><a href="/blog/claude-code-02-hooks-et-permissions/">Hooks Claude Code : où placer un garde-fou</a></li>
-        <li><a href="/blog/claude-code-03-skills-et-sous-agents/">Skills et sous-agents : déléguer le processus</a></li>
-        <li><a href="/blog/claude-code-04-preuve-par-mutation/">La preuve par mutation : vérifier que les tests servent</a></li>
-      </ul>
-    </div>
-  </aside>
 </section>
 
 <style>
@@ -264,6 +251,53 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
     padding: 5rem 1.5rem;
     max-width: var(--max-width);
     margin: 0 auto;
+  }
+
+  #projects.projects-full {
+    padding-top: calc(var(--nav-height) + 3rem);
+  }
+  .page-head {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .page-head .section-title {
+    margin-bottom: 1rem;
+  }
+  .page-intro {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .all-projects {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .all-projects-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .all-projects-link:hover {
+    border-color: var(--accent);
+    background: var(--accent-05);
+    color: var(--text);
+  }
+  .all-projects-link svg {
+    transition: transform var(--transition);
+  }
+  .all-projects-link:hover svg {
+    transform: translateX(3px);
   }
 
   /* ===== FEATURED PROJECT ===== */
@@ -593,7 +627,8 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
   }
   .badge-blue {
-    color: var(--accent);
+    /* 15 % de blanc pour tenir 4,5:1 (WCAG AA) sur le fond des cartes */
+    color: color-mix(in srgb, var(--accent) 85%, white);
     background: var(--accent-subtle);
     border: 1px solid rgba(59, 130, 246, 0.2);
   }
@@ -721,6 +756,14 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
     color: var(--text);
     border-color: var(--border-light);
     background: rgba(255, 255, 255, 0.03);
+  }
+  .card-link-case {
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  }
+  .card-link-case:hover {
+    color: var(--text);
+    border-color: var(--accent);
   }
   .card-link-primary {
     background: var(--accent-btn);
@@ -914,156 +957,5 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
     }
   }
 
-  /* ===== Accès aux séries du blog ===== */
-  .blog-series {
-    margin-top: 3rem;
-    padding: 2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-  }
-
-  .blog-series-head {
-    text-align: center;
-    margin-bottom: 1.75rem;
-  }
-
-  .blog-series-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-
-  .blog-series-intro {
-    font-size: 0.9375rem;
-    line-height: 1.65;
-    color: var(--text-secondary);
-    max-width: 580px;
-    margin: 0 auto;
-  }
-
-  .blog-series-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
-  }
-
-  .blog-articles {
-    margin-top: 1.5rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border);
-  }
-
-  .blog-articles-label {
-    margin: 0 0 0.75rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .blog-articles-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0.35rem 1.5rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .blog-articles-list a {
-    display: block;
-    padding: 0.3rem 0;
-    font-size: 0.88rem;
-    line-height: 1.45;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color var(--transition);
-  }
-
-  .blog-articles-list a:hover,
-  .blog-articles-list a:focus-visible {
-    color: var(--accent);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .blog-series-link {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding: 1.25rem;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    text-decoration: none;
-    color: inherit;
-    transition: border-color var(--transition), transform var(--transition);
-  }
-
-  .blog-series-link:hover {
-    border-color: color-mix(in srgb, var(--series-accent) 45%, var(--border));
-    transform: translateY(-2px);
-    color: inherit;
-  }
-
-  .blog-series-link:focus-visible {
-    outline: 2px solid var(--series-accent);
-    outline-offset: 3px;
-  }
-
-  .blog-series-count {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    font-family: var(--font-mono);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    /* 15 % de blanc pour tenir 4,5:1 (WCAG AA) sur le fond des cartes */
-    color: color-mix(in srgb, var(--series-accent) 85%, white);
-  }
-
-  .blog-series-name {
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.35;
-    color: var(--text);
-  }
-
-  .blog-series-desc {
-    font-size: 0.875rem;
-    line-height: 1.55;
-    color: var(--text-secondary);
-    margin-bottom: 0.5rem;
-  }
-
-  .blog-series-go {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin-top: auto;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: color-mix(in srgb, var(--series-accent) 85%, white);
-  }
-
-  .blog-series-go svg {
-    transition: transform var(--transition);
-  }
-
-  .blog-series-link:hover .blog-series-go svg {
-    transform: translateX(3px);
-  }
-
-  @media (max-width: 640px) {
-    .blog-series {
-      padding: 1.5rem 1.25rem;
-    }
-    .blog-series-links {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>
 

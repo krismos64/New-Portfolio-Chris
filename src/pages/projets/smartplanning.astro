@@ -1,6 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import BlogNav from '../../components/BlogNav.astro';
+import CaseStudy from '../../layouts/CaseStudy.astro';
 
 // Étude de cas pilote (phase 1 du découpage multi-pages, 8 novembre 2026).
 // Chaque chiffre vient de public/chatbot-knowledge.txt (section SmartPlanning),
@@ -53,42 +52,30 @@ const jsonLd = [
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
-      { "@type": "ListItem", "position": 2, "name": "SmartPlanning, étude de cas", "item": url }
+      { "@type": "ListItem", "position": 2, "name": "Projets", "item": "https://krismos.fr/projets/" },
+      { "@type": "ListItem", "position": 3, "name": "SmartPlanning, étude de cas", "item": url }
     ]
   }
 ];
 ---
 
-<Layout title={title} description={description} url={url} image="/images/projects/og/smartplanning.jpg">
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
-  <BlogNav activeLink="portfolio" />
-
-  <main id="main-content" class="case">
-    <nav class="breadcrumb" aria-label="Fil d'Ariane">
-      <a href="/">Portfolio</a>
-      <span aria-hidden="true">·</span>
-      <a href="/#projects">Projets</a>
-      <span aria-hidden="true">·</span>
-      <span aria-current="page">SmartPlanning</span>
-    </nav>
-
-    <header class="case-head">
-      <p class="eyebrow">Étude de cas · Projet CDA en production</p>
-      <h1>SmartPlanning : concevoir et mettre en production un SaaS de plannings en Next.js</h1>
-      <p class="lead">
-        J'ai conçu, développé, testé et déployé SmartPlanning seul, de l'analyse du besoin
-        jusqu'à la production. Cette page résume ce que fait l'application, les décisions
-        techniques qui ont compté et ce que j'en retiens.
-      </p>
-      <div class="head-links">
-        <a class="btn btn-primary" href="https://smartplanning.fr/" target="_blank" rel="noopener noreferrer">
+<CaseStudy
+  title={title}
+  description={description}
+  url={url}
+  image="/images/projects/og/smartplanning.jpg"
+  jsonLd={jsonLd}
+  crumb="SmartPlanning"
+  eyebrow="Étude de cas · Projet CDA en production"
+  heading="SmartPlanning : concevoir et mettre en production un SaaS de plannings en Next.js"
+  lead="J'ai conçu, développé, testé et déployé SmartPlanning seul, de l'analyse du besoin jusqu'à la production. Cette page résume ce que fait l'application, les décisions techniques qui ont compté et ce que j'en retiens."
+>
+        <a slot="links" class="btn btn-primary" href="https://smartplanning.fr/" target="_blank" rel="noopener noreferrer">
           Voir smartplanning.fr
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </a>
-        <a class="btn" href="https://github.com/krismos64/SmartplanningAI-V2" target="_blank" rel="noopener noreferrer">Code source sur GitHub</a>
-        <a class="btn" href="/blog/smartplanning/">Les 8 articles techniques</a>
-      </div>
-    </header>
+        <a slot="links" class="btn" href="https://github.com/krismos64/SmartplanningAI-V2" target="_blank" rel="noopener noreferrer">Code source sur GitHub</a>
+        <a slot="links" class="btn" href="/blog/smartplanning/">Les 8 articles techniques</a>
 
     <figure class="cover">
       <img
@@ -233,234 +220,4 @@ const jsonLd = [
         ))}
       </ol>
     </section>
-
-    <aside class="cta" aria-label="Contact">
-      <p>Je recherche un CDI en conception et développement d'applications, à Pau et alentours ou en remote.</p>
-      <div class="head-links">
-        <a class="btn btn-primary" href="/docs/cv-christophe-mostefaoui.pdf" target="_blank" rel="noopener noreferrer">Voir mon CV</a>
-        <a class="btn" href="/#contact">Me contacter</a>
-        <a class="btn" href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      </div>
-    </aside>
-  </main>
-</Layout>
-
-<style>
-  .case {
-    position: relative;
-    z-index: 2;
-    max-width: 820px;
-    margin: 0 auto;
-    padding: calc(var(--nav-height, 64px) + 2rem) 1.25rem 4rem;
-  }
-
-  .breadcrumb {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    font-size: 0.8125rem;
-    color: var(--text-muted);
-    margin-bottom: 2rem;
-  }
-  .breadcrumb a {
-    color: var(--text-secondary);
-    text-decoration: none;
-  }
-  .breadcrumb a:hover {
-    color: var(--accent);
-  }
-
-  .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--accent) 85%, white);
-    margin-bottom: 0.75rem;
-  }
-
-  h1 {
-    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-
-  .lead {
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-  }
-
-  .head-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.625rem;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.6rem 1.1rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    transition: color var(--transition), border-color var(--transition), background var(--transition);
-  }
-  .btn:hover {
-    color: var(--text);
-    border-color: var(--border-light);
-  }
-  .btn-primary {
-    background: var(--accent-btn);
-    border-color: var(--accent-btn);
-    color: white;
-  }
-  .btn-primary:hover {
-    background: var(--accent-btn-hover);
-    border-color: var(--accent-btn-hover);
-    color: white;
-  }
-
-  .cover {
-    margin: 2.5rem 0;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    aspect-ratio: 16 / 9;
-    background: var(--bg-alt);
-  }
-  .cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .summary {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem 1.75rem;
-    margin-bottom: 2.5rem;
-  }
-  .summary h2 {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-  .summary dl {
-    display: grid;
-    gap: 0.75rem;
-    margin: 0;
-  }
-  .summary dl > div {
-    display: grid;
-    grid-template-columns: 7.5rem 1fr;
-    gap: 1rem;
-  }
-  .summary dt {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .summary dd {
-    margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
-  }
-
-  .prose h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin: 2.5rem 0 0.875rem;
-  }
-  .prose h3 {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--text);
-    margin: 1.75rem 0 0.625rem;
-  }
-  .prose p,
-  .prose li {
-    font-size: 1rem;
-    line-height: 1.75;
-    color: var(--text-secondary);
-  }
-  .prose p {
-    margin-bottom: 1rem;
-  }
-  .prose ul {
-    padding-left: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  .prose li {
-    margin-bottom: 0.35rem;
-  }
-  .prose a,
-  .series a,
-  .summary a {
-    color: color-mix(in srgb, var(--accent) 85%, white);
-    text-underline-offset: 3px;
-  }
-  .prose .more {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-  }
-
-  .series {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-  }
-  .series h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-  .series ol {
-    padding-left: 1.5rem;
-    display: grid;
-    gap: 0.4rem;
-  }
-  .series li {
-    font-size: 0.95rem;
-    line-height: 1.55;
-    color: var(--text-muted);
-  }
-
-  .cta {
-    margin-top: 3rem;
-    padding: 1.5rem 1.75rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-  }
-  .cta p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-
-  @media (max-width: 640px) {
-    .summary {
-      padding: 1.25rem;
-    }
-    .summary dl > div {
-      grid-template-columns: 1fr;
-      gap: 0.15rem;
-    }
-  }
-</style>
+</CaseStudy>

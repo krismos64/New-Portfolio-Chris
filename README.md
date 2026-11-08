@@ -14,7 +14,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 
 ## Fonctionnalités
 
-- **Portfolio one-page** : Hero, projets, compétences, processus, parcours, contact
+- **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), études de cas `/projets/smartplanning/` et `/projets/lune-soleil/`, `/parcours/` (formations, compétences, processus)
 - **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
 - **Maquettes des projets** : chaque carte montre le vrai site dans un portable et un smartphone, mêmes visuels que la page Réalisations du site freelance ; projets techniques en grille, sites vitrines et démos dans « Autres réalisations »

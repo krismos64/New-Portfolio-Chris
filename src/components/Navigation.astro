@@ -1,17 +1,23 @@
 ---
+interface Props {
+  /** Page courante, signalée par aria-current */
+  active?: 'projets' | 'parcours' | 'blog';
+  /** "#contact" sur les pages qui incluent <Contact />, "/#contact" ailleurs */
+  contactHref?: string;
+}
+const { active, contactHref = '#contact' } = Astro.props;
+
 const navLinks = [
-  { href: "#projects", label: "Projets" },
-  { href: "#skills", label: "Compétences" },
-  { href: "#process", label: "Processus" },
-  { href: "#about", label: "Parcours" },
-  { href: "/blog", label: "Blog" },
-  { href: "#contact", label: "Contact" },
+  { href: "/projets/", label: "Projets", key: "projets" },
+  { href: "/parcours/", label: "Parcours", key: "parcours" },
+  { href: "/blog/", label: "Blog", key: "blog" },
+  { href: contactHref, label: "Contact", key: "contact" },
 ];
 ---
 
 <nav class="nav" id="navbar">
   <div class="nav-inner">
-    <a href="#" class="nav-logo" aria-label="Christophe Mostefaoui, accueil">
+    <a href="/" class="nav-logo" aria-label="Christophe Mostefaoui, accueil">
       <video autoplay loop muted playsinline class="nav-logo-video">
         <source src="/video/animation-chris-dev.mp4" type="video/mp4" />
       </video>
@@ -19,7 +25,7 @@ const navLinks = [
 
     <div class="nav-links" id="navLinks" aria-hidden="true">
       {navLinks.map((link) => (
-        <a href={link.href} class="nav-link" tabindex="-1">{link.label}</a>
+        <a href={link.href} class={`nav-link${active === link.key ? ' nav-link-active' : ''}`} aria-current={active === link.key ? 'page' : undefined} tabindex="-1">{link.label}</a>
       ))}
     </div>
 
@@ -195,6 +201,10 @@ const navLinks = [
     transition: color var(--transition), background var(--transition);
   }
   .nav-link:hover {
+    color: var(--text);
+    background: var(--white-05);
+  }
+  .nav-link-active {
     color: var(--text);
     background: var(--white-05);
   }

@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Projects from '../../components/Projects.astro';
+import Contact from '../../components/Contact.astro';
+import ScrollReveal from '../../components/ScrollReveal.astro';
+import { projects } from '../../data/projects';
+
+const url = 'https://krismos.fr/projets/';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#page`,
+    "url": url,
+    "name": "Projets web et SaaS de Christophe Mostefaoui",
+    "inLanguage": "fr-FR",
+    "isPartOf": { "@id": "https://krismos.fr/#website" },
+    "about": { "@id": "https://krismos.fr/#person" },
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": projects.length,
+      "itemListElement": projects.map((p, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "CreativeWork",
+          "name": p.title,
+          "description": p.tagline,
+          "url": p.caseStudy ? new URL(p.caseStudy, 'https://krismos.fr').href : p.links.website,
+          "creator": { "@id": "https://krismos.fr/#person" },
+          "keywords": p.tech.join(', '),
+        },
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Projets", "item": url },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Projets web et SaaS | Christophe Mostefaoui, développeur à Pau"
+  description="Projets de Christophe Mostefaoui, développeur à Pau : le SaaS SmartPlanning en Next.js, la boutique Lune-Soleil, Staka Livres et des sites vitrines."
+  url={url}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <Navigation active="projets" />
+  <main id="main-content">
+    <Projects variant="full" />
+    <Contact />
+  </main>
+  <ScrollReveal />
+</Layout>

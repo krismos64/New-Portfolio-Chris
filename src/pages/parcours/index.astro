@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import About from '../../components/About.astro';
+import Skills from '../../components/Skills.astro';
+import Process from '../../components/Process.astro';
+import Contact from '../../components/Contact.astro';
+import ScrollReveal from '../../components/ScrollReveal.astro';
+
+const url = 'https://krismos.fr/parcours/';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${url}#page`,
+    "url": url,
+    "name": "Parcours et compétences de Christophe Mostefaoui",
+    "inLanguage": "fr-FR",
+    "isPartOf": { "@id": "https://krismos.fr/#website" },
+    "about": { "@id": "https://krismos.fr/#person" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Parcours", "item": url },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Parcours et compétences | Christophe Mostefaoui, développeur à Pau"
+  description="Parcours de Christophe Mostefaoui : titre CDA spécialité IA, titre DWWM, 12 ans en commerce tech. Compétences Next.js, React, TypeScript, PostgreSQL et Docker."
+  url={url}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <Navigation active="parcours" />
+  <main id="main-content">
+    <header class="page-head">
+      <h1 class="section-title">Parcours et compétences</h1>
+      <p class="page-intro">
+        Douze ans de relation client dans le commerce tech, puis une reconversion validée par
+        deux titres professionnels, dont celui de Concepteur Développeur d'Applications
+        spécialité IA. Voici mes formations, les technologies que j'utilise et la façon dont
+        je mène un projet.
+      </p>
+    </header>
+    <About />
+    <Skills />
+    <Process />
+    <Contact />
+  </main>
+  <ScrollReveal />
+</Layout>
+
+<style>
+  .page-head {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: calc(var(--nav-height) + 3rem) 1.5rem 0;
+    text-align: center;
+  }
+  .page-head .section-title {
+    margin-bottom: 1rem;
+  }
+  .page-intro {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+</style>
