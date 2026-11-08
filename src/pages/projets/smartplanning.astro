@@ -1,0 +1,466 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogNav from '../../components/BlogNav.astro';
+
+// Étude de cas pilote (phase 1 du découpage multi-pages, 8 novembre 2026).
+// Chaque chiffre vient de public/chatbot-knowledge.txt (section SmartPlanning),
+// déjà validé par Christophe : ne rien ajouter qui n'y figure pas.
+const url = 'https://krismos.fr/projets/smartplanning/';
+const title = "SmartPlanning : étude de cas SaaS Next.js | Christophe Mostefaoui";
+const description = "SaaS de plannings conçu et mis en production seul : multi-tenant Next.js 15 et PostgreSQL, 3 003 tests, déploiement Docker. Décisions et retours d'expérience.";
+const published = '2026-11-08';
+
+const articles = [
+  { slug: '01-analyse-des-besoins', title: 'Analyse des besoins : comprendre avant de coder' },
+  { slug: '02-gestion-de-projet-agile', title: 'Gestion de projet Agile : organiser le développement' },
+  { slug: '03-conception-base-de-donnees', title: 'Conception de la base de données : modéliser un SaaS multi-tenant' },
+  { slug: '04-architecture-nextjs-saas', title: 'Architecture Next.js : structurer un SaaS scalable' },
+  { slug: '05-developpement-fonctionnalites', title: 'Développement des fonctionnalités : problèmes et solutions' },
+  { slug: '06-strategie-de-tests', title: 'Stratégie de tests : garantir la qualité' },
+  { slug: '07-cicd-docker-deploiement', title: 'CI/CD, Docker et déploiement : du code à la production' },
+  { slug: '08-demos-fonctionnalites', title: 'Démos vidéo : SmartPlanning en action' },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    "headline": "SmartPlanning : concevoir et mettre en production un SaaS de plannings en Next.js",
+    "description": description,
+    "url": url,
+    "mainEntityOfPage": url,
+    "datePublished": published,
+    "dateModified": published,
+    "inLanguage": "fr-FR",
+    "image": "https://krismos.fr/images/projects/og/smartplanning.jpg",
+    "author": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui", "url": "https://krismos.fr/" },
+    "publisher": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui" },
+    "about": {
+      "@type": "SoftwareApplication",
+      "@id": "https://smartplanning.fr/#software",
+      "name": "SmartPlanning",
+      "url": "https://smartplanning.fr/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "creator": { "@id": "https://krismos.fr/#person" },
+      "sameAs": ["https://github.com/krismos64/SmartplanningAI-V2"]
+    },
+    "keywords": "SaaS multi-tenant, Next.js 15, React 19, TypeScript, PostgreSQL, Prisma, Stripe, Docker, Vitest, Playwright"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "SmartPlanning, étude de cas", "item": url }
+    ]
+  }
+];
+---
+
+<Layout title={title} description={description} url={url} image="/images/projects/og/smartplanning.jpg">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <BlogNav activeLink="portfolio" />
+
+  <main id="main-content" class="case">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="/">Portfolio</a>
+      <span aria-hidden="true">·</span>
+      <a href="/#projects">Projets</a>
+      <span aria-hidden="true">·</span>
+      <span aria-current="page">SmartPlanning</span>
+    </nav>
+
+    <header class="case-head">
+      <p class="eyebrow">Étude de cas · Projet CDA en production</p>
+      <h1>SmartPlanning : concevoir et mettre en production un SaaS de plannings en Next.js</h1>
+      <p class="lead">
+        J'ai conçu, développé, testé et déployé SmartPlanning seul, de l'analyse du besoin
+        jusqu'à la production. Cette page résume ce que fait l'application, les décisions
+        techniques qui ont compté et ce que j'en retiens.
+      </p>
+      <div class="head-links">
+        <a class="btn btn-primary" href="https://smartplanning.fr/" target="_blank" rel="noopener noreferrer">
+          Voir smartplanning.fr
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <a class="btn" href="https://github.com/krismos64/SmartplanningAI-V2" target="_blank" rel="noopener noreferrer">Code source sur GitHub</a>
+        <a class="btn" href="/blog/smartplanning/">Les 8 articles techniques</a>
+      </div>
+    </header>
+
+    <figure class="cover">
+      <img
+        src="/images/projects/smartplanning-mockup.webp"
+        srcset="/images/projects/smartplanning-mockup-800.webp 800w, /images/projects/smartplanning-mockup.webp 1200w"
+        sizes="(max-width: 860px) 100vw, 820px"
+        width="1200" height="675"
+        alt="SmartPlanning affiché sur un ordinateur portable et un smartphone"
+        loading="lazy" decoding="async"
+      />
+    </figure>
+
+    <section class="summary" aria-labelledby="en-bref">
+      <h2 id="en-bref">En bref</h2>
+      <dl>
+        <div><dt>Produit</dt><dd>SaaS de gestion d'équipes et de plannings, en production sur smartplanning.fr</dd></div>
+        <div><dt>Mon rôle</dt><dd>Seul sur tout le cycle : analyse, conception, développement, tests, déploiement et exploitation</dd></div>
+        <div><dt>Période</dt><dd>Développement principal de novembre 2025 à mars 2026, projet final de mon titre de Concepteur Développeur d'Applications (CDA)</dd></div>
+        <div><dt>Stack</dt><dd>Next.js 15 (App Router), React 19, TypeScript strict, PostgreSQL 16, Prisma, Stripe, Docker, VPS OVH</dd></div>
+        <div><dt>Qualité</dt><dd>3 003 tests automatisés : 2 814 avec Vitest, 189 de bout en bout avec Playwright. Intégration continue bloquante</dd></div>
+        <div><dt>Code</dt><dd>Dépôt public : <a href="https://github.com/krismos64/SmartplanningAI-V2" target="_blank" rel="noopener noreferrer">github.com/krismos64/SmartplanningAI-V2</a></dd></div>
+        <div><dt>Statut</dt><dd>Utilisé par des testeurs en entreprise, dans la grande distribution. Pas encore de clients abonnés</dd></div>
+      </dl>
+    </section>
+
+    <article class="prose">
+      <h2>Le besoin</h2>
+      <p>
+        SmartPlanning gère les plannings et les congés d'équipes de terrain. Avant d'écrire du
+        code, j'ai mené un benchmark documenté de 14 concurrents, défini quatre personas, rédigé
+        les user stories avec leurs critères d'acceptation et produit les maquettes Figma. Le
+        travail a été découpé en 24 epics Jira et en sprints thématiques, avec une documentation
+        continue dans Confluence.
+      </p>
+      <p class="more">Détails : <a href="/blog/01-analyse-des-besoins/">analyse des besoins</a> et <a href="/blog/02-gestion-de-projet-agile/">gestion de projet Agile</a>.</p>
+
+      <h2>Ce que fait l'application</h2>
+      <ul>
+        <li>Quatre rôles (administrateur système, directeur, manager, employé), avec des autorisations RBAC et un tableau de bord par rôle</li>
+        <li>Plannings interactifs, récurrences, détection de conflits et exports</li>
+        <li>Congés, jours ouvrés, jours fériés et soldes annuels</li>
+        <li>Abonnements Stripe facturés par employé</li>
+        <li>Messagerie interne, import CSV et notifications en temps réel</li>
+        <li>Fonctions RGPD : export, suppression, soft delete et traçabilité</li>
+      </ul>
+
+      <h2>L'architecture</h2>
+      <p>
+        L'application suit quatre couches : présentation, métier, accès aux données et
+        infrastructure. Plusieurs entreprises partagent la même base (architecture
+        multi-tenant) : les accès aux données sont filtrés par l'identifiant de l'entreprise,
+        <code>companyId</code>, et des tests couvrent les tentatives d'accès aux données d'une
+        autre entreprise. Le schéma compte une vingtaine de tables métier, modélisées d'abord
+        avec Merise (MCD puis MLD sous Looping). TypeScript vérifie les types pendant le
+        développement, Zod contrôle les données reçues et PostgreSQL impose les contraintes
+        de la base.
+      </p>
+      <p class="more">Détails : <a href="/blog/03-conception-base-de-donnees/">conception de la base de données</a> et <a href="/blog/04-architecture-nextjs-saas/">architecture Next.js</a>.</p>
+
+      <h2>Trois décisions techniques</h2>
+
+      <h3>1. Détecter les conflits sans casser le glisser-déposer</h3>
+      <p>
+        Quand un manager crée ou déplace un créneau, l'application doit savoir s'il chevauche
+        un congé validé, un arrêt maladie ou une préférence horaire. Un congé validé bloque
+        l'opération. Une préférence horaire déclenche un simple avertissement. Cette distinction
+        vient de situations que je connaissais par mon expérience dans la grande distribution.
+      </p>
+      <p>
+        Côté serveur, le chevauchement se teste par la condition
+        <code>start_date &lt; newEnd AND end_date &gt; newStart</code>, exécutée via Prisma à chaque
+        création ou déplacement. Côté interface, la mise à jour est optimiste : l'état précédent
+        du créneau est gardé dans une ref React, la mutation part en parallèle, et l'interface
+        revient en arrière avec un message clair si elle échoue. J'ai testé la génération d'une
+        année de planning, soit 52 occurrences, sans ralentissement visible. Je n'ai pas
+        encore mesuré les performances sous charge.
+      </p>
+
+      <h3>2. Garder la base de données hors du middleware</h3>
+      <p>
+        Le middleware de Next.js tourne sur le runtime Edge, où Prisma n'est pas disponible.
+        J'ai enrichi le jeton JWT avec le rôle et l'entreprise de l'utilisateur, ce qui permet
+        au middleware de filtrer la navigation sans interroger la base.
+      </p>
+
+      <h3>3. SSE plutôt que WebSockets pour les notifications</h3>
+      <p>
+        Les notifications vont toujours du serveur vers le navigateur. Server-Sent Events
+        couvre ce besoin avec une connexion HTTP simple, là où des WebSockets auraient ajouté
+        un canal bidirectionnel inutile à maintenir.
+      </p>
+      <p class="more">Détails : <a href="/blog/05-developpement-fonctionnalites/">développement des fonctionnalités</a>.</p>
+
+      <h2>Tests et qualité</h2>
+      <p>
+        Le projet compte 3 003 tests automatisés répartis dans 169 fichiers : 2 814 tests
+        unitaires et d'intégration avec Vitest et React Testing Library, et 189 tests de bout
+        en bout avec Playwright, organisés en Page Object Model. L'intégration continue bloque
+        la fusion si le lint, le typage, les tests ou le build échouent, et la suite complète
+        tourne chaque nuit. Il n'existe pas encore de test de charge (k6 ou Artillery).
+      </p>
+      <p class="more">Détails : <a href="/blog/06-strategie-de-tests/">stratégie de tests</a>.</p>
+
+      <h2>Infrastructure et déploiement</h2>
+      <p>
+        L'application tourne sur un VPS OVH que j'administre : quatre services Docker
+        (application, PostgreSQL, Redis, Nginx), images multi-stage, conteneurs sans droits
+        root, SSL, pare-feu et accès SSH durci. GitHub Actions enchaîne les contrôles puis le
+        déploiement, et un endpoint de santé mesure la latence de la base.
+      </p>
+      <p class="more">Détails : <a href="/blog/07-cicd-docker-deploiement/">CI/CD, Docker et déploiement</a>.</p>
+
+      <h2>Une erreur en production, et ce qu'elle a changé</h2>
+      <p>
+        J'ai découvert en production que l'inscription d'une entreprise ne créait pas sa ligne
+        dans la table des abonnements. Les entreprises concernées ne recevaient pas les relances
+        prévues à la fin de leur essai gratuit. J'ai ouvert
+        trois tickets liés, écrit une migration Prisma propre et ajouté 24 tests couvrant les
+        deux parcours d'inscription et la reprise des données existantes.
+      </p>
+      <p>
+        Depuis, le typage complet et la suite de tests sont obligatoires avant chaque fusion,
+        aucune écriture en production ne se fait sans validation humaine (y compris quand un
+        assistant IA participe au développement), et je documente les décisions d'architecture
+        au moment où je les prends, plutôt qu'après coup.
+      </p>
+
+      <h2>Où en est le projet</h2>
+      <p>
+        SmartPlanning est en ligne et utilisé par des testeurs qui travaillent dans la grande
+        distribution. Leurs retours ont déjà conduit à des corrections et à des améliorations de
+        l'interface. Ce sont des testeurs, pas encore des clients abonnés. Je travaille
+        aujourd'hui sur sa visibilité dans les moteurs de recherche et les assistants IA.
+      </p>
+    </article>
+
+    <section class="series" aria-labelledby="serie">
+      <h2 id="serie">La série complète, de l'analyse au déploiement</h2>
+      <ol>
+        {articles.map((a) => (
+          <li><a href={`/blog/${a.slug}/`}>{a.title}</a></li>
+        ))}
+      </ol>
+    </section>
+
+    <aside class="cta" aria-label="Contact">
+      <p>Je recherche un CDI en conception et développement d'applications, à Pau et alentours ou en remote.</p>
+      <div class="head-links">
+        <a class="btn btn-primary" href="/docs/cv-christophe-mostefaoui.pdf" target="_blank" rel="noopener noreferrer">Voir mon CV</a>
+        <a class="btn" href="/#contact">Me contacter</a>
+        <a class="btn" href="https://www.linkedin.com/in/christophemostefaoui/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </aside>
+  </main>
+</Layout>
+
+<style>
+  .case {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: calc(var(--nav-height, 64px) + 2rem) 1.25rem 4rem;
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+  .breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--accent);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .head-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
+  }
+  .btn:hover {
+    color: var(--text);
+    border-color: var(--border-light);
+  }
+  .btn-primary {
+    background: var(--accent-btn);
+    border-color: var(--accent-btn);
+    color: white;
+  }
+  .btn-primary:hover {
+    background: var(--accent-btn-hover);
+    border-color: var(--accent-btn-hover);
+    color: white;
+  }
+
+  .cover {
+    margin: 2.5rem 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    aspect-ratio: 16 / 9;
+    background: var(--bg-alt);
+  }
+  .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .summary {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .summary h2 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .summary dl {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .summary dl > div {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: 1rem;
+  }
+  .summary dt {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .summary dd {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 2.5rem 0 0.875rem;
+  }
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 1.75rem 0 0.625rem;
+  }
+  .prose p,
+  .prose li {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .prose p {
+    margin-bottom: 1rem;
+  }
+  .prose ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .prose li {
+    margin-bottom: 0.35rem;
+  }
+  .prose a,
+  .series a,
+  .summary a {
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    text-underline-offset: 3px;
+  }
+  .prose .more {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .series {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .series h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .series ol {
+    padding-left: 1.5rem;
+    display: grid;
+    gap: 0.4rem;
+  }
+  .series li {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .cta {
+    margin-top: 3rem;
+    padding: 1.5rem 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .cta p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .summary {
+      padding: 1.25rem;
+    }
+    .summary dl > div {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+</style>

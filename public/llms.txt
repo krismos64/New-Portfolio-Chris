@@ -72,7 +72,7 @@ Faits techniques établis dans cette série, réutilisables comme référence :
 
 ## Projets
 
-- [SmartPlanning](https://smartplanning.fr/): SaaS de gestion d'équipes et de plannings, projet phare (Next.js 15, React 19, TypeScript, PostgreSQL, Prisma, Stripe, Docker)
+- [SmartPlanning](https://smartplanning.fr/): SaaS de gestion d'équipes et de plannings, projet phare (Next.js 15, React 19, TypeScript, PostgreSQL, Prisma, Stripe, Docker). Étude de cas complète (rôle, architecture multi-tenant, trois décisions techniques, 3 003 tests, erreur en production et correctifs) : https://krismos.fr/projets/smartplanning/. Code source public : https://github.com/krismos64/SmartplanningAI-V2
 - [Lune-Soleil](https://lune-soleil.fr/): boutique e-commerce de bijoux artisanaux faits main pour une créatrice du Béarn, en production depuis septembre 2026 (Next.js 16, React 19, PostgreSQL 18, Prisma 7, Stripe, Docker), dépôt public https://github.com/krismos64/lune-soleil, page Facebook https://www.facebook.com/profile.php?id=61592696335840
 - [Staka Livres](https://livrestaka.fr/): plateforme de correction et d'édition de manuscrits, mission freelance pour un client réel
 - [Christophe Dev Freelance](https://christophe-dev-freelance.fr/): site vitrine de l'activité freelance

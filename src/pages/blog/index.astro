@@ -35,11 +35,7 @@ const totalPosts = allPosts.length;
     "name": "Blog technique de Christophe Mostefaoui",
     "description": "Séries d'articles sur la conception d'un SaaS Next.js et sur l'encadrement des agents de code",
     "url": "https://krismos.fr/blog/",
-    "author": {
-      "@type": "Person",
-      "name": "Christophe Mostefaoui",
-      "url": "https://krismos.fr/"
-    },
+    "author": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui", "url": "https://krismos.fr/" },
     "hasPart": seriesList.map((entry) => ({
       "@type": "Blog",
       "name": entry.meta.title,

@@ -81,15 +81,8 @@ const socialImage = image?.endsWith('.svg')
     "description": description,
     "datePublished": date.toISOString(),
     "dateModified": (updatedDate || date).toISOString(),
-    "author": {
-      "@type": "Person",
-      "name": "Christophe Mostefaoui",
-      "url": "https://krismos.fr/"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Christophe Mostefaoui"
-    },
+    "author": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui", "url": "https://krismos.fr/" },
+    "publisher": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui" },
     "mainEntityOfPage": canonicalUrl,
     "image": socialImage ? new URL(socialImage, 'https://krismos.fr').href : undefined,
     "keywords": tags.join(', '),

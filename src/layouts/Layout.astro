@@ -21,6 +21,54 @@ const {
 
 const fullImageUrl = new URL(image, Astro.site || 'https://krismos.fr').href;
 const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
+
+// Identité stable pour les moteurs et les LLM : le site et la personne gardent
+// la même URL et le même @id sur toutes les pages (avant, ils prenaient l'URL de
+// la page courante, ce qui éparpillait l'entité entre 16 adresses).
+const SITE_URL = 'https://krismos.fr/';
+const isHome = canonicalUrl === SITE_URL;
+const person = {
+  "@type": "Person",
+  "@id": `${SITE_URL}#person`,
+  "name": "Christophe Mostefaoui",
+  "jobTitle": "Concepteur Développeur d'Applications Fullstack",
+  "description": "Concepteur Développeur d'Applications Fullstack à Pau (64) : SaaS en production en Next.js, TypeScript, PostgreSQL et IA.",
+  "image": new URL('/images/portfolio/christopge-fiche-contact.jpg', SITE_URL).href,
+  "url": SITE_URL,
+  "sameAs": [
+    "https://www.linkedin.com/in/christophemostefaoui/",
+    "https://github.com/krismos64",
+    "https://christophe-dev-freelance.fr/"
+  ],
+  "knowsAbout": [
+    "Next.js", "React", "TypeScript", "Node.js", "PostgreSQL",
+    "Prisma", "Docker", "Tailwind CSS", "Astro", "Intelligence Artificielle",
+    "Développement Web", "Applications SaaS", "CI/CD", "Scrum"
+  ],
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Concepteur Développeur d'Applications",
+    "occupationalCategory": "15-1254",
+    "skills": "Next.js, React, TypeScript, Node.js, PostgreSQL, Docker, IA, Figma, Jira"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Artix",
+    "addressRegion": "Pyrénées-Atlantiques",
+    "postalCode": "64170",
+    "addressCountry": "FR"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Pau" },
+    { "@type": "City", "name": "Artix" },
+    { "@type": "City", "name": "Orthez" },
+    { "@type": "AdministrativeArea", "name": "Béarn, Pyrénées-Atlantiques (64)" }
+  ],
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "La Fabrique Numérique Paloise"
+  }
+};
 ---
 
 <!DOCTYPE html>
@@ -66,74 +114,23 @@ const canonicalUrl = new URL(url, Astro.site || 'https://krismos.fr').href;
     <!-- Font : Inter auto-hébergée, préchargée pour arriver avant le premier rendu du texte -->
     <link rel="preload" as="font" type="font/woff2" href={interLatin} crossorigin />
 
-    <!-- JSON-LD Structured Data : WebSite -->
+    <!-- JSON-LD : WebSite (identité fixe, même @id partout) -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": `${SITE_URL}#website`,
       "name": "Portfolio Christophe Mostefaoui, Développeur Web Pau",
-      "url": canonicalUrl,
-      "description": description,
-      "inLanguage": "fr-FR"
+      "url": SITE_URL,
+      "inLanguage": "fr-FR",
+      "publisher": { "@id": `${SITE_URL}#person` }
     })} />
 
-    <!-- JSON-LD Structured Data : ProfilePage + Person -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "mainEntity": {
-        "@type": "Person",
-        "name": "Christophe Mostefaoui",
-        "jobTitle": "Concepteur Développeur d'Applications Fullstack",
-        "description": description,
-        "image": fullImageUrl,
-        "url": canonicalUrl,
-        "sameAs": [
-          "https://www.linkedin.com/in/christophemostefaoui/",
-          "https://github.com/krismos64",
-          "https://christophe-dev-freelance.fr/"
-        ],
-        "knowsAbout": [
-          "Next.js", "React", "TypeScript", "Node.js", "PostgreSQL",
-          "Prisma", "Docker", "Tailwind CSS", "Astro", "Intelligence Artificielle",
-          "Développement Web", "Applications SaaS", "CI/CD", "Scrum"
-        ],
-        "hasOccupation": {
-          "@type": "Occupation",
-          "name": "Concepteur Développeur d'Applications",
-          "occupationalCategory": "15-1254",
-          "skills": "Next.js, React, TypeScript, Node.js, PostgreSQL, Docker, IA, Figma, Jira"
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Artix",
-          "addressRegion": "Pyrénées-Atlantiques",
-          "postalCode": "64170",
-          "addressCountry": "FR"
-        },
-        "areaServed": [
-          {
-            "@type": "City",
-            "name": "Pau"
-          },
-          {
-            "@type": "City",
-            "name": "Artix"
-          },
-          {
-            "@type": "City",
-            "name": "Orthez"
-          },
-          {
-            "@type": "AdministrativeArea",
-            "name": "Béarn, Pyrénées-Atlantiques (64)"
-          }
-        ],
-        "alumniOf": {
-          "@type": "EducationalOrganization",
-          "name": "La Fabrique Numérique Paloise"
-        }
-      }
-    })} />
+    <!-- JSON-LD : Person sur toutes les pages, enveloppée dans ProfilePage sur l'accueil seulement -->
+    <script type="application/ld+json" set:html={JSON.stringify(
+      isHome
+        ? { "@context": "https://schema.org", "@type": "ProfilePage", "url": SITE_URL, "mainEntity": person }
+        : { "@context": "https://schema.org", ...person }
+    )} />
 
     <!-- Slot pour JSON-LD ou meta tags spécifiques à une page -->
     <slot name="head" />

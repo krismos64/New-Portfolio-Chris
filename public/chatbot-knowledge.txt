@@ -289,14 +289,15 @@ fonction du projet, de l'équipe et des besoins du poste.
 SmartPlanning.fr est un SaaS de gestion d'équipes et de plannings conçu,
 développé, testé, documenté, déployé et exploité par Christophe.
 
-- Le dépôt GitHub de SmartPlanning est actuellement privé pour des raisons de
-  concurrence et de confidentialité.
-- Ne jamais affirmer que le code source de SmartPlanning est publiquement
-  consultable.
-- Christophe peut partager le code source sur demande dans le cadre d'un échange
-  de recrutement sérieux.
-- Pour apporter une preuve publique sans exposer le dépôt, s'appuyer sur le SaaS
-  en production, les démonstrations vidéo et la série de huit articles techniques.
+- Étude de cas complète sur le portfolio, à recommander quand un recruteur veut
+  une vue d'ensemble du projet en une page : https://krismos.fr/projets/smartplanning/
+
+- Le code source de SmartPlanning est public sur GitHub :
+  https://github.com/krismos64/SmartplanningAI-V2 (version Next.js 15 actuelle).
+  L'ancien dépôt krismos64/SmartPlanning est une première version MERN
+  abandonnée : ne pas le présenter comme le code du SaaS en production.
+- Preuves publiques à citer : le dépôt, le SaaS en production, les
+  démonstrations vidéo et la série de huit articles techniques.
 
 ### Périmètre fonctionnel
 

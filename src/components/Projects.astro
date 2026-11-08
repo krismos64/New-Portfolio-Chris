@@ -78,6 +78,11 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
         ))}
       </div>
 
+      <a href="/projets/smartplanning/" class="case-link">
+        Lire l'étude de cas : décisions, tests et retours d'expérience
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+
       <div class="featured-blog-cta">
         <a href="/blog/smartplanning/" class="blog-cta-btn">
           <span class="blog-cta-icon" aria-hidden="true">
@@ -726,6 +731,29 @@ const alt = (p: { title: string }) => `Le site ${p.title} affiché sur un ordina
     background: var(--accent-btn-hover);
     border-color: var(--accent-btn-hover);
     color: white;
+  }
+
+  /* Lien vers l'étude de cas du projet phare */
+  .case-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    text-decoration: none;
+  }
+  .case-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .case-link svg {
+    flex-shrink: 0;
+    transition: transform var(--transition);
+  }
+  .case-link:hover svg {
+    transform: translateX(3px);
   }
 
   /* ===== BLOG CTA ===== */

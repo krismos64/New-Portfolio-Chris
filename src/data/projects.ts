@@ -46,7 +46,7 @@ export const projects: Project[] = [
     ],
     links: {
       website: "https://smartplanning.fr/",
-      github: "https://github.com/krismos64/SmartPlanning",
+      github: "https://github.com/krismos64/SmartplanningAI-V2",
       video: "https://www.youtube.com/watch?v=jSdnkoMc8gU",
       linkedin: "https://www.linkedin.com/company/smartplanning-fr/",
       youtube: "https://www.youtube.com/@SmartPlanning-x2c",

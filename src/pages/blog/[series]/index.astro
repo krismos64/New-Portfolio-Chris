@@ -39,11 +39,7 @@ const filters =
     "name": meta.title,
     "description": meta.description,
     "url": meta.url,
-    "author": {
-      "@type": "Person",
-      "name": "Christophe Mostefaoui",
-      "url": "https://krismos.fr/"
-    },
+    "author": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui", "url": "https://krismos.fr/" },
     ...(meta.key === 'smartplanning' ? {
       "about": {
         "@type": "Organization",
