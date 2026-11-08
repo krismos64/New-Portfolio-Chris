@@ -216,4 +216,6 @@ import DiagramScript from './DiagramScript.astro';
   @keyframes rd-hl-2 { 0%, 22% { color: var(--text-secondary); } 26%, 44% { color: var(--text); } 48%, 100% { color: var(--text-secondary); } }
   @keyframes rd-hl-3 { 0%, 44% { color: var(--text-secondary); } 48%, 62% { color: var(--text); } 66%, 100% { color: var(--text-secondary); } }
   @keyframes rd-hl-4 { 0%, 62% { color: var(--text-secondary); } 68%, 100% { color: var(--text); } }
+  /* Le bouton garde sa place avant d'apparaître : aucun décalage de mise en page */
+  .rd-replay[hidden] { display: inline-block; visibility: hidden; }
 </style>

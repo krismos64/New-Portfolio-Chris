@@ -249,4 +249,6 @@ import DiagramScript from './DiagramScript.astro';
   @keyframes wd-hl-2 { 0%, 20% { color: var(--text-secondary); } 24%, 38% { color: var(--text); } 42%, 100% { color: var(--text-secondary); } }
   @keyframes wd-hl-3 { 0%, 38% { color: var(--text-secondary); } 42%, 58% { color: var(--text); } 62%, 100% { color: var(--text-secondary); } }
   @keyframes wd-hl-4 { 0%, 58% { color: var(--text-secondary); } 64%, 100% { color: var(--text); } }
+  /* Le bouton garde sa place avant d'apparaître : aucun décalage de mise en page */
+  .wd-replay[hidden] { display: inline-block; visibility: hidden; }
 </style>

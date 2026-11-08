@@ -1,0 +1,167 @@
+---
+// Téléphone animé : un fil de publications qui défile avec de vrais visuels
+// Lune-Soleil et des « j'aime » qui apparaissent. Illustration décorative
+// (aria-hidden) : le contenu réel est décrit dans la page.
+// Boucle continue : bouton pause visible (WCAG 2.2.2). Mouvement réduit : fil
+// fixe. Images légères (-s.webp, 320 px), chargées sans délai mais en priorité
+// basse, pour ne pas concurrencer le titre (élément LCP).
+const posts = [
+  { file: 'ls-team-noel-s', w: 320, h: 320, texte: 'Et vous, quelle est votre team ?' },
+  { file: 'ls-j7-s', w: 320, h: 402, texte: "Plus qu'une semaine avant l'annonce" },
+  { file: 'ls-site-en-developpement-s', w: 320, h: 320, texte: 'Notre site arrive bientôt' },
+  { file: 'ls-marche-noel-s', w: 320, h: 402, texte: 'Retrouvez-nous au marché de Noël' },
+];
+// La liste est doublée pour que la boucle reparte sans saut visible
+const fil = [...posts, ...posts];
+---
+
+<figure class="pf">
+  <div class="pf-phone" aria-hidden="true">
+    <div class="pf-notch"></div>
+    <div class="pf-screen">
+      <div class="pf-bar">
+        <span class="pf-bar-title">Fil d'actualité</span>
+      </div>
+      <div class="pf-viewport">
+        <div class="pf-feed">
+          {fil.map((p, i) => (
+            <article class="pf-post" style={`--i: ${i % posts.length}`}>
+              <header class="pf-post-head">
+                <span class="pf-avatar"></span>
+                <span class="pf-name">Lune-Soleil</span>
+              </header>
+              <p class="pf-text">{p.texte}</p>
+              <img src={`/images/communication/${p.file}.webp`} width={p.w} height={p.h} alt="" loading="eager" fetchpriority="low" decoding="async" />
+              <footer class="pf-actions">
+                <span class="pf-like">
+                  <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3.1 4.5 6.9 4.5c2 0 3.6 1.1 5.1 3 1.5-1.9 3.1-3 5.1-3 3.8 0 6 3.9 4.5 7.3C19.5 16.4 12 21 12 21z" /></svg>
+                  J'aime
+                </span>
+                <span class="pf-comment">Commenter</span>
+              </footer>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="pf-toggle" data-pf-toggle aria-pressed="false">Mettre en pause l'animation</button>
+</figure>
+
+<style>
+  .pf {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .pf-phone {
+    position: relative;
+    width: 250px;
+    height: 500px;
+    padding: 12px;
+    border-radius: 38px;
+    background: linear-gradient(160deg, #27272a, #0f0f12);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 6px rgba(255, 255, 255, 0.02);
+  }
+  .pf-notch {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    width: 72px;
+    height: 18px;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    background: #050506;
+    z-index: 2;
+  }
+  .pf-screen {
+    height: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #f4f1ec;
+    display: flex;
+    flex-direction: column;
+  }
+  .pf-bar {
+    padding: 34px 14px 8px;
+    background: #fff;
+    border-bottom: 1px solid #e7e2da;
+  }
+  .pf-bar-title { font: 700 13px 'Inter Variable', sans-serif; color: #1c1917; }
+  .pf-viewport { flex: 1; overflow: hidden; }
+  .pf-feed { display: flex; flex-direction: column; gap: 10px; padding: 10px; }
+
+  .pf-post {
+    background: #fff;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  .pf-post-head { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+  .pf-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #f3d27a, #b8862b);
+  }
+  .pf-name { font: 700 11px 'Inter Variable', sans-serif; color: #1c1917; }
+  .pf-text { margin: 0 0 6px; font: 500 10.5px/1.35 'Inter Variable', sans-serif; color: #44403c; }
+  .pf-post img { display: block; width: 100%; height: auto; border-radius: 8px; }
+  .pf-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 6px;
+    font: 600 10px 'Inter Variable', sans-serif;
+    color: #78716c;
+  }
+  .pf-like { display: inline-flex; align-items: center; gap: 4px; }
+  .pf-like svg { fill: none; stroke: #78716c; stroke-width: 2; transform-origin: center; }
+
+  .pf-toggle {
+    padding: 0.35rem 0.8rem;
+    font: 600 0.75rem 'Inter Variable', sans-serif;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  .pf-toggle:hover { color: var(--text); border-color: var(--accent); }
+  .pf-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Le fil remonte d'une demi-hauteur (une liste complète), puis reprend */
+    .pf-feed { animation: pf-scroll 22s linear infinite; }
+    /* Chaque publication reçoit son « j'aime » quand elle passe au centre */
+    .pf-like svg { animation: pf-heart 22s ease infinite; animation-delay: calc(var(--i) * 5.5s - 3s); }
+    .pf.is-paused .pf-feed,
+    .pf.is-paused .pf-like svg { animation-play-state: paused; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pf-toggle { display: none; }
+  }
+  @keyframes pf-scroll {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+  @keyframes pf-heart {
+    0%, 14% { transform: scale(1); fill: none; stroke: #78716c; }
+    17% { transform: scale(1.45); fill: #e11d48; stroke: #e11d48; }
+    20%, 96% { transform: scale(1); fill: #e11d48; stroke: #e11d48; }
+    100% { transform: scale(1); fill: none; stroke: #78716c; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-pf-toggle]').forEach((btn) => {
+    const fig = btn.closest('.pf');
+    btn.addEventListener('click', () => {
+      const paused = fig?.classList.toggle('is-paused') ?? false;
+      btn.setAttribute('aria-pressed', String(paused));
+      btn.textContent = paused ? "Relancer l'animation" : "Mettre en pause l'animation";
+    });
+  });
+</script>

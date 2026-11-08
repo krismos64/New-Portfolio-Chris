@@ -265,6 +265,8 @@ import DiagramScript from './DiagramScript.astro';
   @keyframes cd-hl-2 { 0%, 26% { color: var(--text-secondary); } 30%, 48% { color: var(--text); } 52%, 100% { color: var(--text-secondary); } }
   @keyframes cd-hl-3 { 0%, 48% { color: var(--text-secondary); } 52%, 66% { color: var(--text); } 70%, 100% { color: var(--text-secondary); } }
   @keyframes cd-hl-4 { 0%, 66% { color: var(--text-secondary); } 72%, 100% { color: var(--text); } }
+  /* Le bouton garde sa place avant d'apparaître : aucun décalage de mise en page */
+  .cd-replay[hidden] { display: inline-block; visibility: hidden; }
 </style>
 
 <DiagramScript />

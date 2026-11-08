@@ -1,0 +1,130 @@
+---
+import DiagramScript from '../case/DiagramScript.astro';
+
+// Éventail animé de la campagne vidéo SmartPlanning : le logiciel au centre,
+// trois branches qui se tracent vers les trois cibles, chacune avec sa vidéo.
+// Lecture unique (3 s) à l'apparition. Mouvement réduit : état final fixe.
+// Sur mobile, les branches disparaissent et les cartes s'empilent.
+const cibles = [
+  { id: 'K4bidIhB-LI', file: 'sp-yt-directeur', role: 'Directeur', message: "Tout voir en un coup d'œil" },
+  { id: 'sy3ffTIj0ig', file: 'sp-yt-manager', role: 'Manager', message: 'Faire le planning en quelques clics' },
+  { id: '8wJgk8i1uzQ', file: 'sp-yt-employe', role: 'Employé', message: 'Consulter son planning, poser ses congés' },
+];
+---
+
+<figure class="pfan" data-diagram>
+  <div class="pfan-hub">
+    <span class="pfan-hub-name">SmartPlanning</span>
+    <span class="pfan-hub-sub">Un logiciel, trois publics</span>
+  </div>
+
+  <svg class="pfan-links" viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M150 0 C150 30 50 30 50 60" pathLength="1" class="pfan-path" />
+    <path d="M150 0 V60" pathLength="1" class="pfan-path" />
+    <path d="M150 0 C150 30 250 30 250 60" pathLength="1" class="pfan-path" />
+  </svg>
+
+  <ul class="pfan-cards">
+    {cibles.map((c, i) => (
+      <li class="pfan-card" style={`--i: ${i}`}>
+        <a href={`https://www.youtube.com/watch?v=${c.id}`} target="_blank" rel="noopener noreferrer">
+          <img src={`/images/communication/${c.file}.webp`} width="506" height="276" alt={`Vignette de la démo SmartPlanning pour le profil ${c.role.toLowerCase()}`} loading="lazy" decoding="async" />
+          <span class="pfan-role">{c.role}</span>
+          <span class="pfan-msg">{c.message}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  <button type="button" class="pfan-replay" data-diagram-replay hidden>Rejouer l'animation</button>
+</figure>
+
+<DiagramScript />
+
+<style>
+  .pfan { margin: 2rem 0 1.5rem; display: flex; flex-direction: column; align-items: center; }
+  .pfan-hub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 100px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, var(--bg-card)), var(--bg-card));
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  }
+  .pfan-hub-name { font-weight: 800; letter-spacing: -0.01em; color: var(--text); }
+  .pfan-hub-sub { font-size: 0.8125rem; color: var(--text-secondary); }
+
+  .pfan-links { display: block; width: 66.6%; height: 56px; overflow: visible; }
+  .pfan-path { fill: none; stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+
+  .pfan-cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .pfan-card a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-decoration: none;
+    color: inherit;
+  }
+  .pfan-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 506 / 276;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    margin-bottom: 0.35rem;
+    transition: transform var(--transition), border-color var(--transition);
+  }
+  .pfan-card a:hover img { transform: translateY(-3px); border-color: var(--accent); }
+  .pfan-card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--radius); }
+  .pfan-role { font-weight: 700; color: var(--text); }
+  .pfan-msg { font-size: 0.875rem; line-height: 1.45; color: var(--text-secondary); }
+
+  .pfan-replay {
+    margin-top: 1rem;
+    padding: 0.4rem 0.85rem;
+    font: 600 0.8125rem 'Inter Variable', sans-serif;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .pfan-replay:hover { color: var(--text); border-color: var(--accent); }
+  .pfan-replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (max-width: 640px) {
+    .pfan-links { display: none; }
+    .pfan-hub { margin-bottom: 1rem; }
+    .pfan-cards { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .is-armed .pfan-hub { opacity: 0; transform: scale(0.9); }
+    .is-armed .pfan-path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+    .is-armed .pfan-card { opacity: 0; transform: translateY(16px); }
+
+    .is-playing .pfan-hub { animation: pfan-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .is-playing .pfan-path { animation: pfan-draw 1s ease forwards 0.5s; }
+    .is-playing .pfan-card {
+      animation: pfan-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(1.2s + var(--i) * 0.3s);
+    }
+  }
+  /* Les tracés portent pathLength="1" : dasharray et offset à 1 couvrent toute la longueur */
+  @keyframes pfan-pop { to { opacity: 1; transform: scale(1); } }
+  @keyframes pfan-draw { to { stroke-dashoffset: 0; } }
+  @keyframes pfan-in { to { opacity: 1; transform: translateY(0); } }
+  /* Le bouton garde sa place avant d'apparaître : aucun décalage de mise en page */
+  .pfan-replay[hidden] { display: inline-block; visibility: hidden; }
+</style>

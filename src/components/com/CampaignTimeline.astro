@@ -1,0 +1,128 @@
+---
+import DiagramScript from '../case/DiagramScript.astro';
+
+// Frise animée de la campagne de Noël Lune-Soleil : la ligne se trace et les
+// quatre étapes apparaissent l'une après l'autre, une seule fois (3,6 s) quand
+// la frise devient visible. Mouvement réduit ou sans JavaScript : frise fixe.
+// Horizontale sur grand écran, verticale sur mobile.
+const etapes = [
+  { file: 'ls-recherche-marches', titre: 'Chercher', texte: 'Un appel aux organisateurs de marchés du 64.', alt: 'Visuel : recherche de marchés de Noël dans le 64' },
+  { file: 'ls-j7', titre: "Créer l'attente", texte: "Un compte à rebours avant l'annonce.", alt: "Visuel : J-7 avant l'annonce des marchés de Noël" },
+  { file: 'ls-marche-noel', titre: 'Annoncer', texte: 'Les dates et les lieux des marchés.', alt: 'Visuel : annonce du marché de Noël avec dates et lieux' },
+  { file: 'ls-team-noel', titre: 'Faire réagir', texte: 'Team Noël ou Team Classique ?', alt: 'Visuel : Team Noël ou Team Classique, quelle est votre team ?' },
+];
+---
+
+<figure class="ct" data-diagram>
+  <div class="ct-track">
+  <span class="ct-line" aria-hidden="true"></span>
+  <ol class="ct-steps">
+    {etapes.map((e, i) => (
+      <li class="ct-step" style={`--i: ${i}`}>
+        <span class="ct-dot" aria-hidden="true">{i + 1}</span>
+        <img src={`/images/communication/${e.file}.webp`} alt={e.alt} width="600" height="750" loading="lazy" decoding="async" />
+        <strong class="ct-title">{e.titre}</strong>
+        <span class="ct-text">{e.texte}</span>
+      </li>
+    ))}
+  </ol>
+  </div>
+  <button type="button" class="ct-replay" data-diagram-replay hidden>Rejouer l'animation</button>
+</figure>
+
+<DiagramScript />
+
+<style>
+  .ct { margin: 2rem 0 1.5rem; }
+  .ct-track { position: relative; }
+  .ct-steps {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  /* Ligne de progression : passe derrière les pastilles numérotées */
+  .ct-line {
+    position: absolute;
+    z-index: 0;
+    top: 15px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple), var(--accent));
+    transform-origin: left center;
+  }
+  .ct-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.6rem;
+  }
+  .ct-dot {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font: 700 0.875rem var(--font-mono);
+    color: var(--text);
+    background: var(--bg-card);
+    border: 2px solid var(--purple);
+  }
+  .ct-step img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+  .ct-title { font-size: 1rem; color: var(--text); }
+  .ct-text { font-size: 0.875rem; line-height: 1.5; color: var(--text-secondary); }
+  .ct-replay {
+    margin-top: 1rem;
+    padding: 0.4rem 0.85rem;
+    font: 600 0.8125rem 'Inter Variable', sans-serif;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .ct-replay:hover { color: var(--text); border-color: var(--accent); }
+  .ct-replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (max-width: 760px) {
+    .ct-steps { grid-template-columns: repeat(2, 1fr); row-gap: 2rem; }
+    .ct-line { display: none; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .is-armed .ct-line { transform: scaleX(0); }
+    .is-armed .ct-step { opacity: 0; transform: translateY(18px); }
+    .is-playing .ct-line { animation: ct-draw 3.2s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+    .is-playing .ct-step {
+      animation: ct-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--i) * 0.85s + 0.1s);
+    }
+    .is-playing .ct-dot {
+      animation: ct-pulse 0.9s ease;
+      animation-delay: calc(var(--i) * 0.85s + 0.3s);
+    }
+  }
+  @keyframes ct-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes ct-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes ct-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--purple) 60%, transparent); }
+    100% { box-shadow: 0 0 0 12px transparent; }
+  }
+  /* Le bouton garde sa place avant d'apparaître : aucun décalage de mise en page */
+  .ct-replay[hidden] { display: inline-block; visibility: hidden; }
+</style>

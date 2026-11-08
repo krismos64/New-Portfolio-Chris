@@ -1,0 +1,68 @@
+---
+import DiagramScript from '../case/DiagramScript.astro';
+
+// Dévoilement du visuel LinkedIn SmartPlanning : l'image s'ouvre de gauche à
+// droite, l'étiquette « Avant » puis « Après » apparaissent. Lecture unique
+// (2,4 s) à l'apparition, état final fixe en mouvement réduit.
+---
+
+<figure class="ba" data-diagram>
+  <div class="ba-frame">
+    <img src="/images/communication/sp-linkedin-5-signes.webp" width="800" height="447" alt="Visuel LinkedIn SmartPlanning : un planning sur tableur surchargé face au planning clair de l'application" loading="lazy" decoding="async" />
+    <span class="ba-tag ba-before">Avant : le tableur</span>
+    <span class="ba-tag ba-after">Après : l'application</span>
+  </div>
+  <figcaption class="ba-caption">Post LinkedIn : « 5 signes que votre gestion de planning coûte de l'argent »</figcaption>
+  <button type="button" class="ba-replay" data-diagram-replay hidden>Rejouer l'animation</button>
+</figure>
+
+<DiagramScript />
+
+<style>
+  .ba { margin: 1.5rem 0; max-width: 640px; }
+  .ba-frame {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #0f1a2e;
+  }
+  .ba-frame img { display: block; width: 100%; height: auto; }
+  .ba-tag {
+    position: absolute;
+    bottom: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 100px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .ba-before { left: 0.75rem; color: #fecaca; background: rgba(127, 29, 29, 0.85); }
+  .ba-after { right: 0.75rem; color: #bbf7d0; background: rgba(20, 83, 45, 0.85); }
+  .ba-caption { margin-top: 0.6rem; font-size: 0.8125rem; line-height: 1.45; color: var(--text-muted); }
+  .ba-replay {
+    margin-top: 0.75rem;
+    padding: 0.4rem 0.85rem;
+    font: 600 0.8125rem 'Inter Variable', sans-serif;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .ba-replay:hover { color: var(--text); border-color: var(--accent); }
+  .ba-replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .is-armed .ba-frame img { clip-path: inset(0 100% 0 0); }
+    .is-armed .ba-tag { opacity: 0; transform: translateY(8px); }
+    .is-playing .ba-frame img { animation: ba-reveal 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+    .is-playing .ba-before { animation: ba-tag 0.5s ease forwards 0.5s; }
+    .is-playing .ba-after { animation: ba-tag 0.5s ease forwards 1.7s; }
+  }
+  @keyframes ba-reveal { to { clip-path: inset(0 0 0 0); } }
+  @keyframes ba-tag { to { opacity: 1; transform: translateY(0); } }
+  /* Le bouton garde sa place avant d'apparaître : aucun décalage de mise en page */
+  .ba-replay[hidden] { display: inline-block; visibility: hidden; }
+</style>

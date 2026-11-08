@@ -538,24 +538,23 @@ Ne pas avancer de résultats commerciaux : la boutique vient d'ouvrir.
 ## Communication digitale
 
 Deuxième casquette de Christophe, détaillée sur https://krismos.fr/communication/.
-Chiffres relevés le 8 novembre 2026, sans publicité payante : ce sont des
-volumes modestes, à présenter comme une pratique réelle sur deux lancements,
-jamais comme des résultats de croissance.
+Choix de Christophe : ne jamais citer de chiffres de publication (vues, abonnés,
+impressions, réactions). Parler de ce qu'il a fait, pas de volumes.
 
 - Page Facebook de Lune-Soleil (marque de bijoux artisanaux d'une cliente),
-  gérée de juillet à novembre 2026 : 10 visuels, 2 reels (304 et 68 vues), un
-  événement Facebook, 38 abonnés. Campagne de Noël en plusieurs temps : appel
-  aux organisateurs de marchés du 64, compte à rebours J-7, annonce des dates,
-  question d'engagement « Team Noël ou Team Classique ». Textes écrits à la
-  première personne de la créatrice et validés par elle.
-- SmartPlanning : quatre vidéos de démonstration, une par profil (directeur,
-  manager, employé, présentation générale), vignettes conçues, titres optimisés
-  pour YouTube (482 vues au total). Série LinkedIn du 12 au 19 mai 2026 et un
-  post visuel en juin : 675 impressions organiques sur douze mois, 49 abonnés.
+  gérée de juillet à novembre 2026 : visuels, reels de lancement, événement
+  Facebook. Campagne de Noël en quatre temps : appel aux organisateurs de
+  marchés du 64, compte à rebours J-7, annonce des dates et des lieux, question
+  d'engagement « Team Noël ou Team Classique ». Textes écrits à la première
+  personne de la créatrice et validés par elle.
+- SmartPlanning : une vidéo de démonstration par profil (directeur, manager,
+  employé) et une présentation générale, vignettes conçues, titres rédigés pour
+  YouTube. Série LinkedIn en mai 2026, ouverte par l'accroche « Vous gérez encore
+  les plannings de votre équipe sur Excel ? », puis un post visuel tableur
+  contre application.
 - Outils réellement utilisés : Canva, ChatGPT et Codex pour les visuels (une
-  partie est générée par IA puis retravaillée dans Canva, ce que Facebook
-  signale), CapCut, Final Cut Pro et Canva pour la vidéo, Claude pour le motion
-  design, Figma pour les maquettes.
+  partie est générée par IA puis retravaillée dans Canva), CapCut, Final Cut Pro
+  et Canva pour la vidéo, Claude pour le motion design, Figma pour les maquettes.
 - Ne pas affirmer qu'il maîtrise la suite Adobe, WordPress, Elementor, Brevo ou
   Sarbacane : rien ne l'indique à ce jour.
 
