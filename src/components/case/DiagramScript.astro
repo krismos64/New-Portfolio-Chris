@@ -1,0 +1,33 @@
+---
+// Lecture commune des schémas animés des études de cas ([data-diagram]).
+// Le schéma est « armé » (classe is-armed : éléments à venir masqués), joué une
+// fois quand il est visible à 40 % (is-playing), puis « Rejouer » apparaît.
+// Sans JavaScript ou en mouvement réduit, rien n'est armé : l'état final reste
+// affiché. Astro n'inclut ce script qu'une fois par page.
+---
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll<HTMLElement>('[data-diagram]').forEach((fig) => {
+    if (reduce.matches) return;
+    const replay = fig.querySelector<HTMLButtonElement>('[data-diagram-replay]');
+    fig.classList.add('is-armed');
+
+    const play = () => {
+      fig.classList.remove('is-playing');
+      void fig.offsetWidth; // relance les animations CSS
+      fig.classList.add('is-playing');
+      if (replay) replay.hidden = false;
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        play();
+        io.disconnect();
+      }
+    }, { threshold: 0.4 });
+    io.observe(fig);
+
+    replay?.addEventListener('click', play);
+  });
+</script>

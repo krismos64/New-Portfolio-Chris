@@ -1,4 +1,6 @@
 ---
+import DiagramScript from './DiagramScript.astro';
+
 // Schéma animé : détection d'un conflit de planning avec mise à jour optimiste
 // et retour en arrière (étude de cas SmartPlanning).
 // - SVG inline, animation CSS seule, jouée une fois (4,6 s) quand le schéma
@@ -11,7 +13,7 @@
 //   (dimensions fixées par viewBox + aspect-ratio).
 ---
 
-<figure class="cd" data-cd>
+<figure class="cd" data-diagram>
   <div class="cd-frame">
     <svg class="cd-svg cd-svg-wide" viewBox="0 0 720 330" aria-hidden="true" focusable="false">
       <!-- Panneau interface -->
@@ -129,7 +131,7 @@
       <li class="cd-step cd-step-3">Il trouve un congé validé : c'est un conflit dur, l'opération est refusée.</li>
       <li class="cd-step cd-step-4">L'interface remet le créneau à sa place, à partir de l'état gardé avant le déplacement, et explique pourquoi.</li>
     </ol>
-    <button type="button" class="cd-replay" data-cd-replay hidden>Rejouer l'animation</button>
+    <button type="button" class="cd-replay" data-diagram-replay hidden>Rejouer l'animation</button>
   </figcaption>
 </figure>
 
@@ -212,30 +214,30 @@
   .cd-scan, .cd-result, .cd-toast, .cd-arrow, .cd-note { opacity: 1; }
 
   /* Animation : uniquement si le mouvement est autorisé et que le script a
-     armé le schéma (.cd-armed). Elle démarre avec .cd-play. */
+     armé le schéma (.is-armed). Elle démarre avec .is-playing. */
   @media (prefers-reduced-motion: no-preference) {
-    .cd-armed .cd-shift { transform: translateX(0); }
-    .cd-armed .cd-note-opt,
-    .cd-armed .cd-arrow-go,
-    .cd-armed .cd-scan,
-    .cd-armed .cd-result,
-    .cd-armed .cd-note-block,
-    .cd-armed .cd-arrow-back,
-    .cd-armed .cd-toast { opacity: 0; }
+    .is-armed .cd-shift { transform: translateX(0); }
+    .is-armed .cd-note-opt,
+    .is-armed .cd-arrow-go,
+    .is-armed .cd-scan,
+    .is-armed .cd-result,
+    .is-armed .cd-note-block,
+    .is-armed .cd-arrow-back,
+    .is-armed .cd-toast { opacity: 0; }
 
-    .cd-play .cd-shift { animation: cd-move 4.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .cd-play .cd-note-opt { animation: cd-flash 4.6s ease forwards; }
-    .cd-play .cd-arrow-go { animation: cd-in 4.6s ease forwards; --at: 22%; }
-    .cd-play .cd-scan { animation: cd-scan 4.6s ease forwards; }
-    .cd-play .cd-result,
-    .cd-play .cd-note-block { animation: cd-in-late 4.6s ease forwards; }
-    .cd-play .cd-arrow-back { animation: cd-in-back 4.6s ease forwards; }
-    .cd-play .cd-toast { animation: cd-in-end 4.6s ease forwards; }
+    .is-playing .cd-shift { animation: cd-move 4.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .is-playing .cd-note-opt { animation: cd-flash 4.6s ease forwards; }
+    .is-playing .cd-arrow-go { animation: cd-in 4.6s ease forwards; --at: 22%; }
+    .is-playing .cd-scan { animation: cd-scan 4.6s ease forwards; }
+    .is-playing .cd-result,
+    .is-playing .cd-note-block { animation: cd-in-late 4.6s ease forwards; }
+    .is-playing .cd-arrow-back { animation: cd-in-back 4.6s ease forwards; }
+    .is-playing .cd-toast { animation: cd-in-end 4.6s ease forwards; }
 
-    .cd-play .cd-step-1 { animation: cd-hl-1 4.6s ease forwards; }
-    .cd-play .cd-step-2 { animation: cd-hl-2 4.6s ease forwards; }
-    .cd-play .cd-step-3 { animation: cd-hl-3 4.6s ease forwards; }
-    .cd-play .cd-step-4 { animation: cd-hl-4 4.6s ease forwards; }
+    .is-playing .cd-step-1 { animation: cd-hl-1 4.6s ease forwards; }
+    .is-playing .cd-step-2 { animation: cd-hl-2 4.6s ease forwards; }
+    .is-playing .cd-step-3 { animation: cd-hl-3 4.6s ease forwards; }
+    .is-playing .cd-step-4 { animation: cd-hl-4 4.6s ease forwards; }
   }
 
   /* Le créneau va du mardi au jeudi (deux colonnes, --dx), puis revient */
@@ -265,31 +267,4 @@
   @keyframes cd-hl-4 { 0%, 66% { color: var(--text-secondary); } 72%, 100% { color: var(--text); } }
 </style>
 
-<script>
-  // Arme chaque schéma (masque les éléments qui apparaîtront), le joue une fois
-  // quand il est visible à 40 %, puis propose « Rejouer ». Sans JavaScript ou en
-  // mouvement réduit, l'état final reste affiché.
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  document.querySelectorAll<HTMLElement>('[data-cd]').forEach((fig) => {
-    if (reduce.matches) return;
-    const replay = fig.querySelector<HTMLButtonElement>('[data-cd-replay]');
-    fig.classList.add('cd-armed');
-
-    const play = () => {
-      fig.classList.remove('cd-play');
-      void fig.offsetWidth; // relance les animations CSS
-      fig.classList.add('cd-play');
-      if (replay) replay.hidden = false;
-    };
-
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        play();
-        io.disconnect();
-      }
-    }, { threshold: 0.4 });
-    io.observe(fig);
-
-    replay?.addEventListener('click', play);
-  });
-</script>
+<DiagramScript />

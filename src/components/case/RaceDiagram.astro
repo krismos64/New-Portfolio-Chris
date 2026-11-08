@@ -1,0 +1,219 @@
+---
+import DiagramScript from './DiagramScript.astro';
+
+// Schéma animé : réservation atomique du dernier exemplaire (étude de cas
+// Lune-Soleil). Même mécanique que ConflictDiagram : SVG inline, CSS seule,
+// une lecture de 4,6 s, état final fixe en mouvement réduit, étapes en HTML,
+// version verticale sous 640 px. La requête affichée est simplifiée.
+---
+
+<figure class="rd" data-diagram>
+  <div class="rd-frame">
+    <svg class="rd-svg rd-svg-wide" viewBox="0 0 720 330" aria-hidden="true" focusable="false">
+      <!-- Les deux ventes -->
+      <rect x="10" y="10" width="200" height="250" rx="14" class="rd-panel" />
+      <text x="26" y="40" class="rd-label">Même seconde</text>
+      <rect x="24" y="62" width="172" height="58" rx="10" class="rd-buyer" />
+      <text x="110" y="87" class="rd-buyer-txt" text-anchor="middle">Cliente en ligne</text>
+      <text x="110" y="106" class="rd-buyer-sub" text-anchor="middle">valide son panier</text>
+      <rect x="24" y="150" width="172" height="58" rx="10" class="rd-buyer" />
+      <text x="110" y="175" class="rd-buyer-txt" text-anchor="middle">Stand du marché</text>
+      <text x="110" y="194" class="rd-buyer-sub" text-anchor="middle">vente sur le téléphone</text>
+
+      <!-- Deux requêtes simultanées -->
+      <path d="M198 91 C232 91 236 120 270 120" class="rd-arrow rd-arrow-a" marker-end="url(#rd-head)" />
+      <path d="M198 179 C232 179 236 150 270 150" class="rd-arrow rd-arrow-b" marker-end="url(#rd-head)" />
+      <defs>
+        <marker id="rd-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="rd-head" />
+        </marker>
+      </defs>
+
+      <!-- Base de données -->
+      <rect x="274" y="10" width="436" height="250" rx="14" class="rd-panel" />
+      <text x="292" y="40" class="rd-label">PostgreSQL : une seule instruction</text>
+      <rect x="292" y="58" width="150" height="74" rx="10" class="rd-stock" />
+      <text x="367" y="86" class="rd-stock-name" text-anchor="middle">Pièce unique</text>
+      <text x="367" y="112" class="rd-stock-qty rd-qty-1" text-anchor="middle">stock : 1</text>
+      <text x="367" y="112" class="rd-stock-qty rd-qty-0" text-anchor="middle">stock : 0</text>
+
+      <text x="462" y="72" class="rd-code">UPDATE stock</text>
+      <text x="462" y="90" class="rd-code">SET quantite = quantite - 1</text>
+      <text x="462" y="108" class="rd-code">WHERE produit = :id</text>
+      <text x="462" y="126" class="rd-code rd-code-key">AND quantite &gt;= 1</text>
+      <rect x="456" y="112" width="160" height="20" rx="5" class="rd-scan" />
+
+      <g class="rd-win">
+        <rect x="292" y="152" width="402" height="40" rx="8" class="rd-win-box" />
+        <text x="493" y="177" class="rd-win-txt" text-anchor="middle">Première arrivée : 1 ligne modifiée, réservée</text>
+      </g>
+      <g class="rd-lose">
+        <rect x="292" y="204" width="402" height="40" rx="8" class="rd-lose-box" />
+        <text x="493" y="229" class="rd-lose-txt" text-anchor="middle">Seconde : 0 ligne modifiée, « déjà vendue »</text>
+      </g>
+
+      <g class="rd-toast">
+        <rect x="70" y="280" width="580" height="40" rx="10" class="rd-toast-box" />
+        <text x="360" y="305" class="rd-toast-txt" text-anchor="middle">Une seule vente passe : le stock ne descend jamais sous zéro</text>
+      </g>
+    </svg>
+
+    <!-- Version verticale pour les écrans étroits -->
+    <svg class="rd-svg rd-svg-tall" viewBox="0 0 360 600" aria-hidden="true" focusable="false">
+      <rect x="10" y="10" width="340" height="130" rx="14" class="rd-panel" />
+      <text x="24" y="38" class="rd-label">Même seconde</text>
+      <rect x="22" y="54" width="152" height="70" rx="10" class="rd-buyer" />
+      <text x="98" y="84" class="rd-buyer-txt" text-anchor="middle">Cliente en ligne</text>
+      <text x="98" y="104" class="rd-buyer-sub" text-anchor="middle">valide son panier</text>
+      <rect x="186" y="54" width="152" height="70" rx="10" class="rd-buyer" />
+      <text x="262" y="84" class="rd-buyer-txt" text-anchor="middle">Stand du marché</text>
+      <text x="262" y="104" class="rd-buyer-sub" text-anchor="middle">vente sur mobile</text>
+
+      <path d="M98 126 V170" class="rd-arrow rd-arrow-a" marker-end="url(#rd-head-t)" />
+      <path d="M262 126 V170" class="rd-arrow rd-arrow-b" marker-end="url(#rd-head-t)" />
+      <defs>
+        <marker id="rd-head-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="rd-head" />
+        </marker>
+      </defs>
+
+      <rect x="10" y="174" width="340" height="340" rx="14" class="rd-panel" />
+      <text x="24" y="202" class="rd-label">PostgreSQL : une instruction</text>
+      <rect x="22" y="218" width="130" height="74" rx="10" class="rd-stock" />
+      <text x="87" y="246" class="rd-stock-name" text-anchor="middle">Pièce unique</text>
+      <text x="87" y="272" class="rd-stock-qty rd-qty-1" text-anchor="middle">stock : 1</text>
+      <text x="87" y="272" class="rd-stock-qty rd-qty-0" text-anchor="middle">stock : 0</text>
+
+      <text x="166" y="232" class="rd-code">UPDATE stock</text>
+      <text x="166" y="250" class="rd-code">SET quantite -= 1</text>
+      <text x="166" y="268" class="rd-code">WHERE produit = :id</text>
+      <text x="166" y="286" class="rd-code rd-code-key">AND quantite &gt;= 1</text>
+      <rect x="160" y="272" width="150" height="20" rx="5" class="rd-scan" />
+
+      <g class="rd-win">
+        <rect x="22" y="312" width="316" height="72" rx="8" class="rd-win-box" />
+        <text x="180" y="342" class="rd-win-txt" text-anchor="middle">Première arrivée :</text>
+        <text x="180" y="364" class="rd-win-txt" text-anchor="middle">1 ligne modifiée, réservée</text>
+      </g>
+      <g class="rd-lose">
+        <rect x="22" y="398" width="316" height="72" rx="8" class="rd-lose-box" />
+        <text x="180" y="428" class="rd-lose-txt" text-anchor="middle">Seconde :</text>
+        <text x="180" y="450" class="rd-lose-txt" text-anchor="middle">0 ligne modifiée, « déjà vendue »</text>
+      </g>
+
+      <g class="rd-toast">
+        <rect x="10" y="528" width="340" height="62" rx="10" class="rd-toast-box" />
+        <text x="180" y="553" class="rd-toast-txt" text-anchor="middle">Une seule vente passe :</text>
+        <text x="180" y="574" class="rd-toast-txt" text-anchor="middle">le stock ne descend jamais sous zéro</text>
+      </g>
+    </svg>
+  </div>
+
+  <figcaption class="rd-caption">
+    <ol class="rd-steps">
+      <li class="rd-step rd-step-1">Une cliente valide son panier en ligne pendant que la créatrice vend la même pièce sur son stand.</li>
+      <li class="rd-step rd-step-2">Les deux demandes de réservation arrivent à la base au même moment.</li>
+      <li class="rd-step rd-step-3">La réservation est une seule instruction SQL : elle ne retire une unité que si la condition <code>quantite &gt;= 1</code>, placée dans le <code>WHERE</code>, est encore vraie.</li>
+      <li class="rd-step rd-step-4">La première demande modifie une ligne et réserve la pièce. La seconde ne modifie rien et reçoit « déjà vendue ». Lire le stock puis l'écrire en deux temps aurait laissé passer les deux.</li>
+    </ol>
+    <p class="rd-note">Requête simplifiée pour le schéma.</p>
+    <button type="button" class="rd-replay" data-diagram-replay hidden>Rejouer l'animation</button>
+  </figcaption>
+</figure>
+
+<DiagramScript />
+
+<style>
+  .rd { margin: 1.5rem 0 2rem; }
+  .rd-frame {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem;
+  }
+  .rd-svg { display: block; width: 100%; height: auto; }
+  .rd-svg-wide { aspect-ratio: 720 / 330; }
+  .rd-svg-tall { aspect-ratio: 360 / 600; display: none; max-width: 420px; margin: 0 auto; }
+  @media (max-width: 640px) {
+    .rd-svg-wide { display: none; }
+    .rd-svg-tall { display: block; }
+  }
+
+  .rd-panel { fill: var(--bg); stroke: var(--border); }
+  .rd-label { fill: var(--text); font: 600 15px 'Inter Variable', sans-serif; }
+  .rd-buyer { fill: rgba(255, 255, 255, 0.03); stroke: var(--border-light); }
+  .rd-buyer-txt { fill: var(--text); font: 600 13px 'Inter Variable', sans-serif; }
+  .rd-buyer-sub { fill: var(--text-secondary); font: 500 11px 'Inter Variable', sans-serif; }
+  .rd-arrow { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+  .rd-head { fill: var(--accent); }
+  .rd-stock { fill: color-mix(in srgb, var(--amber) 14%, transparent); stroke: var(--amber); }
+  .rd-stock-name { fill: color-mix(in srgb, var(--amber) 85%, white); font: 600 13px 'Inter Variable', sans-serif; }
+  .rd-stock-qty { fill: var(--text); font: 700 16px var(--font-mono); }
+  .rd-code { fill: var(--text-secondary); font: 500 12px var(--font-mono); }
+  .rd-code-key { fill: var(--text); }
+  .rd-scan { fill: color-mix(in srgb, var(--accent) 16%, transparent); stroke: var(--accent); }
+  .rd-win-box { fill: rgba(34, 197, 94, 0.12); stroke: rgba(34, 197, 94, 0.6); }
+  .rd-win-txt { fill: #86efac; font: 600 13px 'Inter Variable', sans-serif; }
+  .rd-lose-box { fill: rgba(239, 68, 68, 0.12); stroke: rgba(239, 68, 68, 0.55); }
+  .rd-lose-txt { fill: #fca5a5; font: 600 13px 'Inter Variable', sans-serif; }
+  .rd-toast-box { fill: rgba(255, 255, 255, 0.04); stroke: var(--border-light); }
+  .rd-toast-txt { fill: var(--text); font: 600 13px 'Inter Variable', sans-serif; }
+
+  .rd-caption { margin-top: 1rem; }
+  .rd-steps { margin: 0; padding-left: 1.4rem; display: grid; gap: 0.45rem; }
+  .rd-step { font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); }
+  .rd-note { margin: 0.6rem 0 0; font-size: 0.8rem; color: var(--text-muted); }
+  .rd-replay {
+    margin-top: 0.9rem;
+    padding: 0.45rem 0.9rem;
+    font: 600 0.8125rem 'Inter Variable', sans-serif;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .rd-replay:hover { color: var(--text); border-color: var(--accent); }
+  .rd-replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* État final par défaut : stock à 0 */
+  .rd-qty-1 { opacity: 0; }
+  .rd-qty-0 { opacity: 1; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .is-armed .rd-qty-1 { opacity: 1; }
+    .is-armed .rd-qty-0,
+    .is-armed .rd-scan,
+    .is-armed .rd-win,
+    .is-armed .rd-lose,
+    .is-armed .rd-toast { opacity: 0; }
+    .is-armed .rd-arrow { stroke-dasharray: 120; stroke-dashoffset: 120; opacity: 0; }
+
+    .is-playing .rd-arrow { animation: rd-draw 4.6s ease forwards; }
+    .is-playing .rd-scan { animation: rd-scan 4.6s ease forwards; }
+    .is-playing .rd-qty-1 { animation: rd-out 4.6s ease forwards; }
+    .is-playing .rd-qty-0 { animation: rd-in-stock 4.6s ease forwards; }
+    .is-playing .rd-win { animation: rd-in-win 4.6s ease forwards; }
+    .is-playing .rd-lose { animation: rd-in-lose 4.6s ease forwards; }
+    .is-playing .rd-toast { animation: rd-in-end 4.6s ease forwards; }
+
+    .is-playing .rd-step-1 { animation: rd-hl-1 4.6s ease forwards; }
+    .is-playing .rd-step-2 { animation: rd-hl-2 4.6s ease forwards; }
+    .is-playing .rd-step-3 { animation: rd-hl-3 4.6s ease forwards; }
+    .is-playing .rd-step-4 { animation: rd-hl-4 4.6s ease forwards; }
+  }
+
+  /* Les deux flèches partent ensemble : c'est le cœur du problème */
+  @keyframes rd-draw { 0%, 8% { stroke-dashoffset: 120; opacity: 0; } 9% { opacity: 1; } 24%, 100% { stroke-dashoffset: 0; opacity: 1; } }
+  @keyframes rd-scan { 0%, 26% { opacity: 0; } 32%, 46% { opacity: 1; } 54%, 100% { opacity: 0.35; } }
+  @keyframes rd-out { 0%, 48% { opacity: 1; } 54%, 100% { opacity: 0; } }
+  @keyframes rd-in-stock { 0%, 48% { opacity: 0; } 54%, 100% { opacity: 1; } }
+  @keyframes rd-in-win { 0%, 50% { opacity: 0; } 56%, 100% { opacity: 1; } }
+  @keyframes rd-in-lose { 0%, 60% { opacity: 0; } 66%, 100% { opacity: 1; } }
+  @keyframes rd-in-end { 0%, 78% { opacity: 0; } 86%, 100% { opacity: 1; } }
+
+  @keyframes rd-hl-1 { 0% { color: var(--text-secondary); } 4%, 22% { color: var(--text); } 26%, 100% { color: var(--text-secondary); } }
+  @keyframes rd-hl-2 { 0%, 22% { color: var(--text-secondary); } 26%, 44% { color: var(--text); } 48%, 100% { color: var(--text-secondary); } }
+  @keyframes rd-hl-3 { 0%, 44% { color: var(--text-secondary); } 48%, 62% { color: var(--text); } 66%, 100% { color: var(--text-secondary); } }
+  @keyframes rd-hl-4 { 0%, 62% { color: var(--text-secondary); } 68%, 100% { color: var(--text); } }
+</style>

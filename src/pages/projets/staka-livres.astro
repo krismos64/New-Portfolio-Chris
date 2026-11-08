@@ -1,5 +1,6 @@
 ---
 import CaseStudy from '../../layouts/CaseStudy.astro';
+import WebhookDiagram from '../../components/case/WebhookDiagram.astro';
 
 // Étude de cas Staka Livres (8 novembre 2026). Faits relevés dans le dépôt local
 // (/Applications/XAMPP/htdocs/staka-livres : code, historique git, docs) et dans
@@ -134,6 +135,8 @@ const jsonLd = [
       traiter (réponse 200), ce qui évite que Stripe le renvoie en boucle.
       Ce filtrage a été ajouté en production en août 2025.
     </p>
+
+    <WebhookDiagram />
 
     <h3>3. Des notifications découplées des contrôleurs</h3>
     <p>

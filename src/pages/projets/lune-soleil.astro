@@ -1,5 +1,6 @@
 ---
 import CaseStudy from '../../layouts/CaseStudy.astro';
+import RaceDiagram from '../../components/case/RaceDiagram.astro';
 
 // Étude de cas Lune-Soleil (8 novembre 2026). Faits repris de
 // public/chatbot-knowledge.txt (section Lune-Soleil) et du README public du dépôt.
@@ -137,6 +138,8 @@ const jsonLd = [
       <code>WHERE</code>. Le test de concurrence qui le prouve a été écrit avant le paiement et
       tourne en intégration continue.
     </p>
+
+    <RaceDiagram />
 
     <h3>2. Seul Stripe confirme un paiement</h3>
     <p>

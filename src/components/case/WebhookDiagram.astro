@@ -1,0 +1,252 @@
+---
+import DiagramScript from './DiagramScript.astro';
+
+// Schéma animé : traitement d'un webhook Stripe (étude de cas Staka Livres).
+// Signature vérifiée, source filtrée (le compte Stripe sert plusieurs sites),
+// puis commande en attente convertie en compte et en commande payée.
+// Même mécanique que ConflictDiagram : une lecture de 4,8 s, état final fixe
+// en mouvement réduit, étapes en HTML, version verticale sous 640 px.
+---
+
+<figure class="wd" data-diagram>
+  <div class="wd-frame">
+    <svg class="wd-svg wd-svg-wide" viewBox="0 0 720 330" aria-hidden="true" focusable="false">
+      <!-- Stripe -->
+      <rect x="10" y="10" width="160" height="250" rx="14" class="wd-panel" />
+      <text x="26" y="40" class="wd-label">Stripe</text>
+      <rect x="22" y="64" width="136" height="56" rx="10" class="wd-evt wd-evt-ok" />
+      <text x="90" y="88" class="wd-evt-txt" text-anchor="middle">Paiement</text>
+      <text x="90" y="106" class="wd-evt-sub" text-anchor="middle">source : livrestaka.fr</text>
+      <rect x="22" y="150" width="136" height="56" rx="10" class="wd-evt wd-evt-other" />
+      <text x="90" y="174" class="wd-evt-txt" text-anchor="middle">Paiement</text>
+      <text x="90" y="192" class="wd-evt-sub" text-anchor="middle">source : autre site</text>
+
+      <path d="M160 92 H214" class="wd-arrow wd-arrow-in" marker-end="url(#wd-head)" />
+      <path d="M160 178 H214" class="wd-arrow wd-arrow-in" marker-end="url(#wd-head)" />
+
+      <!-- Serveur -->
+      <rect x="218" y="10" width="270" height="250" rx="14" class="wd-panel" />
+      <text x="234" y="40" class="wd-label">Serveur (Express)</text>
+      <rect x="232" y="60" width="242" height="40" rx="8" class="wd-check wd-check-1" />
+      <text x="246" y="85" class="wd-check-txt">1. Signature Stripe vérifiée</text>
+      <rect x="232" y="112" width="242" height="40" rx="8" class="wd-check wd-check-2" />
+      <text x="246" y="137" class="wd-check-txt">2. Source = livrestaka.fr ?</text>
+      <g class="wd-ignored">
+        <rect x="232" y="168" width="242" height="56" rx="8" class="wd-ignored-box" />
+        <text x="353" y="192" class="wd-ignored-txt" text-anchor="middle">Autre site : ignoré</text>
+        <text x="353" y="211" class="wd-ignored-sub" text-anchor="middle">réponse 200, pas de renvoi</text>
+      </g>
+
+      <path d="M488 132 H530" class="wd-arrow wd-arrow-out" marker-end="url(#wd-head-ok)" />
+      <defs>
+        <marker id="wd-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="wd-head" />
+        </marker>
+        <marker id="wd-head-ok" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="wd-head-ok" />
+        </marker>
+      </defs>
+
+      <!-- Base -->
+      <rect x="534" y="10" width="176" height="250" rx="14" class="wd-panel" />
+      <text x="550" y="40" class="wd-label">Base (MySQL)</text>
+      <g class="wd-pending">
+        <rect x="546" y="58" width="152" height="50" rx="8" class="wd-pending-box" />
+        <text x="622" y="80" class="wd-pending-txt" text-anchor="middle">Commande</text>
+        <text x="622" y="98" class="wd-pending-txt" text-anchor="middle">en attente</text>
+      </g>
+      <g class="wd-created">
+        <rect x="546" y="126" width="152" height="50" rx="8" class="wd-created-box" />
+        <text x="622" y="148" class="wd-created-txt" text-anchor="middle">Compte créé</text>
+        <text x="622" y="166" class="wd-created-sub" text-anchor="middle">activation en attente</text>
+        <rect x="546" y="188" width="152" height="50" rx="8" class="wd-created-box" />
+        <text x="622" y="210" class="wd-created-txt" text-anchor="middle">Commande</text>
+        <text x="622" y="228" class="wd-created-sub" text-anchor="middle">payée</text>
+      </g>
+
+      <g class="wd-toast">
+        <rect x="60" y="280" width="600" height="40" rx="10" class="wd-toast-box" />
+        <text x="360" y="305" class="wd-toast-txt" text-anchor="middle">Seul un paiement signé, venu du bon site, crée le compte et la commande</text>
+      </g>
+    </svg>
+
+    <!-- Version verticale pour les écrans étroits -->
+    <svg class="wd-svg wd-svg-tall" viewBox="0 0 360 640" aria-hidden="true" focusable="false">
+      <rect x="10" y="10" width="340" height="120" rx="14" class="wd-panel" />
+      <text x="24" y="38" class="wd-label">Stripe</text>
+      <rect x="22" y="52" width="152" height="62" rx="10" class="wd-evt wd-evt-ok" />
+      <text x="98" y="78" class="wd-evt-txt" text-anchor="middle">Paiement</text>
+      <text x="98" y="98" class="wd-evt-sub" text-anchor="middle">livrestaka.fr</text>
+      <rect x="186" y="52" width="152" height="62" rx="10" class="wd-evt wd-evt-other" />
+      <text x="262" y="78" class="wd-evt-txt" text-anchor="middle">Paiement</text>
+      <text x="262" y="98" class="wd-evt-sub" text-anchor="middle">autre site</text>
+
+      <path d="M98 116 V158" class="wd-arrow wd-arrow-in" marker-end="url(#wd-head-t)" />
+      <path d="M262 116 V158" class="wd-arrow wd-arrow-in" marker-end="url(#wd-head-t)" />
+
+      <rect x="10" y="162" width="340" height="240" rx="14" class="wd-panel" />
+      <text x="24" y="190" class="wd-label">Serveur (Express)</text>
+      <rect x="22" y="206" width="316" height="40" rx="8" class="wd-check wd-check-1" />
+      <text x="36" y="231" class="wd-check-txt">1. Signature Stripe vérifiée</text>
+      <rect x="22" y="256" width="316" height="40" rx="8" class="wd-check wd-check-2" />
+      <text x="36" y="281" class="wd-check-txt">2. Source = livrestaka.fr ?</text>
+      <g class="wd-ignored">
+        <rect x="22" y="310" width="316" height="78" rx="8" class="wd-ignored-box" />
+        <text x="180" y="342" class="wd-ignored-txt" text-anchor="middle">Autre site : ignoré</text>
+        <text x="180" y="364" class="wd-ignored-sub" text-anchor="middle">réponse 200, pas de renvoi</text>
+      </g>
+
+      <path d="M98 404 V446" class="wd-arrow wd-arrow-out" marker-end="url(#wd-head-ok-t)" />
+      <defs>
+        <marker id="wd-head-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="wd-head" />
+        </marker>
+        <marker id="wd-head-ok-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L10 5 L0 10 z" class="wd-head-ok" />
+        </marker>
+      </defs>
+
+      <rect x="10" y="450" width="340" height="110" rx="14" class="wd-panel" />
+      <text x="24" y="476" class="wd-label">Base (MySQL)</text>
+      <g class="wd-pending">
+        <rect x="22" y="490" width="96" height="56" rx="8" class="wd-pending-box" />
+        <text x="70" y="514" class="wd-pending-txt" text-anchor="middle">Commande</text>
+        <text x="70" y="532" class="wd-pending-txt" text-anchor="middle">en attente</text>
+      </g>
+      <g class="wd-created">
+        <rect x="128" y="490" width="100" height="56" rx="8" class="wd-created-box" />
+        <text x="178" y="514" class="wd-created-txt" text-anchor="middle">Compte</text>
+        <text x="178" y="532" class="wd-created-sub" text-anchor="middle">à activer</text>
+        <rect x="238" y="490" width="100" height="56" rx="8" class="wd-created-box" />
+        <text x="288" y="514" class="wd-created-txt" text-anchor="middle">Commande</text>
+        <text x="288" y="532" class="wd-created-sub" text-anchor="middle">payée</text>
+      </g>
+
+      <g class="wd-toast">
+        <rect x="10" y="572" width="340" height="62" rx="10" class="wd-toast-box" />
+        <text x="180" y="597" class="wd-toast-txt" text-anchor="middle">Seul un paiement signé, venu du</text>
+        <text x="180" y="618" class="wd-toast-txt" text-anchor="middle">bon site, crée compte et commande</text>
+      </g>
+    </svg>
+  </div>
+
+  <figcaption class="wd-caption">
+    <ol class="wd-steps">
+      <li class="wd-step wd-step-1">Stripe envoie au serveur les notifications de paiement de tous les sites qui partagent le compte.</li>
+      <li class="wd-step wd-step-2">Le serveur vérifie d'abord la signature : une notification qui ne vient pas de Stripe est refusée.</li>
+      <li class="wd-step wd-step-3">Il lit ensuite la source du paiement dans ses métadonnées. Un paiement d'un autre site est ignoré, avec une réponse 200 pour que Stripe ne le renvoie pas.</li>
+      <li class="wd-step wd-step-4">Pour un paiement de livrestaka.fr, la commande en attente devient un compte, à activer par l'auteur, et une commande payée.</li>
+    </ol>
+    <button type="button" class="wd-replay" data-diagram-replay hidden>Rejouer l'animation</button>
+  </figcaption>
+</figure>
+
+<DiagramScript />
+
+<style>
+  .wd { margin: 1.5rem 0 2rem; }
+  .wd-frame {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 0.75rem;
+  }
+  .wd-svg { display: block; width: 100%; height: auto; }
+  .wd-svg-wide { aspect-ratio: 720 / 330; }
+  .wd-svg-tall { aspect-ratio: 360 / 640; display: none; max-width: 420px; margin: 0 auto; }
+  @media (max-width: 640px) {
+    .wd-svg-wide { display: none; }
+    .wd-svg-tall { display: block; }
+  }
+
+  .wd-panel { fill: var(--bg); stroke: var(--border); }
+  .wd-label { fill: var(--text); font: 600 15px 'Inter Variable', sans-serif; }
+  .wd-evt { stroke-width: 1.5; }
+  .wd-evt-ok { fill: color-mix(in srgb, var(--purple) 16%, transparent); stroke: var(--purple); }
+  .wd-evt-other { fill: rgba(255, 255, 255, 0.03); stroke: var(--border-light); }
+  .wd-evt-txt { fill: var(--text); font: 600 13px 'Inter Variable', sans-serif; }
+  .wd-evt-sub { fill: var(--text-secondary); font: 500 11px 'Inter Variable', sans-serif; }
+  .wd-arrow { fill: none; stroke-width: 2.5; }
+  .wd-arrow-in { stroke: var(--accent); }
+  .wd-arrow-out { stroke: var(--green); }
+  .wd-head { fill: var(--accent); }
+  .wd-head-ok { fill: var(--green); }
+  .wd-check { fill: rgba(255, 255, 255, 0.03); stroke: var(--border); }
+  .wd-check-txt { fill: var(--text); font: 600 13px 'Inter Variable', sans-serif; }
+  .wd-ignored-box { fill: rgba(255, 255, 255, 0.03); stroke: var(--border-light); stroke-dasharray: 4 3; }
+  .wd-ignored-txt { fill: var(--text-secondary); font: 600 13px 'Inter Variable', sans-serif; }
+  .wd-ignored-sub { fill: var(--text-muted); font: 500 11px var(--font-mono); }
+  .wd-pending-box { fill: color-mix(in srgb, var(--amber) 14%, transparent); stroke: var(--amber); stroke-dasharray: 4 3; }
+  .wd-pending-txt { fill: color-mix(in srgb, var(--amber) 85%, white); font: 600 12px 'Inter Variable', sans-serif; }
+  .wd-created-box { fill: rgba(34, 197, 94, 0.12); stroke: rgba(34, 197, 94, 0.6); }
+  .wd-created-txt { fill: #86efac; font: 600 13px 'Inter Variable', sans-serif; }
+  .wd-created-sub { fill: var(--text-secondary); font: 500 11px 'Inter Variable', sans-serif; }
+  .wd-toast-box { fill: rgba(255, 255, 255, 0.04); stroke: var(--border-light); }
+  .wd-toast-txt { fill: var(--text); font: 600 13px 'Inter Variable', sans-serif; }
+
+  .wd-caption { margin-top: 1rem; }
+  .wd-steps { margin: 0; padding-left: 1.4rem; display: grid; gap: 0.45rem; }
+  .wd-step { font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary); }
+  .wd-replay {
+    margin-top: 0.9rem;
+    padding: 0.45rem 0.9rem;
+    font: 600 0.8125rem 'Inter Variable', sans-serif;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .wd-replay:hover { color: var(--text); border-color: var(--accent); }
+  .wd-replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* État final par défaut : l'autre site est grisé, la commande en attente est traitée */
+  .wd-evt-other { opacity: 0.45; }
+  .wd-pending { opacity: 0.4; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .is-armed .wd-evt-other,
+    .is-armed .wd-pending { opacity: 1; }
+    .is-armed .wd-ignored,
+    .is-armed .wd-created,
+    .is-armed .wd-toast { opacity: 0; }
+    .is-armed .wd-arrow { stroke-dasharray: 60; stroke-dashoffset: 60; opacity: 0; }
+
+    .is-playing .wd-arrow-in { animation: wd-draw-in 4.8s ease forwards; }
+    .is-playing .wd-check-1 { animation: wd-check-1 4.8s ease forwards; }
+    .is-playing .wd-check-2 { animation: wd-check-2 4.8s ease forwards; }
+    .is-playing .wd-ignored { animation: wd-in-ignored 4.8s ease forwards; }
+    .is-playing .wd-evt-other { animation: wd-dim-other 4.8s ease forwards; }
+    .is-playing .wd-arrow-out { animation: wd-draw-out 4.8s ease forwards; }
+    .is-playing .wd-pending { animation: wd-dim-pending 4.8s ease forwards; }
+    .is-playing .wd-created { animation: wd-in-created 4.8s ease forwards; }
+    .is-playing .wd-toast { animation: wd-in-end 4.8s ease forwards; }
+
+    .is-playing .wd-step-1 { animation: wd-hl-1 4.8s ease forwards; }
+    .is-playing .wd-step-2 { animation: wd-hl-2 4.8s ease forwards; }
+    .is-playing .wd-step-3 { animation: wd-hl-3 4.8s ease forwards; }
+    .is-playing .wd-step-4 { animation: wd-hl-4 4.8s ease forwards; }
+  }
+
+  /* La pointe (marker) ne suit pas le tracé : la flèche n'apparaît qu'au début du dessin */
+  @keyframes wd-draw-in { 0%, 6% { stroke-dashoffset: 60; opacity: 0; } 7% { opacity: 1; } 20%, 100% { stroke-dashoffset: 0; opacity: 1; } }
+  @keyframes wd-check-1 {
+    0%, 22% { stroke: var(--border); fill: rgba(255, 255, 255, 0.03); }
+    26%, 100% { stroke: var(--green); fill: rgba(34, 197, 94, 0.1); }
+  }
+  @keyframes wd-check-2 {
+    0%, 38% { stroke: var(--border); fill: rgba(255, 255, 255, 0.03); }
+    42%, 100% { stroke: var(--accent); fill: color-mix(in srgb, var(--accent) 12%, transparent); }
+  }
+  @keyframes wd-in-ignored { 0%, 48% { opacity: 0; } 54%, 100% { opacity: 1; } }
+  @keyframes wd-dim-other { 0%, 48% { opacity: 1; } 54%, 100% { opacity: 0.45; } }
+  @keyframes wd-draw-out { 0%, 56% { stroke-dashoffset: 60; opacity: 0; } 57% { opacity: 1; } 64%, 100% { stroke-dashoffset: 0; opacity: 1; } }
+  @keyframes wd-dim-pending { 0%, 64% { opacity: 1; } 70%, 100% { opacity: 0.4; } }
+  @keyframes wd-in-created { 0%, 64% { opacity: 0; } 72%, 100% { opacity: 1; } }
+  @keyframes wd-in-end { 0%, 80% { opacity: 0; } 88%, 100% { opacity: 1; } }
+
+  @keyframes wd-hl-1 { 0% { color: var(--text-secondary); } 4%, 20% { color: var(--text); } 24%, 100% { color: var(--text-secondary); } }
+  @keyframes wd-hl-2 { 0%, 20% { color: var(--text-secondary); } 24%, 38% { color: var(--text); } 42%, 100% { color: var(--text-secondary); } }
+  @keyframes wd-hl-3 { 0%, 38% { color: var(--text-secondary); } 42%, 58% { color: var(--text); } 62%, 100% { color: var(--text-secondary); } }
+  @keyframes wd-hl-4 { 0%, 58% { color: var(--text-secondary); } 64%, 100% { color: var(--text); } }
+</style>
