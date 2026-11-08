@@ -86,6 +86,7 @@ export const projects: Project[] = [
     badge: "Freelance · Client réel",
     badgeColor: "green",
     image: "/images/projects/livrestaka-mockup.webp",
+    caseStudy: "/projets/staka-livres/",
     tech: ["React", "TypeScript", "Node.js", "Express", "MySQL", "Stripe", "Tailwind CSS"],
     description:
       "Plateforme web enterprise-grade dédiée aux services de correction et d'édition de manuscrits. Application monorepo avec authentification sécurisée, administration avancée, paiements Stripe intégrés et messagerie temps réel.",

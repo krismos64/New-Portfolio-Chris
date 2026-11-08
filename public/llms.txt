@@ -92,6 +92,7 @@ Faits techniques établis dans cette série, réutilisables comme référence :
 - [Projets](https://krismos.fr/projets/): les 13 projets, du SaaS en production aux sites vitrines et projets de formation
 - [Étude de cas SmartPlanning](https://krismos.fr/projets/smartplanning/): SaaS multi-tenant Next.js 15, décisions techniques, 3 003 tests, erreur en production et correctifs
 - [Étude de cas Lune-Soleil](https://krismos.fr/projets/lune-soleil/): e-commerce Next.js 16, stock partagé avec les marchés, réservation atomique du dernier exemplaire, paiement confirmé par webhook signé, factures immuables
+- [Étude de cas Staka Livres](https://krismos.fr/projets/staka-livres/): plateforme de correction de manuscrits en React et Node.js, commande sans compte, webhooks Stripe filtrés par site, notifications découplées par événements
 - [Parcours et compétences](https://krismos.fr/parcours/): formations CDA et DWWM, expérience, compétences techniques, processus de développement
 - [Blog technique](https://krismos.fr/blog/): deux séries, 12 articles
 

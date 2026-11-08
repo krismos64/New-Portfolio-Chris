@@ -1,0 +1,169 @@
+---
+import CaseStudy from '../../layouts/CaseStudy.astro';
+
+// Étude de cas Staka Livres (8 novembre 2026). Faits relevés dans le dépôt local
+// (/Applications/XAMPP/htdocs/staka-livres : code, historique git, docs) et dans
+// public/chatbot-knowledge.txt. Chiffres du README non repris (contradictoires).
+// Pas de lien vers le dépôt GitHub tant que son historique expose des secrets.
+// Réserves : ni taille du client, ni chiffre d'affaires, ni trafic, ni résultats.
+const url = 'https://krismos.fr/projets/staka-livres/';
+const title = "Staka Livres : étude de cas Node.js et React | Christophe Mostefaoui";
+const description = "Plateforme de correction de manuscrits développée seul pour un client : React, Node.js, Express, Prisma et MySQL, commande sans compte, Stripe et messagerie.";
+const published = '2026-11-08';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    "headline": "Staka Livres : une plateforme de correction de manuscrits, de la commande à la facture",
+    "description": description,
+    "url": url,
+    "mainEntityOfPage": url,
+    "datePublished": published,
+    "dateModified": published,
+    "inLanguage": "fr-FR",
+    "image": "https://krismos.fr/images/projects/og/livrestaka.jpg",
+    "author": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui", "url": "https://krismos.fr/" },
+    "publisher": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui" },
+    "about": {
+      "@type": "WebSite",
+      "@id": "https://livrestaka.fr/#website",
+      "name": "Staka Livres",
+      "url": "https://livrestaka.fr/",
+      "creator": { "@id": "https://krismos.fr/#person" }
+    },
+    "keywords": "plateforme sur mesure, React 18, Node.js, Express, TypeScript, Prisma, MySQL, Stripe, Docker, monorepo"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Projets", "item": "https://krismos.fr/projets/" },
+      { "@type": "ListItem", "position": 3, "name": "Staka Livres, étude de cas", "item": url }
+    ]
+  }
+];
+---
+
+<CaseStudy
+  title={title}
+  description={description}
+  url={url}
+  image="/images/projects/og/livrestaka.jpg"
+  jsonLd={jsonLd}
+  crumb="Staka Livres"
+  eyebrow="Étude de cas · Freelance, client réel"
+  heading="Staka Livres : une plateforme de correction de manuscrits, de la commande à la facture"
+  lead="Staka accompagne des auteurs dans la correction et l'édition de leurs manuscrits. J'ai développé seul sa plateforme, en mission freelance : commande, paiement, échanges avec l'équipe éditoriale et administration."
+>
+  <a slot="links" class="btn btn-primary" href="https://www.youtube.com/watch?v=yxl47xKgfN4" target="_blank" rel="noopener noreferrer">
+    Voir la démo vidéo
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+  </a>
+  <a slot="links" class="btn" href="/projets/">Tous les projets</a>
+
+  <figure class="cover">
+    <img
+      src="/images/projects/livrestaka-mockup.webp"
+      srcset="/images/projects/livrestaka-mockup-800.webp 800w, /images/projects/livrestaka-mockup.webp 1200w"
+      sizes="(max-width: 860px) 100vw, 820px"
+      width="1200" height="675"
+      alt="La plateforme Staka Livres affichée sur un ordinateur portable"
+      loading="lazy" decoding="async"
+    />
+  </figure>
+
+  <section class="summary" aria-labelledby="en-bref">
+    <h2 id="en-bref">En bref</h2>
+    <dl>
+      <div><dt>Produit</dt><dd>Plateforme de correction et d'édition de manuscrits : espace auteur, paiement en ligne, messagerie et administration</dd></div>
+      <div><dt>Mon rôle</dt><dd>Développeur freelance, seul sur le projet, de l'analyse du besoin à la mise en production, avec de nombreux échanges avec le client</dd></div>
+      <div><dt>Dates</dt><dd>Développement à partir de juin 2025, première mise en production en juillet 2025, paiements Stripe en production fin août 2025</dd></div>
+      <div><dt>Stack</dt><dd>React 18, Vite, React Query, Tailwind CSS, Node.js, Express, TypeScript, Prisma, MySQL 8, Stripe, Docker, Nginx</dd></div>
+      <div><dt>Statut</dt><dd>Le site livrestaka.fr est actuellement en maintenance. La démo vidéo montre la plateforme en fonctionnement</dd></div>
+    </dl>
+  </section>
+
+  <article class="prose">
+    <h2>Le besoin</h2>
+    <p>
+      Un auteur doit pouvoir choisir une prestation, envoyer son manuscrit, payer et suivre
+      son projet, puis échanger avec les correcteurs jusqu'à la livraison. L'équipe, de son
+      côté, gère les commandes, les tarifs, les contenus du site et les demandes de support
+      depuis une administration.
+    </p>
+
+    <h2>Ce que fait la plateforme</h2>
+    <ul>
+      <li>Trois rôles avec des accès distincts : auteur, correcteur et administrateur (authentification par jeton JWT)</li>
+      <li>Commande d'une prestation avec ou sans compte, et envoi des fichiers du manuscrit</li>
+      <li>Paiement Stripe, facture PDF générée et envoyée par email</li>
+      <li>Messagerie entre l'auteur et l'équipe, avec pièces jointes</li>
+      <li>Notifications dans l'application et emails automatiques sur les événements du suivi de commande</li>
+      <li>Administration : utilisateurs, commandes et statuts, tarifs, FAQ et pages du site</li>
+      <li>Données personnelles : export et suppression du compte, et un journal d'audit qui conserve les actions sensibles</li>
+    </ul>
+
+    <h2>L'architecture</h2>
+    <p>
+      Le projet est un monorepo npm : une API Node.js et Express, un frontend React construit
+      avec Vite, et un paquet de types TypeScript partagés entre les deux, pour limiter les écarts
+      entre les données envoyées et celles attendues. Les données vivent dans MySQL 8, décrites par
+      quinze modèles Prisma. L'application tourne dans Docker derrière Nginx, sur un VPS OVH.
+    </p>
+
+    <h2>Trois décisions techniques</h2>
+
+    <h3>1. Commander sans créer de compte d'abord</h3>
+    <p>
+      Pour ne pas perdre un auteur au moment de payer, une commande peut se passer sans
+      compte. Ses informations sont gardées dans une commande en attente (une table dédiée,
+      <code>PendingCommande</code>) avant le paiement. Quand Stripe confirme le paiement, le
+      serveur crée le compte de l'auteur, en attente d'activation, puis la vraie commande.
+      Un auteur déjà connecté suit le parcours classique.
+    </p>
+
+    <h3>2. Un compte Stripe, plusieurs sites</h3>
+    <p>
+      Le compte Stripe du client sert plusieurs sites, et Stripe envoie donc au serveur les
+      notifications de paiement (webhooks) de tous ces sites. Le serveur vérifie d'abord la
+      signature de chaque notification, puis lit la source du paiement enregistrée dans ses
+      métadonnées. Pour un paiement venu d'un autre site, il accuse réception sans rien
+      traiter (réponse 200), ce qui évite que Stripe le renvoie en boucle.
+      Ce filtrage a été ajouté en production en août 2025.
+    </p>
+
+    <h3>3. Des notifications découplées des contrôleurs</h3>
+    <p>
+      Pour les notifications, les contrôleurs émettent un événement sur un bus interne (un
+      <code>EventEmitter</code> de Node.js), et des écouteurs se chargent des notifications
+      et des emails, envoyés depuis une file asynchrone. Pour un événement déjà émis, une
+      nouvelle notification s'ajoute en écrivant un écouteur, sans modifier le contrôleur.
+    </p>
+
+    <h2>Un changement d'architecture en cours de route</h2>
+    <p>
+      Les fichiers des manuscrits étaient d'abord stockés sur AWS S3. En juillet 2025, je les
+      ai migrés vers un stockage sur le VPS qui héberge l'application, pour ne plus dépendre
+      d'un service cloud externe.
+    </p>
+
+    <h2>Tests et déploiement</h2>
+    <p>
+      Le backend a des tests Vitest et le frontend quelques tests unitaires. Le dépôt contient
+      aussi des scénarios Cypress de bout en bout pour la connexion et les rôles,
+      l'administration, le paiement, la messagerie et l'envoi de fichiers. GitHub Actions sépare les tests unitaires des
+      tests d'intégration. Un script de déploiement applique les migrations Prisma et
+      redémarre les conteneurs, et le certificat SSL se renouvelle automatiquement.
+    </p>
+
+    <h2>Ce que j'en retiens</h2>
+    <p>
+      Au-delà du code, j'ai mené ce projet en direct avec le client, de la compréhension de
+      son besoin jusqu'à la mise en production, avec des échanges réguliers tout au long du
+      développement.
+    </p>
+  </article>
+</CaseStudy>

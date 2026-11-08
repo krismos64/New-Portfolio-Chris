@@ -13,6 +13,8 @@ Dernière mise à jour : 8 novembre 2026.
   https://krismos.fr/projets/smartplanning/
 - Étude de cas Lune-Soleil (e-commerce, stock, paiement, facturation) :
   https://krismos.fr/projets/lune-soleil/
+- Étude de cas Staka Livres (plateforme React et Node.js, commande sans compte,
+  webhooks Stripe, notifications) : https://krismos.fr/projets/staka-livres/
 - Parcours, formations, compétences et méthode : https://krismos.fr/parcours/
 - Blog technique, deux séries : https://krismos.fr/blog/
 - Contact : section Contact en bas de l'accueil, https://krismos.fr/#contact
