@@ -719,9 +719,8 @@ Pour une opportunité de recrutement, proposer en priorité l'email et LinkedIn,
 puis le CV. Ne communiquer le numéro de téléphone que si le visiteur le demande
 explicitement. Pour une prestation commerciale, orienter vers le site freelance.
 
-Le profil GitHub général peut être partagé, mais le dépôt SmartPlanning est privé.
-Si un recruteur souhaite examiner ce code, indiquer simplement que Christophe
-peut en donner l'accès sur demande dans un contexte de recrutement.
+Le profil GitHub général peut être partagé. Le code de SmartPlanning est public :
+https://github.com/krismos64/SmartplanningAI-V2 (voir la section SmartPlanning).
 
 ## Catalogue des articles du blog
 

@@ -14,7 +14,9 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 
 ## Fonctionnalités
 
-- **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), études de cas `/projets/smartplanning/` et `/projets/lune-soleil/`, `/parcours/` (formations, compétences, processus)
+- **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), trois études de cas (`/projets/smartplanning/`, `/projets/lune-soleil/`, `/projets/staka-livres/`), `/parcours/` (formations, compétences, processus) et `/communication/`
+- **Double casquette** : développement et communication digitale. `/communication/` présente la page Facebook d'une marque artisanale et une campagne vidéo LinkedIn et YouTube, sans chiffres de publication, avec quatre animations
+- **Schémas animés** : un par étude de cas (conflit de planning, réservation du dernier exemplaire, webhook Stripe), en SVG inline et CSS, joués une fois à l'apparition, état final fixe en mouvement réduit
 - **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
 - **Maquettes des projets** : chaque carte montre le vrai site dans un portable et un smartphone, mêmes visuels que la page Réalisations du site freelance ; projets techniques en grille, sites vitrines et démos dans « Autres réalisations »
@@ -36,7 +38,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 | Chatbot     | Mistral AI, PHP, cURL et streaming SSE                         |
 | Styles      | CSS scoped par composant et CSS Custom Properties              |
 | Typographie | Inter, DM Serif Display et Source Serif 4 auto-hébergées (Fontsource), Inter préchargée, aucun appel à Google Fonts |
-| Animation   | Canvas API, CSS transitions, container queries (`cqh`) et `prefers-reduced-motion` |
+| Animation   | Canvas API, schémas SVG et CSS déclenchés à l'apparition (IntersectionObserver), `prefers-reduced-motion` |
 | SEO         | `@astrojs/sitemap`, JSON-LD, Open Graph et geo tags            |
 | Build       | Vite intégré à Astro, sortie statique                          |
 | CI/CD       | GitHub Actions, contrôles qualité et déploiement FTPS          |
@@ -75,14 +77,19 @@ Le site est accessible sur [localhost:4321](http://localhost:4321).
 ```
 src/
 ├── components/
-│   ├── Navigation.astro        # Navbar glassmorphism + burger mobile
+│   ├── Navigation.astro        # Navbar commune : Projets, Parcours, Communication, Blog, Contact
+│   ├── BlogNav.astro           # Enveloppe de Navigation pour le blog
 │   ├── Hero.astro              # Section hero avec géolocalisation SEO
-│   ├── About.astro             # Timeline parcours (formations + expérience)
+│   ├── Projects.astro          # variant home (3 projets phares) ou full (/projets/)
+│   ├── BlogAccess.astro        # Séries du blog et liens directs vers les 12 articles
+│   ├── Contact.astro           # Section #contact réutilisée en bas des pages
+│   ├── ScrollReveal.astro      # Apparition au défilement (.fade-up)
+│   ├── About.astro             # Timeline formations et expérience
 │   ├── Skills.astro            # 6 catégories de compétences (SVG inline)
-│   ├── Projects.astro          # SmartPlanning featured + 6 projets en grille + accès aux séries
 │   ├── Process.astro           # Terminal interactif macOS typewriter
 │   ├── RecruiterChatbot.astro  # Widget Mistral en JavaScript vanilla
-│   ├── BlogNav.astro           # Navbar dédiée aux pages blog
+│   ├── case/                   # Schémas animés des études de cas + DiagramScript (lecture commune)
+│   ├── com/                    # Animations de /communication/ (téléphone, frise, éventail, avant/après)
 │   └── blog/
 │       ├── TableOfContents.astro  # Sommaire auto-généré
 │       └── VideoDemo.astro        # Composant vidéo (YouTube / local)
@@ -97,14 +104,18 @@ src/
 │       ├── claude-code-03-skills-et-sous-agents.mdx
 │       └── claude-code-04-preuve-par-mutation.mdx
 ├── data/
-│   ├── projects.ts             # Données des 7 projets (interface typée)
+│   ├── projects.ts             # 13 projets (interface typée, secondary, caseStudy)
 │   ├── series.ts               # Métadonnées des 2 séries du blog
 │   └── categories.ts           # Couleurs et labels des catégories blog
 ├── layouts/
-│   ├── Layout.astro            # Layout global, SEO, CSS variables, Canvas
+│   ├── Layout.astro            # Layout global, SEO, JSON-LD WebSite + Person, CSS variables, Canvas
+│   ├── CaseStudy.astro         # Layout des études de cas
 │   └── BlogPost.astro          # Layout article (JSON-LD, breadcrumb, nav)
 └── pages/
-    ├── index.astro             # Page d'accueil (one-page)
+    ├── index.astro             # Accueil court
+    ├── projets/                # /projets/ et les trois études de cas
+    ├── parcours/index.astro    # Formations, compétences, processus
+    ├── communication/index.astro # Deuxième casquette : communication digitale
     └── blog/
         ├── index.astro         # Hub : cartes des deux séries
         ├── [series]/index.astro # Page d'une série, articles filtrés
@@ -115,7 +126,7 @@ public/
 │   └── chat.php                # Proxy Mistral, sécurité, quotas et relais SSE
 ├── chatbot-knowledge.txt       # Base de connaissances détaillée du chatbot
 ├── llms.txt                    # Résumé public pour moteurs et assistants IA
-├── images/                     # Images portfolio, projets (*-mockup.webp et *-mockup-800.webp : maquettes 16:9), blog, OG
+├── images/                     # Portfolio, projets (*-mockup.webp, og/ des études de cas), communication (captures), blog, OG
 ├── docs/                       # CV PDF
 └── video/                      # Animation logo navbar
 
@@ -157,7 +168,7 @@ d'architecture.
 - mise en avant de preuves concrètes, sans inventer de métriques ou d'expérience ;
 - historique conservé dans `sessionStorage` pendant la navigation ;
 - affichage progressif avec une machine à écrire découplée du débit réseau ;
-- onze suggestions de premières questions adaptées au recrutement ;
+- douze suggestions de premières questions adaptées au recrutement ;
 - trois suggestions contextuelles proposées après chaque réponse ;
 - différenciation visuelle nette entre questions et réponses ;
 - liens et emails transformés en actions identifiables et cliquables ;
@@ -165,8 +176,8 @@ d'architecture.
 - cartes visuelles contextuelles issues des captures réelles du portfolio ;
 - interface responsive, accessible au clavier et compatible avec la réduction
   des animations ;
-- dépôt SmartPlanning présenté comme privé et partageable sur demande dans un
-  contexte de recrutement.
+- dépôt SmartPlanning présenté comme public (`krismos64/SmartplanningAI-V2`) ;
+- aucun chiffre de publication cité pour la communication digitale.
 
 La base [public/chatbot-knowledge.txt](public/chatbot-knowledge.txt) contient les
 informations rédigées et validées par Christophe : disponibilité, mobilité,
@@ -249,7 +260,8 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting` rattaché à sa série), fil 
 
 ## SEO
 
-- **JSON-LD** : WebSite, ProfilePage, Person, SoftwareApplication, Blog, BlogPosting, BreadcrumbList
+- **JSON-LD** : WebSite et Person à `@id` fixe sur toutes les pages, ProfilePage et SoftwareApplication sur l'accueil, CollectionPage, AboutPage, Article (études de cas), Blog, BlogPosting, BreadcrumbList
+- **GEO** : `public/llms.txt` (pages, projets, faits citables, consignes aux assistants IA) tenu à jour avec `public/chatbot-knowledge.txt`
 - **Open Graph + Twitter Card** avec image OG dédiée (1200x630)
 - **Geo meta tags** : geo.region FR-64, geo.placename, ICBM (Pau, Artix, Béarn)
 - **Meta keywords** géolocalisés (portfolio, CDA, IA, Pau, Artix, Orthez, Béarn)
@@ -262,7 +274,8 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting` rattaché à sa série), fil 
 - `aria-expanded` / `aria-hidden` dynamiques sur le menu mobile
 - Fermeture menu avec Escape + focus trap
 - `aria-label` sur les liens sociaux et le logo
-- `prefers-reduced-motion` respecté (canvas, vidéo, transitions, zoom des maquettes de projets)
+- `prefers-reduced-motion` respecté (canvas, vidéo, transitions, maquettes, schémas animés figés dans leur état final)
+- animation en boucle de `/communication/` avec bouton pause (WCAG 2.2.2), animations ponctuelles de moins de 5 s avec bouton Rejouer
 - `tabindex` dynamique sur les liens du menu fermé
 - chatbot utilisable au clavier, fermeture avec Escape et zone de messages
   annoncée avec `aria-live`
