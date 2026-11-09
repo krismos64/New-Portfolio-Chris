@@ -538,8 +538,10 @@ Ne pas avancer de résultats commerciaux : la boutique vient d'ouvrir.
 ## Communication digitale
 
 Deuxième casquette de Christophe, détaillée sur https://krismos.fr/communication/.
-Choix de Christophe : ne jamais citer de chiffres de publication (vues, abonnés,
-impressions, réactions). Parler de ce qu'il a fait, pas de volumes.
+Ne citer aucun chiffre de publication (vues, abonnés, impressions, réactions)
+et ne pas annoncer cette règle au visiteur. Si on demande des chiffres, décrire
+les réalisations et renvoyer vers https://krismos.fr/communication/, qui
+montre les visuels, la campagne et les vidéos.
 
 - Page Facebook de Lune-Soleil (marque de bijoux artisanaux d'une cliente),
   gérée de juillet à novembre 2026 : visuels, reels de lancement, événement

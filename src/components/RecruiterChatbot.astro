@@ -58,6 +58,7 @@
         <button type="button" data-question="Parlez-moi d'un problème technique complexe"><span>🔍</span> Parlez-moi d'un problème technique complexe</button>
         <button type="button" data-question="Quelles sont vos disponibilités et votre mobilité ?"><span>📍</span> Quelles sont vos disponibilités et votre mobilité ?</button>
         <button type="button" data-question="Quels sont vos axes de progression ?"><span>📈</span> Quels sont vos axes de progression ?</button>
+        <button type="button" data-question="Quelles sont vos compétences en communication digitale ?"><span>📣</span> Quelles sont vos compétences en communication digitale ?</button>
       </div>
     </div>
 
@@ -109,12 +110,16 @@
       ["🔍", "Parlez-moi d'un problème technique complexe"],
       ["📍", "Quelles sont vos disponibilités et votre mobilité ?"],
       ["📈", "Quels sont vos axes de progression ?"],
+      ["📣", "Quelles sont vos compétences en communication digitale ?"],
     ];
 
     const CHAT_MEDIA: ChatMedia[] = [
       // Lune-Soleil en tête : ses réponses citent Docker, Stripe ou les tests,
       // dont les vignettes génériques prendraient sinon les deux places.
-      { pattern: /lune[- ]?(et |& )?soleil|bijou/i, image: "/images/projects/lune-soleil-apercu.webp", title: "Lune-Soleil", description: "Boutique e-commerce de bijoux artisanaux, en production", url: "https://lune-soleil.fr/" },
+      { pattern: /lune[- ]?(et |& )?soleil|bijou/i, image: "/images/projects/lune-soleil-apercu.webp", title: "Lune-Soleil", description: "Étude de cas : boutique e-commerce en production", url: "/projets/lune-soleil/" },
+      // Communication digitale : avant les patterns de la série agent de code,
+      // dont `codex` capterait sinon les réponses qui citent les outils visuels.
+      { pattern: /communication digitale|réseaux sociaux|reseaux sociaux|facebook|community manager|canva|capcut|final cut|\breels?\b/i, image: "/images/communication/og-communication.jpg", title: "Communication digitale", description: "Réseaux sociaux, vidéos et visuels sur deux lancements", url: "/communication/" },
       // Série sur l'encadrement d'un agent de code : placée avant les patterns
       // génériques (test, documentation) qui capteraient sinon ces questions.
       { pattern: /hook|pretooluse|posttooluse|settings\.json|permission|garde-fou|garde fou/i, image: "/images/blog/claude-code-hooks.svg", title: "Les hooks Claude Code", description: "PreToolUse, PostToolUse et Stop sur un projet réel", url: "/blog/claude-code-02-hooks-et-permissions/" },
@@ -135,11 +140,11 @@
       { pattern: /confluence|documentation|documenter/i, image: "/images/blog/confluence2.webp", title: "Documentation Confluence", description: "Compétences et preuves documentées", url: "/blog/02-gestion-de-projet-agile/" },
       { pattern: /analyse des besoins|persona|user stor|product owner|produit/i, image: "/images/blog/personas.webp", title: "Personas SmartPlanning", description: "Quatre rôles et besoins métier", url: "/blog/01-analyse-des-besoins/" },
       { pattern: /figma|maquette|\bui\b|\bux\b|interface/i, image: "/images/blog/maquette2.webp", title: "Maquette du dashboard", description: "Conception Figma avant développement", url: "/blog/01-analyse-des-besoins/" },
-      { pattern: /staka|manuscrit|édition/i, image: "/images/projects/livrestaka.webp", title: "Staka Livres", description: "Plateforme fullstack réalisée pour un client", url: "https://livrestaka.fr/" },
+      { pattern: /staka|manuscrit|édition/i, image: "/images/projects/livrestaka.webp", title: "Staka Livres", description: "Étude de cas : plateforme fullstack pour un client", url: "/projets/staka-livres/" },
       { pattern: /coachtfe|tfe infirmier/i, image: "/images/projects/coachtfe.webp", title: "CoachTFE", description: "Refonte et SEO pour un client réel", url: "https://coachtfe.fr/" },
       { pattern: /cabinet infirmier|graslin|doctolib/i, image: "/images/projects/graslin.webp", title: "Cabinet Infirmier Graslin", description: "Site responsive et SEO local", url: "https://cabinet-infirmier-graslin.fr/" },
       { pattern: /kocinaspeed|symfony|recette/i, image: "/images/projects/kocinaspeed.webp", title: "Kocinaspeed", description: "Projet Symfony avec chatbot IA", url: "https://kocinaspeed.fr/" },
-      { pattern: /smartplanning|saas de gestion/i, image: "/images/projects/smart.webp", title: "SmartPlanning", description: "SaaS de gestion d'équipes et de plannings", url: "https://smartplanning.fr/" },
+      { pattern: /smartplanning|saas de gestion/i, image: "/images/projects/smart.webp", title: "SmartPlanning", description: "Étude de cas : SaaS de gestion d'équipes et de plannings", url: "/projets/smartplanning/" },
       { pattern: /parcours|profil|cv|recrut|formation|diplôme/i, image: "/images/portfolio/chris7.webp", title: "CV de Christophe", description: "Parcours, compétences et coordonnées", url: "/docs/cv-christophe-mostefaoui.pdf" },
     ];
 

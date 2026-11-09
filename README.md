@@ -168,7 +168,7 @@ d'architecture.
 - mise en avant de preuves concrètes, sans inventer de métriques ou d'expérience ;
 - historique conservé dans `sessionStorage` pendant la navigation ;
 - affichage progressif avec une machine à écrire découplée du débit réseau ;
-- douze suggestions de premières questions adaptées au recrutement ;
+- treize suggestions de premières questions adaptées au recrutement, dont une sur la communication digitale ;
 - trois suggestions contextuelles proposées après chaque réponse ;
 - différenciation visuelle nette entre questions et réponses ;
 - liens et emails transformés en actions identifiables et cliquables ;
@@ -177,7 +177,8 @@ d'architecture.
 - interface responsive, accessible au clavier et compatible avec la réduction
   des animations ;
 - dépôt SmartPlanning présenté comme public (`krismos64/SmartplanningAI-V2`) ;
-- aucun chiffre de publication cité pour la communication digitale.
+- aucun chiffre de publication cité pour la communication digitale ;
+- vignettes des projets SmartPlanning, Lune-Soleil et Staka Livres vers leurs études de cas.
 
 La base [public/chatbot-knowledge.txt](public/chatbot-knowledge.txt) contient les
 informations rédigées et validées par Christophe : disponibilité, mobilité,
