@@ -1,0 +1,175 @@
+---
+// Vidéo de lancement SmartPlanning (LinkedIn, novembre 2026) : animations
+// réalisées avec Claude, montage dans Final Cut Pro. Auto-hébergée dans
+// /media/ (le dossier /video/ est fermé aux moteurs dans robots.txt).
+// Aucun chargement avant le clic (preload="none"), pas de lecture
+// automatique. Les chapitres servent de sommaire cliquable et de description
+// textuelle ; une barre suit la lecture dans le chapitre en cours.
+const chapitres = [
+  { t: 0, nom: "L'accroche", desc: 'Excel, SMS, post-it' },
+  { t: 5, nom: 'Le problème', desc: 'Dimanche, 23 h, le planning encore' },
+  { t: 10, nom: 'La promesse', desc: 'Il y a plus simple' },
+  { t: 13, nom: 'Les fonctions', desc: 'Planning, congés, messagerie' },
+  { t: 36, nom: "L'après", desc: 'Planning bouclé, équipe informée' },
+  { t: 44, nom: "L'appel à l'action", desc: 'Prix, essai gratuit, lien' },
+];
+const fmt = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+const etapes = ['Claude : les animations', 'Final Cut Pro : le montage', 'LinkedIn : la publication'];
+---
+
+<figure class="lv" data-launch-video>
+  <div class="lv-player">
+    <video
+      controls
+      playsinline
+      preload="none"
+      width="720"
+      height="1280"
+      poster="/images/communication/sp-video-poster.webp"
+      aria-describedby="lv-chapitres-titre"
+    >
+      <source src="/media/smartplanning-lancement.mp4" type="video/mp4" />
+      <a href="/media/smartplanning-lancement.mp4">Télécharger la vidéo de lancement SmartPlanning (MP4, 4,5 Mo)</a>
+    </video>
+  </div>
+
+  <div class="lv-side">
+    <p class="lv-label" id="lv-chapitres-titre">Vidéo de 50 secondes, en six temps</p>
+    <ol class="lv-chapters">
+      {chapitres.map((c, i) => (
+        <li>
+          <button type="button" class="lv-chap" data-t={c.t} data-end={chapitres[i + 1]?.t ?? 50.3}>
+            <span class="lv-time">{fmt(c.t)}</span>
+            <span class="lv-text">
+              <span class="lv-name">{c.nom}</span>
+              <span class="lv-desc">{c.desc}</span>
+            </span>
+            <span class="lv-bar" aria-hidden="true"><span></span></span>
+          </button>
+        </li>
+      ))}
+    </ol>
+
+    <ol class="lv-making fade-up" aria-label="Fabrication de la vidéo">
+      {etapes.map((e, i) => <li style={`--i: ${i}`}>{e}</li>)}
+    </ol>
+  </div>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-launch-video]').forEach((root) => {
+    const video = root.querySelector('video');
+    const chaps = Array.from(root.querySelectorAll<HTMLButtonElement>('.lv-chap'));
+    if (!video || !chaps.length) return;
+
+    const update = () => {
+      const now = video.currentTime;
+      chaps.forEach((b) => {
+        const start = Number(b.dataset.t);
+        const end = Number(b.dataset.end);
+        const active = now >= start && now < end;
+        b.classList.toggle('is-active', active);
+        if (active) b.setAttribute('aria-current', 'true');
+        else b.removeAttribute('aria-current');
+        const p = now >= end ? 1 : active ? (now - start) / (end - start) : 0;
+        b.style.setProperty('--p', String(p));
+      });
+    };
+
+    chaps.forEach((b) =>
+      b.addEventListener('click', () => {
+        video.currentTime = Number(b.dataset.t);
+        video.play().catch(() => {});
+        update();
+      })
+    );
+    video.addEventListener('timeupdate', update);
+    video.addEventListener('seeked', update);
+  });
+</script>
+
+<style>
+  .lv {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: 2.5rem;
+    align-items: start;
+    margin: 2rem 0 1.5rem;
+  }
+  .lv-player {
+    position: relative;
+    border-radius: 22px;
+    padding: 6px;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 45%, var(--border)), var(--border) 45%, color-mix(in srgb, var(--purple) 40%, var(--border)));
+    box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .lv-player video {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    border-radius: 17px;
+    background: #0f1a2e;
+  }
+
+  .lv-label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .lv-chapters { list-style: none; margin: 0 0 1.75rem; padding: 0; display: grid; gap: 0.4rem; }
+  .lv-chap {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    width: 100%;
+    padding: 0.7rem 0.9rem 0.85rem;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .lv-chap:hover { border-color: var(--border-light); background: rgba(255, 255, 255, 0.02); }
+  .lv-chap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .lv-chap.is-active { border-color: color-mix(in srgb, var(--accent) 60%, var(--border)); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .lv-time { flex: none; width: 2.6rem; font: 600 0.8125rem var(--font-mono); color: var(--text-muted); }
+  .lv-chap.is-active .lv-time { color: color-mix(in srgb, var(--accent) 85%, white); }
+  .lv-text { display: flex; flex-direction: column; gap: 0.1rem; }
+  .lv-name { font-weight: 700; color: var(--text); }
+  .lv-desc { font-size: 0.875rem; color: var(--text-secondary); }
+  /* Progression dans le chapitre : transform seulement, aucun recalcul de mise en page */
+  .lv-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; }
+  .lv-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--purple));
+    transform: scaleX(var(--p, 0));
+    transform-origin: left center;
+    transition: transform 0.25s linear;
+  }
+
+  .lv-making { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+  .lv-making li {
+    padding: 0.35rem 0.8rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text);
+    border-radius: 100px;
+    background: color-mix(in srgb, var(--purple) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--purple) 35%, var(--border));
+  }
+  .lv-making li + li::before { content: '→'; margin-right: 0.5rem; color: var(--text-muted); }
+  .lv-making.sr-visible li { animation: lv-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; animation-delay: calc(var(--i) * 0.2s); }
+  @keyframes lv-in { from { opacity: 0; transform: translateX(-10px); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lv-making.sr-visible li { animation: none; }
+    .lv-bar span { transition: none; }
+  }
+  @media (max-width: 760px) {
+    .lv { grid-template-columns: 1fr; gap: 1.75rem; }
+    .lv-player { width: min(300px, 100%); margin: 0 auto; }
+  }
+</style>

@@ -16,6 +16,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 
 - **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), trois études de cas (`/projets/smartplanning/`, `/projets/lune-soleil/`, `/projets/staka-livres/`), `/parcours/` (formations, compétences, processus) et `/communication/`
 - **Double casquette** : développement et communication digitale. `/communication/` présente la page Facebook d'une marque artisanale et une campagne vidéo LinkedIn et YouTube, sans chiffres de publication, avec quatre animations
+- **Motion design au service de la navigation** : badge « Étude de cas animée » sur les projets concernés, timeline du parcours tracée étape par étape avec repère de reconversion (et mini frise sur l'accueil), cartes de série du blog qui s'animent au survol et au focus, bouton « Copier l'adresse » dans la section Contact
 - **Schémas animés** : un par étude de cas (conflit de planning, réservation du dernier exemplaire, webhook Stripe), en SVG inline et CSS, joués une fois à l'apparition, état final fixe en mouvement réduit
 - **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
 - **Fond animé Canvas** : fragments de syntaxe dev flottants
@@ -89,7 +90,7 @@ src/
 │   ├── Process.astro           # Terminal interactif macOS typewriter
 │   ├── RecruiterChatbot.astro  # Widget Mistral en JavaScript vanilla
 │   ├── case/                   # Schémas animés des études de cas + DiagramScript (lecture commune)
-│   ├── com/                    # Animations de /communication/ (téléphone, frise, éventail, avant/après)
+│   ├── com/                    # Animations de /communication/ (téléphone, frise, éventail, avant/après) et vidéo de lancement à chapitres (LaunchVideo)
 │   └── blog/
 │       ├── TableOfContents.astro  # Sommaire auto-généré
 │       └── VideoDemo.astro        # Composant vidéo (YouTube / local)

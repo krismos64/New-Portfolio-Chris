@@ -554,6 +554,13 @@ montre les visuels, la campagne et les vidéos.
   YouTube. Série LinkedIn en mai 2026, ouverte par l'accroche « Vous gérez encore
   les plannings de votre équipe sur Excel ? », puis un post visuel tableur
   contre application.
+- SmartPlanning, vidéo de lancement (publiée sur la page LinkedIn le
+  7 novembre 2026) : format vertical de 50 secondes, en six temps (accroche
+  Excel, SMS et post-it, le dimanche soir du manager, la promesse, les
+  fonctions planning, congés et messagerie, l'après, l'appel à l'action).
+  Scénario écrit par Christophe, animations créées avec Claude, montage dans
+  Final Cut Pro. Visible sur https://krismos.fr/communication/ et dans l'étude
+  de cas https://krismos.fr/projets/smartplanning/.
 - Outils réellement utilisés : Canva, ChatGPT et Codex pour les visuels (une
   partie est générée par IA puis retravaillée dans Canva), CapCut, Final Cut Pro
   et Canva pour la vidéo, Claude pour le motion design, Figma pour les maquettes.

@@ -7,6 +7,7 @@ import PhoneFeed from '../../components/com/PhoneFeed.astro';
 import CampaignTimeline from '../../components/com/CampaignTimeline.astro';
 import PersonaFan from '../../components/com/PersonaFan.astro';
 import BeforeAfter from '../../components/com/BeforeAfter.astro';
+import LaunchVideo from '../../components/com/LaunchVideo.astro';
 
 // Deuxième casquette : communication digitale.
 // Choix de Christophe (8 novembre 2026) : aucun chiffre de publication sur la
@@ -64,6 +65,20 @@ const jsonLd = [
   },
   {
     "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${url}#video-smartplanning`,
+    "name": "SmartPlanning : vidéo de lancement en motion design",
+    "description": "Vidéo verticale de 50 secondes pour LinkedIn : le planning sur Excel, le dimanche soir du manager, puis le planning d'équipe, les congés et la messagerie de SmartPlanning. Animations réalisées avec Claude, montage dans Final Cut Pro par Christophe Mostefaoui.",
+    "thumbnailUrl": "https://krismos.fr/images/communication/sp-video-poster.jpg",
+    "contentUrl": "https://krismos.fr/media/smartplanning-lancement.mp4",
+    "uploadDate": "2026-11-07T12:00:00+01:00",
+    "duration": "PT50S",
+    "inLanguage": "fr-FR",
+    "creator": { "@id": "https://krismos.fr/#person" },
+    "isPartOf": { "@id": `${url}#page` }
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
@@ -116,6 +131,23 @@ const jsonLd = [
           <p>{m.texte}</p>
         </article>
       ))}
+    </section>
+
+    <!-- Cas vedette : vidéo de lancement -->
+    <section class="cas" aria-labelledby="cas-video">
+      <p class="cas-tag cas-tag-li">LinkedIn · Motion design</p>
+      <h2 id="cas-video">Une vidéo de lancement en 50 secondes</h2>
+      <p class="cas-intro">
+        Un format vertical pour présenter SmartPlanning : le problème, la solution, puis l'appel à l'action.
+        J'ai écrit le scénario, créé les animations avec Claude et monté la vidéo dans Final Cut Pro.
+      </p>
+
+      <LaunchVideo />
+
+      <p class="cas-links">
+        <a href="https://www.linkedin.com/company/smartplanning-fr/" target="_blank" rel="noopener noreferrer">Voir la page LinkedIn</a>
+        <a href="/projets/smartplanning/">L'étude de cas du logiciel</a>
+      </p>
     </section>
 
     <!-- Cas 1 -->
