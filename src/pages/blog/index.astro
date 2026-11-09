@@ -67,16 +67,19 @@ const totalPosts = allPosts.length;
     </header>
 
     <div class="series-grid">
-      {seriesList.map((entry) => (
+      {seriesList.map((entry, i) => (
         <a href={`/blog/${entry.meta.key}/`} class="series-card" style={`--series-accent: ${entry.meta.accent}`}>
           <div class="series-cover">
             <img
               src={entry.meta.image}
+              srcset={entry.meta.image.endsWith('.webp') ? `${entry.meta.image.replace('.webp', '-640.webp')} 640w, ${entry.meta.image.replace('.webp', '-960.webp')} 960w, ${entry.meta.image} 1383w` : undefined}
+              sizes="(max-width: 900px) calc(100vw - 3rem), 430px"
               alt={entry.meta.imageAlt}
               class="series-cover-img"
               width="800"
               height="420"
-              loading="lazy"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : 'auto'}
             />
           </div>
           <div class="series-body">
@@ -163,6 +166,7 @@ const totalPosts = allPosts.length;
   }
 
   .series-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     background: var(--bg-card);
@@ -189,7 +193,39 @@ const totalPosts = allPosts.length;
   .series-cover {
     border-bottom: 1px solid var(--border);
     background: var(--bg);
+    overflow: hidden;
   }
+
+  /* ===== Animations des cartes de série =====
+     Entrée décalée au chargement, en déplacement seulement (pas d'opacité) :
+     les cartes sont visibles dès l'arrivée et peuvent porter le LCP.
+     Au survol comme au focus clavier : un trait à la couleur de la série se
+     trace en haut de la carte, la couverture zoome légèrement, la flèche glisse. */
+  .series-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 1;
+    background: linear-gradient(90deg, var(--series-accent), color-mix(in srgb, var(--series-accent) 30%, transparent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .series-card:hover::before,
+  .series-card:focus-visible::before { transform: scaleX(1); }
+  .series-cover-img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+  .series-card:hover .series-cover-img,
+  .series-card:focus-visible .series-cover-img { transform: scale(1.04); }
+  .series-card:focus-visible .series-cta svg { transform: translateX(4px); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .series-card { animation: series-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+    .series-card:nth-child(2) { animation-delay: 0.15s; }
+  }
+  @keyframes series-in { from { transform: translateY(22px); } }
 
   .series-cover-img {
     width: 100%;

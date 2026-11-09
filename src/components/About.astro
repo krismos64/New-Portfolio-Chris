@@ -57,7 +57,15 @@ const timeline: TimelineItem[] = [
   <h2 class="section-title">Formations et expérience</h2>
   <div class="timeline">
     {timeline.map((item, i) => (
-      <div class="timeline-item fade-up">
+      <>
+      {/* Repère de reconversion entre l'expérience commerciale et la formation DWWM */}
+      {item.type === "work" && (
+        <div class="timeline-pivot fade-up">
+          <span class="timeline-pivot-mark" aria-hidden="true"></span>
+          <span class="timeline-pivot-label">2023 : reconversion vers le développement</span>
+        </div>
+      )}
+      <div class={`timeline-item fade-up timeline-item--${item.type}`}>
         <div class="timeline-dot">
           {item.type === "work" ? (
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
@@ -76,6 +84,7 @@ const timeline: TimelineItem[] = [
           )}
         </div>
       </div>
+      </>
     ))}
   </div>
 </section>
@@ -185,6 +194,81 @@ const timeline: TimelineItem[] = [
     color: var(--text-muted);
     line-height: 1.6;
   }
+
+  /* ===== Animation au défilement =====
+     Chaque étape, en apparaissant (classe .sr-visible de ScrollReveal), allume
+     son point puis trace son segment de ligne vers l'étape suivante. Bleu pour
+     les formations, ambre pour l'expérience. Sans JavaScript ou en mouvement
+     réduit : points colorés et ligne complète, sans animation. */
+  .timeline-item::after {
+    content: "";
+    position: absolute;
+    left: calc(5.5px - 2rem);
+    top: 0.9rem;
+    bottom: -0.25rem;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 30%, transparent));
+    transform-origin: top;
+  }
+  .timeline-item--work .timeline-period {
+    color: color-mix(in srgb, var(--amber) 85%, white);
+    background: color-mix(in srgb, var(--amber) 12%, transparent);
+    border-color: color-mix(in srgb, var(--amber) 35%, transparent);
+  }
+  .timeline-item--work::after { background: linear-gradient(var(--amber), color-mix(in srgb, var(--amber) 30%, transparent)); }
+  .timeline-item:last-child::after { display: none; }
+  .timeline-item .timeline-dot::before { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 25%, var(--bg)); }
+  .timeline-item--work .timeline-dot::before { border-color: var(--amber); background: color-mix(in srgb, var(--amber) 25%, var(--bg)); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .timeline-item.sr-hidden::after,
+    .timeline-item.sr-hidden .timeline-dot::before { transition: none; }
+    .timeline-item.sr-hidden::after { transform: scaleY(0); }
+    .timeline-item.sr-hidden .timeline-dot::before { border-color: var(--border-light); background: var(--bg); }
+    .timeline-item.sr-visible::after { animation: tl-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s backwards; }
+    .timeline-item.sr-visible .timeline-dot::before { animation: tl-dot 0.6s ease backwards; }
+    .timeline-item.sr-visible .timeline-dot { animation: tl-pulse 1s ease 0.2s; border-radius: 50%; }
+  }
+  @keyframes tl-draw { from { transform: scaleY(0); } }
+  @keyframes tl-dot { from { border-color: var(--border-light); background: var(--bg); transform: scale(0.6); } }
+  @keyframes tl-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+    100% { box-shadow: 0 0 0 12px transparent; }
+  }
+
+  /* Repère de reconversion */
+  .timeline-pivot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: -0.75rem 0 2rem;
+  }
+  .timeline-pivot-mark {
+    position: absolute;
+    left: calc(1px - 2rem);
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+    border-radius: 3px;
+    background: linear-gradient(135deg, var(--amber), var(--accent));
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  .timeline-pivot-label {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    border-radius: 100px;
+    background: linear-gradient(90deg, color-mix(in srgb, var(--amber) 18%, transparent), color-mix(in srgb, var(--accent) 18%, transparent));
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .timeline-pivot.sr-visible .timeline-pivot-mark { animation: tl-spin 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+  }
+  @keyframes tl-spin { from { transform: rotate(-135deg) scale(0.4); opacity: 0; } }
 
   @media (max-width: 640px) {
     .timeline-header {
