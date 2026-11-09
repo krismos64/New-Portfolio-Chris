@@ -15,7 +15,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 ## Fonctionnalités
 
 - **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), trois études de cas (`/projets/smartplanning/`, `/projets/lune-soleil/`, `/projets/staka-livres/`), `/parcours/` (formations, compétences, processus) et `/communication/`
-- **Double casquette** : développement et communication digitale. `/communication/` présente la page Facebook d'une marque artisanale et une campagne vidéo LinkedIn et YouTube, sans chiffres de publication, avec quatre animations
+- **Double casquette** : développement et communication digitale. `/communication/` présente la page Facebook d'une marque artisanale et une campagne vidéo LinkedIn et YouTube, sans chiffres de publication, avec quatre animations et une vidéo de lancement verticale à chapitres (motion design avec Claude, montage Final Cut Pro), aussi visible dans l'étude de cas SmartPlanning
 - **Motion design au service de la navigation** : badge « Étude de cas animée » sur les projets concernés, timeline du parcours tracée étape par étape avec repère de reconversion (et mini frise sur l'accueil), cartes de série du blog qui s'animent au survol et au focus, bouton « Copier l'adresse » dans la section Contact
 - **Schémas animés** : un par étude de cas (conflit de planning, réservation du dernier exemplaire, webhook Stripe), en SVG inline et CSS, joués une fois à l'apparition, état final fixe en mouvement réduit
 - **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
@@ -129,7 +129,8 @@ public/
 ├── llms.txt                    # Résumé public pour moteurs et assistants IA
 ├── images/                     # Portfolio, projets (*-mockup.webp, og/ des études de cas), communication (captures), blog, OG
 ├── docs/                       # CV PDF
-└── video/                      # Animation logo navbar
+├── media/                      # Vidéos indexables (vidéo de lancement SmartPlanning, 4,5 Mo, chargée au clic)
+└── video/                      # Logo animé de la navbar (logo-chris-dev.mp4, 261 Ko), en Disallow dans robots.txt
 
 docs/
 └── mistral-chatbot-setup.md    # Configuration de la clé sur Hostinger
@@ -262,7 +263,7 @@ Chaque article inclut : SEO (JSON-LD `BlogPosting` rattaché à sa série), fil 
 
 ## SEO
 
-- **JSON-LD** : WebSite et Person à `@id` fixe sur toutes les pages, ProfilePage et SoftwareApplication sur l'accueil, CollectionPage, AboutPage, Article (études de cas), Blog, BlogPosting, BreadcrumbList
+- **JSON-LD** : WebSite et Person à `@id` fixe sur toutes les pages, ProfilePage et SoftwareApplication sur l'accueil, CollectionPage, AboutPage, Article (études de cas), VideoObject (vidéo de lancement sur /communication/), Blog, BlogPosting, BreadcrumbList
 - **GEO** : `public/llms.txt` (pages, projets, faits citables, consignes aux assistants IA) tenu à jour avec `public/chatbot-knowledge.txt`
 - **Open Graph + Twitter Card** avec image OG dédiée (1200x630)
 - **Geo meta tags** : geo.region FR-64, geo.placename, ICBM (Pau, Artix, Béarn)
