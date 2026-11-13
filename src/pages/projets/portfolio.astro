@@ -1,0 +1,208 @@
+---
+import CaseStudy from '../../layouts/CaseStudy.astro';
+
+// Étude de cas de ce portfolio (13 novembre 2026). Tous les chiffres viennent de
+// mesures datées : audit Lighthouse du 16 juillet 2026, relevés Search Console des
+// 7 septembre et 7 novembre 2026, traces de performance des 2 et 7 novembre 2026
+// (accueil en production, mobile 412x915, CPU ralenti 4 fois, réseau 4G lente).
+const url = 'https://krismos.fr/projets/portfolio/';
+const title = "Ce portfolio : étude de cas référencement et performance | Christophe Mostefaoui";
+const description = "Comment j'ai mesuré puis corrigé ce portfolio Astro : articles que Google n'explorait pas, titre affiché trop tard, lisibilité par les assistants IA.";
+const published = '2026-11-13';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    "headline": "Ce portfolio : mesurer, corriger et écrire pour être trouvé",
+    "description": description,
+    "url": url,
+    "mainEntityOfPage": url,
+    "datePublished": published,
+    "dateModified": published,
+    "inLanguage": "fr-FR",
+    "image": "https://krismos.fr/images/projects/og/portfolio.jpg",
+    "author": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui", "url": "https://krismos.fr/" },
+    "publisher": { "@type": "Person", "@id": "https://krismos.fr/#person", "name": "Christophe Mostefaoui" },
+    "about": { "@id": "https://krismos.fr/#website" },
+    "keywords": "Astro, référencement naturel, Core Web Vitals, LCP, CLS, Search Console, llms.txt, JSON-LD, rédaction web"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://krismos.fr/" },
+      { "@type": "ListItem", "position": 2, "name": "Projets", "item": "https://krismos.fr/projets/" },
+      { "@type": "ListItem", "position": 3, "name": "Ce portfolio, étude de cas", "item": url }
+    ]
+  }
+];
+---
+
+<CaseStudy
+  title={title}
+  description={description}
+  url={url}
+  image="/images/projects/og/portfolio.jpg"
+  jsonLd={jsonLd}
+  crumb="Ce portfolio"
+  eyebrow="Étude de cas · Développement et communication"
+  heading="Ce portfolio : mesurer, corriger et écrire pour être trouvé"
+  lead="Ce site a deux lecteurs : un recruteur qui a deux minutes, et les moteurs de recherche et assistants IA qui décident s'il le trouvera. Je l'ai développé, rédigé et mesuré seul. Voici trois problèmes que la mesure a fait apparaître, et ce que j'ai changé."
+>
+  <a slot="links" class="btn btn-primary" href="https://github.com/krismos64/New-Portfolio-Chris" target="_blank" rel="noopener noreferrer">
+    Code source sur GitHub
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+  </a>
+  <a slot="links" class="btn" href="/communication/">Communication digitale</a>
+  <a slot="links" class="btn" href="/blog/">Le blog technique</a>
+
+  <figure class="cover">
+    <img
+      src="/images/projects/portfolio-mockup.webp"
+      srcset="/images/projects/portfolio-mockup-800.webp 800w, /images/projects/portfolio-mockup.webp 1200w"
+      sizes="(max-width: 860px) 100vw, 820px"
+      width="1200" height="675"
+      alt="L'accueil du portfolio krismos.fr : titre, disponibilité, boutons vers les projets et la communication digitale"
+      loading="eager" decoding="async"
+    />
+  </figure>
+
+  <section class="summary" aria-labelledby="en-bref">
+    <h2 id="en-bref">En bref</h2>
+    <dl>
+      <div><dt>Produit</dt><dd>Portfolio en plusieurs pages : accueil, projets, études de cas, parcours, communication digitale et blog de douze articles</dd></div>
+      <div><dt>Mon rôle</dt><dd>Seul sur le développement, la rédaction, le référencement et les visuels</dd></div>
+      <div><dt>Stack</dt><dd>Astro 5, TypeScript, articles en MDX, styles par composant, SVG et Canvas. Aucun framework JavaScript envoyé au navigateur</dd></div>
+      <div><dt>Hébergement</dt><dd>Mutualisé chez Hostinger, mise en ligne automatique par GitHub Actions</dd></div>
+      <div><dt>Mesures</dt><dd>Lighthouse mobile à 100 en accessibilité, bonnes pratiques et référencement sur les pages mesurées</dd></div>
+      <div><dt>Code</dt><dd>Dépôt public : <a href="https://github.com/krismos64/New-Portfolio-Chris" target="_blank" rel="noopener noreferrer">github.com/krismos64/New-Portfolio-Chris</a></dd></div>
+    </dl>
+  </section>
+
+  <article class="prose">
+    <h2>Le point de départ</h2>
+    <p>
+      En juillet 2026, j'ai audité le site avec Lighthouse sur mobile. Le référencement
+      sortait à 100, l'accessibilité à 95 et les bonnes pratiques à 77. L'audit relevait
+      des textes gris trop peu contrastés sur les cartes et un widget de discussion tiers
+      qui déposait un cookie dès le chargement.
+    </p>
+    <p>
+      J'ai recalculé les couleurs pour atteindre le niveau AA, retardé le widget jusqu'au
+      premier clic (je l'ai ensuite remplacé par mon propre assistant), et ajouté des en-têtes
+      de sécurité dans la configuration du serveur. Les trente captures du blog sont passées du PNG au
+      WebP, de 23,5 Mo à 2 Mo. Les trois notes sont montées à 100.
+    </p>
+
+    <h2>Trois problèmes trouvés par la mesure</h2>
+
+    <h3>1. Six articles que Google n'explorait pas</h3>
+    <p>
+      Début septembre 2026, la Search Console indiquait sept pages indexées. Six articles de
+      la série SmartPlanning portaient le statut « Détectée, actuellement non indexée », et
+      Google ne les avait jamais visités. Les articles de l'autre série étaient indexés, eux.
+    </p>
+    <p>
+      Une différence séparait les deux séries : la seconde recevait un lien direct vers
+      chaque article depuis l'accueil, la première seulement un lien vers sa page de série.
+      J'ai ajouté sur l'accueil la liste des douze articles en liens directs, puis demandé
+      l'indexation des six pages. Mi-octobre, les seize pages du sitemap étaient indexées.
+    </p>
+    <p>
+      J'ai mené les deux actions en même temps : je ne peux donc pas dire laquelle a compté le
+      plus. Les liens restent sur l'accueil pour les prochains articles.
+    </p>
+
+    <h3>2. Un titre qui s'affichait trop tard</h3>
+    <p>
+      Le LCP mesure le moment où le plus grand élément visible s'affiche. Google le juge bon
+      sous 2,5 secondes. Sur un mobile simulé avec une connexion 4G lente, au premier
+      chargement, l'accueil sortait à 2,75 secondes. L'élément en cause était le titre, donc
+      du texte : la police arrivait de Google Fonts après le premier affichage, et le titre
+      se redessinait à ce moment.
+    </p>
+    <p>
+      J'ai hébergé les polices sur le site, préchargé celle du titre et réglé une police de
+      secours aux mêmes dimensions. Le LCP est descendu à 2,27 secondes. Le titre apparaissait
+      encore en fondu depuis une opacité nulle : j'ai retiré cette animation sur le titre
+      seul, et gardé celle du reste. Les trois mesures suivantes donnent 1,56 seconde.
+    </p>
+
+    <h3>3. Une correction qui en révèle une autre</h3>
+    <p>
+      Le même jour, une nouvelle mesure montrait un saut de mise en page sur mobile : un CLS
+      de 0,166, au-dessus du seuil de 0,1. La photo était placée après le texte dans le HTML
+      mais affichée au-dessus. Quand elle arrivait, elle poussait le texte de 192 pixels.
+    </p>
+    <p>
+      Ce défaut existait avant ma correction. Le fondu le cachait, car le déplacement d'un
+      élément invisible ne compte pas dans la mesure. J'ai remis la photo en premier dans le
+      HTML, et le CLS est revenu à 0,001. Depuis, je mesure après chaque correction, au
+      premier chargement et au suivant.
+    </p>
+
+    <h2>Être lisible par les assistants IA</h2>
+    <p>
+      Une partie des recruteurs pose désormais ses questions à un assistant plutôt qu'à un
+      moteur de recherche. Le site publie donc un fichier <code>llms.txt</code> qui résume mon
+      profil, mes projets et mes articles, avec des faits rédigés pour être repris tels quels.
+      Chaque page porte des données structurées (personne, article, fil d'Ariane, vidéo) qui
+      renvoient à une seule identité.
+    </p>
+    <p>
+      L'assistant du site répond aux recruteurs à partir de deux fichiers que je rédige. Il
+      passe par un relais PHP qui garde la clé de l'API hors du dossier public et limite le
+      nombre de requêtes par minute et par jour.
+    </p>
+    <p>
+      Je n'ai pas encore mesuré l'effet de ce travail sur les réponses des assistants. J'ai
+      fixé dix questions à leur reposer à intervalles réguliers pour suivre l'évolution.
+    </p>
+
+    <h2>Écrire pour un recruteur</h2>
+    <p>
+      L'accueil tenait en une longue page. Je l'ai découpé selon ce que cherche le lecteur :
+      les projets, le parcours, la communication, le blog. L'accueil est passé de 1 461 à
+      683 mots. Chaque étude de cas suit le même plan (le besoin, les décisions, les limites)
+      et renvoie vers les articles sans les répéter.
+    </p>
+    <p>
+      Les schémas animés des études de cas expliquent un mécanisme en quelques secondes. Ils
+      se jouent une fois, peuvent être rejoués, et affichent leur état final aux visiteurs
+      qui ont désactivé les animations. Les étapes existent aussi en texte.
+    </p>
+
+    <h2>Mise en ligne</h2>
+    <p>
+      Chaque envoi sur la branche principale déclenche une vérification des types, la
+      construction du site, puis une synchronisation vers l'hébergeur qui n'envoie que les
+      fichiers modifiés. L'ensemble prend moins d'une minute. Les actions GitHub utilisées
+      sont épinglées à un commit précis, pour qu'une mise à jour non relue ne s'exécute pas
+      avec mes identifiants.
+    </p>
+    <p>
+      Un piège rencontré : après le remplacement d'une vidéo, le réseau de diffusion de
+      l'hébergeur a continué de servir l'ancienne sous le même nom. Je renomme maintenant
+      tout média que je remplace.
+    </p>
+
+    <h2>Ce que je ne sais pas encore</h2>
+    <p>
+      Je mesure l'indexation, la vitesse et l'accessibilité. Je n'ai pas encore de recul sur
+      le trafic des nouvelles pages ni sur leur effet auprès des recruteurs : les pages
+      projets et communication datent de novembre 2026, et je ferai le premier bilan à la
+      mi-décembre.
+    </p>
+  </article>
+
+  <section class="series" aria-labelledby="suite">
+    <h2 id="suite">À lire ensuite</h2>
+    <ol>
+      <li><a href="/communication/">Communication digitale : réseaux sociaux, vidéo et visuels</a></li>
+      <li><a href="/projets/smartplanning/">Étude de cas SmartPlanning : un SaaS en production</a></li>
+      <li><a href="/projets/lune-soleil/">Étude de cas Lune-Soleil : une boutique en ligne sur mesure</a></li>
+    </ol>
+  </section>
+</CaseStudy>

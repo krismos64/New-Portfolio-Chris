@@ -14,7 +14,7 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 
 ## Fonctionnalités
 
-- **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), trois études de cas (`/projets/smartplanning/`, `/projets/lune-soleil/`, `/projets/staka-livres/`), `/parcours/` (formations, compétences, processus) et `/communication/`
+- **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), quatre études de cas (`/projets/smartplanning/`, `/projets/lune-soleil/`, `/projets/staka-livres/`, `/projets/portfolio/` sur ce site), `/parcours/` (formations, compétences, processus) et `/communication/`
 - **Double casquette** : développement et communication digitale. `/communication/` présente la page Facebook d'une marque artisanale et une campagne vidéo LinkedIn et YouTube, sans chiffres de publication, avec quatre animations et une vidéo de lancement verticale à chapitres (motion design avec Claude, montage Final Cut Pro), aussi visible dans l'étude de cas SmartPlanning
 - **Motion design au service de la navigation** : badge « Étude de cas animée » sur les projets concernés, timeline du parcours tracée étape par étape avec repère de reconversion (et mini frise sur l'accueil), cartes de série du blog qui s'animent au survol et au focus, bouton « Copier l'adresse » dans la section Contact
 - **Schémas animés** : un par étude de cas (conflit de planning, réservation du dernier exemplaire, webhook Stripe), en SVG inline et CSS, joués une fois à l'apparition, état final fixe en mouvement réduit
@@ -114,7 +114,7 @@ src/
 │   └── BlogPost.astro          # Layout article (JSON-LD, breadcrumb, nav)
 └── pages/
     ├── index.astro             # Accueil court
-    ├── projets/                # /projets/ et les trois études de cas
+    ├── projets/                # /projets/ et les quatre études de cas
     ├── parcours/index.astro    # Formations, compétences, processus
     ├── communication/index.astro # Deuxième casquette : communication digitale
     └── blog/

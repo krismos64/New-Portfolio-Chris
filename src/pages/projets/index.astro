@@ -55,7 +55,54 @@ const jsonLd = [
   <Navigation active="projets" />
   <main id="main-content">
     <Projects variant="full" />
+    <section class="this-site fade-up" aria-labelledby="this-site-title">
+      <h2 id="this-site-title">Et ce site ?</h2>
+      <p>Ce portfolio a aussi son étude de cas : référencement, vitesse d'affichage et lisibilité par les assistants IA, mesurés puis corrigés.</p>
+      <a href="/projets/portfolio/">
+        Lire l'étude de cas du portfolio
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </section>
     <Contact />
   </main>
   <ScrollReveal />
 </Layout>
+
+<style>
+  .this-site {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+    text-align: center;
+  }
+  .this-site h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .this-site p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+  .this-site a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .this-site a:hover,
+  .this-site a:focus-visible {
+    border-color: var(--accent);
+    background: var(--accent-05);
+  }
+</style>
