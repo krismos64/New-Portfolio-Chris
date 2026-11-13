@@ -726,7 +726,7 @@ transformer automatiquement chaque faiblesse en qualité artificielle.
 - Portfolio : https://krismos.fr/.
 - CV développeur : https://krismos.fr/docs/cv-christophe-mostefaoui.pdf.
 - CV communication digitale :
-  https://krismos.fr/docs/cv-communication-christophe-mostefaoui.pdf.
+  https://krismos.fr/docs/cv-communication-digitale-christophe-mostefaoui.pdf.
 - Blog technique, index des deux séries : https://krismos.fr/blog/.
 - Série SmartPlanning, 8 articles : https://krismos.fr/blog/smartplanning/.
 - Série sur l'encadrement d'un agent de code, 4 articles :

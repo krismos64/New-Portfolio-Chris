@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Allow: /docs/cv-christophe-mostefaoui.pdf
-Allow: /docs/cv-communication-christophe-mostefaoui.pdf
+Allow: /docs/cv-communication-digitale-christophe-mostefaoui.pdf
 Disallow: /docs/
 Disallow: /*.pdf$
 Disallow: /video/
