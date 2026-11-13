@@ -49,6 +49,20 @@ const jsonLd = [
       </p>
     </header>
     <About />
+    <section class="team fade-up" aria-labelledby="team-title">
+      <h2 id="team-title" class="section-title">Travail en équipe</h2>
+      <p class="team-intro">
+        Pendant ma formation CDA, j'ai développé en équipe de trois une application commandée
+        par l'association IA Pau. Des étudiants d'école de commerce y choisissent une IA,
+        rédigent leurs prompts et répondent à des questions. Leurs formateurs analysent et
+        évaluent ces prompts depuis un espace d'administration.
+      </p>
+      <dl class="team-facts">
+        <div><dt>Mon rôle</dt><dd>Le frontend en Next.js, l'intégration des IA proposées dans l'application et la documentation.</dd></div>
+        <div><dt>Méthode</dt><dd>Branches Git, pull requests, revues de code et point quotidien.</dd></div>
+        <div><dt>Ce que j'en retiens</dt><dd>Résoudre des conflits Git, mieux communiquer, et ce qu'une relecture apporte avant de fusionner.</dd></div>
+      </dl>
+    </section>
     <Skills />
     <Process />
     <Contact />
@@ -65,6 +79,48 @@ const jsonLd = [
   }
   .page-head .section-title {
     margin-bottom: 1rem;
+  }
+  .team {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 2rem;
+  }
+  .team-intro {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+  .team-facts {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .team-facts div {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 1rem;
+    padding: 0.875rem 1.125rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .team-facts dt {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .team-facts dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  @media (max-width: 640px) {
+    .team-facts div {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
   }
   .page-intro {
     font-size: 1.0625rem;

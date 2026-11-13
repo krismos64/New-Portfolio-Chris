@@ -8,7 +8,7 @@ import LaunchVideo from '../../components/com/LaunchVideo.astro';
 // déjà validé par Christophe : ne rien ajouter qui n'y figure pas.
 const url = 'https://krismos.fr/projets/smartplanning/';
 const title = "SmartPlanning : étude de cas SaaS Next.js | Christophe Mostefaoui";
-const description = "SaaS de plannings conçu et mis en production seul : multi-tenant Next.js 15 et PostgreSQL, 3 003 tests, déploiement Docker. Décisions et retours d'expérience.";
+const description = "SaaS de plannings conçu et mis en production seul : multi-tenant Next.js 15 et PostgreSQL, tests automatisés, déploiement Docker. Décisions et retours d'expérience.";
 const published = '2026-11-08';
 
 const articles = [
@@ -97,7 +97,7 @@ const jsonLd = [
         <div><dt>Mon rôle</dt><dd>Seul sur tout le cycle : analyse, conception, développement, tests, déploiement et exploitation</dd></div>
         <div><dt>Période</dt><dd>Développement principal de novembre 2025 à mars 2026, projet final de mon titre de Concepteur Développeur d'Applications (CDA)</dd></div>
         <div><dt>Stack</dt><dd>Next.js 15 (App Router), React 19, TypeScript strict, PostgreSQL 16, Prisma, Stripe, Docker, VPS OVH</dd></div>
-        <div><dt>Qualité</dt><dd>3 003 tests automatisés : 2 814 avec Vitest, 189 de bout en bout avec Playwright. Intégration continue bloquante</dd></div>
+        <div><dt>Qualité</dt><dd>Tests unitaires et d'intégration avec Vitest, tests de bout en bout avec Playwright. Intégration continue bloquante</dd></div>
         <div><dt>Code</dt><dd>Dépôt public : <a href="https://github.com/krismos64/SmartplanningAI-V2" target="_blank" rel="noopener noreferrer">github.com/krismos64/SmartplanningAI-V2</a></dd></div>
         <div><dt>Statut</dt><dd>Utilisé par des testeurs en entreprise, dans la grande distribution. Pas encore de clients abonnés</dd></div>
       </dl>
@@ -175,9 +175,9 @@ const jsonLd = [
 
       <h2>Tests et qualité</h2>
       <p>
-        Le projet compte 3 003 tests automatisés répartis dans 169 fichiers : 2 814 tests
-        unitaires et d'intégration avec Vitest et React Testing Library, et 189 tests de bout
-        en bout avec Playwright, organisés en Page Object Model. L'intégration continue bloque
+        Les tests unitaires et d'intégration s'appuient sur Vitest et React Testing Library.
+        Les tests de bout en bout rejouent les parcours des utilisateurs avec Playwright,
+        organisés en Page Object Model. L'intégration continue bloque
         la fusion si le lint, le typage, les tests ou le build échouent, et la suite complète
         tourne chaque nuit. Il n'existe pas encore de test de charge (k6 ou Artillery).
       </p>
