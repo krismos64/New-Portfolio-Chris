@@ -229,6 +229,18 @@ const jsonLd = [
       </div>
     </section>
 
+    <section class="methode" aria-labelledby="methode-title">
+      <p class="cas-tag">Méthode</p>
+      <h2 id="methode-title">Comment je mène une campagne</h2>
+      <ol class="etapes">
+        <li class="fade-up"><strong>Comprendre la marque</strong><span>Ce qu'elle veut annoncer, et avec quels mots elle parle.</span></li>
+        <li class="fade-up"><strong>Choisir la cible</strong><span>Un message par public, écrit pour son quotidien.</span></li>
+        <li class="fade-up"><strong>Planifier</strong><span>Un calendrier daté : préparer, créer l'attente, annoncer, faire réagir.</span></li>
+        <li class="fade-up"><strong>Produire</strong><span>Textes, visuels et vidéos au format de chaque réseau.</span></li>
+        <li class="fade-up"><strong>Faire valider, puis publier</strong><span>Le client relit chaque texte avant sa mise en ligne.</span></li>
+      </ol>
+    </section>
+
     <section class="outils" aria-labelledby="outils-title">
       <h2 id="outils-title">Outils utilisés sur ces projets</h2>
       <div class="outils-grid">
@@ -359,6 +371,38 @@ const jsonLd = [
   .metier.sr-visible { animation: metier-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; animation-delay: calc(var(--i) * 110ms); }
   @keyframes metier-in { from { opacity: 0; transform: translateY(20px); } }
   @media (prefers-reduced-motion: reduce) { .metier.sr-visible { animation: none; } }
+
+  /* ===== Méthode ===== */
+  .methode { padding: 3.5rem 0 1rem; border-top: 1px solid var(--border); margin-top: 2.5rem; }
+  .etapes {
+    list-style: none;
+    counter-reset: etape;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+  }
+  .etapes li {
+    counter-increment: etape;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.125rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .etapes li::before {
+    content: counter(etape);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: color-mix(in srgb, var(--purple) 80%, white);
+  }
+  .etapes strong { font-size: 0.9375rem; font-weight: 700; color: var(--text); }
+  .etapes span { font-size: 0.8125rem; line-height: 1.5; color: var(--text-secondary); }
+  @media (max-width: 900px) { .etapes { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .etapes { grid-template-columns: 1fr; } }
 
   /* ===== Cas ===== */
   .cas { padding: 3.5rem 0; border-top: 1px solid var(--border); margin-top: 2.5rem; }

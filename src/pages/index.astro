@@ -45,6 +45,29 @@ import ScrollReveal from '../components/ScrollReveal.astro';
 
     <Projects variant="home" />
 
+    <!-- Avis Google recopié mot pour mot de la fiche publique (août 2026). Ne pas
+         le reformuler ni le raccourcir. Publié avec le nom de son autrice par
+         décision de Christophe du 13 novembre 2026. -->
+    <section class="review fade-up" aria-labelledby="review-title">
+      <h2 id="review-title" class="section-title">Avis client</h2>
+      <figure class="review-card">
+        <p class="review-stars" role="img" aria-label="Note : 5 étoiles sur 5"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.2l7.1-.6z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.2l7.1-.6z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.2l7.1-.6z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.2l7.1-.6z"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17.3 5.8 21l1.6-7L2 9.2l7.1-.6z"/></svg></p>
+        <blockquote cite="https://www.google.com/maps/place/?q=place_id:ChIJlTa-96dvUigRyeCBbLb8qkw">
+          <p>Christophe est un excellent développeur web. Je tiens à le remercier pour son honnêteté, sa patience, sa disponibilité et son amabilité. Il accompagne véritablement ses clients du début jusqu’à la fin de leur projet, avec sérieux et implication.</p>
+          <p>J’ai personnellement fait appel à lui pour la création de mon site Lune-Soleil, et je suis très satisfaite du travail réalisé. Il s’est montré particulièrement investi, persévérant et attentif afin de toujours trouver des solutions et de mener le projet à bien.</p>
+          <p>Merci encore pour votre travail, votre professionnalisme et surtout votre patience. Je recommande Christophe sans hésitation !</p>
+        </blockquote>
+        <figcaption>
+          <strong>Stacy Menendez</strong>
+          <span>Cliente, site Lune-Soleil · Avis Google, août 2026</span>
+        </figcaption>
+        <div class="review-links">
+          <a href="https://www.google.com/maps/place/?q=place_id:ChIJlTa-96dvUigRyeCBbLb8qkw" target="_blank" rel="noopener noreferrer">Voir l'avis sur Google</a>
+          <a href="/projets/lune-soleil/">L'étude de cas Lune-Soleil</a>
+        </div>
+      </figure>
+    </section>
+
     <!-- Parcours en bref : le détail (timeline, compétences, processus) vit sur /parcours/ -->
     <section class="brief fade-up" aria-labelledby="brief-title">
       <h2 id="brief-title" class="section-title">Parcours en bref</h2>
@@ -90,6 +113,59 @@ import ScrollReveal from '../components/ScrollReveal.astro';
     font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--text-secondary);
+  }
+
+  .review {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 4rem;
+  }
+  .review-card {
+    margin: 0;
+    padding: 1.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .review-stars {
+    display: flex;
+    gap: 0.2rem;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+  .review-card blockquote {
+    margin: 0 0 1.25rem;
+  }
+  .review-card blockquote p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .review-card blockquote p + p {
+    margin-top: 0.75rem;
+  }
+  .review-card figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+  .review-card figcaption strong {
+    font-size: 0.9375rem;
+    color: var(--text);
+  }
+  .review-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+  }
+  .review-links a {
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .brief {

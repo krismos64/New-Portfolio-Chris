@@ -534,7 +534,14 @@ sur les sujets de correction et de concurrence :
 C'est aussi le projet sur lequel tourne la configuration Claude Code décrite plus
 haut, avec ses hooks, son skill et son sous-agent de relecture.
 
-Réserves à respecter : ne pas donner l'identité de la cliente, ne pas inventer de
+Avis client public : Stacy Menendez a publié en août 2026 un avis Google à
+5 étoiles sur la création de son site Lune-Soleil. Il est repris mot pour mot sur
+l'accueil du portfolio (https://krismos.fr/). Elle y salue l'honnêteté, la
+patience, la disponibilité et l'implication de Christophe, et le recommande sans
+hésitation. Citer cet avis est autorisé. Ne rien ajouter sur elle au-delà de cet
+avis public.
+
+Réserves à respecter : ne pas donner d'autre information sur la cliente, ne pas inventer de
 chiffre d'affaires, de volume de commandes, de nombre de produits ni de budget.
 Ne pas avancer de résultats commerciaux : la boutique vient d'ouvrir.
 

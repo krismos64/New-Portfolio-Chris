@@ -4,9 +4,16 @@ interface Skill {
   icon: string;
 }
 
+interface Proof {
+  label: string;
+  href: string;
+}
+
 interface SkillCategory {
   title: string;
   skills: Skill[];
+  /** Pages du site qui démontrent la catégorie */
+  proofs: Proof[];
 }
 
 // Icône générique pour les outils sans SVG brand
@@ -16,6 +23,11 @@ const toolIcon = '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.7
 const sparkleIcon = '<path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"/>';
 const diagramIcon = '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"/>';
 const botIcon = '<rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="3"/><path d="M12 8v3"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/>';
+
+const shareIcon = '<path d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.9a3 3 0 0 0 0-2.6l6.7-3.9A3 3 0 1 0 15 5a3 3 0 0 0 .1.7L8.4 9.6a3 3 0 1 0 0 4.8l6.7 3.9A3 3 0 1 0 18 16z"/>';
+const imageIcon = '<path fill-rule="evenodd" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm4.5 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM4 18h16l-5.5-7-4 5-2.5-3L4 18z"/>';
+const videoIcon = '<path d="M4 5h11a2 2 0 0 1 2 2v2.5l4-2.5v10l-4-2.5V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/>';
+const textIcon = '<path d="M4 4h16v2H4zm0 5h16v2H4zm0 5h10v2H4zm0 5h7v2H4z"/>';
 
 const categories: SkillCategory[] = [
   {
@@ -28,6 +40,10 @@ const categories: SkillCategory[] = [
       { name: "shadcn/ui", icon: '<path d="M21.15 2.85a.5.5 0 0 1 0 .707L3.557 21.15a.5.5 0 0 1-.707-.707L20.443 2.85a.5.5 0 0 1 .707 0z"/><path d="M14.15 21.15a.5.5 0 0 1 0-.707L21.743 12.85a.5.5 0 0 1 .707.707l-7.593 7.593a.5.5 0 0 1-.707 0z"/>' },
       { name: "Astro", icon: '<path d="M8.358 20.162c-1.186-1.07-1.532-3.316-1.038-4.944.71 1.126 1.732 1.482 2.8 1.674 1.652.296 3.274.234 4.846-.378.18-.07.35-.158.553-.252.115.75.086 1.478-.148 2.19-.427 1.3-1.315 2.147-2.523 2.66-.213.09-.44.15-.64.262-.605.337-.735.87-.337 1.446.023.033.046.066.07.1-.84.316-1.694.404-2.573.19-.986-.24-1.6-.896-2.01-1.948z"/><path d="M6.168 17.564a7.253 7.253 0 0 1-.16-.757 5.82 5.82 0 0 1 .803-4.037c.882-1.39 2.132-2.278 3.588-2.889.423-.177.86-.319 1.325-.434-.066.312-.135.584-.192.858-.186.888-.16 1.77.032 2.654.091.418.21.832.383 1.228.215.493.518.547.862.158.118-.132.22-.28.32-.43l.047.013c-.032.652-.09 1.305-.27 1.936-.281.984-.778 1.828-1.574 2.456-.406.32-.86.56-1.38.635-1.46.21-2.4-.523-2.487-1.948.005-.015.01-.03.014-.044-.41-.166-.764-.411-1.063-.731-.19-.204-.38-.408-.548-.668z"/><path d="M16.954 9.616c-.024.006-.036.014-.048.014-.88.047-1.652.34-2.343.86-.9.678-1.391 1.58-1.512 2.682-.011.1-.013.2-.02.34.3-.134.555-.275.823-.377 1.072-.408 2.164-.493 3.272-.155.675.206 1.195.595 1.484 1.262.33.758.332 1.544.056 2.319-.375 1.054-1.09 1.827-2.064 2.345-.205.11-.42.2-.632.296a6.12 6.12 0 0 0 2.62-1.822 5.956 5.956 0 0 0 1.345-3.104c.145-1.392-.04-2.72-.684-3.96-.28-.539-.618-1.036-1.018-1.494.246 0 .485-.002.724.002.91.013 1.667.326 2.21 1.088.06.085.113.176.172.268 0-.023.003-.046 0-.069-.175-1.268-1.073-2.412-2.292-2.879a4.36 4.36 0 0 0-2.093-.316z"/>' },
     ],
+    proofs: [
+      { label: "Architecture Next.js d'un SaaS", href: "/blog/04-architecture-nextjs-saas/" },
+      { label: "Étude de cas SmartPlanning", href: "/projets/smartplanning/" },
+    ],
   },
   {
     title: "Backend & BDD",
@@ -39,52 +55,72 @@ const categories: SkillCategory[] = [
       { name: "MongoDB / NoSQL", icon: '<path d="M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0 1 11.91 24h.038c.094-.532.199-1.07.308-1.593.047-.193.088-.387.156-.567a.375.375 0 0 1 .19-.189c2.514-1.163 5.544-3.414 4.591-12.096z"/>' },
       { name: "SQL", icon: codeIcon },
       { name: "REST API", icon: codeIcon },
-      { name: "DBeaver", icon: toolIcon },
+    ],
+    proofs: [
+      { label: "Modéliser une base multi-tenant", href: "/blog/03-conception-base-de-donnees/" },
+      { label: "Étude de cas Lune-Soleil", href: "/projets/lune-soleil/" },
     ],
   },
   {
     title: "DevOps & CI/CD",
     skills: [
       { name: "Docker", icon: '<path d="M13.983 11.078h2.119a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.119a.185.185 0 0 0-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 0 0 .186-.186V3.574a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 0 0 .186-.186V6.29a.186.186 0 0 0-.186-.185h-2.118a.185.185 0 0 0-.185.185v1.887c0 .102.082.186.185.186m-2.93 0h2.12a.186.186 0 0 0 .184-.186V6.29a.185.185 0 0 0-.185-.185H8.1a.185.185 0 0 0-.185.185v1.887c0 .102.083.186.185.186m-2.964 0h2.119a.186.186 0 0 0 .185-.186V6.29a.185.185 0 0 0-.185-.185H5.136a.186.186 0 0 0-.186.185v1.887c0 .102.084.186.186.186m5.893 2.715h2.118a.186.186 0 0 0 .186-.185V9.006a.186.186 0 0 0-.186-.186h-2.118a.185.185 0 0 0-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 0 0 .185-.185V9.006a.185.185 0 0 0-.185-.186H5.136a.186.186 0 0 0-.186.185v1.888c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 0 0 .184-.185V9.006a.185.185 0 0 0-.184-.186h-2.12a.185.185 0 0 0-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 0 0-.75.748 11.376 11.376 0 0 0 .692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 0 0 3.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288z"/>' },
-      { name: "GitHub", icon: '<path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>' },
       { name: "GitHub Actions", icon: '<path d="M10.984 13.836a.5.5 0 0 1-.353-.146l-.745-.743a.5.5 0 1 1 .706-.708l.392.391 1.181-1.18a.5.5 0 0 1 .708.707l-1.535 1.533a.504.504 0 0 1-.354.146zm-4.67 1.027a.5.5 0 0 1-.353-.146l-.744-.743a.5.5 0 1 1 .707-.708l.391.391 1.181-1.18a.5.5 0 0 1 .708.707l-1.536 1.533a.504.504 0 0 1-.354.146zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 17.703c0 .552-.448 1-1 1H7.106c-.552 0-1-.448-1-1V8.862c0-.552.448-1 1-1h9.788c.552 0 1 .448 1 1v8.841z"/>' },
       { name: "Git", icon: '<path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.66 2.66c.645-.222 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835a2.026 2.026 0 0 1-.605-.406c-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/>' },
       { name: "VPS OVH", icon: '<path d="M17 1l-4 4-4-4M3 7v10M21 7v10M7 23l4-4 4 4M1 7h4v10H1zM19 7h4v10h-4z"/>' },
+    ],
+    proofs: [
+      { label: "CI/CD, Docker et déploiement", href: "/blog/07-cicd-docker-deploiement/" },
     ],
   },
   {
     title: "IA & Automatisation",
     skills: [
       { name: "Claude Code", icon: botIcon },
-      { name: "Cursor IDE", icon: codeIcon },
-      { name: "VS Code + MCP", icon: codeIcon },
       { name: "Agents IA (MCP)", icon: sparkleIcon },
-      { name: "MCP Atlassian", icon: '<path d="M.87 18.257c-.248.382-.53.875-.763 1.245a.764.764 0 0 0 .255 1.04l4.965 3.054a.764.764 0 0 0 1.058-.26c.199-.332.498-.852.763-1.27 1.835-2.92 3.678-2.574 7.078-.936l4.05 1.946a.764.764 0 0 0 1.023-.392l2.182-5.163a.764.764 0 0 0-.384-1.01l-3.96-1.9c-5.665-2.727-10.49-2.57-16.267 3.646zM23.131 5.743c.248-.382.53-.875.764-1.245a.764.764 0 0 0-.256-1.04L18.674.404a.764.764 0 0 0-1.058.26c-.199.332-.498.852-.763 1.27-1.835 2.92-3.678 2.574-7.078.936L5.725.924a.764.764 0 0 0-1.023.392L2.52 6.479a.764.764 0 0 0 .384 1.01l3.96 1.9c5.665 2.727 10.49 2.57 16.267-3.646z"/>' },
-      { name: "Automatisation docs", icon: toolIcon },
+      { name: "API Mistral (assistant du site)", icon: codeIcon },
+    ],
+    proofs: [
+      { label: "Encadrer un agent de code, la série", href: "/blog/claude-code/" },
+      { label: "Étude de cas de ce site", href: "/projets/portfolio/" },
     ],
   },
   {
-    title: "Conception & Tests",
+    title: "Conception, tests et projet",
     skills: [
       { name: "JMerise (MCD/MLD)", icon: diagramIcon },
       { name: "Diagrammes UML", icon: diagramIcon },
       { name: "Playwright (E2E)", icon: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>' },
       { name: "Vitest (unit)", icon: '<path d="M12.74 2.32L6 13.18l2.65 1.52L12.74 8.1l4.09 6.6 2.65-1.52L12.74 2.32zM12.74 21.68l-5.22-8.44-2.65 1.52 7.87 12.72 7.87-12.72-2.65-1.52-5.22 8.44z"/>' },
-    ],
-  },
-  {
-    title: "Gestion de projet",
-    skills: [
       { name: "Scrum / Agile", icon: '<path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>' },
       { name: "Jira", icon: '<path d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24.013 12.5V1.005A1.003 1.003 0 0 0 23.013 0z"/>' },
       { name: "Confluence", icon: '<path d="M.87 18.257c-.248.382-.53.875-.763 1.245a.764.764 0 0 0 .255 1.04l4.965 3.054a.764.764 0 0 0 1.058-.26c.199-.332.498-.852.763-1.27 1.835-2.92 3.678-2.574 7.078-.936l4.05 1.946a.764.764 0 0 0 1.023-.392l2.182-5.163a.764.764 0 0 0-.384-1.01l-3.96-1.9c-5.665-2.727-10.49-2.57-16.267 3.646zM23.131 5.743c.248-.382.53-.875.764-1.245a.764.764 0 0 0-.256-1.04L18.674.404a.764.764 0 0 0-1.058.26c-.199.332-.498.852-.763 1.27-1.835 2.92-3.678 2.574-7.078.936L5.725.924a.764.764 0 0 0-1.023.392L2.52 6.479a.764.764 0 0 0 .384 1.01l3.96 1.9c5.665 2.727 10.49 2.57 16.267-3.646z"/>' },
+    ],
+    proofs: [
+      { label: "Stratégie de tests", href: "/blog/06-strategie-de-tests/" },
+      { label: "Gestion de projet Agile", href: "/blog/02-gestion-de-projet-agile/" },
+    ],
+  },
+  {
+    title: "Communication digitale",
+    skills: [
+      { name: "Réseaux sociaux (Facebook, LinkedIn, YouTube)", icon: shareIcon },
+      { name: "Visuels (Canva, Figma)", icon: imageIcon },
+      { name: "Montage vidéo (CapCut, Final Cut Pro)", icon: videoIcon },
+      { name: "Motion design (SVG, CSS)", icon: sparkleIcon },
+      { name: "Rédaction web et référencement", icon: textIcon },
+    ],
+    proofs: [
+      { label: "Page Communication digitale", href: "/communication/" },
+      { label: "Étude de cas de ce site", href: "/projets/portfolio/" },
     ],
   },
 ];
 ---
 
 <section id="skills">
-  <h2 class="section-title">Compétences techniques</h2>
+  <h2 class="section-title">Compétences</h2>
+  <p class="skills-intro">Chaque domaine renvoie vers une page du site qui le montre en pratique.</p>
   <div class="skills-grid">
     {categories.map((cat) => (
       <div class="skill-category fade-up">
@@ -99,6 +135,12 @@ const categories: SkillCategory[] = [
             </div>
           ))}
         </div>
+        <p class="category-proofs">
+          <span class="proofs-label">En pratique</span>
+          {cat.proofs.map((proof) => (
+            <a href={proof.href}>{proof.label}</a>
+          ))}
+        </p>
       </div>
     ))}
   </div>
@@ -117,7 +159,16 @@ const categories: SkillCategory[] = [
     gap: 1.25rem;
   }
 
+  .skills-intro {
+    text-align: center;
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    margin: -1.5rem 0 2.5rem;
+  }
+
   .skill-category {
+    display: flex;
+    flex-direction: column;
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -161,6 +212,34 @@ const categories: SkillCategory[] = [
     background: rgba(255, 255, 255, 0.04);
     color: var(--text-secondary);
     flex-shrink: 0;
+  }
+
+  .category-proofs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-size: 0.8125rem;
+  }
+  .category-items {
+    margin-bottom: 1.25rem;
+  }
+  .proofs-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+  .category-proofs a {
+    color: color-mix(in srgb, var(--accent) 85%, white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .category-proofs a:hover,
+  .category-proofs a:focus-visible {
+    color: var(--text);
   }
 
   .skill-name {

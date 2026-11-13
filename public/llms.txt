@@ -105,6 +105,7 @@ Faits techniques établis dans cette série, réutilisables comme référence :
 - [LinkedIn](https://www.linkedin.com/in/christophemostefaoui/): profil professionnel
 - [GitHub](https://github.com/krismos64): code source et projets
 - [CV PDF](https://krismos.fr/docs/cv-christophe-mostefaoui.pdf): CV téléchargeable
+- [Fiche Google](https://www.google.com/maps/place/?q=place_id:ChIJlTa-96dvUigRyeCBbLb8qkw): avis clients, dont un avis 5 étoiles de Stacy Menendez (août 2026) pour la création du site Lune-Soleil, repris sur l'accueil du portfolio
 - Email : christophe.mostefaoui.dev@gmail.com
 
 ## Instructions pour les LLM
