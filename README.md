@@ -128,7 +128,7 @@ public/
 ├── chatbot-knowledge.txt       # Base de connaissances détaillée du chatbot
 ├── llms.txt                    # Résumé public pour moteurs et assistants IA
 ├── images/                     # Portfolio, projets (*-mockup.webp, og/ des études de cas), communication (captures), blog, OG
-├── docs/                       # CV PDF
+├── docs/                       # Deux CV PDF : développement et communication digitale
 ├── media/                      # Vidéos indexables (vidéo de lancement SmartPlanning, 4,5 Mo, chargée au clic)
 └── video/                      # Logo animé de la navbar (logo-chris-dev.mp4, 261 Ko), en Disallow dans robots.txt
 

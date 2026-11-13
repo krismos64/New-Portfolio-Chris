@@ -724,7 +724,9 @@ transformer automatiquement chaque faiblesse en qualité artificielle.
 - Email : christophe.mostefaoui.dev@gmail.com.
 - Téléphone public sur le CV : 06 79 08 88 45.
 - Portfolio : https://krismos.fr/.
-- CV : https://krismos.fr/docs/cv-christophe-mostefaoui.pdf.
+- CV développeur : https://krismos.fr/docs/cv-christophe-mostefaoui.pdf.
+- CV communication digitale :
+  https://krismos.fr/docs/cv-communication-christophe-mostefaoui.pdf.
 - Blog technique, index des deux séries : https://krismos.fr/blog/.
 - Série SmartPlanning, 8 articles : https://krismos.fr/blog/smartplanning/.
 - Série sur l'encadrement d'un agent de code, 4 articles :
