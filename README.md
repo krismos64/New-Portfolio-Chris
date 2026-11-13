@@ -14,8 +14,8 @@ Portfolio professionnel de **Christophe Mostefaoui**, Concepteur Développeur d'
 
 ## Fonctionnalités
 
-- **Site multi-pages** : accueil court (hero, projets phares, parcours en bref, blog, contact), `/projets/` (13 projets), quatre études de cas (`/projets/smartplanning/`, `/projets/lune-soleil/`, `/projets/staka-livres/`, `/projets/portfolio/` sur ce site), `/parcours/` (formations, compétences, processus) et `/communication/`
-- **Double casquette** : développement et communication digitale. `/communication/` présente la page Facebook d'une marque artisanale et une campagne vidéo LinkedIn et YouTube, sans chiffres de publication, avec quatre animations et une vidéo de lancement verticale à chapitres (motion design avec Claude, montage Final Cut Pro), aussi visible dans l'étude de cas SmartPlanning
+- **Site multi-pages** : accueil court (hero avec poste recherché et deux CV, projets phares, avis client Google, parcours en bref, blog, contact), `/projets/` (13 projets), quatre études de cas (`/projets/smartplanning/`, `/projets/lune-soleil/`, `/projets/staka-livres/`, `/projets/portfolio/` sur ce site), `/parcours/` (formations, travail en équipe, compétences reliées à des preuves, processus) et `/communication/`
+- **Double casquette** : développement et communication digitale. `/communication/` présente la page Facebook d'une marque artisanale et une campagne vidéo LinkedIn et YouTube, sans chiffres de publication, avec une méthode de campagne en six étapes, quatre animations et une vidéo de lancement verticale à chapitres (motion design avec Claude, montage Final Cut Pro), aussi visible dans l'étude de cas SmartPlanning
 - **Motion design au service de la navigation** : badge « Étude de cas animée » sur les projets concernés, timeline du parcours tracée étape par étape avec repère de reconversion (et mini frise sur l'accueil), cartes de série du blog qui s'animent au survol et au focus, bouton « Copier l'adresse » dans la section Contact
 - **Schémas animés** : un par étude de cas (conflit de planning, réservation du dernier exemplaire, webhook Stripe), en SVG inline et CSS, joués une fois à l'apparition, état final fixe en mouvement réduit
 - **Blog technique en deux séries** : 8 articles sur la création de SmartPlanning (SaaS), de l'analyse des besoins au déploiement, et 4 articles sur l'encadrement d'un agent de code en production
@@ -80,13 +80,13 @@ src/
 ├── components/
 │   ├── Navigation.astro        # Navbar commune : Projets, Parcours, Communication, Blog, Contact
 │   ├── BlogNav.astro           # Enveloppe de Navigation pour le blog
-│   ├── Hero.astro              # Section hero avec géolocalisation SEO
+│   ├── Hero.astro              # Hero : disponibilité, poste recherché (développeur ou communication), deux CV, géolocalisation SEO
 │   ├── Projects.astro          # variant home (3 projets phares) ou full (/projets/)
 │   ├── BlogAccess.astro        # Séries du blog et liens directs vers les 12 articles
-│   ├── Contact.astro           # Section #contact réutilisée en bas des pages
+│   ├── Contact.astro           # Section #contact adressée aux recruteurs : email, LinkedIn, deux CV, GitHub, site freelance
 │   ├── ScrollReveal.astro      # Apparition au défilement (.fade-up)
 │   ├── About.astro             # Timeline formations et expérience
-│   ├── Skills.astro            # 6 catégories de compétences (SVG inline)
+│   ├── Skills.astro            # 6 catégories de compétences, dont la communication, chacune avec ses liens « En pratique »
 │   ├── Process.astro           # Terminal interactif macOS typewriter
 │   ├── RecruiterChatbot.astro  # Widget Mistral en JavaScript vanilla
 │   ├── case/                   # Schémas animés des études de cas + DiagramScript (lecture commune)
@@ -113,10 +113,10 @@ src/
 │   ├── CaseStudy.astro         # Layout des études de cas
 │   └── BlogPost.astro          # Layout article (JSON-LD, breadcrumb, nav)
 └── pages/
-    ├── index.astro             # Accueil court
+    ├── index.astro             # Accueil court, avec l'avis Google d'une cliente recopié mot pour mot
     ├── projets/                # /projets/ et les quatre études de cas
-    ├── parcours/index.astro    # Formations, compétences, processus
-    ├── communication/index.astro # Deuxième casquette : communication digitale
+    ├── parcours/index.astro    # Formations, travail en équipe, compétences, processus
+    ├── communication/index.astro # Second métier visé : communication digitale, cas réels et méthode de campagne
     └── blog/
         ├── index.astro         # Hub : cartes des deux séries
         ├── [series]/index.astro # Page d'une série, articles filtrés
